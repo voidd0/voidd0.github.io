@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gupy Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, compan... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/gupy-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gupy Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, compan... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/gupy-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Gupy Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, city, state, jobTypeLabel, workplaceType, hiringReason, publishedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Gupy Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/gupy-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Gupy Jobs Scraper: how to get Brazil Job Vacancies as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, company, city, state, job type, remote or hybrid, posted and deadline dates, requirements, hiring steps and the reason for the opening. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/gupy-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/gupy-scraper">Open Gupy Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Analista de Dados</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Gradus</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>São Paulo</td></tr>
+<tr><td><code>state</code></td><td>State</td><td>text</td><td>São Paulo</td></tr>
+<tr><td><code>jobTypeLabel</code></td><td>Job type</td><td>text</td><td>Efetivo</td></tr>
+<tr><td><code>workplaceType</code></td><td>Work mode</td><td>text</td><td>onsite</td></tr>
+<tr><td><code>hiringReason</code></td><td>Reason</td><td>text</td><td>staff_increase</td></tr>
+<tr><td><code>publishedAt</code></td><td>Posted</td><td>date</td><td>2026-10-23T21:09:40Z</td></tr>
+<tr><td><code>applicationDeadline</code></td><td>Apply by</td><td>date</td><td>2026-11-20</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://gradus.gupy.io/job/eyJqb2JJZCI6MTI3NzgzMjAsInNvdXJjZSI6Imd1...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>12778320</td></tr>
+<tr><td><code>companyName</code></td><td></td><td>text</td><td>Gradus</td></tr>
+<tr><td><code>companySubdomain</code></td><td></td><td>text</td><td>gradus</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>43069</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://attachments.gupy.io/production/companies/43069/career/16489...</td></tr>
+<tr><td><code>jobType</code></td><td></td><td>text</td><td>effective</td></tr>
+<tr><td><code>stateCode</code></td><td></td><td>text</td><td>SP</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>Brazil</td></tr>
+<tr><td><code>address</code></td><td></td><td>text</td><td>Avenida Presidente Juscelino Kubitschek, 180, São Paulo, São Paulo,...</td></tr>
+<tr><td><code>openToPwd</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>jobCode</code></td><td></td><td>text</td><td>43069-12778320</td></tr>
+<tr><td><code>hiringSteps</code></td><td></td><td>list</td><td>[&quot;Cadastro&quot;, &quot;Etapa - Teste Técnico&quot;, &quot;Aguardando resultado do test...</td></tr>
+<tr><td><code>quickApply</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>expiresAt</code></td><td></td><td>text</td><td>2026-11-27</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>A Gradus é uma consultoria de gestão brasileira de grande prestígio...</td></tr>
+<tr><td><code>responsibilities</code></td><td></td><td>text</td><td>Competências desejadas:
+
+- Interesse em aprender com empresas de vá...</td></tr>
+<tr><td><code>requirements</code></td><td></td><td>text</td><td>Habilidades desejadas:
+
+- Conhecimento em ferramentas e de modelage...</td></tr>
+<tr><td><code>niceToHave</code></td><td></td><td>text</td><td>Remuneração e benefícios:
+
+- Salário competitivo, pareado com os de...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T10:21:19Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;analista de dados&quot;
+  ],
+  &quot;state&quot;: &quot;São Paulo&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as analista, desenvolvedor or vendedor.</td></tr>
+<tr><td><code>state</code></td><td>string</td><td>Only postings in this Brazilian state.</td></tr>
+<tr><td><code>city</code></td><td>string</td><td>Only postings in this city, written as on Gupy, for example Campinas or Belo Horizonte.</td></tr>
+<tr><td><code>workplaceTypes</code></td><td>array</td><td>Only these work modes. Leave empty for all.</td></tr>
+<tr><td><code>jobTypes</code></td><td>array</td><td>Only these job types. Leave empty for all.</td></tr>
+<tr><td><code>companies</code></td><td>array</td><td>Only postings of these employers, by the name their Gupy career page shows, for example Stefanini Group or Raízen.</td></tr>
+<tr><td><code>pwdOnly</code></td><td>boolean</td><td>Only postings marked as open to people with disabilities (PcD).</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only postings published in that period.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the description, responsibilities, requirements and nice to have as separate texts, the full address, the hiring steps, the reason for the...</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 12778320,
+    &quot;title&quot;: &quot;Analista de Dados&quot;,
+    &quot;company&quot;: &quot;Gradus&quot;,
+    &quot;companyName&quot;: &quot;Gradus&quot;,
+    &quot;companySubdomain&quot;: &quot;gradus&quot;,
+    &quot;companyId&quot;: 43069,
+    &quot;companyLogo&quot;: &quot;https://attachments.gupy.io/production/companies/43069/career/164897/images/2023-11-09_19-19_companyLogoUrl.jpg&quot;,
+    &quot;jobType&quot;: &quot;effective&quot;,
+    &quot;jobTypeLabel&quot;: &quot;Efetivo&quot;,
+    &quot;workplaceType&quot;: &quot;onsite&quot;,
+    &quot;city&quot;: &quot;São Paulo&quot;,
+    &quot;state&quot;: &quot;São Paulo&quot;,
+    &quot;stateCode&quot;: &quot;SP&quot;,
+    &quot;country&quot;: &quot;Brazil&quot;,
+    &quot;address&quot;: &quot;Avenida Presidente Juscelino Kubitschek, 180, São Paulo, São Paulo, Brasil, 04543-000&quot;,
+    &quot;openToPwd&quot;: true,
+    &quot;jobCode&quot;: &quot;43069-12778320&quot;,
+    &quot;hiringReason&quot;: &quot;staff_increase&quot;,
+    &quot;hiringSteps&quot;: [
+      &quot;Cadastro&quot;,
+      &quot;Etapa - Teste Técnico&quot;,
+      &quot;Aguardando resultado do teste técnico&quot;
+    ],
+    &quot;quickApply&quot;: false,
+    &quot;publishedAt&quot;: &quot;2026-10-23T21:09:40Z&quot;,
+    &quot;applicationDeadline&quot;: &quot;2026-11-20&quot;,
+    &quot;expiresAt&quot;: &quot;2026-11-27&quot;,
+    &quot;descriptionText&quot;: &quot;A Gradus é uma consultoria de gestão brasileira de grande prestígio nacional e internacional, com quase 30 anos de história, reconhecida...&quot;,
+    &quot;responsibilities&quot;: &quot;Competências desejadas:\n\n- Interesse em aprender com empresas de vários setores, em projetos de consultoria\n- Capacidade de traduzir prob...&quot;,
+    &quot;requirements&quot;: &quot;Habilidades desejadas:\n\n- Conhecimento em ferramentas e de modelagem de dados (Python, R, Alteryx, AMPL, AnyLogic, Arena, etc)\n- Conhecim...&quot;,
+    &quot;niceToHave&quot;: &quot;Remuneração e benefícios:\n\n- Salário competitivo, pareado com os de consultoria de gestão\n- Vale refeição\n- Bônus anuais por performance...&quot;,
+    &quot;url&quot;: &quot;https://gradus.gupy.io/job/eyJqb2JJZCI6MTI3NzgzMjAsInNvdXJjZSI6Imd1cHlfcG9ydGFsIn0=&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T10:21:19Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/gupy-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;analista de dados&#x27;],
+ &#x27;state&#x27;: &#x27;São Paulo&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/gupy-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;analista de dados&quot;
+  ],
+  &quot;state&quot;: &quot;São Paulo&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/gupy-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~gupy-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;analista de dados&quot;], &quot;state&quot;: &quot;São Paulo&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/gupy-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per search term, job type, work mode and company you chose, with the state, city and disability filters on each. Postings are unique by ID across the whole run, newest first.</li>
+<li>company is the name of the employer&#x27;s Gupy career page as the search shows it, which some employers fill with a slogan; companySubdomain is the career site&#x27;s address (ccl for ccl.gupy.io) and...</li>
+<li>jobType is Gupy&#x27;s job type (effective, internship, legalentity ...) and jobTypeLabel its Portuguese label. hiringReason is staffincrease (a new position) or staff_replacement, as the employer...</li>
+<li>descriptionText, responsibilities, requirements and niceToHave are the posting&#x27;s own sections in Portuguese with details on; with details off descriptionText is the search&#x27;s text of the posting...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Gupy Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, city, state, jobTypeLabel, workplaceType, hiringReason, publishedAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Gupy Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/gupy-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/gupy-scraper">Open Gupy Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/pracuj-pl-scraper/">Pracuj.pl Scraper</a>: Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type...</li>
+<li><a href="/reed-jobs-scraper/">Reed Jobs Scraper</a>: Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode...</li>
+<li><a href="/iimjobs-scraper/">IIMJobs Scraper</a>: Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, exper...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

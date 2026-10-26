@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reed Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/reed-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reed Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/reed-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Reed Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, jobType, workingOption, postedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Reed Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/reed-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.45 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.32 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Reed Jobs Scraper: how to get UK Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode, salary range with the period, job type, full or part time, remote or hybrid, posting and expiry dates, sector, skills and the description. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/reed-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/reed-jobs-scraper">Open Reed Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Data Analyst</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Harnham - Data &amp; Analytics Recruitment</td></tr>
+<tr><td><code>advertiser</code></td><td>Advertiser</td><td>text</td><td>agency</td></tr>
+<tr><td><code>location</code></td><td>Place</td><td>text</td><td>London</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>£ 40,000 - £ 60,000 per annum</td></tr>
+<tr><td><code>jobType</code></td><td>Type</td><td>text</td><td>permanent</td></tr>
+<tr><td><code>workingOption</code></td><td>Work place</td><td>text</td><td>hybrid</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-14T16:09:33Z</td></tr>
+<tr><td><code>expiresAt</code></td><td>Expires</td><td>date</td><td>2026-11-25T23:55:00Z</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.reed.co.uk/jobs/data-analyst/57459297</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>57459297</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>331522</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://www.reed.co.uk/company-profile/Harnham---Data---Analytics-R...</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://resources.reed.co.uk/profileimages/logos/thumbs/Logo_9243.png</td></tr>
+<tr><td><code>county</code></td><td></td><td>text</td><td>London</td></tr>
+<tr><td><code>region</code></td><td></td><td>text</td><td>South East England</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>GB</td></tr>
+<tr><td><code>fullTime</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>partTime</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>salaryMin</code></td><td></td><td>number</td><td>40000</td></tr>
+<tr><td><code>salaryMax</code></td><td></td><td>number</td><td>60000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td></td><td>text</td><td>GBP</td></tr>
+<tr><td><code>salaryInterval</code></td><td></td><td>text</td><td>year</td></tr>
+<tr><td><code>salaryMinYearly</code></td><td></td><td>number</td><td>40000</td></tr>
+<tr><td><code>salaryMaxYearly</code></td><td></td><td>number</td><td>60000</td></tr>
+<tr><td><code>salaryHidden</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-10-22T16:17:17Z</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Analyst</td></tr>
+<tr><td><code>subcategory</code></td><td></td><td>text</td><td>Data Analyst</td></tr>
+<tr><td><code>sector</code></td><td></td><td>text</td><td>Analyst</td></tr>
+<tr><td><code>parentSector</code></td><td></td><td>text</td><td>Scientific</td></tr>
+<tr><td><code>easyApply</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>graduate</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>ukWorkRightRequired</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>snippet</code></td><td></td><td>text</td><td>Data Analyst London (Hybrid, 3 days per week in office) | Up to 60,...</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Data Analyst
+
+London (Hybrid, 3 days per week in office) | Up to £6...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T10:34:35Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;data analyst&quot;
+  ],
+  &quot;location&quot;: &quot;London&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as data analyst, HGV driver or nurse.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional town, city, county or postcode such as Manchester, Kent or SW1A.</td></tr>
+<tr><td><code>distanceMiles</code></td><td>integer</td><td>How far from the place postings may be, 0 to 100 miles.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only postings published in that period.</td></tr>
+<tr><td><code>jobTypes</code></td><td>array</td><td>Optional. Only these job types; empty means all.</td></tr>
+<tr><td><code>hours</code></td><td>string</td><td>Full time or part time postings only.</td></tr>
+<tr><td><code>workingOption</code></td><td>string</td><td>Remote, hybrid or on site postings only.</td></tr>
+<tr><td><code>advertiser</code></td><td>string</td><td>Postings by employers directly or by recruitment agencies only.</td></tr>
+<tr><td><code>minimumSalary</code></td><td>integer</td><td>Optional. Reed&#x27;s own salary filter, by the yearly equivalent.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://www.reed.co.uk/jobs/data-analyst-jobs-in-london?proximity=5 .</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the description text, contract type, sector, region, postcode, the salary as shown and the skill tags.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 57459297,
+    &quot;title&quot;: &quot;Data Analyst&quot;,
+    &quot;company&quot;: &quot;Harnham - Data &amp; Analytics Recruitment&quot;,
+    &quot;companyId&quot;: 331522,
+    &quot;advertiser&quot;: &quot;agency&quot;,
+    &quot;companyUrl&quot;: &quot;https://www.reed.co.uk/company-profile/Harnham---Data---Analytics-Recruitment-53588&quot;,
+    &quot;companyLogo&quot;: &quot;https://resources.reed.co.uk/profileimages/logos/thumbs/Logo_9243.png&quot;,
+    &quot;location&quot;: &quot;London&quot;,
+    &quot;county&quot;: &quot;London&quot;,
+    &quot;region&quot;: &quot;South East England&quot;,
+    &quot;country&quot;: &quot;GB&quot;,
+    &quot;workingOption&quot;: &quot;hybrid&quot;,
+    &quot;jobType&quot;: &quot;permanent&quot;,
+    &quot;fullTime&quot;: true,
+    &quot;partTime&quot;: false,
+    &quot;salaryMin&quot;: 40000,
+    &quot;salaryMax&quot;: 60000,
+    &quot;salaryCurrency&quot;: &quot;GBP&quot;,
+    &quot;salaryInterval&quot;: &quot;year&quot;,
+    &quot;salaryText&quot;: &quot;£ 40,000 - £ 60,000 per annum&quot;,
+    &quot;salaryMinYearly&quot;: 40000,
+    &quot;salaryMaxYearly&quot;: 60000,
+    &quot;salaryHidden&quot;: false,
+    &quot;postedAt&quot;: &quot;2026-10-14T16:09:33Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-22T16:17:17Z&quot;,
+    &quot;expiresAt&quot;: &quot;2026-11-25T23:55:00Z&quot;,
+    &quot;category&quot;: &quot;Analyst&quot;,
+    &quot;subcategory&quot;: &quot;Data Analyst&quot;,
+    &quot;sector&quot;: &quot;Analyst&quot;,
+    &quot;parentSector&quot;: &quot;Scientific&quot;,
+    &quot;easyApply&quot;: true,
+    &quot;promoted&quot;: false,
+    &quot;graduate&quot;: false,
+    &quot;ukWorkRightRequired&quot;: false,
+    &quot;snippet&quot;: &quot;Data Analyst London (Hybrid, 3 days per week in office) | Up to 60,000 This is an excellent opportunity for a Data Analyst to join a high...&quot;,
+    &quot;descriptionText&quot;: &quot;Data Analyst\n\nLondon (Hybrid, 3 days per week in office) | Up to £60,000\n\nThis is an excellent opportunity for a Data Analyst to join a h...&quot;,
+    &quot;url&quot;: &quot;https://www.reed.co.uk/jobs/data-analyst/57459297&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T10:34:35Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/reed-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;data analyst&#x27;],
+ &#x27;location&#x27;: &#x27;London&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/reed-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;data analyst&quot;
+  ],
+  &quot;location&quot;: &quot;London&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/reed-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~reed-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;data analyst&quot;], &quot;location&quot;: &quot;London&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.45 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.32 per 1,000. See the <a href="https://apify.com/v0iddo/reed-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per search term, with the place, distance and filters you chose. Pasted search URLs keep their own filters. Postings are unique by ID across the whole run.</li>
+<li>salaryMin and salaryMax are the figures the posting shows, per salaryInterval (hour, day or year). salaryMinYearly and salaryMaxYearly are Reed&#x27;s yearly equivalents. A posting that shows...</li>
+<li>advertiser is employer or agency (a recruitment agency posting for a client).</li>
+<li>With posting details on, each posting is read once more for its full description, contract type, sector, region, postcode, the salary as shown and Reed&#x27;s skill tags. Skill tags are the ones Reed...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Reed Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, jobType, workingOption, postedAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Reed Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/reed-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.45 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.32 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/reed-jobs-scraper">Open Reed Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/pracuj-pl-scraper/">Pracuj.pl Scraper</a>: Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type...</li>
+<li><a href="/gupy-scraper/">Gupy Jobs Scraper</a>: Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, compan...</li>
+<li><a href="/iimjobs-scraper/">IIMJobs Scraper</a>: Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, exper...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pracuj.pl Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/pracuj-pl-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pracuj.pl Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/pracuj-pl-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Pracuj.pl Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, salaryText, positionLevels, contractTypes, workModes, postedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Pracuj.pl Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/pracuj-pl-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Pracuj.pl Scraper: how to get Poland Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type, gross or net, position level, contract, schedule, remote or hybrid, category, technologies, requirements, benefits and dates. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/pracuj-pl-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pracuj-pl-scraper">Open Pracuj.pl Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Accountant [m/f/d]</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Scania Polska S.A.</td></tr>
+<tr><td><code>location</code></td><td>Workplace</td><td>text</td><td>Nadarzyn (pow. pruszkowski)</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td></td></tr>
+<tr><td><code>positionLevels</code></td><td>Level</td><td>list</td><td>[&quot;mid&quot;]</td></tr>
+<tr><td><code>contractTypes</code></td><td>Contract</td><td>list</td><td>[&quot;employment contract&quot;]</td></tr>
+<tr><td><code>workModes</code></td><td>Work mode</td><td>list</td><td>[&quot;hybrid&quot;]</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-26T10:35:41Z</td></tr>
+<tr><td><code>expiresAt</code></td><td>Expires</td><td>date</td><td>2026-11-20T22:59:59Z</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.pracuj.pl/praca/accountant-m-f-d-nadarzyn-pow-pruszkows...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>1005171506</td></tr>
+<tr><td><code>groupId</code></td><td></td><td>text</td><td>8c230000-56be-0050-9117-08df2f503af0</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>18797454</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://pracodawcy.pracuj.pl/company/18797454</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://logos.gpcdn.pl/loga-firm/18797454/2c580000-43a8-f403-2396-0...</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Nadarzyn (pow. pruszkowski)&quot;]</td></tr>
+<tr><td><code>wholePoland</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>city</code></td><td></td><td>text</td><td>Nadarzyn</td></tr>
+<tr><td><code>region</code></td><td></td><td>text</td><td>Masovian</td></tr>
+<tr><td><code>workSchedules</code></td><td></td><td>list</td><td>[&quot;full time&quot;]</td></tr>
+<tr><td><code>remote</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Bookkeeping</td></tr>
+<tr><td><code>parentCategory</code></td><td></td><td>text</td><td>Finance / Economy</td></tr>
+<tr><td><code>responsibilities</code></td><td></td><td>list</td><td>[&quot;Recording and verifying accounting transactions&quot;, &quot;Managing fixed...</td></tr>
+<tr><td><code>requirements</code></td><td></td><td>list</td><td>[&quot;Strong analytical skills and a good command of MS Excel&quot;, &quot;A proa...</td></tr>
+<tr><td><code>niceToHave</code></td><td></td><td>list</td><td>[&quot;Previous experience in a similar accounting or finance position&quot;,...</td></tr>
+<tr><td><code>benefits</code></td><td></td><td>list</td><td>[&quot;Private medical care through Lux Med&quot;, &quot;Group life insurance with...</td></tr>
+<tr><td><code>immediateStart</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>oneClickApply</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>directEmployer</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>firstPostedAt</code></td><td></td><td>text</td><td>2026-10-21T09:35:41Z</td></tr>
+<tr><td><code>summary</code></td><td></td><td>text</td><td>- Masz doświadczenie w księgowości i prowadzisz rejestrację oraz we...</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Your responsibilities
+
+- Recording and verifying accounting transac...</td></tr>
+<tr><td><code>language</code></td><td></td><td>text</td><td>en</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T10:36:55Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;księgowa&quot;
+  ],
+  &quot;location&quot;: &quot;Warszawa&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as księgowa, kierowca or Java developer.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city or town such as Warszawa, Kraków or Gdańsk.</td></tr>
+<tr><td><code>distanceKm</code></td><td>integer</td><td>How far from the city postings may be.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only postings published in that period.</td></tr>
+<tr><td><code>positionLevels</code></td><td>array</td><td>Optional. Only these levels; empty means all.</td></tr>
+<tr><td><code>contractTypes</code></td><td>array</td><td>Optional. Only these contract types; empty means all.</td></tr>
+<tr><td><code>workSchedules</code></td><td>array</td><td>Optional. Only these schedules; empty means all.</td></tr>
+<tr><td><code>workModes</code></td><td>array</td><td>Optional. Only these work modes; empty means all.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only postings that show a salary.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://www.pracuj.pl/praca/kierowca;kw/gdansk;wp?rd=30 .</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the salary per contract type, the workplace address, category, technologies, responsibilities, requirements, benefits and the description.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 1005171506,
+    &quot;groupId&quot;: &quot;8c230000-56be-0050-9117-08df2f503af0&quot;,
+    &quot;title&quot;: &quot;Accountant [m/f/d]&quot;,
+    &quot;company&quot;: &quot;Scania Polska S.A.&quot;,
+    &quot;companyId&quot;: 18797454,
+    &quot;companyUrl&quot;: &quot;https://pracodawcy.pracuj.pl/company/18797454&quot;,
+    &quot;companyLogo&quot;: &quot;https://logos.gpcdn.pl/loga-firm/18797454/2c580000-43a8-f403-2396-08d8ccf0f2ac_280x280.png&quot;,
+    &quot;location&quot;: &quot;Nadarzyn (pow. pruszkowski)&quot;,
+    &quot;locations&quot;: [
+      &quot;Nadarzyn (pow. pruszkowski)&quot;
+    ],
+    &quot;wholePoland&quot;: false,
+    &quot;city&quot;: &quot;Nadarzyn&quot;,
+    &quot;region&quot;: &quot;Masovian&quot;,
+    &quot;positionLevels&quot;: [
+      &quot;mid&quot;
+    ],
+    &quot;contractTypes&quot;: [
+      &quot;employment contract&quot;
+    ],
+    &quot;workSchedules&quot;: [
+      &quot;full time&quot;
+    ],
+    &quot;workModes&quot;: [
+      &quot;hybrid&quot;
+    ],
+    &quot;remote&quot;: false,
+    &quot;category&quot;: &quot;Bookkeeping&quot;,
+    &quot;parentCategory&quot;: &quot;Finance / Economy&quot;,
+    &quot;responsibilities&quot;: [
+      &quot;Recording and verifying accounting transactions&quot;,
+      &quot;Managing fixed assets accounting, including reconciliations, reporting and audit support&quot;,
+      &quot;Analyzing and reconciling inventory balances&quot;
+    ],
+    &quot;requirements&quot;: [
+      &quot;Strong analytical skills and a good command of MS Excel&quot;,
+      &quot;A proactive and solution-oriented mindset&quot;,
+      &quot;Accuracy, accountability and the ability to work independently&quot;
+    ],
+    &quot;niceToHave&quot;: [
+      &quot;Previous experience in a similar accounting or finance position&quot;,
+      &quot;Experience working with Microsoft Dynamics 365 (D365)&quot;,
+      &quot;Degree in Accounting, Finance, Economics, Taxation or a related field&quot;
+    ],
+    &quot;benefits&quot;: [
+      &quot;Private medical care through Lux Med&quot;,
+      &quot;Group life insurance with Generali&quot;,
+      &quot;Medicover Sport membership&quot;
+    ],
+    &quot;immediateStart&quot;: true,
+    &quot;oneClickApply&quot;: false,
+    &quot;directEmployer&quot;: true,
+    &quot;promoted&quot;: true,
+    &quot;postedAt&quot;: &quot;2026-10-26T10:35:41Z&quot;,
+    &quot;firstPostedAt&quot;: &quot;2026-10-21T09:35:41Z&quot;,
+    &quot;expiresAt&quot;: &quot;2026-11-20T22:59:59Z&quot;,
+    &quot;summary&quot;: &quot;- Masz doświadczenie w księgowości i prowadzisz rejestrację oraz weryfikację transakcji księgowych.\n- Umiesz analizować i uzgadniać zapas...&quot;,
+    &quot;descriptionText&quot;: &quot;Your responsibilities\n\n- Recording and verifying accounting transactions\n- Managing fixed assets accounting, including reconciliations, r...&quot;,
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;url&quot;: &quot;https://www.pracuj.pl/praca/accountant-m-f-d-nadarzyn-pow-pruszkowski,oferta,1005171506&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T10:36:55Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/pracuj-pl-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;księgowa&#x27;],
+ &#x27;location&#x27;: &#x27;Warszawa&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/pracuj-pl-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;księgowa&quot;
+  ],
+  &quot;location&quot;: &quot;Warszawa&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/pracuj-pl-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~pracuj-pl-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;księgowa&quot;], &quot;location&quot;: &quot;Warszawa&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/pracuj-pl-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per search term, with the city, distance and filters you chose. Pasted search URLs keep their own filters. Postings are unique by ID across the whole run.</li>
+<li>One row is one posting. A posting offered in several towns lists them all in locations; location is the first, and the address fields are those of the first workplace.</li>
+<li>salaryText is the salary as the search shows it. salaryMin, salaryMax, salaryCurrency, salaryInterval (month or hour) and salaryKind (gross, net or net plus VAT) come from the posting page with...</li>
+<li>positionLevels, contractTypes, workSchedules and workModes are in English (for example junior, B2B, full time, remote); category, the posting&#x27;s own text and the summary stay in Polish as published.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Pracuj.pl Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, salaryText, positionLevels, contractTypes, workModes, postedAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Pracuj.pl Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/pracuj-pl-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pracuj-pl-scraper">Open Pracuj.pl Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/reed-jobs-scraper/">Reed Jobs Scraper</a>: Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode...</li>
+<li><a href="/gupy-scraper/">Gupy Jobs Scraper</a>: Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, compan...</li>
+<li><a href="/iimjobs-scraper/">IIMJobs Scraper</a>: Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, exper...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
