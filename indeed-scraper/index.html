@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indeed Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/indeed-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Indeed Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/indeed-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Indeed Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, remote, salary, salaryMin, salaryMax, salaryPeriod, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Indeed Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/indeed-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Indeed Jobs Scraper: how to get Listings, Salary, Company Rating, Remote as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary range and period where the employer shows it, job types, posting date, urgent and easy apply flags, snippet and job URL. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/indeed-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/indeed-scraper">Open Indeed Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Data Analyst / Business Analyst</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>AIApply</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Remote</td></tr>
+<tr><td><code>remote</code></td><td>Remote</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>salary</code></td><td>Salary</td><td>text</td><td>$100,000 a year</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary min</td><td>number</td><td>100000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary max</td><td>number</td><td>100000</td></tr>
+<tr><td><code>salaryPeriod</code></td><td>Salary period</td><td>text</td><td>year</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-05-16</td></tr>
+<tr><td><code>jobTypes</code></td><td>Job types</td><td>list</td><td></td></tr>
+<tr><td><code>sponsored</code></td><td>Sponsored</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>jobUrl</code></td><td>Job URL</td><td>URL</td><td>https://www.indeed.com/viewjob?jk=89bbd94e4f145f69</td></tr>
+<tr><td><code>jobKey</code></td><td></td><td>text</td><td>89bbd94e4f145f69</td></tr>
+<tr><td><code>workplace</code></td><td></td><td>text</td><td>Remote</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>urgentlyHiring</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>easyApply</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>snippet</code></td><td></td><td>text</td><td>2+ years as a data or business analyst, ideally in a subscription o...</td></tr>
+<tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://www.indeed.com/jobs?q=data+analyst&amp;l=Remote</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;query&quot;: &quot;data analyst&quot;,
+  &quot;location&quot;: &quot;Remote&quot;,
+  &quot;datePosted&quot;: &quot;any&quot;,
+  &quot;jobType&quot;: &quot;&quot;,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>query</code> (required)</td><td>string</td><td>Job title, keywords, or company name.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>City, state, zip code, or &#x27;remote&#x27;.</td></tr>
+<tr><td><code>datePosted</code></td><td>string</td><td>Only return jobs posted within this many days.</td></tr>
+<tr><td><code>jobType</code></td><td>string</td><td>Filter by employment type.</td></tr>
+<tr><td><code>includeSponsored</code></td><td>boolean</td><td>Paid listings Indeed mixes into the results.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Number of result pages to read per search.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobKey&quot;: &quot;89bbd94e4f145f69&quot;,
+    &quot;title&quot;: &quot;Data Analyst / Business Analyst&quot;,
+    &quot;company&quot;: &quot;AIApply&quot;,
+    &quot;location&quot;: &quot;Remote&quot;,
+    &quot;remote&quot;: true,
+    &quot;workplace&quot;: &quot;Remote&quot;,
+    &quot;salary&quot;: &quot;$100,000 a year&quot;,
+    &quot;salaryMin&quot;: 100000,
+    &quot;salaryMax&quot;: 100000,
+    &quot;salaryPeriod&quot;: &quot;year&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;postedAt&quot;: &quot;2026-05-16&quot;,
+    &quot;sponsored&quot;: false,
+    &quot;urgentlyHiring&quot;: false,
+    &quot;easyApply&quot;: false,
+    &quot;snippet&quot;: &quot;2+ years as a data or business analyst, ideally in a subscription or consumer software business. Partner with engineering on event tracki...&quot;,
+    &quot;jobUrl&quot;: &quot;https://www.indeed.com/viewjob?jk=89bbd94e4f145f69&quot;,
+    &quot;position&quot;: 1,
+    &quot;page&quot;: 1,
+    &quot;searchUrl&quot;: &quot;https://www.indeed.com/jobs?q=data+analyst&amp;l=Remote&quot;
+  },
+  {
+    &quot;jobKey&quot;: &quot;e4cc800c055d3feb&quot;,
+    &quot;title&quot;: &quot;Data Analyst&quot;,
+    &quot;company&quot;: &quot;Bluesight&quot;,
+    &quot;location&quot;: &quot;Remote&quot;,
+    &quot;remote&quot;: true,
+    &quot;workplace&quot;: &quot;Remote&quot;,
+    &quot;salary&quot;: &quot;$70,000 - $82,000 a year&quot;,
+    &quot;salaryMin&quot;: 70000,
+    &quot;salaryMax&quot;: 82000,
+    &quot;salaryPeriod&quot;: &quot;year&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;postedAt&quot;: &quot;2026-10-15&quot;,
+    &quot;sponsored&quot;: false,
+    &quot;urgentlyHiring&quot;: false,
+    &quot;easyApply&quot;: false,
+    &quot;snippet&quot;: &quot;Acquire and retrieve data as necessary and assist in troubleshooting of data issues to ease end-user use of application. 401k program wit...&quot;,
+    &quot;jobUrl&quot;: &quot;https://www.indeed.com/viewjob?jk=e4cc800c055d3feb&quot;,
+    &quot;position&quot;: 2,
+    &quot;page&quot;: 1,
+    &quot;searchUrl&quot;: &quot;https://www.indeed.com/jobs?q=data+analyst&amp;l=Remote&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/indeed-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;query&#x27;: &#x27;data analyst&#x27;,
+ &#x27;location&#x27;: &#x27;Remote&#x27;,
+ &#x27;datePosted&#x27;: &#x27;any&#x27;,
+ &#x27;jobType&#x27;: &#x27;&#x27;,
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/indeed-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;query&quot;: &quot;data analyst&quot;,
+  &quot;location&quot;: &quot;Remote&quot;,
+  &quot;datePosted&quot;: &quot;any&quot;,
+  &quot;jobType&quot;: &quot;&quot;,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/indeed-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~indeed-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;query&quot;: &quot;data analyst&quot;, &quot;location&quot;: &quot;Remote&quot;, &quot;datePosted&quot;: &quot;any&quot;, &quot;jobType&quot;: &quot;&quot;, &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/indeed-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers indeed.com (United States) job search pages. Each page holds about 15 results; set maxPages to control depth. Indeed&#x27;s robots.txt opens the first 10 result pages of a search, so a search...</li>
+<li>Individual job detail pages (/viewjob) are closed to automated access in Indeed&#x27;s robots.txt and are never fetched; jobUrl is provided as a reference link only.</li>
+<li>Salary, posting date, job types and the remote flag are filled when Indeed shows them on the search card. Sponsored marks paid listings; turn off Include sponsored jobs to keep only the others.</li>
+<li>Not affiliated with Indeed.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Indeed Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, remote, salary, salaryMin, salaryMax, salaryPeriod, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Indeed Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/indeed-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/indeed-scraper">Open Indeed Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/remote-jobs-scraper/">Remote Jobs Scraper</a>: Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+<li><a href="/ats-jobs-scraper/">Greenhouse, Lever, Workday and Ashby jobs scraper</a>: Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and Bambo...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

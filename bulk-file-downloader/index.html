@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bulk file and image downloader: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a... Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/bulk-file-downloader/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bulk file and image downloader: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a... Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/bulk-file-downloader/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Bulk file and image downloader return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include fileUrl, fileName, fileType, fileBytes, imageWidth, imageHeight, altText, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Bulk file and image downloader from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/bulk-file-downloader with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Bulk file and image downloader: how to download images and files from a website (API, Python, no code)</h1>
+<p class="lead">Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a list of web pages. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/bulk-file-downloader</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/bulk-file-downloader">Open Bulk file and image downloader on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>fileUrl</code></td><td>File</td><td>URL</td><td>https://api.apify.com/v2/key-value-stores/GKrosZlTQ8ZrHctTs/records...</td></tr>
+<tr><td><code>fileName</code></td><td>Name</td><td>text</td><td>Trinidad_and_Tobago_hummingbirds_composite.jpg</td></tr>
+<tr><td><code>fileType</code></td><td>Type</td><td>text</td><td>image</td></tr>
+<tr><td><code>fileBytes</code></td><td>Bytes</td><td>number</td><td>292246</td></tr>
+<tr><td><code>imageWidth</code></td><td>Width</td><td>number</td><td>1280</td></tr>
+<tr><td><code>imageHeight</code></td><td>Height</td><td>number</td><td>1280</td></tr>
+<tr><td><code>altText</code></td><td>Alt text</td><td>text</td><td></td></tr>
+<tr><td><code>url</code></td><td>Source link</td><td>URL</td><td>https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Trinidad_a...</td></tr>
+<tr><td><code>error</code></td><td>Error</td><td>text</td><td></td></tr>
+<tr><td><code>kind</code></td><td></td><td>text</td><td>file</td></tr>
+<tr><td><code>pageUrl</code></td><td></td><td>text</td><td>https://en.wikipedia.org/wiki/Hummingbird</td></tr>
+<tr><td><code>finalUrl</code></td><td></td><td>text</td><td>https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Trinidad_a...</td></tr>
+<tr><td><code>foundIn</code></td><td></td><td>text</td><td>og:image</td></tr>
+<tr><td><code>contentType</code></td><td></td><td>text</td><td>image/jpeg</td></tr>
+<tr><td><code>sha256</code></td><td></td><td>text</td><td>82cafb5947635e2a5d5244de379932a7697c3aeb0e66bec7ea9e5fde9f78d303</td></tr>
+<tr><td><code>chargeUnits</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>downloadedAt</code></td><td></td><td>text</td><td>2026-10-26T07:22:17Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;pageUrls&quot;: [
+    &quot;https://en.wikipedia.org/wiki/Hummingbird&quot;
+  ],
+  &quot;fileTypes&quot;: [
+    &quot;image&quot;
+  ],
+  &quot;maxFilesPerPage&quot;: 20,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>fileUrls</code></td><td>array</td><td>Direct links to files of any type (images, video, audio, PDF, documents, archives).</td></tr>
+<tr><td><code>pageUrls</code></td><td>array</td><td>Web pages to download files from: the images it shows (the largest size it offers), its video and audio, and the files it links to, filtered by File types.</td></tr>
+<tr><td><code>fileTypes</code></td><td>array</td><td>Which files to take from Pages.</td></tr>
+<tr><td><code>sameSiteOnly</code></td><td>boolean</td><td>Take only files on the host of the page or its subdomains, leaving out files on other hosts (many sites keep their images on a separate CDN host, so this can drop them).</td></tr>
+<tr><td><code>maxFilesPerPage</code></td><td>integer</td><td>Caps the files taken from one page, in the order they appear on it.</td></tr>
+<tr><td><code>minImageKB</code></td><td>integer</td><td>Images found on pages that are smaller than this are left out (icons, spacers, tracking pixels) and not charged; 0 keeps every image.</td></tr>
+<tr><td><code>maxFileMB</code></td><td>integer</td><td>Larger files come back as a row with the reason, at no charge.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;kind&quot;: &quot;file&quot;,
+    &quot;url&quot;: &quot;https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Trinidad_and_Tobago_hummingbirds_composite.jpg/1280px-Trinidad_and_Tobago_hummin...&quot;,
+    &quot;pageUrl&quot;: &quot;https://en.wikipedia.org/wiki/Hummingbird&quot;,
+    &quot;finalUrl&quot;: &quot;https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Trinidad_and_Tobago_hummingbirds_composite.jpg/1280px-Trinidad_and_Tobago_hummin...&quot;,
+    &quot;foundIn&quot;: &quot;og:image&quot;,
+    &quot;fileName&quot;: &quot;Trinidad_and_Tobago_hummingbirds_composite.jpg&quot;,
+    &quot;fileType&quot;: &quot;image&quot;,
+    &quot;contentType&quot;: &quot;image/jpeg&quot;,
+    &quot;fileBytes&quot;: 292246,
+    &quot;sha256&quot;: &quot;82cafb5947635e2a5d5244de379932a7697c3aeb0e66bec7ea9e5fde9f78d303&quot;,
+    &quot;imageWidth&quot;: 1280,
+    &quot;imageHeight&quot;: 1280,
+    &quot;fileUrl&quot;: &quot;https://api.apify.com/v2/key-value-stores/GKrosZlTQ8ZrHctTs/records/000001-Trinidad_and_Tobago_hummingbirds_composite.jpg?signature=z1kCA...&quot;,
+    &quot;chargeUnits&quot;: 1,
+    &quot;downloadedAt&quot;: &quot;2026-10-26T07:22:17Z&quot;
+  },
+  {
+    &quot;kind&quot;: &quot;file&quot;,
+    &quot;url&quot;: &quot;https://en.wikipedia.org/static/images/icons/enwiki-25.svg&quot;,
+    &quot;pageUrl&quot;: &quot;https://en.wikipedia.org/wiki/Hummingbird&quot;,
+    &quot;finalUrl&quot;: &quot;https://en.wikipedia.org/static/images/icons/enwiki-25.svg&quot;,
+    &quot;foundIn&quot;: &quot;img&quot;,
+    &quot;fileName&quot;: &quot;enwiki-25.svg&quot;,
+    &quot;fileType&quot;: &quot;image&quot;,
+    &quot;contentType&quot;: &quot;image/svg+xml&quot;,
+    &quot;fileBytes&quot;: 115918,
+    &quot;sha256&quot;: &quot;095fb188212ac25419535feb7aee7a6a7b2d58270ae42a168abf9942d1b44315&quot;,
+    &quot;fileUrl&quot;: &quot;https://api.apify.com/v2/key-value-stores/GKrosZlTQ8ZrHctTs/records/000002-enwiki-25.svg?signature=154Opp9Dy3wLYwkRpWX0e&quot;,
+    &quot;chargeUnits&quot;: 1,
+    &quot;downloadedAt&quot;: &quot;2026-10-26T07:22:17Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/bulk-file-downloader</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;pageUrls&#x27;: [&#x27;https://en.wikipedia.org/wiki/Hummingbird&#x27;],
+ &#x27;fileTypes&#x27;: [&#x27;image&#x27;],
+ &#x27;maxFilesPerPage&#x27;: 20,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/bulk-file-downloader&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;pageUrls&quot;: [
+    &quot;https://en.wikipedia.org/wiki/Hummingbird&quot;
+  ],
+  &quot;fileTypes&quot;: [
+    &quot;image&quot;
+  ],
+  &quot;maxFilesPerPage&quot;: 20,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/bulk-file-downloader&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~bulk-file-downloader/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;pageUrls&quot;: [&quot;https://en.wikipedia.org/wiki/Hummingbird&quot;], &quot;fileTypes&quot;: [&quot;image&quot;], &quot;maxFilesPerPage&quot;: 20, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. See the <a href="https://apify.com/v0iddo/bulk-file-downloader/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One row per file: the stored copy (fileUrl), the link it came from, the page it was found on and where on the page (img, srcset, link, video, og:image ...), its name, type, content type, size...</li>
+<li>The files are records in the run&#x27;s key-value store; fileUrl opens them directly and works in the dataset table, in spreadsheets and in your own code. They are kept as long as your Apify plan keeps...</li>
+<li>Images on pages come in the largest size the page offers in srcset, and lazy loading attributes (data-src and the like) are read, so the real image is taken instead of a placeholder.</li>
+<li>The same file under two links is stored once: the second row has duplicateOf and costs nothing. A link that appears on several pages is downloaded once.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Bulk file and image downloader return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include fileUrl, fileName, fileType, fileBytes, imageWidth, imageHeight, altText, url, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Bulk file and image downloader from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/bulk-file-downloader</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/bulk-file-downloader">Open Bulk file and image downloader on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
+<li><a href="/pdf-text-extractor/">PDF text extractor</a>: Extract the text of PDF files page by page, as plain text or as Markdown with headings, bold, lists and par...</li>
+<li><a href="/audio-transcription/">Audio transcription</a>: Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

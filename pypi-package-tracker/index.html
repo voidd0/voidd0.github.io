@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyPI Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Snapshot PyPI package metadata using the public pypi.org/pypi//json endpoint. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/pypi-package-tracker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyPI Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Snapshot PyPI package metadata using the public pypi.org/pypi//json endpoint. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/pypi-package-tracker/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the PyPI Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, name, latestVersion, summary, author, license, homepage, projectUrls, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the PyPI Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/pypi-package-tracker with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Developer data, packages and registries</nav>
+<h1>PyPI Scraper: how to get Python Package Details and Stats as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Snapshot PyPI package metadata using the public pypi.org/pypi//json endpoint. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/pypi-package-tracker</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pypi-package-tracker">Open PyPI Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:31:42+00:00</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>requests</td></tr>
+<tr><td><code>latestVersion</code></td><td>Latest Version</td><td>text</td><td>2.34.2</td></tr>
+<tr><td><code>summary</code></td><td>Summary</td><td>text</td><td>Python HTTP for Humans.</td></tr>
+<tr><td><code>author</code></td><td>Author</td><td>text</td><td></td></tr>
+<tr><td><code>license</code></td><td>License</td><td>text</td><td>Apache-2.0</td></tr>
+<tr><td><code>homepage</code></td><td>Homepage</td><td>text</td><td></td></tr>
+<tr><td><code>projectUrls</code></td><td>Project Urls</td><td>object</td><td>{&quot;Documentation&quot;: &quot;https://requests.readthedocs.io&quot;, &quot;Source&quot;: &quot;htt...</td></tr>
+<tr><td><code>requiresPython</code></td><td>Requires Python</td><td>text</td><td>&gt;=3.10</td></tr>
+<tr><td><code>classifiers</code></td><td>Classifiers</td><td>list</td><td>[&quot;Development Status :: 5 - Production/Stable&quot;, &quot;Environment :: Web...</td></tr>
+<tr><td><code>keywords</code></td><td>Keywords</td><td>text</td><td></td></tr>
+<tr><td><code>releaseCount</code></td><td>Release Count</td><td>number</td><td>163</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;packages&quot;: [
+    &quot;requests&quot;,
+    &quot;numpy&quot;,
+    &quot;pandas&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>packages</code></td><td>array</td><td>PyPI package names</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:31:42+00:00&quot;,
+    &quot;name&quot;: &quot;requests&quot;,
+    &quot;latestVersion&quot;: &quot;2.34.2&quot;,
+    &quot;summary&quot;: &quot;Python HTTP for Humans.&quot;,
+    &quot;license&quot;: &quot;Apache-2.0&quot;,
+    &quot;projectUrls&quot;: {
+      &quot;Documentation&quot;: &quot;https://requests.readthedocs.io&quot;,
+      &quot;Source&quot;: &quot;https://github.com/psf/requests&quot;
+    },
+    &quot;requiresPython&quot;: &quot;&gt;=3.10&quot;,
+    &quot;classifiers&quot;: [
+      &quot;Development Status :: 5 - Production/Stable&quot;,
+      &quot;Environment :: Web Environment&quot;,
+      &quot;Intended Audience :: Developers&quot;
+    ],
+    &quot;releaseCount&quot;: 163
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:31:42+00:00&quot;,
+    &quot;name&quot;: &quot;numpy&quot;,
+    &quot;latestVersion&quot;: &quot;2.5.4&quot;,
+    &quot;summary&quot;: &quot;Fundamental package for array computing in Python&quot;,
+    &quot;homepage&quot;: &quot;https://numpy.org&quot;,
+    &quot;projectUrls&quot;: {
+      &quot;documentation&quot;: &quot;https://numpy.org/doc/&quot;,
+      &quot;download&quot;: &quot;https://pypi.org/project/numpy/#files&quot;,
+      &quot;homepage&quot;: &quot;https://numpy.org&quot;,
+      &quot;release notes&quot;: &quot;https://numpy.org/doc/stable/release&quot;,
+      &quot;source&quot;: &quot;https://github.com/numpy/numpy&quot;,
+      &quot;tracker&quot;: &quot;https://github.com/numpy/numpy/issues&quot;
+    },
+    &quot;requiresPython&quot;: &quot;&gt;=3.12&quot;,
+    &quot;classifiers&quot;: [
+      &quot;Development Status :: 5 - Production/Stable&quot;,
+      &quot;Intended Audience :: Developers&quot;,
+      &quot;Intended Audience :: Science/Research&quot;
+    ],
+    &quot;releaseCount&quot;: 152
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/pypi-package-tracker</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;packages&#x27;: [&#x27;requests&#x27;, &#x27;numpy&#x27;, &#x27;pandas&#x27;]}
+
+run = client.actor(&quot;v0iddo/pypi-package-tracker&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;packages&quot;: [
+    &quot;requests&quot;,
+    &quot;numpy&quot;,
+    &quot;pandas&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/pypi-package-tracker&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~pypi-package-tracker/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;packages&quot;: [&quot;requests&quot;, &quot;numpy&quot;, &quot;pandas&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. See the <a href="https://apify.com/v0iddo/pypi-package-tracker/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the PyPI Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, name, latestVersion, summary, author, license, homepage, projectUrls, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the PyPI Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/pypi-package-tracker</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pypi-package-tracker">Open PyPI Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/chrome-webstore-extensions/">Chrome Web Store Scraper</a>: Snapshot Chrome Web Store extension metadata via the public listing page.</li>
+<li><a href="/github-trending-repos/">GitHub Trending Scraper</a>: Pull the GitHub Trending repository list: daily, weekly, or monthly, filtered by programming language and s...</li>
+<li><a href="/vscode-marketplace-extensions/">VS Code Extension Scraper</a>: Fetches extension metadata (downloads, version, publisher, repo, license, tags, timestamps) from the Open V...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

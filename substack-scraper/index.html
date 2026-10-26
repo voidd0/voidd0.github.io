@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Substack Posts Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/substack-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Substack Posts Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/substack-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Substack Posts Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, subtitle, date, audience, reactions, comments, wordCount, section, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Substack Posts Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/substack-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / News, research and publishing</nav>
+<h1>Substack Posts Scraper: how to get Archive, Reactions, Comments as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, comments, word count and section. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/substack-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/substack-scraper">Open Substack Posts Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Post</td><td>text</td><td>Model Behavior: Rick Rubin</td></tr>
+<tr><td><code>subtitle</code></td><td>Subtitle</td><td>text</td><td></td></tr>
+<tr><td><code>date</code></td><td>Published</td><td>date</td><td>2026-10-22T17:02:28.433Z</td></tr>
+<tr><td><code>audience</code></td><td>Audience</td><td>text</td><td></td></tr>
+<tr><td><code>reactions</code></td><td>Reactions</td><td>number</td><td>1388</td></tr>
+<tr><td><code>comments</code></td><td>Comments</td><td>number</td><td>0</td></tr>
+<tr><td><code>wordCount</code></td><td>Words</td><td>number</td><td>3710</td></tr>
+<tr><td><code>section</code></td><td>Section</td><td>text</td><td></td></tr>
+<tr><td><code>url</code></td><td>Link</td><td>URL</td><td>https://on.substack.com/p/model-behavior-rick-rubin</td></tr>
+<tr><td><code>postId</code></td><td></td><td>number</td><td>221572936</td></tr>
+<tr><td><code>publication</code></td><td></td><td>text</td><td>on.substack.com</td></tr>
+<tr><td><code>postType</code></td><td></td><td>text</td><td>podcast</td></tr>
+<tr><td><code>restacks</code></td><td></td><td>number</td><td>239</td></tr>
+<tr><td><code>coverImage</code></td><td></td><td>text</td><td>https://substack-video.s3.amazonaws.com/video_upload/post/221572936...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;publications&quot;: [
+    &quot;on.substack.com&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>publications</code> (required)</td><td>array</td><td>Publication addresses such as https://on.substack.com or https://www.lennysnewsletter.com, or just the name before .substack.com (on).</td></tr>
+<tr><td><code>maxPostsPerPublication</code></td><td>integer</td><td>How many posts to collect from each publication.</td></tr>
+<tr><td><code>sortBy</code></td><td>string</td><td>Order in which the posts are read.</td></tr>
+<tr><td><code>keyword</code></td><td>string</td><td>Optional word or phrase: only posts that match it inside the publication are returned.</td></tr>
+<tr><td><code>postsAfter</code></td><td>string</td><td>Optional date as YYYY-MM-DD.</td></tr>
+<tr><td><code>includeBody</code></td><td>boolean</td><td>Add the text of each post as read by a logged-out visitor.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;postId&quot;: 221572936,
+    &quot;publication&quot;: &quot;on.substack.com&quot;,
+    &quot;title&quot;: &quot;Model Behavior: Rick Rubin&quot;,
+    &quot;date&quot;: &quot;2026-10-22T17:02:28.433Z&quot;,
+    &quot;url&quot;: &quot;https://on.substack.com/p/model-behavior-rick-rubin&quot;,
+    &quot;postType&quot;: &quot;podcast&quot;,
+    &quot;reactions&quot;: 1388,
+    &quot;comments&quot;: 0,
+    &quot;restacks&quot;: 239,
+    &quot;wordCount&quot;: 3710,
+    &quot;coverImage&quot;: &quot;https://substack-video.s3.amazonaws.com/video_upload/post/221572936/eff954cd-c23c-4791-b61d-aa7bbf72d0f4/transcoded-82536.png&quot;
+  },
+  {
+    &quot;postId&quot;: 221408645,
+    &quot;publication&quot;: &quot;on.substack.com&quot;,
+    &quot;title&quot;: &quot;Introducing podcast sponsorships on Substack&quot;,
+    &quot;subtitle&quot;: &quot;Dynamic ad insertion, paid subscriptions, and community, all in one place&quot;,
+    &quot;date&quot;: &quot;2026-10-21T13:00:41.830Z&quot;,
+    &quot;url&quot;: &quot;https://on.substack.com/p/introducing-podcast-sponsorships&quot;,
+    &quot;postType&quot;: &quot;newsletter&quot;,
+    &quot;reactions&quot;: 218,
+    &quot;comments&quot;: 0,
+    &quot;restacks&quot;: 44,
+    &quot;wordCount&quot;: 552,
+    &quot;section&quot;: &quot;Product&quot;,
+    &quot;coverImage&quot;: &quot;https://substack-post-media.s3.amazonaws.com/public/images/7de392b8-9dbc-4c5f-9e3f-269365c2cc48_1200x630.jpeg&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/substack-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;publications&#x27;: [&#x27;on.substack.com&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/substack-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;publications&quot;: [
+    &quot;on.substack.com&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/substack-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~substack-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;publications&quot;: [&quot;on.substack.com&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/substack-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Works for any publication, including those on their own domain. Use the address the publication is read at; a name.substack.com address of a publication that moved to its own domain does not work.</li>
+<li>Author names, profiles, handles and photos are not collected.</li>
+<li>Reactions are the heart count shown on the post.</li>
+<li>With post text switched on, each post costs one more request, so the run is slower.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Substack Posts Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, subtitle, date, audience, reactions, comments, wordCount, section, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Substack Posts Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/substack-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/substack-scraper">Open Substack Posts Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/news-scraper/">News article scraper</a>: Extract news articles from any publisher.</li>
+<li><a href="/hn-algolia-search/">Hacker News Scraper</a>: Search Hacker News via the public Algolia API.</li>
+<li><a href="/pubmed-daily-citations-tracker/">PubMed Scraper</a>: Pull daily-new PubMed citations matching any query.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

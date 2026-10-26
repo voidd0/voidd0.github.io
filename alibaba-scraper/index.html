@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alibaba Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, u... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/alibaba-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alibaba Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, u... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/alibaba-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Alibaba Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, title, priceMin, priceMax, minOrder, minOrderUnit, sold, supplierName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Alibaba Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/alibaba-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Alibaba Scraper: how to get Prices, MOQ, Suppliers as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, units sold, ratings, certifications, and the supplier&#x27;s name, country, years, Gold and verified badges, Trade Assurance and response rate. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/alibaba-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/alibaba-scraper">Open Alibaba Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>productId</code></td><td>Product ID</td><td>text</td><td>1601209913000</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Wholesale Custom Print logo Curve Arch Oval Shape Eco-friendly Yoga...</td></tr>
+<tr><td><code>priceMin</code></td><td>Price from</td><td>number</td><td>13.9</td></tr>
+<tr><td><code>priceMax</code></td><td>Price to</td><td>number</td><td>13.9</td></tr>
+<tr><td><code>minOrder</code></td><td>Min order</td><td>number</td><td>1</td></tr>
+<tr><td><code>minOrderUnit</code></td><td>Unit</td><td>text</td><td>piece</td></tr>
+<tr><td><code>sold</code></td><td>Sold</td><td>number</td><td>655</td></tr>
+<tr><td><code>supplierName</code></td><td>Supplier</td><td>text</td><td>Hunan Sanmo Sports Goods Co., Ltd.</td></tr>
+<tr><td><code>supplierCountry</code></td><td>Country</td><td>text</td><td>China</td></tr>
+<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.alibaba.com/product-detail/wholesale-eco-friendly-custo...</td></tr>
+<tr><td><code>searchTerm</code></td><td></td><td>text</td><td>yoga mat</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>priceText</code></td><td></td><td>text</td><td>US $13.90</td></tr>
+<tr><td><code>minOrderText</code></td><td></td><td>text</td><td>1 piece</td></tr>
+<tr><td><code>quantityPrices</code></td><td></td><td>list</td><td>[{&quot;minQuantity&quot;: 1, &quot;maxQuantity&quot;: null, &quot;price&quot;: 13.9, &quot;unit&quot;: &quot;Pi...</td></tr>
+<tr><td><code>soldText</code></td><td></td><td>text</td><td>655 sold</td></tr>
+<tr><td><code>productRating</code></td><td></td><td>number</td><td>4.9</td></tr>
+<tr><td><code>supplierRating</code></td><td></td><td>number</td><td>4.8</td></tr>
+<tr><td><code>supplierReviews</code></td><td></td><td>number</td><td>122</td></tr>
+<tr><td><code>certifications</code></td><td></td><td>list</td><td>[&quot;REACH&quot;]</td></tr>
+<tr><td><code>supplierCountryCode</code></td><td></td><td>text</td><td>CN</td></tr>
+<tr><td><code>supplierYears</code></td><td></td><td>number</td><td>3</td></tr>
+<tr><td><code>goldSupplier</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>verifiedSupplier</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>tradeAssurance</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>responseRate</code></td><td></td><td>number</td><td>99.9</td></tr>
+<tr><td><code>image</code></td><td></td><td>text</td><td>https://s.alicdn.com/@sc04/kf/H5f8e09fbf6ac46dc8186def59e788754q.jpg</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;searchTerms&quot;: [
+    &quot;led strip lights&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>searchTerms</code></td><td>array</td><td>Products as a buyer would type them, one per line, for example led strip lights.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Optional alibaba.com keyword pages (https://www.alibaba.com/wholesale/....html).</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages (about 47 offers each) to read per keyword.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;searchTerm&quot;: &quot;yoga mat&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 1,
+    &quot;productId&quot;: &quot;1601209913000&quot;,
+    &quot;title&quot;: &quot;Wholesale Custom Print logo Curve Arch Oval Shape Eco-friendly Yoga Mats Pu Rubber Non-slip Pilates Mat Tapis Yoga Workout Mats&quot;,
+    &quot;priceMin&quot;: 13.9,
+    &quot;priceMax&quot;: 13.9,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;priceText&quot;: &quot;US $13.90&quot;,
+    &quot;minOrder&quot;: 1,
+    &quot;minOrderUnit&quot;: &quot;piece&quot;,
+    &quot;minOrderText&quot;: &quot;1 piece&quot;,
+    &quot;quantityPrices&quot;: [
+      {
+        &quot;minQuantity&quot;: 1,
+        &quot;maxQuantity&quot;: null,
+        &quot;price&quot;: 13.9,
+        &quot;unit&quot;: &quot;Piece&quot;
+      }
+    ],
+    &quot;sold&quot;: 655,
+    &quot;soldText&quot;: &quot;655 sold&quot;,
+    &quot;productRating&quot;: 4.9,
+    &quot;supplierRating&quot;: 4.8,
+    &quot;supplierReviews&quot;: 122,
+    &quot;certifications&quot;: [
+      &quot;REACH&quot;
+    ],
+    &quot;supplierName&quot;: &quot;Hunan Sanmo Sports Goods Co., Ltd.&quot;,
+    &quot;supplierCountry&quot;: &quot;China&quot;,
+    &quot;supplierCountryCode&quot;: &quot;CN&quot;,
+    &quot;supplierYears&quot;: 3,
+    &quot;goldSupplier&quot;: true,
+    &quot;verifiedSupplier&quot;: true,
+    &quot;tradeAssurance&quot;: true,
+    &quot;responseRate&quot;: 99.9,
+    &quot;image&quot;: &quot;https://s.alicdn.com/@sc04/kf/H5f8e09fbf6ac46dc8186def59e788754q.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.alibaba.com/product-detail/wholesale-eco-friendly-custom-print-logo_1601209913000.html&quot;
+  },
+  {
+    &quot;searchTerm&quot;: &quot;yoga mat&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2,
+    &quot;productId&quot;: &quot;1601619033222&quot;,
+    &quot;title&quot;: &quot;Factory Wholesale Custom Logo Coconut Eco Friendly PU Rubber Yoga Mat Foldable PU Travel Yoga Mat Body Line Oval Pill Shape Mat&quot;,
+    &quot;priceMin&quot;: 8.5,
+    &quot;priceMax&quot;: 11.5,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;priceText&quot;: &quot;US $8.50-$11.50&quot;,
+    &quot;minOrder&quot;: 5,
+    &quot;minOrderUnit&quot;: &quot;pieces&quot;,
+    &quot;minOrderText&quot;: &quot;5 pieces&quot;,
+    &quot;quantityPrices&quot;: [
+      {
+        &quot;minQuantity&quot;: 5,
+        &quot;maxQuantity&quot;: 49,
+        &quot;price&quot;: 11.5,
+        &quot;unit&quot;: &quot;pieces&quot;
+      },
+      {
+        &quot;minQuantity&quot;: 50,
+        &quot;maxQuantity&quot;: 199,
+        &quot;price&quot;: 10.9,
+        &quot;unit&quot;: &quot;pieces&quot;
+      },
+      {
+        &quot;minQuantity&quot;: 200,
+        &quot;maxQuantity&quot;: 999,
+        &quot;price&quot;: 10.1,
+        &quot;unit&quot;: &quot;pieces&quot;
+      }
+    ],
+    &quot;sold&quot;: 699,
+    &quot;soldText&quot;: &quot;699 sold&quot;,
+    &quot;productRating&quot;: 4.7,
+    &quot;supplierRating&quot;: 4.7,
+    &quot;supplierReviews&quot;: 21,
+    &quot;supplierName&quot;: &quot;Yiwu Chi&#x27;an Trading Co., Ltd.&quot;,
+    &quot;supplierCountry&quot;: &quot;China&quot;,
+    &quot;supplierCountryCode&quot;: &quot;CN&quot;,
+    &quot;supplierYears&quot;: 2,
+    &quot;goldSupplier&quot;: true,
+    &quot;verifiedSupplier&quot;: true,
+    &quot;tradeAssurance&quot;: true,
+    &quot;responseRate&quot;: 100,
+    &quot;image&quot;: &quot;https://s.alicdn.com/@sc04/kf/Hca11ad78fa574389a2a122cae41e6966E.png&quot;,
+    &quot;url&quot;: &quot;https://www.alibaba.com/product-detail/Factory-Wholesale-Custom-Logo-Coconut-Eco_1601619033222.html&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/alibaba-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;searchTerms&#x27;: [&#x27;led strip lights&#x27;], &#x27;maxPages&#x27;: 1, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/alibaba-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;searchTerms&quot;: [
+    &quot;led strip lights&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/alibaba-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~alibaba-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;searchTerms&quot;: [&quot;led strip lights&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. See the <a href="https://apify.com/v0iddo/alibaba-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Reads Alibaba&#x27;s public keyword pages (alibaba.com/wholesale/...). Its search box pages are closed to automated access in robots.txt, so filters such as price range or supplier type are not offered.</li>
+<li>Most product keywords have a page. When one has none, the run tries the plural once and logs the keyword if that has none either.</li>
+<li>Prices are as shown to a visitor of the English site, usually in US dollars; quantityPrices lists the price per quantity tier when the offer has tiers.</li>
+<li>Supplier contact details are not collected.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Alibaba Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include productId, title, priceMin, priceMax, minOrder, minOrderUnit, sold, supplierName, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Alibaba Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/alibaba-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/alibaba-scraper">Open Alibaba Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+<li><a href="/amazon-search-scraper/">Amazon Search Scraper</a>: Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati...</li>
+<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: Scrape AliExpress search results into product rows: product ID, title, sale price, original price, discount...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USAspending Awards Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull recent federal contract and grant awards from USAspending.gov. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/usaspending-federal-awards/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USAspending Awards Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull recent federal contract and grant awards from USAspending.gov. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/usaspending-federal-awards/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the USAspending Awards Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include awardId, internalId, detailUrl, recipientName, recipientUei, awardAmount, description, awardingAgency, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the USAspending Awards Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/usaspending-federal-awards with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxResults input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>USAspending Awards Scraper: how to get Federal Contracts and Grants as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull recent federal contract and grant awards from USAspending.gov. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/usaspending-federal-awards</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/usaspending-federal-awards">Open USAspending Awards Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>awardId</code></td><td>Award Id</td><td>text</td><td>W912P526FA088</td></tr>
+<tr><td><code>internalId</code></td><td>Internal Id</td><td>text</td><td>CONT_AWD_W912P526FA088_9700_W912EK22D0006_9700</td></tr>
+<tr><td><code>detailUrl</code></td><td>Detail Url</td><td>URL</td><td>https://www.usaspending.gov/award/CONT_AWD_W912P526FA088_9700_W912E...</td></tr>
+<tr><td><code>recipientName</code></td><td>Recipient Name</td><td>text</td><td>DRC EMERGENCY SERVICES, LLC</td></tr>
+<tr><td><code>recipientUei</code></td><td>Recipient Uei</td><td>text</td><td>KLQXF6DU7EZ6</td></tr>
+<tr><td><code>awardAmount</code></td><td>Award Amount</td><td>number</td><td>30093702.77</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>USDA - HURRICANE HELENE DEBRIS REMOVAL SERVICES FOR THE CHEROKEE NA...</td></tr>
+<tr><td><code>awardingAgency</code></td><td>Awarding Agency</td><td>text</td><td>Department of Defense</td></tr>
+<tr><td><code>awardingSubAgency</code></td><td>Awarding Sub Agency</td><td>text</td><td>Department of the Army</td></tr>
+<tr><td><code>actionDate</code></td><td>Action Date</td><td>date</td><td>2026-07-24</td></tr>
+<tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-07-27</td></tr>
+<tr><td><code>endDate</code></td><td>End Date</td><td>date</td><td>2027-03-24</td></tr>
+<tr><td><code>lastModified</code></td><td></td><td>text</td><td>2026-10-23 09:44:10</td></tr>
+<tr><td><code>pscCode</code></td><td></td><td>text</td><td>S208</td></tr>
+<tr><td><code>pscDescription</code></td><td></td><td>text</td><td>HOUSEKEEPING- LANDSCAPING/GROUNDSKEEPING</td></tr>
+<tr><td><code>naicsCode</code></td><td></td><td>text</td><td>562119</td></tr>
+<tr><td><code>naicsDescription</code></td><td></td><td>text</td><td>OTHER WASTE COLLECTION</td></tr>
+<tr><td><code>placeOfPerformanceState</code></td><td></td><td>text</td><td>TN</td></tr>
+<tr><td><code>placeOfPerformanceCountry</code></td><td></td><td>text</td><td>USA</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;maxResults&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>sinceDays</code></td><td>integer</td><td>Awards whose Start Date falls in the last N days.</td></tr>
+<tr><td><code>awardTypeCodes</code></td><td>array</td><td>Federal award type codes.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Optional text filter. Awards whose description contains any of these words.</td></tr>
+<tr><td><code>agencyNames</code></td><td>array</td><td>Optional list of awarding agency names.</td></tr>
+<tr><td><code>recipientNames</code></td><td>array</td><td>Optional list of recipient company names.</td></tr>
+<tr><td><code>pscCodes</code></td><td>array</td><td>Optional list of 4-char PSC codes.</td></tr>
+<tr><td><code>naicsCodes</code></td><td>array</td><td>Optional list of 6-digit NAICS codes.</td></tr>
+<tr><td><code>stateCodes</code></td><td>array</td><td>Optional 2-letter US state codes filtering by place of performance.</td></tr>
+<tr><td><code>maxResults</code></td><td>integer</td><td>Hard cap to keep runs cheap.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;awardId&quot;: &quot;W912P526FA088&quot;,
+    &quot;internalId&quot;: &quot;CONT_AWD_W912P526FA088_9700_W912EK22D0006_9700&quot;,
+    &quot;detailUrl&quot;: &quot;https://www.usaspending.gov/award/CONT_AWD_W912P526FA088_9700_W912EK22D0006_9700&quot;,
+    &quot;recipientName&quot;: &quot;DRC EMERGENCY SERVICES, LLC&quot;,
+    &quot;recipientUei&quot;: &quot;KLQXF6DU7EZ6&quot;,
+    &quot;awardAmount&quot;: 30093702.77,
+    &quot;description&quot;: &quot;USDA - HURRICANE HELENE DEBRIS REMOVAL SERVICES FOR THE CHEROKEE NATIONAL FOREST.&quot;,
+    &quot;awardingAgency&quot;: &quot;Department of Defense&quot;,
+    &quot;awardingSubAgency&quot;: &quot;Department of the Army&quot;,
+    &quot;actionDate&quot;: &quot;2026-07-24&quot;,
+    &quot;startDate&quot;: &quot;2026-07-27&quot;,
+    &quot;endDate&quot;: &quot;2027-03-24&quot;,
+    &quot;lastModified&quot;: &quot;2026-10-23 09:44:10&quot;,
+    &quot;pscCode&quot;: &quot;S208&quot;,
+    &quot;pscDescription&quot;: &quot;HOUSEKEEPING- LANDSCAPING/GROUNDSKEEPING&quot;,
+    &quot;naicsCode&quot;: &quot;562119&quot;,
+    &quot;naicsDescription&quot;: &quot;OTHER WASTE COLLECTION&quot;,
+    &quot;placeOfPerformanceState&quot;: &quot;TN&quot;,
+    &quot;placeOfPerformanceCountry&quot;: &quot;USA&quot;
+  },
+  {
+    &quot;awardId&quot;: &quot;W912DQ21F3052&quot;,
+    &quot;internalId&quot;: &quot;CONT_AWD_W912DQ21F3052_9700_W912DQ21D3001_9700&quot;,
+    &quot;detailUrl&quot;: &quot;https://www.usaspending.gov/award/CONT_AWD_W912DQ21F3052_9700_W912DQ21D3001_9700&quot;,
+    &quot;recipientName&quot;: &quot;ARCADIS U.S., INC.&quot;,
+    &quot;recipientUei&quot;: &quot;MNG1DTKJ1LZ3&quot;,
+    &quot;awardAmount&quot;: 15727531,
+    &quot;description&quot;: &quot;ARCHITECT AND ENGINEERING SERVICES FOR PROPERTY INVESTIGATIONS AND REMEDIAL DESIGNS FOR WELSBACH/GENERAL GAS MANTLE SUPERFUND SITE IN CAM...&quot;,
+    &quot;awardingAgency&quot;: &quot;Department of Defense&quot;,
+    &quot;awardingSubAgency&quot;: &quot;Department of the Army&quot;,
+    &quot;actionDate&quot;: &quot;2021-09-02&quot;,
+    &quot;startDate&quot;: &quot;2021-09-02&quot;,
+    &quot;endDate&quot;: &quot;2027-02-28&quot;,
+    &quot;lastModified&quot;: &quot;2026-10-22 09:04:24&quot;,
+    &quot;pscCode&quot;: &quot;C219&quot;,
+    &quot;pscDescription&quot;: &quot;ARCHITECT AND ENGINEERING- GENERAL: OTHER&quot;,
+    &quot;naicsCode&quot;: &quot;541330&quot;,
+    &quot;naicsDescription&quot;: &quot;ENGINEERING SERVICES&quot;,
+    &quot;placeOfPerformanceState&quot;: &quot;NJ&quot;,
+    &quot;placeOfPerformanceCountry&quot;: &quot;USA&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/usaspending-federal-awards</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;maxResults&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/usaspending-federal-awards&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;maxResults&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/usaspending-federal-awards&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~usaspending-federal-awards/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;maxResults&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. See the <a href="https://apify.com/v0iddo/usaspending-federal-awards/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the USAspending Awards Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include awardId, internalId, detailUrl, recipientName, recipientUei, awardAmount, description, awardingAgency, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the USAspending Awards Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/usaspending-federal-awards</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxResults</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/usaspending-federal-awards">Open USAspending Awards Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/yahoo-finance-scraper/">Yahoo Finance Scraper</a>: Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

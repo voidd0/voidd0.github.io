@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenhouse Jobs API and Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Greenhouse jobs API and scraper. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/greenhouse-public-jobs/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Greenhouse Jobs API and Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Greenhouse jobs API and scraper. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/greenhouse-public-jobs/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Greenhouse Jobs API and Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include company, companyName, jobId, internalJobId, title, location, departments, offices, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Greenhouse Jobs API and Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/greenhouse-public-jobs with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Greenhouse Jobs API and Scraper: how to get Job Postings by Company as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Greenhouse jobs API and scraper. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/greenhouse-public-jobs</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/greenhouse-public-jobs">Open Greenhouse Jobs API and Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>stripe</td></tr>
+<tr><td><code>companyName</code></td><td>Company Name</td><td>text</td><td>Stripe</td></tr>
+<tr><td><code>jobId</code></td><td>Job Id</td><td>number</td><td>8172508</td></tr>
+<tr><td><code>internalJobId</code></td><td>Internal Job Id</td><td>number</td><td>3537062</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Abuse Investigator</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Dublin</td></tr>
+<tr><td><code>departments</code></td><td>Departments</td><td>list</td><td>[&quot;8611 Security Analytics&quot;]</td></tr>
+<tr><td><code>offices</code></td><td>Offices</td><td>list</td><td>[&quot;Ireland Locations&quot;]</td></tr>
+<tr><td><code>language</code></td><td>Language</td><td>text</td><td>en</td></tr>
+<tr><td><code>requisitionId</code></td><td>Requisition Id</td><td>text</td><td>See Opening ID</td></tr>
+<tr><td><code>firstPublished</code></td><td>First Published</td><td>date</td><td>2026-09-03T13:32:53-04:00</td></tr>
+<tr><td><code>updatedAt</code></td><td>Updated At</td><td>date</td><td>2026-10-22T09:16:15-04:00</td></tr>
+<tr><td><code>url</code></td><td></td><td>text</td><td>https://stripe.com/jobs/search?gh_jid=8172508</td></tr>
+<tr><td><code>contentHtml</code></td><td></td><td>text</td><td>&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt;
+&amp;lt;h...</td></tr>
+<tr><td><code>contentText</code></td><td></td><td>text</td><td>&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h...</td></tr>
+<tr><td><code>textLength</code></td><td></td><td>number</td><td>5654</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;companies&quot;: [
+    &quot;stripe&quot;,
+    &quot;airbnb&quot;,
+    &quot;vercel&quot;
+  ],
+  &quot;maxJobsPerCompany&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>companies</code> (required)</td><td>array</td><td>The slug at boards.greenhouse.io/.</td></tr>
+<tr><td><code>includeContent</code></td><td>boolean</td><td>Adds contentHtml and contentText per row.</td></tr>
+<tr><td><code>maxJobsPerCompany</code></td><td>integer</td><td>Hard cap per company. Greenhouse returns the whole board in one response, so this caps after.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;company&quot;: &quot;stripe&quot;,
+    &quot;companyName&quot;: &quot;Stripe&quot;,
+    &quot;jobId&quot;: 8172508,
+    &quot;internalJobId&quot;: 3537062,
+    &quot;title&quot;: &quot;Abuse Investigator&quot;,
+    &quot;location&quot;: &quot;Dublin&quot;,
+    &quot;departments&quot;: [
+      &quot;8611 Security Analytics&quot;
+    ],
+    &quot;offices&quot;: [
+      &quot;Ireland Locations&quot;
+    ],
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;requisitionId&quot;: &quot;See Opening ID&quot;,
+    &quot;firstPublished&quot;: &quot;2026-09-03T13:32:53-04:00&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-22T09:16:15-04:00&quot;,
+    &quot;url&quot;: &quot;https://stripe.com/jobs/search?gh_jid=8172508&quot;,
+    &quot;contentHtml&quot;: &quot;&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt;\n&amp;lt;h3&amp;gt;&amp;lt;strong&amp;gt;About Stripe&amp;lt;/strong&amp;gt;&amp;lt;/h3&amp;gt;\n&amp;lt;p&amp;gt;&amp;lt...&quot;,
+    &quot;contentText&quot;: &quot;&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h3&amp;gt;&amp;lt;strong&amp;gt;About Stripe&amp;lt;/strong&amp;gt;&amp;lt;/h3&amp;gt; &amp;lt;p&amp;gt;&amp;lt...&quot;,
+    &quot;textLength&quot;: 5654
+  },
+  {
+    &quot;company&quot;: &quot;stripe&quot;,
+    &quot;companyName&quot;: &quot;Stripe&quot;,
+    &quot;jobId&quot;: 8172487,
+    &quot;internalJobId&quot;: 3537052,
+    &quot;title&quot;: &quot;Abuse Investigator&quot;,
+    &quot;location&quot;: &quot;Dublin&quot;,
+    &quot;departments&quot;: [
+      &quot;8611 Security Analytics&quot;
+    ],
+    &quot;offices&quot;: [
+      &quot;Ireland Locations&quot;
+    ],
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;requisitionId&quot;: &quot;See Opening ID&quot;,
+    &quot;firstPublished&quot;: &quot;2026-09-03T13:30:34-04:00&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-22T09:16:14-04:00&quot;,
+    &quot;url&quot;: &quot;https://stripe.com/jobs/search?gh_jid=8172487&quot;,
+    &quot;contentHtml&quot;: &quot;&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt;\n&amp;lt;h3&amp;gt;&amp;lt;strong&amp;gt;About Stripe&amp;lt;/strong&amp;gt;&amp;lt;/h3&amp;gt;\n&amp;lt;p&amp;gt;&amp;lt...&quot;,
+    &quot;contentText&quot;: &quot;&amp;lt;h2&amp;gt;&amp;lt;strong&amp;gt;Who we are &amp;lt;/strong&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;h3&amp;gt;&amp;lt;strong&amp;gt;About Stripe&amp;lt;/strong&amp;gt;&amp;lt;/h3&amp;gt; &amp;lt;p&amp;gt;&amp;lt...&quot;,
+    &quot;textLength&quot;: 5654
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/greenhouse-public-jobs</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;companies&#x27;: [&#x27;stripe&#x27;, &#x27;airbnb&#x27;, &#x27;vercel&#x27;], &#x27;maxJobsPerCompany&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/greenhouse-public-jobs&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;companies&quot;: [
+    &quot;stripe&quot;,
+    &quot;airbnb&quot;,
+    &quot;vercel&quot;
+  ],
+  &quot;maxJobsPerCompany&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/greenhouse-public-jobs&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~greenhouse-public-jobs/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;companies&quot;: [&quot;stripe&quot;, &quot;airbnb&quot;, &quot;vercel&quot;], &quot;maxJobsPerCompany&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. See the <a href="https://apify.com/v0iddo/greenhouse-public-jobs/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Greenhouse Jobs API and Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include company, companyName, jobId, internalJobId, title, location, departments, offices, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Greenhouse Jobs API and Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/greenhouse-public-jobs</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/greenhouse-public-jobs">Open Greenhouse Jobs API and Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/indeed-scraper/">Indeed Jobs Scraper</a>: Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran...</li>
+<li><a href="/remote-jobs-scraper/">Remote Jobs Scraper</a>: Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hacker News Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Search Hacker News via the public Algolia API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/hn-algolia-search/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hacker News Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Search Hacker News via the public Algolia API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/hn-algolia-search/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Hacker News Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include objectID, storyId, title, author, url, points, numComments, createdAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Hacker News Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/hn-algolia-search with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / News, research and publishing</nav>
+<h1>Hacker News Scraper: how to get Stories and Comments by Query as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Search Hacker News via the public Algolia API. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/hn-algolia-search</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/hn-algolia-search">Open Hacker News Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>objectID</code></td><td>Object ID</td><td>text</td><td>50238751</td></tr>
+<tr><td><code>storyId</code></td><td>Story Id</td><td>number</td><td>50238751</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Show HN: Nodecode, open-source living agent in Lisp that rewrites i...</td></tr>
+<tr><td><code>author</code></td><td>Author</td><td>text</td><td></td></tr>
+<tr><td><code>url</code></td><td>Url</td><td>URL</td><td></td></tr>
+<tr><td><code>points</code></td><td>Points</td><td>number</td><td>2</td></tr>
+<tr><td><code>numComments</code></td><td>Num Comments</td><td>number</td><td>0</td></tr>
+<tr><td><code>createdAt</code></td><td>Created At</td><td>date</td><td>2026-10-26T03:30:18Z</td></tr>
+<tr><td><code>createdAtUnix</code></td><td>Created At Unix</td><td>number</td><td>1792985418</td></tr>
+<tr><td><code>tags</code></td><td>Tags</td><td>list</td><td>[&quot;story&quot;]</td></tr>
+<tr><td><code>commentText</code></td><td>Comment Text</td><td>text</td><td></td></tr>
+<tr><td><code>permalink</code></td><td>Permalink</td><td>URL</td><td>https://news.ycombinator.com/item?id=50238751</td></tr>
+<tr><td><code>query</code></td><td></td><td>text</td><td>Show HN: open source</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;queries&quot;: [
+    &quot;Show HN: open source&quot;
+  ],
+  &quot;maxResultsPerQuery&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>queries</code></td><td>array</td><td>Full-text queries. Leave empty + use tags for a tag-only feed (e.g.</td></tr>
+<tr><td><code>tags</code></td><td>array</td><td>HN Algolia tags: story, comment, frontpage, showhn, askhn, poll, author, story_.</td></tr>
+<tr><td><code>sinceDays</code></td><td>integer</td><td>Server-side date filter via createdati&gt;UNIX.</td></tr>
+<tr><td><code>maxResultsPerQuery</code></td><td>integer</td><td>Hard cap per query. Algolia paginates 100/page.</td></tr>
+<tr><td><code>sortBy</code></td><td>string</td><td>date = newest first (uses /searchbydate).</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;objectID&quot;: &quot;50238751&quot;,
+    &quot;storyId&quot;: 50238751,
+    &quot;title&quot;: &quot;Show HN: Nodecode, open-source living agent in Lisp that rewrites itself for you&quot;,
+    &quot;points&quot;: 2,
+    &quot;numComments&quot;: 0,
+    &quot;createdAt&quot;: &quot;2026-10-26T03:30:18Z&quot;,
+    &quot;createdAtUnix&quot;: 1792985418,
+    &quot;tags&quot;: [
+      &quot;story&quot;
+    ],
+    &quot;permalink&quot;: &quot;https://news.ycombinator.com/item?id=50238751&quot;,
+    &quot;query&quot;: &quot;Show HN: open source&quot;
+  },
+  {
+    &quot;objectID&quot;: &quot;50237813&quot;,
+    &quot;storyId&quot;: 50237813,
+    &quot;title&quot;: &quot;Show HN: Freehire, open-source search 3M+ tech jobs from company career boards&quot;,
+    &quot;url&quot;: &quot;https://freehire.me/&quot;,
+    &quot;points&quot;: 4,
+    &quot;numComments&quot;: 0,
+    &quot;createdAt&quot;: &quot;2026-10-26T01:13:43Z&quot;,
+    &quot;createdAtUnix&quot;: 1792977223,
+    &quot;tags&quot;: [
+      &quot;story&quot;
+    ],
+    &quot;permalink&quot;: &quot;https://news.ycombinator.com/item?id=50237813&quot;,
+    &quot;query&quot;: &quot;Show HN: open source&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/hn-algolia-search</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;queries&#x27;: [&#x27;Show HN: open source&#x27;], &#x27;maxResultsPerQuery&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/hn-algolia-search&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;queries&quot;: [
+    &quot;Show HN: open source&quot;
+  ],
+  &quot;maxResultsPerQuery&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/hn-algolia-search&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~hn-algolia-search/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;queries&quot;: [&quot;Show HN: open source&quot;], &quot;maxResultsPerQuery&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. See the <a href="https://apify.com/v0iddo/hn-algolia-search/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Hacker News Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include objectID, storyId, title, author, url, points, numComments, createdAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Hacker News Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/hn-algolia-search</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/hn-algolia-search">Open Hacker News Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/news-scraper/">News article scraper</a>: Extract news articles from any publisher.</li>
+<li><a href="/substack-scraper/">Substack Posts Scraper</a>: Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen...</li>
+<li><a href="/pubmed-daily-citations-tracker/">PubMed Scraper</a>: Pull daily-new PubMed citations matching any query.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

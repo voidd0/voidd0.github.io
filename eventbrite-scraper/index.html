@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eventbrite Event Data Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Collect public Eventbrite events for any city or online: name, start and end, venue and city, online flag,... Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/eventbrite-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eventbrite Event Data Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Collect public Eventbrite events for any city or online: name, start and end, venue and city, online flag,... Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/eventbrite-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Eventbrite Event Data Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include name, start, end, venueName, city, isOnline, isFree, priceMin, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Eventbrite Event Data Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/eventbrite-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Marketing and ads</nav>
+<h1>Eventbrite Event Data Scraper: how to get City, Dates, Ticket Prices as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Collect public Eventbrite events for any city or online: name, start and end, venue and city, online flag, ticket prices, organizer name, link and image. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/eventbrite-scraper">Open Eventbrite Event Data Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>name</code></td><td>Event</td><td>text</td><td>Out &amp; Abt - Halloween Edition</td></tr>
+<tr><td><code>start</code></td><td>Starts</td><td>date</td><td>2026-10-29T22:30</td></tr>
+<tr><td><code>end</code></td><td>Ends</td><td>date</td><td>2026-10-30T04:00</td></tr>
+<tr><td><code>venueName</code></td><td>Venue</td><td>text</td><td>Elsewhere</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Brooklyn</td></tr>
+<tr><td><code>isOnline</code></td><td>Online</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>isFree</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>priceMin</code></td><td>Price from</td><td>number</td><td>20.87</td></tr>
+<tr><td><code>organizerName</code></td><td>Organizer</td><td>text</td><td></td></tr>
+<tr><td><code>url</code></td><td>Link</td><td>URL</td><td>https://www.eventbrite.com/e/out-abt-halloween-edition-tickets-1996...</td></tr>
+<tr><td><code>image</code></td><td>Image</td><td>image URL</td><td>https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F119047...</td></tr>
+<tr><td><code>eventId</code></td><td></td><td>text</td><td>1996989228540</td></tr>
+<tr><td><code>timezone</code></td><td></td><td>text</td><td>America/New_York</td></tr>
+<tr><td><code>region</code></td><td></td><td>text</td><td>NY</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>US</td></tr>
+<tr><td><code>latitude</code></td><td></td><td>number</td><td>40.709411</td></tr>
+<tr><td><code>longitude</code></td><td></td><td>number</td><td>-73.923169</td></tr>
+<tr><td><code>priceMax</code></td><td></td><td>number</td><td>38.56</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Music</td></tr>
+<tr><td><code>format</code></td><td></td><td>text</td><td>Concert or Performance</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>sourcePage</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;locations&quot;: [
+    &quot;ny--new-york&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>locations</code> (required)</td><td>array</td><td>Eventbrite place slugs such as ny--new-york, united-kingdom--london or online, or full https://www.eventbrite.com/d/...</td></tr>
+<tr><td><code>keyword</code></td><td>string</td><td>Optional search word or phrase, for example jazz or startup networking.</td></tr>
+<tr><td><code>startDate</code></td><td>string</td><td>Optional first day as YYYY-MM-DD.</td></tr>
+<tr><td><code>endDate</code></td><td>string</td><td>Optional last day as YYYY-MM-DD.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Costs one extra page per such event, so the run is slower.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages to read for each location.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;eventId&quot;: &quot;1996989228540&quot;,
+    &quot;name&quot;: &quot;Out &amp; Abt - Halloween Edition&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/out-abt-halloween-edition-tickets-1996989228540&quot;,
+    &quot;start&quot;: &quot;2026-10-29T22:30&quot;,
+    &quot;end&quot;: &quot;2026-10-30T04:00&quot;,
+    &quot;timezone&quot;: &quot;America/New_York&quot;,
+    &quot;venueName&quot;: &quot;Elsewhere&quot;,
+    &quot;city&quot;: &quot;Brooklyn&quot;,
+    &quot;region&quot;: &quot;NY&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;latitude&quot;: 40.709411,
+    &quot;longitude&quot;: -73.923169,
+    &quot;isOnline&quot;: false,
+    &quot;isFree&quot;: false,
+    &quot;priceMin&quot;: 20.87,
+    &quot;priceMax&quot;: 38.56,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;category&quot;: &quot;Music&quot;,
+    &quot;format&quot;: &quot;Concert or Performance&quot;,
+    &quot;promoted&quot;: false,
+    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190476564%2F2569518370411%2F1%2Foriginal.20260806-170042?crop=focalpoint&amp;fi...&quot;,
+    &quot;sourcePage&quot;: 1
+  },
+  {
+    &quot;eventId&quot;: &quot;2002228994822&quot;,
+    &quot;name&quot;: &quot;Fright Night NYC Halloween Party 2026 - $3,000 Costume Contest&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/fright-night-nyc-halloween-party-2026-3000-costume-contest-tickets-2002228994822&quot;,
+    &quot;start&quot;: &quot;2026-10-31T22:00&quot;,
+    &quot;end&quot;: &quot;2026-11-01T04:00&quot;,
+    &quot;timezone&quot;: &quot;America/New_York&quot;,
+    &quot;venueName&quot;: &quot;Bkloft26&quot;,
+    &quot;city&quot;: &quot;Brooklyn&quot;,
+    &quot;region&quot;: &quot;NY&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;latitude&quot;: 40.6609469,
+    &quot;longitude&quot;: -74.00002099999999,
+    &quot;isOnline&quot;: false,
+    &quot;isFree&quot;: false,
+    &quot;priceMin&quot;: 12.51,
+    &quot;priceMax&quot;: 535.38,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;category&quot;: &quot;Seasonal &amp; Holiday&quot;,
+    &quot;subcategory&quot;: &quot;Halloween/Haunt&quot;,
+    &quot;format&quot;: &quot;Party or Social Gathering&quot;,
+    &quot;promoted&quot;: false,
+    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194298716%2F66299487319%2F1%2Foriginal.20260924-171726?crop=focalpoint&amp;fit=...&quot;,
+    &quot;sourcePage&quot;: 1
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/eventbrite-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;locations&#x27;: [&#x27;ny--new-york&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/eventbrite-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;locations&quot;: [
+    &quot;ny--new-york&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/eventbrite-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~eventbrite-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;locations&quot;: [&quot;ny--new-york&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/eventbrite-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Browse pages (a place with no keyword) list about 40 events. Add a keyword or dates, or more places, for more.</li>
+<li>Listings rarely show price or organizer, so with Fill in price and organizer on (the default) each event without them costs one extra page read, about one more second per event.</li>
+<li>Price fields stay empty when an event page does not state them (for example tickets sold elsewhere). Only the organizer&#x27;s name is read, never organizer pages or profiles. Events on other country...</li>
+<li>Times are the event&#x27;s local time (timezone field). Cancelled events are skipped.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Eventbrite Event Data Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include name, start, end, venueName, city, isOnline, isFree, priceMin, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Eventbrite Event Data Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/eventbrite-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/eventbrite-scraper">Open Eventbrite Event Data Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Collect public ads from the Meta Ad Library by keyword, advertiser Page ID or Ad Library link: ad text, hea...</li>
+<li><a href="/eventbrite-events-search/">Eventbrite Scraper</a>: Search Eventbrite events by keyword and location.</li>
+<li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

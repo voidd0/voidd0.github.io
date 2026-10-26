@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Store Top Charts Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull all three Apple App Store top charts (paid, grossing, and apps at no cost) for any country and genre. Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/app-store-top-charts/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Store Top Charts Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull all three Apple App Store top charts (paid, grossing, and apps at no cost) for any country and genre. Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/app-store-top-charts/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the App Store Top Charts Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, chart, country, genreId, rank, appId, trackName, artistName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the App Store Top Charts Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/app-store-top-charts with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the limit input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>App Store Top Charts Scraper: how to get Ranks by Country and Genre as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull all three Apple App Store top charts (paid, grossing, and apps at no cost) for any country and genre. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/app-store-top-charts</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/app-store-top-charts">Open App Store Top Charts Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:24:43+00:00</td></tr>
+<tr><td><code>chart</code></td><td>Chart</td><td>text</td><td>topfreeapplications</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>us</td></tr>
+<tr><td><code>genreId</code></td><td>Genre Id</td><td>text</td><td>0</td></tr>
+<tr><td><code>rank</code></td><td>Rank</td><td>number</td><td>1</td></tr>
+<tr><td><code>appId</code></td><td>App Id</td><td>text</td><td>632064380</td></tr>
+<tr><td><code>trackName</code></td><td>Track Name</td><td>text</td><td>Vinted: Pre-loved marketplace</td></tr>
+<tr><td><code>artistName</code></td><td>Artist Name</td><td>text</td><td></td></tr>
+<tr><td><code>artistUrl</code></td><td>Artist Url</td><td>URL</td><td></td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Shopping</td></tr>
+<tr><td><code>categoryId</code></td><td>Category Id</td><td>text</td><td>6024</td></tr>
+<tr><td><code>releaseDate</code></td><td>Release Date</td><td>date</td><td>2013-04-11T10:12:20-07:00</td></tr>
+<tr><td><code>price</code></td><td></td><td>text</td><td>0.00</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>priceLabel</code></td><td></td><td>text</td><td>Get</td></tr>
+<tr><td><code>contentType</code></td><td></td><td>text</td><td>Application</td></tr>
+<tr><td><code>rights</code></td><td></td><td>text</td><td>© 2024 Vinted</td></tr>
+<tr><td><code>summary</code></td><td></td><td>text</td><td>The idea is simple: you sell your pre-loved stuff to other members ...</td></tr>
+<tr><td><code>title</code></td><td></td><td>text</td><td>Vinted: Pre-loved marketplace - Vinted Limited</td></tr>
+<tr><td><code>appUrl</code></td><td></td><td>text</td><td>https://apps.apple.com/us/app/vinted-pre-loved-marketplace/id632064...</td></tr>
+<tr><td><code>artworkUrl</code></td><td></td><td>text</td><td>https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d3/cd/83/d3cd...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;chartTypes&quot;: [
+    &quot;topfreeapplications&quot;
+  ],
+  &quot;countries&quot;: [
+    &quot;us&quot;
+  ],
+  &quot;genreIds&quot;: [
+    &quot;0&quot;
+  ],
+  &quot;limit&quot;: 100
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>chartTypes</code></td><td>array</td><td>Which charts to pull. Valid: topfreeapplications, toppaidapplications, topgrossingapplications.</td></tr>
+<tr><td><code>countries</code></td><td>array</td><td>ISO 3166-1 alpha-2 storefront codes.</td></tr>
+<tr><td><code>genreIds</code></td><td>array</td><td>Numeric Apple genre IDs. Examples: 0 (all), 6005 (Social Networking), 6014 (Games), 6017 (Education), 6020 (Medical), 6023 (Finance).</td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>How many apps to pull per (chart × country × genre).</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:24:43+00:00&quot;,
+    &quot;chart&quot;: &quot;topfreeapplications&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;genreId&quot;: &quot;0&quot;,
+    &quot;rank&quot;: 1,
+    &quot;appId&quot;: &quot;632064380&quot;,
+    &quot;trackName&quot;: &quot;Vinted: Pre-loved marketplace&quot;,
+    &quot;category&quot;: &quot;Shopping&quot;,
+    &quot;categoryId&quot;: &quot;6024&quot;,
+    &quot;releaseDate&quot;: &quot;2013-04-11T10:12:20-07:00&quot;,
+    &quot;price&quot;: &quot;0.00&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;priceLabel&quot;: &quot;Get&quot;,
+    &quot;contentType&quot;: &quot;Application&quot;,
+    &quot;rights&quot;: &quot;© 2024 Vinted&quot;,
+    &quot;summary&quot;: &quot;The idea is simple: you sell your pre-loved stuff to other members who’ll love it again. They get the thrill of unboxing a great find, yo...&quot;,
+    &quot;title&quot;: &quot;Vinted: Pre-loved marketplace - Vinted Limited&quot;,
+    &quot;appUrl&quot;: &quot;https://apps.apple.com/us/app/vinted-pre-loved-marketplace/id632064380?uo=2&quot;,
+    &quot;artworkUrl&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d3/cd/83/d3cd83d1-4d21-6390-1c53-4e1557fdf70d/VintedAppIcon-0-0-1x_U007epad-0-1-85-...&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:24:43+00:00&quot;,
+    &quot;chart&quot;: &quot;topfreeapplications&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;genreId&quot;: &quot;0&quot;,
+    &quot;rank&quot;: 2,
+    &quot;appId&quot;: &quot;6741796873&quot;,
+    &quot;trackName&quot;: &quot;TikTok Pro - Events&quot;,
+    &quot;category&quot;: &quot;Entertainment&quot;,
+    &quot;categoryId&quot;: &quot;6016&quot;,
+    &quot;releaseDate&quot;: &quot;2026-06-03T00:00:00-07:00&quot;,
+    &quot;price&quot;: &quot;0.00&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;priceLabel&quot;: &quot;Get&quot;,
+    &quot;contentType&quot;: &quot;Application&quot;,
+    &quot;rights&quot;: &quot;© 2024 TikTok Pte. Ltd.&quot;,
+    &quot;summary&quot;: &quot;TikTok Pro - Events is a global discovery platform for videos where you can discover cool, funny, and educational short videos, as well a...&quot;,
+    &quot;title&quot;: &quot;TikTok Pro - Events - TikTok Ltd.&quot;,
+    &quot;appUrl&quot;: &quot;https://apps.apple.com/us/app/tiktok-pro-events/id6741796873?uo=2&quot;,
+    &quot;artworkUrl&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ea/78/45/ea784534-39b0-b4cd-9105-f143cf0703bb/AppIcon_TikTok-0-0-1x_U007emarketing-...&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/app-store-top-charts</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;chartTypes&#x27;: [&#x27;topfreeapplications&#x27;],
+ &#x27;countries&#x27;: [&#x27;us&#x27;],
+ &#x27;genreIds&#x27;: [&#x27;0&#x27;],
+ &#x27;limit&#x27;: 100}
+
+run = client.actor(&quot;v0iddo/app-store-top-charts&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;chartTypes&quot;: [
+    &quot;topfreeapplications&quot;
+  ],
+  &quot;countries&quot;: [
+    &quot;us&quot;
+  ],
+  &quot;genreIds&quot;: [
+    &quot;0&quot;
+  ],
+  &quot;limit&quot;: 100
+};
+
+const run = await client.actor(&#x27;v0iddo/app-store-top-charts&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~app-store-top-charts/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;chartTypes&quot;: [&quot;topfreeapplications&quot;], &quot;countries&quot;: [&quot;us&quot;], &quot;genreIds&quot;: [&quot;0&quot;], &quot;limit&quot;: 100}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. See the <a href="https://apify.com/v0iddo/app-store-top-charts/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the App Store Top Charts Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, chart, country, genreId, rank, appId, trackName, artistName, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the App Store Top Charts Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/app-store-top-charts</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>limit</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/app-store-top-charts">Open App Store Top Charts Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+<li><a href="/amazon-search-scraper/">Amazon Search Scraper</a>: Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati...</li>
+<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: Scrape AliExpress search results into product rows: product ID, title, sale price, original price, discount...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

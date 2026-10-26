@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remote Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/remote-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Remote Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/remote-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Remote Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, salaryMin, salaryMax, salaryCurrency, sourceName, publishedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Remote Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/remote-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Remote Jobs Scraper: how to get remote jobs from RemoteOK, WWR and Jobicy as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: title, company, location, eligible countries, salary, job type, level, tags, posted date and description. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/remote-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/remote-jobs-scraper">Open Remote Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Solutions Engineer</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Onebrief</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td></td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary from</td><td>number</td><td>180000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary to</td><td>number</td><td>220000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
+<tr><td><code>sourceName</code></td><td>Board</td><td>text</td><td>Remote OK</td></tr>
+<tr><td><code>publishedAt</code></td><td>Posted</td><td>date</td><td>2026-10-24T00:00:02Z</td></tr>
+<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://remoteok.com/remote-jobs/remote-solutions-engineer-onebrief...</td></tr>
+<tr><td><code>source</code></td><td></td><td>text</td><td>remoteok</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>1137568</td></tr>
+<tr><td><code>remote</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>tags</code></td><td></td><td>list</td><td>[&quot;design&quot;, &quot;ansible&quot;, &quot;grafana&quot;]</td></tr>
+<tr><td><code>salaryPeriod</code></td><td></td><td>text</td><td>year</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T04:29:06Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;engineer&quot;,
+    &quot;developer&quot;
+  ],
+  &quot;maxItems&quot;: 20,
+  &quot;maxJobsPerBoard&quot;: 6
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles, skills or words such as python, designer or customer support.</td></tr>
+<tr><td><code>searchDescriptions</code></td><td>boolean</td><td>Also keep jobs whose description holds a search term.</td></tr>
+<tr><td><code>excludeKeywords</code></td><td>array</td><td>Drop jobs whose title holds any of these words, such as senior or intern.</td></tr>
+<tr><td><code>sources</code></td><td>array</td><td>The boards to read, in this order.</td></tr>
+<tr><td><code>maxJobsPerBoard</code></td><td>integer</td><td>Optional. Stop reading a board after this many kept jobs and go on to the next one, so the first board does not fill the whole run.</td></tr>
+<tr><td><code>locations</code></td><td>array</td><td>Only jobs whose location or eligible countries name one of these, such as USA, Europe, Germany or Canada.</td></tr>
+<tr><td><code>includeWorldwide</code></td><td>boolean</td><td>With locations set, also keep jobs open to people anywhere in the world.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only jobs published in that period.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only jobs whose board gives a salary (Remote OK and Jobicy give one for about a quarter and a half of their jobs).</td></tr>
+<tr><td><code>includeDescription</code></td><td>boolean</td><td>Return each job&#x27;s description as plain text.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;source&quot;: &quot;remoteok&quot;,
+    &quot;sourceName&quot;: &quot;Remote OK&quot;,
+    &quot;jobId&quot;: &quot;1137568&quot;,
+    &quot;title&quot;: &quot;Solutions Engineer&quot;,
+    &quot;company&quot;: &quot;Onebrief&quot;,
+    &quot;remote&quot;: true,
+    &quot;tags&quot;: [
+      &quot;design&quot;,
+      &quot;ansible&quot;,
+      &quot;grafana&quot;
+    ],
+    &quot;salaryMin&quot;: 180000,
+    &quot;salaryMax&quot;: 220000,
+    &quot;salaryCurrency&quot;: &quot;USD&quot;,
+    &quot;salaryPeriod&quot;: &quot;year&quot;,
+    &quot;publishedAt&quot;: &quot;2026-10-24T00:00:02Z&quot;,
+    &quot;url&quot;: &quot;https://remoteok.com/remote-jobs/remote-solutions-engineer-onebrief-1137568&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:29:06Z&quot;
+  },
+  {
+    &quot;source&quot;: &quot;remoteok&quot;,
+    &quot;sourceName&quot;: &quot;Remote OK&quot;,
+    &quot;jobId&quot;: &quot;1137562&quot;,
+    &quot;title&quot;: &quot;Senior Frontend Engineer&quot;,
+    &quot;company&quot;: &quot;B2spin&quot;,
+    &quot;remote&quot;: true,
+    &quot;tags&quot;: [
+      &quot;front end&quot;,
+      &quot;design&quot;,
+      &quot;react&quot;
+    ],
+    &quot;publishedAt&quot;: &quot;2026-10-23T16:00:12Z&quot;,
+    &quot;url&quot;: &quot;https://remoteok.com/remote-jobs/remote-senior-frontend-engineer-b2spin-1137562&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:29:06Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/remote-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;engineer&#x27;, &#x27;developer&#x27;], &#x27;maxItems&#x27;: 20, &#x27;maxJobsPerBoard&#x27;: 6}
+
+run = client.actor(&quot;v0iddo/remote-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;engineer&quot;,
+    &quot;developer&quot;
+  ],
+  &quot;maxItems&quot;: 20,
+  &quot;maxJobsPerBoard&quot;: 6
+};
+
+const run = await client.actor(&#x27;v0iddo/remote-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~remote-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;engineer&quot;, &quot;developer&quot;], &quot;maxItems&quot;: 20, &quot;maxJobsPerBoard&quot;: 6}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/remote-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One run reads every board you chose, about 4,000 jobs in all on a normal day: Remote OK&#x27;s 100 newest plus 100 per search term, We Work Remotely&#x27;s main and category feeds, Jobicy&#x27;s last 7 days...</li>
+<li>Rows come board by board in the order of Job boards, newest first within a board. A job with the same company and title as one already returned (the same job posted on two boards) is left out.</li>
+<li>source and sourceName say which board the job comes from, and url is the job on that board. The boards ask that apps showing their jobs name them and link to the job there.</li>
+<li>location is the board&#x27;s own text (Anywhere in the World, USA, Europe ...); countries lists the eligible countries where We Work Remotely gives them; worldwide is true when the location says...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Remote Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, salaryMin, salaryMax, salaryCurrency, sourceName, publishedAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Remote Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/remote-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/remote-jobs-scraper">Open Remote Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/indeed-scraper/">Indeed Jobs Scraper</a>: Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+<li><a href="/ats-jobs-scraper/">Greenhouse, Lever, Workday and Ashby jobs scraper</a>: Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and Bambo...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

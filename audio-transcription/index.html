@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio transcription: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/audio-transcription/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Audio transcription: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/audio-transcription/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Audio transcription return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include fileName, episodeTitle, language, durationSeconds, billedMinutes, wordCount, text, mediaUrl, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Audio transcription from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/audio-transcription with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Audio transcription: how to turn audio and video into text (API, Python, no code)</h1>
+<p class="lead">Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT or VTT subtitles. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/audio-transcription</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/audio-transcription">Open Audio transcription on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>fileName</code></td><td>File</td><td>text</td><td>Jfk_rice_university_we_choose_to_go_to_the_moon.ogg</td></tr>
+<tr><td><code>episodeTitle</code></td><td>Episode</td><td>text</td><td></td></tr>
+<tr><td><code>language</code></td><td>Language</td><td>text</td><td>en</td></tr>
+<tr><td><code>durationSeconds</code></td><td>Length (s)</td><td>number</td><td>1060.2</td></tr>
+<tr><td><code>billedMinutes</code></td><td>Minutes charged</td><td>number</td><td>8</td></tr>
+<tr><td><code>wordCount</code></td><td>Words</td><td>number</td><td>954</td></tr>
+<tr><td><code>text</code></td><td>Transcript</td><td>text</td><td>President Tipton, Mr. Vice President, Governor, Congressman Thomas,...</td></tr>
+<tr><td><code>mediaUrl</code></td><td>Media</td><td>URL</td><td>https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_univer...</td></tr>
+<tr><td><code>source</code></td><td></td><td>text</td><td>url</td></tr>
+<tr><td><code>contentType</code></td><td></td><td>text</td><td>application/ogg</td></tr>
+<tr><td><code>fileBytes</code></td><td></td><td>number</td><td>17193282</td></tr>
+<tr><td><code>transcribedSeconds</code></td><td></td><td>number</td><td>480</td></tr>
+<tr><td><code>truncated</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>languageProbability</code></td><td></td><td>number</td><td>0.954</td></tr>
+<tr><td><code>task</code></td><td></td><td>text</td><td>transcribe</td></tr>
+<tr><td><code>model</code></td><td></td><td>text</td><td>base</td></tr>
+<tr><td><code>segments</code></td><td></td><td>list</td><td>[{&quot;start&quot;: 2.45, &quot;end&quot;: 11.53, &quot;text&quot;: &quot;President Tipton, Mr. Vice ...</td></tr>
+<tr><td><code>processingSeconds</code></td><td></td><td>number</td><td>41.5</td></tr>
+<tr><td><code>transcribedAt</code></td><td></td><td>text</td><td>2026-10-26T07:27:02Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;mediaUrls&quot;: [
+    &quot;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;
+  ],
+  &quot;maxMinutesPerFile&quot;: 8,
+  &quot;maxItems&quot;: 1
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>mediaUrls</code></td><td>array</td><td>Direct links to media files: MP3, M4A, AAC, WAV, OGG, OPUS, FLAC, MP4, MOV, WEBM and more.</td></tr>
+<tr><td><code>podcastFeeds</code></td><td>array</td><td>RSS feed links of podcasts.</td></tr>
+<tr><td><code>episodesPerFeed</code></td><td>integer</td><td>How many of each feed&#x27;s newest episodes to transcribe.</td></tr>
+<tr><td><code>episodeKeywords</code></td><td>array</td><td>Keep only feed episodes whose title holds one of these words.</td></tr>
+<tr><td><code>language</code></td><td>string</td><td>The language spoken in the files.</td></tr>
+<tr><td><code>task</code></td><td>string</td><td>Write the text in the spoken language, or translate it to English.</td></tr>
+<tr><td><code>model</code></td><td>string</td><td>Speech recognition model.</td></tr>
+<tr><td><code>maxMinutesPerFile</code></td><td>integer</td><td>Only the first this many minutes of each file are transcribed and charged; the row says when a file was cut.</td></tr>
+<tr><td><code>includeSegments</code></td><td>boolean</td><td>Return the transcript also as segments with start and end seconds.</td></tr>
+<tr><td><code>includeSubtitles</code></td><td>boolean</td><td>Return the transcript also as SRT and WebVTT subtitle text.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;source&quot;: &quot;url&quot;,
+    &quot;mediaUrl&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;,
+    &quot;fileName&quot;: &quot;Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;,
+    &quot;contentType&quot;: &quot;application/ogg&quot;,
+    &quot;fileBytes&quot;: 17193282,
+    &quot;durationSeconds&quot;: 1060.2,
+    &quot;transcribedSeconds&quot;: 480,
+    &quot;truncated&quot;: true,
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;languageProbability&quot;: 0.954,
+    &quot;task&quot;: &quot;transcribe&quot;,
+    &quot;model&quot;: &quot;base&quot;,
+    &quot;text&quot;: &quot;President Tipton, Mr. Vice President, Governor, Congressman Thomas, Senator Wiley and Congressman Miller, Mr. Webb, Mr. Bell, scientists,...&quot;,
+    &quot;wordCount&quot;: 954,
+    &quot;segments&quot;: [
+      {
+        &quot;start&quot;: 2.45,
+        &quot;end&quot;: 11.53,
+        &quot;text&quot;: &quot;President Tipton, Mr. Vice President, Governor, Congressman Thomas, Senator Wiley and Congressman&quot;
+      },
+      {
+        &quot;start&quot;: 11.53,
+        &quot;end&quot;: 20.61,
+        &quot;text&quot;: &quot;Miller, Mr. Webb, Mr. Bell, scientists, distinguished guests and ladies and gentlemen. I appreciate&quot;
+      },
+      {
+        &quot;start&quot;: 20.61,
+        &quot;end&quot;: 27.21,
+        &quot;text&quot;: &quot;your president having made me an honorary visiting professor, and I will assure you that&quot;
+      }
+    ],
+    &quot;billedMinutes&quot;: 8,
+    &quot;processingSeconds&quot;: 41.5,
+    &quot;transcribedAt&quot;: &quot;2026-10-26T07:27:02Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/audio-transcription</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;mediaUrls&#x27;: [&#x27;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&#x27;],
+ &#x27;maxMinutesPerFile&#x27;: 8,
+ &#x27;maxItems&#x27;: 1}
+
+run = client.actor(&quot;v0iddo/audio-transcription&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;mediaUrls&quot;: [
+    &quot;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;
+  ],
+  &quot;maxMinutesPerFile&quot;: 8,
+  &quot;maxItems&quot;: 1
+};
+
+const run = await client.actor(&#x27;v0iddo/audio-transcription&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~audio-transcription/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;mediaUrls&quot;: [&quot;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;], &quot;maxMinutesPerFile&quot;: 8, &quot;maxItems&quot;: 1}&#x27;
+</code></pre><h2>Price</h2>
+<p>$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. See the <a href="https://apify.com/v0iddo/audio-transcription/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One row per file: the whole text, its language, the length of the file, the minutes transcribed and, when asked, timestamped segments and SRT / VTT subtitles. Podcast rows add the show, the...</li>
+<li>Speed: about 6 minutes of audio per minute of run time with the base model at the default 4 GB of memory (8 GB is about twice as fast at the same price per minute). Long files fit in one run up to...</li>
+<li>Silence and music are skipped before recognition, so a long intro does not produce made up text; the minutes charged are the minutes of the file that were processed.</li>
+<li>Files are fetched only from addresses whose robots.txt allows it, and not from hosts that close their content to machine learning agents in robots.txt (several large podcast hosts do). Such a file...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Audio transcription return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include fileName, episodeTitle, language, durationSeconds, billedMinutes, wordCount, text, mediaUrl, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Audio transcription from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/audio-transcription</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/audio-transcription">Open Audio transcription on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
+<li><a href="/pdf-text-extractor/">PDF text extractor</a>: Extract the text of PDF files page by page, as plain text or as Markdown with headings, bold, lists and par...</li>
+<li><a href="/video-frame-extractor/">Video frame extractor</a>: Extract still frames from video files as JPEG, PNG or WebP images with timecodes: one every N seconds, a nu...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

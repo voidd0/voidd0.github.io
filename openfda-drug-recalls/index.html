@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openFDA Drug Recalls Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull recent FDA drug recall actions. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/openfda-drug-recalls/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openFDA Drug Recalls Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull recent FDA drug recall actions. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/openfda-drug-recalls/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the openFDA Drug Recalls Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include recallNumber, eventId, status, classification, productType, recallingFirm, firmAddress, productDescription, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the openFDA Drug Recalls Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/openfda-drug-recalls with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$5.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $3.50 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxResults input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>openFDA Drug Recalls Scraper: how to get Enforcement Reports as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull recent FDA drug recall actions. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/openfda-drug-recalls</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/openfda-drug-recalls">Open openFDA Drug Recalls Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>recallNumber</code></td><td>Recall Number</td><td>text</td><td>D-0860-2026</td></tr>
+<tr><td><code>eventId</code></td><td>Event Id</td><td>text</td><td>99712</td></tr>
+<tr><td><code>status</code></td><td>Status</td><td>text</td><td>Ongoing</td></tr>
+<tr><td><code>classification</code></td><td>Classification</td><td>text</td><td>Class II</td></tr>
+<tr><td><code>productType</code></td><td>Product Type</td><td>text</td><td>Drugs</td></tr>
+<tr><td><code>recallingFirm</code></td><td>Recalling Firm</td><td>text</td><td>Sterling Pharmaceutical Services LLC</td></tr>
+<tr><td><code>firmAddress</code></td><td>Firm Address</td><td>text</td><td>109 S 2nd St, Dupo, IL, 62239-1351, United States</td></tr>
+<tr><td><code>productDescription</code></td><td>Product Description</td><td>text</td><td>TRP The Relief Products* Gentle Eyes Lubricant Eye Drops, Carboxyme...</td></tr>
+<tr><td><code>productQuantity</code></td><td>Product Quantity</td><td>text</td><td>14538 bottles</td></tr>
+<tr><td><code>reasonForRecall</code></td><td>Reason For Recall</td><td>text</td><td>Lack of Assurance of Sterility</td></tr>
+<tr><td><code>voluntaryMandated</code></td><td>Voluntary Mandated</td><td>text</td><td>Voluntary: Firm initiated</td></tr>
+<tr><td><code>initialFirmNotification</code></td><td>Initial Firm Notification</td><td>text</td><td>Letter</td></tr>
+<tr><td><code>distributionPattern</code></td><td></td><td>text</td><td>USA Nationwide</td></tr>
+<tr><td><code>codeInfo</code></td><td></td><td>text</td><td>Lot # 3279, Exp 6/30/2027; Lot # 3292, Exp 5/31/2027.</td></tr>
+<tr><td><code>recallInitiationDate</code></td><td></td><td>text</td><td>20260820</td></tr>
+<tr><td><code>reportDate</code></td><td></td><td>text</td><td>20260930</td></tr>
+<tr><td><code>centerClassificationDate</code></td><td></td><td>text</td><td>20260921</td></tr>
+<tr><td><code>fdaUrl</code></td><td></td><td>text</td><td>https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-086...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;maxResults&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>sinceDays</code></td><td>integer</td><td>Filter by report_date &gt;= now-sinceDays.</td></tr>
+<tr><td><code>classifications</code></td><td>array</td><td>Limit to FDA class I (most serious), II, or III.</td></tr>
+<tr><td><code>statusFilter</code></td><td>array</td><td>Limit to current recall status.</td></tr>
+<tr><td><code>firmKeywords</code></td><td>array</td><td>Substring match against recallingfirm.</td></tr>
+<tr><td><code>productKeywords</code></td><td>array</td><td>Substring match against productdescription (active ingredient, brand).</td></tr>
+<tr><td><code>stateFilter</code></td><td>string</td><td>Optional: limit to recalls with a single state in distribution_pattern.</td></tr>
+<tr><td><code>maxResults</code></td><td>integer</td><td>Hard cap to keep runs cheap.</td></tr>
+<tr><td><code>apiKey</code></td><td>string</td><td>Optional. Anonymous = 240 req/min and 1k/day.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;recallNumber&quot;: &quot;D-0860-2026&quot;,
+    &quot;eventId&quot;: &quot;99712&quot;,
+    &quot;status&quot;: &quot;Ongoing&quot;,
+    &quot;classification&quot;: &quot;Class II&quot;,
+    &quot;productType&quot;: &quot;Drugs&quot;,
+    &quot;recallingFirm&quot;: &quot;Sterling Pharmaceutical Services LLC&quot;,
+    &quot;firmAddress&quot;: &quot;109 S 2nd St, Dupo, IL, 62239-1351, United States&quot;,
+    &quot;productDescription&quot;: &quot;TRP The Relief Products* Gentle Eyes Lubricant Eye Drops, Carboxymethylcellulose sodium 0.5%, Sterile Eye Drops, 0.5 FL OZ (15 mL) bottle...&quot;,
+    &quot;productQuantity&quot;: &quot;14538 bottles&quot;,
+    &quot;reasonForRecall&quot;: &quot;Lack of Assurance of Sterility&quot;,
+    &quot;voluntaryMandated&quot;: &quot;Voluntary: Firm initiated&quot;,
+    &quot;initialFirmNotification&quot;: &quot;Letter&quot;,
+    &quot;distributionPattern&quot;: &quot;USA Nationwide&quot;,
+    &quot;codeInfo&quot;: &quot;Lot # 3279, Exp 6/30/2027; Lot # 3292, Exp 5/31/2027.&quot;,
+    &quot;recallInitiationDate&quot;: &quot;20260820&quot;,
+    &quot;reportDate&quot;: &quot;20260930&quot;,
+    &quot;centerClassificationDate&quot;: &quot;20260921&quot;,
+    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0860-2026&quot;
+  },
+  {
+    &quot;recallNumber&quot;: &quot;D-0879-2026&quot;,
+    &quot;eventId&quot;: &quot;99866&quot;,
+    &quot;status&quot;: &quot;Ongoing&quot;,
+    &quot;classification&quot;: &quot;Class II&quot;,
+    &quot;productType&quot;: &quot;Drugs&quot;,
+    &quot;recallingFirm&quot;: &quot;SV Labs Toronto Corporation&quot;,
+    &quot;firmAddress&quot;: &quot;296 Orenda Rd, Brampton, Canada&quot;,
+    &quot;productDescription&quot;: &quot;Benzoyl Peroxide Wash, USP, 10%, packaged in a)5 FL OZ (148mL) bottles (NDC 0536-1261-63), and b) 8.5 FL OZ (237 mL) bottles (NDC 0536-13...&quot;,
+    &quot;reasonForRecall&quot;: &quot;Microbial contamination of topical product.&quot;,
+    &quot;voluntaryMandated&quot;: &quot;Voluntary: Firm initiated&quot;,
+    &quot;initialFirmNotification&quot;: &quot;E-Mail&quot;,
+    &quot;distributionPattern&quot;: &quot;IL only&quot;,
+    &quot;codeInfo&quot;: &quot;a) Lot #: 0575-01-366, Exp. Date Jan-27; 0565-02-336, Exp. Date FEB-27;  b) Lot #: 0645-02-355,  0575-02-336, Exp. Date Feb-27;  0565-12-...&quot;,
+    &quot;recallInitiationDate&quot;: &quot;20260901&quot;,
+    &quot;reportDate&quot;: &quot;20261007&quot;,
+    &quot;centerClassificationDate&quot;: &quot;20260930&quot;,
+    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0879-2026&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/openfda-drug-recalls</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;maxResults&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/openfda-drug-recalls&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;maxResults&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/openfda-drug-recalls&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~openfda-drug-recalls/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;maxResults&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$5.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $3.50 per 1,000. See the <a href="https://apify.com/v0iddo/openfda-drug-recalls/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the openFDA Drug Recalls Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include recallNumber, eventId, status, classification, productType, recallingFirm, firmAddress, productDescription, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the openFDA Drug Recalls Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/openfda-drug-recalls</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$5.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $3.50 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxResults</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/openfda-drug-recalls">Open openFDA Drug Recalls Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/yahoo-finance-scraper/">Yahoo Finance Scraper</a>: Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

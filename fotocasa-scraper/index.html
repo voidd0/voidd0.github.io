@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fotocasa Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Fotocasa property listings for sale or to rent across Spain: price, price drop, rooms, bathrooms, su... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/fotocasa-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fotocasa Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Fotocasa property listings for sale or to rent across Spain: price, price drop, rooms, bathrooms, su... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/fotocasa-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Fotocasa Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include propertyId, address, price, rentPeriod, propertyType, rooms, bathrooms, surfaceM2, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Fotocasa Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/fotocasa-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Real estate listings</nav>
+<h1>Fotocasa Scraper: how to get Spain Homes for Sale and Rent as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Fotocasa property listings for sale or to rent across Spain: price, price drop, rooms, bathrooms, surface, floor, features, neighbourhood and city, coordinates, photos, agency and publication date. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/fotocasa-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/fotocasa-scraper">Open Fotocasa Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>propertyId</code></td><td>Property ID</td><td>text</td><td>183937099</td></tr>
+<tr><td><code>address</code></td><td>Address</td><td>text</td><td>Barri Gòtic, Ciutat Vella, Barcelona</td></tr>
+<tr><td><code>price</code></td><td>Price (EUR)</td><td>number</td><td>1700</td></tr>
+<tr><td><code>rentPeriod</code></td><td>Rent period</td><td>text</td><td>monthly</td></tr>
+<tr><td><code>propertyType</code></td><td>Type</td><td>text</td><td>Flat</td></tr>
+<tr><td><code>rooms</code></td><td>Rooms</td><td>number</td><td>1</td></tr>
+<tr><td><code>bathrooms</code></td><td>Bathrooms</td><td>number</td><td>1</td></tr>
+<tr><td><code>surfaceM2</code></td><td>Surface (m2)</td><td>number</td><td>44</td></tr>
+<tr><td><code>sellerType</code></td><td>Seller</td><td>text</td><td></td></tr>
+<tr><td><code>agency</code></td><td>Agency</td><td>text</td><td>Uniplaces</td></tr>
+<tr><td><code>publishedAt</code></td><td>Published</td><td>date</td><td>2024-07-26T03:27:33Z</td></tr>
+<tr><td><code>url</code></td><td>Listing</td><td>URL</td><td>https://www.fotocasa.es/es/alquiler/vivienda/barcelona-capital/aire...</td></tr>
+<tr><td><code>adId</code></td><td></td><td>text</td><td>ddfbe7f2-240e-4a4e-9cf2-e09bae224c98</td></tr>
+<tr><td><code>channel</code></td><td></td><td>text</td><td>rent</td></tr>
+<tr><td><code>priceText</code></td><td></td><td>text</td><td>1.700 €</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>EUR</td></tr>
+<tr><td><code>propertySubType</code></td><td></td><td>text</td><td>Apartment</td></tr>
+<tr><td><code>features</code></td><td></td><td>list</td><td>[&quot;air_conditioner&quot;, &quot;furnished&quot;, &quot;oven&quot;]</td></tr>
+<tr><td><code>neighborhood</code></td><td></td><td>text</td><td>Barri Gòtic</td></tr>
+<tr><td><code>district</code></td><td></td><td>text</td><td>Ciutat Vella</td></tr>
+<tr><td><code>city</code></td><td></td><td>text</td><td>Barcelona</td></tr>
+<tr><td><code>province</code></td><td></td><td>text</td><td>Barcelona</td></tr>
+<tr><td><code>zipCode</code></td><td></td><td>text</td><td>08002</td></tr>
+<tr><td><code>latitude</code></td><td></td><td>number</td><td>41.383465</td></tr>
+<tr><td><code>longitude</code></td><td></td><td>number</td><td>2.177664</td></tr>
+<tr><td><code>isNewConstruction</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>isAuction</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>isOccupied</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>agencyUrl</code></td><td></td><td>text</td><td>https://www.fotocasa.es/es/pro/uniplaces-2/</td></tr>
+<tr><td><code>images</code></td><td></td><td>list</td><td>[&quot;https://static.fotocasa.es/images/ads/21fd70d8-6fde-4b36-b8f0-b0c...</td></tr>
+<tr><td><code>description</code></td><td></td><td>text</td><td>TIPO DE ALOJAMIENTO - alojamiento entero TÉRMINOS Y CONDICIONES DE ...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;searchUrls&quot;: [
+    &quot;https://www.fotocasa.es/es/comprar/viviendas/madrid-capital/todas-las-zonas/l&quot;
+  ],
+  &quot;channel&quot;: &quot;buy&quot;,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>locations</code></td><td>array</td><td>Fotocasa place slugs such as madrid-capital, barcelona-capital or valencia-capital.</td></tr>
+<tr><td><code>channel</code></td><td>string</td><td>Properties for sale or to rent.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://www.fotocasa.es/es/alquiler/viviendas/valencia-capital/todas-las-zonas/l .</td></tr>
+<tr><td><code>includeZones</code></td><td>boolean</td><td>Fotocasa&#x27;s robots.txt leaves only the first page of each search open to automated clients, about 30 listings.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;propertyId&quot;: 183937099,
+    &quot;adId&quot;: &quot;ddfbe7f2-240e-4a4e-9cf2-e09bae224c98&quot;,
+    &quot;url&quot;: &quot;https://www.fotocasa.es/es/alquiler/vivienda/barcelona-capital/aire-acondicionado-amueblado-internet/183937099/d&quot;,
+    &quot;channel&quot;: &quot;rent&quot;,
+    &quot;price&quot;: 1700,
+    &quot;priceText&quot;: &quot;1.700 €&quot;,
+    &quot;currency&quot;: &quot;EUR&quot;,
+    &quot;rentPeriod&quot;: &quot;monthly&quot;,
+    &quot;propertyType&quot;: &quot;Flat&quot;,
+    &quot;propertySubType&quot;: &quot;Apartment&quot;,
+    &quot;rooms&quot;: 1,
+    &quot;bathrooms&quot;: 1,
+    &quot;surfaceM2&quot;: 44,
+    &quot;features&quot;: [
+      &quot;air_conditioner&quot;,
+      &quot;furnished&quot;,
+      &quot;oven&quot;
+    ],
+    &quot;address&quot;: &quot;Barri Gòtic, Ciutat Vella, Barcelona&quot;,
+    &quot;neighborhood&quot;: &quot;Barri Gòtic&quot;,
+    &quot;district&quot;: &quot;Ciutat Vella&quot;,
+    &quot;city&quot;: &quot;Barcelona&quot;,
+    &quot;province&quot;: &quot;Barcelona&quot;,
+    &quot;zipCode&quot;: &quot;08002&quot;,
+    &quot;latitude&quot;: 41.383465,
+    &quot;longitude&quot;: 2.177664,
+    &quot;isNewConstruction&quot;: false,
+    &quot;isAuction&quot;: false,
+    &quot;isOccupied&quot;: false,
+    &quot;agency&quot;: &quot;Uniplaces&quot;,
+    &quot;agencyUrl&quot;: &quot;https://www.fotocasa.es/es/pro/uniplaces-2/&quot;,
+    &quot;images&quot;: [
+      &quot;https://static.fotocasa.es/images/ads/21fd70d8-6fde-4b36-b8f0-b0cee7ddc528?rule=original&quot;,
+      &quot;https://static.fotocasa.es/images/ads/3e6880b7-f377-4466-b62e-f41bebd81dc6?rule=original&quot;,
+      &quot;https://static.fotocasa.es/images/ads/06634193-5e46-41ab-af0d-f143f16690c3?rule=original&quot;
+    ],
+    &quot;publishedAt&quot;: &quot;2024-07-26T03:27:33Z&quot;,
+    &quot;description&quot;: &quot;TIPO DE ALOJAMIENTO - alojamiento entero TÉRMINOS Y CONDICIONES DE ALOJAMIENTO: - Fecha de disponibilidad: 26/11/2026 - Duración mínima d...&quot;
+  },
+  {
+    &quot;propertyId&quot;: 187103153,
+    &quot;adId&quot;: &quot;c4204e3e-2ab2-48a6-81ee-2ea9cd1ad0b1&quot;,
+    &quot;url&quot;: &quot;https://www.fotocasa.es/es/alquiler/vivienda/barcelona-capital/calefaccion-parking-zona-comunitaria-ascensor-piscina/187103153/d&quot;,
+    &quot;channel&quot;: &quot;rent&quot;,
+    &quot;price&quot;: 4950,
+    &quot;priceText&quot;: &quot;4.950 €&quot;,
+    &quot;currency&quot;: &quot;EUR&quot;,
+    &quot;priceReduction&quot;: 550,
+    &quot;rentPeriod&quot;: &quot;monthly&quot;,
+    &quot;propertyType&quot;: &quot;Flat&quot;,
+    &quot;propertySubType&quot;: &quot;Flat&quot;,
+    &quot;rooms&quot;: 4,
+    &quot;bathrooms&quot;: 3,
+    &quot;surfaceM2&quot;: 191,
+    &quot;floor&quot;: 2,
+    &quot;features&quot;: [
+      &quot;heating&quot;,
+      &quot;parking&quot;,
+      &quot;community_zone&quot;
+    ],
+    &quot;address&quot;: &quot;del Doctor Francesc Darder, Pedralbes, Les Corts, Barcelona&quot;,
+    &quot;street&quot;: &quot;del Doctor Francesc Darder&quot;,
+    &quot;neighborhood&quot;: &quot;Pedralbes&quot;,
+    &quot;district&quot;: &quot;Les Corts&quot;,
+    &quot;city&quot;: &quot;Barcelona&quot;,
+    &quot;province&quot;: &quot;Barcelona&quot;,
+    &quot;zipCode&quot;: &quot;08034&quot;,
+    &quot;latitude&quot;: 41.395383,
+    &quot;longitude&quot;: 2.115281,
+    &quot;isNewConstruction&quot;: false,
+    &quot;isAuction&quot;: false,
+    &quot;isOccupied&quot;: false,
+    &quot;agency&quot;: &quot;OLLÉ BERTRÁN&quot;,
+    &quot;agencyUrl&quot;: &quot;https://www.fotocasa.es/es/pro/olle-bertran/&quot;,
+    &quot;images&quot;: [
+      &quot;https://static.fotocasa.es/images/ads/45fb8909-abf5-485a-ad8b-a35e5b7ca641?rule=original&quot;,
+      &quot;https://static.fotocasa.es/images/ads/d681e530-a084-4c5d-80f9-e95301489659?rule=original&quot;,
+      &quot;https://static.fotocasa.es/images/ads/f51f8bb6-0c8c-4e91-8974-0dee474f519c?rule=original&quot;
+    ],
+    &quot;publishedAt&quot;: &quot;2025-07-18T14:42:59Z&quot;,
+    &quot;description&quot;: &quot;Piso en alquiler de 191 m² construidos y 177m² útiles en la calle Dr. Francesc Darder, en Pedralbes. Barcelona. Dispone de cuatro habitac...&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/fotocasa-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;searchUrls&#x27;: [&#x27;https://www.fotocasa.es/es/comprar/viviendas/madrid-capital/todas-las-zonas/l&#x27;],
+ &#x27;channel&#x27;: &#x27;buy&#x27;,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/fotocasa-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;searchUrls&quot;: [
+    &quot;https://www.fotocasa.es/es/comprar/viviendas/madrid-capital/todas-las-zonas/l&quot;
+  ],
+  &quot;channel&quot;: &quot;buy&quot;,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/fotocasa-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~fotocasa-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;searchUrls&quot;: [&quot;https://www.fotocasa.es/es/comprar/viviendas/madrid-capital/todas-las-zonas/l&quot;], &quot;channel&quot;: &quot;buy&quot;, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. See the <a href="https://apify.com/v0iddo/fotocasa-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Coverage: homes for sale and to rent on fotocasa.es. Fotocasa&#x27;s robots.txt closes every results page after the first, so one search returns the first page, about 30 listings. A search of a whole...</li>
+<li>Large zones are not read to the end. To go deeper, search smaller zones: add place slugs with a zone such as madrid-capital/chamberi, or paste the address of a district or neighbourhood page.</li>
+<li>Telephone numbers and e-mail addresses are never collected, and any found inside an agency description are removed. Descriptions are clipped to about 300 characters.</li>
+<li>Listings from private sellers are reduced to area level (no street, no map point, no description) so no private person can be identified. They carry sellerType private and no agency, name or...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Fotocasa Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include propertyId, address, price, rentPeriod, propertyType, rooms, bathrooms, surfaceM2, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Fotocasa Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/fotocasa-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/fotocasa-scraper">Open Fotocasa Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/zillow-scraper/">Zillow Search Scraper</a>: Scrape Zillow search results for homes for sale, rentals and recently sold properties: price, address, beds...</li>
+<li><a href="/rightmove-scraper/">Rightmove Scraper</a>: Scrape Rightmove property listings for sale or to rent across the UK: price, address, bedrooms, bathrooms,...</li>
+<li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Collect public ads from the Meta Ad Library by keyword, advertiser Page ID or Ad Library link: ad text, hea...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

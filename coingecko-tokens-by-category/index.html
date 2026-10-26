@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoinGecko Tokens Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pulls the top 100 tokens by market cap in each CoinGecko category (DeFi, meme, L1, ecosystem tags) with cur... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/coingecko-tokens-by-category/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoinGecko Tokens Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pulls the top 100 tokens by market cap in each CoinGecko category (DeFi, meme, L1, ecosystem tags) with cur... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/coingecko-tokens-by-category/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the CoinGecko Tokens Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include category, coin_id, symbol, name, price_usd, market_cap_usd, rank, volume_24h_usd, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the CoinGecko Tokens Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/coingecko-tokens-by-category with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>CoinGecko Tokens Scraper: how to get Token List by Category as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pulls the top 100 tokens by market cap in each CoinGecko category (DeFi, meme, L1, ecosystem tags) with current price, market cap, 24h volume, rank, and price change. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/coingecko-tokens-by-category</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/coingecko-tokens-by-category">Open CoinGecko Tokens Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>layer-1</td></tr>
+<tr><td><code>coin_id</code></td><td>Coin id</td><td>text</td><td>bitcoin</td></tr>
+<tr><td><code>symbol</code></td><td>Symbol</td><td>text</td><td>btc</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>Bitcoin</td></tr>
+<tr><td><code>price_usd</code></td><td>Price usd</td><td>number</td><td>79813</td></tr>
+<tr><td><code>market_cap_usd</code></td><td>Market cap usd</td><td>number</td><td>1604707813147</td></tr>
+<tr><td><code>rank</code></td><td>Rank</td><td>number</td><td>1</td></tr>
+<tr><td><code>volume_24h_usd</code></td><td>Volume 24h usd</td><td>number</td><td>17466480099</td></tr>
+<tr><td><code>change_pct_24h</code></td><td>Change pct 24h</td><td>number</td><td>-1.204</td></tr>
+<tr><td><code>circulating_supply</code></td><td>Circulating supply</td><td>number</td><td>20103596</td></tr>
+<tr><td><code>all_time_high_usd</code></td><td>All time high usd</td><td>number</td><td>126080</td></tr>
+<tr><td><code>logo_url</code></td><td>Logo url</td><td>URL</td><td>https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?...</td></tr>
+<tr><td><code>last_updated</code></td><td></td><td>text</td><td>2026-10-26T04:24:58.000Z</td></tr>
+<tr><td><code>snapshot_at</code></td><td></td><td>text</td><td>2026-10-26T04:25:15+00:00</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;category&quot;: [
+    &quot;layer-1&quot;,
+    &quot;meme-token&quot;,
+    &quot;gaming&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>category</code></td><td>array</td><td>CoinGecko category slug (from /coins/categories/list).</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;category&quot;: &quot;layer-1&quot;,
+    &quot;coin_id&quot;: &quot;bitcoin&quot;,
+    &quot;symbol&quot;: &quot;btc&quot;,
+    &quot;name&quot;: &quot;Bitcoin&quot;,
+    &quot;price_usd&quot;: 79813,
+    &quot;market_cap_usd&quot;: 1604707813147,
+    &quot;rank&quot;: 1,
+    &quot;volume_24h_usd&quot;: 17466480099,
+    &quot;change_pct_24h&quot;: -1.204,
+    &quot;circulating_supply&quot;: 20103596,
+    &quot;all_time_high_usd&quot;: 126080,
+    &quot;logo_url&quot;: &quot;https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400&quot;,
+    &quot;last_updated&quot;: &quot;2026-10-26T04:24:58.000Z&quot;,
+    &quot;snapshot_at&quot;: &quot;2026-10-26T04:25:15+00:00&quot;
+  },
+  {
+    &quot;category&quot;: &quot;layer-1&quot;,
+    &quot;coin_id&quot;: &quot;ethereum&quot;,
+    &quot;symbol&quot;: &quot;eth&quot;,
+    &quot;name&quot;: &quot;Ethereum&quot;,
+    &quot;price_usd&quot;: 2309.01,
+    &quot;market_cap_usd&quot;: 282153814077,
+    &quot;rank&quot;: 2,
+    &quot;volume_24h_usd&quot;: 7790574891,
+    &quot;change_pct_24h&quot;: -2.24007,
+    &quot;circulating_supply&quot;: 122164245.29589781,
+    &quot;all_time_high_usd&quot;: 4946.05,
+    &quot;logo_url&quot;: &quot;https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628&quot;,
+    &quot;last_updated&quot;: &quot;2026-10-26T04:24:58.000Z&quot;,
+    &quot;snapshot_at&quot;: &quot;2026-10-26T04:25:15+00:00&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/coingecko-tokens-by-category</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;category&#x27;: [&#x27;layer-1&#x27;, &#x27;meme-token&#x27;, &#x27;gaming&#x27;]}
+
+run = client.actor(&quot;v0iddo/coingecko-tokens-by-category&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;category&quot;: [
+    &quot;layer-1&quot;,
+    &quot;meme-token&quot;,
+    &quot;gaming&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/coingecko-tokens-by-category&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~coingecko-tokens-by-category/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;category&quot;: [&quot;layer-1&quot;, &quot;meme-token&quot;, &quot;gaming&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/coingecko-tokens-by-category/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the CoinGecko Tokens Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include category, coin_id, symbol, name, price_usd, market_cap_usd, rank, volume_24h_usd, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the CoinGecko Tokens Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/coingecko-tokens-by-category</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/coingecko-tokens-by-category">Open CoinGecko Tokens Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/yahoo-finance-scraper/">Yahoo Finance Scraper</a>: Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IIMJobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, exper... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/iimjobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IIMJobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, exper... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/iimjobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the IIMJobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, experienceMin, experienceMax, salaryMinLakhs, salaryMaxLakhs, skills, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the IIMJobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/iimjobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>IIMJobs Scraper: how to get India Finance and MBA Jobs as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, experience in years, salary in lakhs when shown, skills, category, posting time, the employer&#x27;s AmbitionBox rating and profile, and the description. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/iimjobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/iimjobs-scraper">Open IIMJobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Manager - Finance Digitalization</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Puma Energy</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Mumbai</td></tr>
+<tr><td><code>experienceMin</code></td><td>Experience from</td><td>number</td><td>6</td></tr>
+<tr><td><code>experienceMax</code></td><td>Experience to</td><td>number</td><td>11</td></tr>
+<tr><td><code>salaryMinLakhs</code></td><td>Salary from (lakhs)</td><td>number</td><td></td></tr>
+<tr><td><code>salaryMaxLakhs</code></td><td>Salary to (lakhs)</td><td>number</td><td></td></tr>
+<tr><td><code>skills</code></td><td>Skills</td><td>list</td><td>[&quot;Accounting&quot;, &quot;Finance and Accounts&quot;, &quot;Financial Analysis&quot;]</td></tr>
+<tr><td><code>companyRating</code></td><td>Employer rating</td><td>number</td><td>2.8</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-23T07:03:29Z</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.iimjobs.com/j/puma-energy-manager-finance-digitalizatio...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>1741422</td></tr>
+<tr><td><code>site</code></td><td></td><td>text</td><td>iimjobs.com</td></tr>
+<tr><td><code>postingTitle</code></td><td></td><td>text</td><td>Puma Energy - Manager - Finance Digitalization/Finance Transformation</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://recruiter-static-content.s3.ap-south-1.amazonaws.com/Compan...</td></tr>
+<tr><td><code>companyReviews</code></td><td></td><td>number</td><td>164</td></tr>
+<tr><td><code>companyFounded</code></td><td></td><td>number</td><td>1997</td></tr>
+<tr><td><code>companyEmployeesIndia</code></td><td></td><td>text</td><td>201-500</td></tr>
+<tr><td><code>companyType</code></td><td></td><td>text</td><td>Foreign MNC</td></tr>
+<tr><td><code>companyIndustry</code></td><td></td><td>text</td><td>Power</td></tr>
+<tr><td><code>companyHeadquarters</code></td><td></td><td>text</td><td>Geneva, Switzerland</td></tr>
+<tr><td><code>companyAbout</code></td><td></td><td>text</td><td>Puma Energy is a leading global energy business. Our downstream bus...</td></tr>
+<tr><td><code>companyReviewsUrl</code></td><td></td><td>text</td><td>https://www.ambitionbox.com/reviews/puma-energy-reviews</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Mumbai&quot;, &quot;Thane&quot;, &quot;Maharashtra&quot;]</td></tr>
+<tr><td><code>remote</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>salaryHidden</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>mandatorySkills</code></td><td></td><td>list</td><td>[&quot;Financial Analysis&quot;, &quot;Record To Report&quot;, &quot;Order To Cash&quot;]</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Banking &amp; Finance</td></tr>
+<tr><td><code>premium</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Job Description:
+
+Location: Vikhroli
+
+Working days and Time: 5-day ...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-25T10:49:01Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;finance manager&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Mumbai&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles, skills or words such as chartered accountant, product manager or brand manager.</td></tr>
+<tr><td><code>category</code></td><td>string</td><td>Optional. With search terms it keeps the results of this category; alone it lists the category, for example Banking &amp; Finance or Consulting.</td></tr>
+<tr><td><code>locations</code></td><td>array</td><td>Optional cities or states such as Bangalore, Mumbai, Delhi NCR, Pune, Hyderabad, Chennai or Remote.</td></tr>
+<tr><td><code>experienceMin</code></td><td>integer</td><td>Optional. Postings whose experience band overlaps the range you give.</td></tr>
+<tr><td><code>experienceMax</code></td><td>integer</td><td>Optional. Upper end of the experience range in years.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only postings from the last 3, 7, 15 or 30 days.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Keep only postings whose employer shows the salary range.</td></tr>
+<tr><td><code>remoteOnly</code></td><td>boolean</td><td>Keep only postings marked work from home or located in Remote.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting once more for its description text.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 1741422,
+    &quot;site&quot;: &quot;iimjobs.com&quot;,
+    &quot;title&quot;: &quot;Manager - Finance Digitalization&quot;,
+    &quot;postingTitle&quot;: &quot;Puma Energy - Manager - Finance Digitalization/Finance Transformation&quot;,
+    &quot;company&quot;: &quot;Puma Energy&quot;,
+    &quot;companyLogo&quot;: &quot;https://recruiter-static-content.s3.ap-south-1.amazonaws.com/CompanyLogos/centralised-21934.webp&quot;,
+    &quot;companyRating&quot;: 2.8,
+    &quot;companyReviews&quot;: 164,
+    &quot;companyFounded&quot;: 1997,
+    &quot;companyEmployeesIndia&quot;: &quot;201-500&quot;,
+    &quot;companyType&quot;: &quot;Foreign MNC&quot;,
+    &quot;companyIndustry&quot;: &quot;Power&quot;,
+    &quot;companyHeadquarters&quot;: &quot;Geneva, Switzerland&quot;,
+    &quot;companyAbout&quot;: &quot;Puma Energy is a leading global energy business. Our downstream business includes fuels, aviation, lubricants and bitumen, with a strong...&quot;,
+    &quot;companyReviewsUrl&quot;: &quot;https://www.ambitionbox.com/reviews/puma-energy-reviews&quot;,
+    &quot;locations&quot;: [
+      &quot;Mumbai&quot;,
+      &quot;Thane&quot;,
+      &quot;Maharashtra&quot;
+    ],
+    &quot;location&quot;: &quot;Mumbai&quot;,
+    &quot;remote&quot;: false,
+    &quot;experienceMin&quot;: 6,
+    &quot;experienceMax&quot;: 11,
+    &quot;salaryHidden&quot;: true,
+    &quot;skills&quot;: [
+      &quot;Accounting&quot;,
+      &quot;Finance and Accounts&quot;,
+      &quot;Financial Analysis&quot;
+    ],
+    &quot;mandatorySkills&quot;: [
+      &quot;Financial Analysis&quot;,
+      &quot;Record To Report&quot;,
+      &quot;Order To Cash&quot;
+    ],
+    &quot;category&quot;: &quot;Banking &amp; Finance&quot;,
+    &quot;premium&quot;: true,
+    &quot;postedAt&quot;: &quot;2026-10-23T07:03:29Z&quot;,
+    &quot;descriptionText&quot;: &quot;Job Description:\n\nLocation: Vikhroli\n\nWorking days and Time: 5-day WFO (post probation 1-day WFH)\n\nTime: 11:30 AM to 8:30 PM (Transportat...&quot;,
+    &quot;url&quot;: &quot;https://www.iimjobs.com/j/puma-energy-manager-finance-digitalizationfinance-transformation-1741422&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-25T10:49:01Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/iimjobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;finance manager&#x27;],
+ &#x27;locations&#x27;: [&#x27;Mumbai&#x27;],
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/iimjobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;finance manager&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Mumbai&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/iimjobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~iimjobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;finance manager&quot;], &quot;locations&quot;: [&quot;Mumbai&quot;], &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/iimjobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per search term; postings are unique by ID across the whole run. Without search terms, a category lists every open posting of that category on iimjobs.com.</li>
+<li>A search shows at most 100 pages of 50 postings. For a broad search, add locations or an experience range.</li>
+<li>salaryMinLakhs and salaryMaxLakhs are the yearly salary in lakhs of rupees (1 lakh = 100,000 INR), only when the employer shows it; salaryHidden is true otherwise. Most employers hide it.</li>
+<li>experienceMin and experienceMax are the years of experience the posting asks for. The experience filter keeps postings whose band overlaps your range.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the IIMJobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, experienceMin, experienceMax, salaryMinLakhs, salaryMaxLakhs, skills, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the IIMJobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/iimjobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/iimjobs-scraper">Open IIMJobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/indeed-scraper/">Indeed Jobs Scraper</a>: Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran...</li>
+<li><a href="/remote-jobs-scraper/">Remote Jobs Scraper</a>: Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

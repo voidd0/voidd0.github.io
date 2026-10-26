@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lever Jobs API and Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Lever jobs API and scraper. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/lever-public-jobs/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lever Jobs API and Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Lever jobs API and scraper. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/lever-public-jobs/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Lever Jobs API and Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include company, jobId, title, team, department, location, allLocations, country, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Lever Jobs API and Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/lever-public-jobs with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Lever Jobs API and Scraper: how to get Job Postings by Company as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Lever jobs API and scraper. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/lever-public-jobs</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/lever-public-jobs">Open Lever Jobs API and Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>spotify</td></tr>
+<tr><td><code>jobId</code></td><td>Job Id</td><td>text</td><td>2a55d6c9-c564-443a-be3e-a3851db5a93b</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Account Executive - Commercial, Spotify Technology</td></tr>
+<tr><td><code>team</code></td><td>Team</td><td>text</td><td>Platform</td></tr>
+<tr><td><code>department</code></td><td>Department</td><td>text</td><td>Operations and Business Support</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>New York, NY</td></tr>
+<tr><td><code>allLocations</code></td><td>All Locations</td><td>list</td><td>[&quot;New York, NY&quot;]</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>US</td></tr>
+<tr><td><code>workplaceType</code></td><td>Workplace Type</td><td>text</td><td>hybrid</td></tr>
+<tr><td><code>commitment</code></td><td>Commitment</td><td>text</td><td>Permanent</td></tr>
+<tr><td><code>createdAtMs</code></td><td>Created At Ms</td><td>number</td><td>1792767640768</td></tr>
+<tr><td><code>createdAt</code></td><td>Created At</td><td>date</td><td>2026-10-23T15:00:40.768000+00:00</td></tr>
+<tr><td><code>url</code></td><td></td><td>text</td><td>https://jobs.lever.co/spotify/2a55d6c9-c564-443a-be3e-a3851db5a93b</td></tr>
+<tr><td><code>applyUrl</code></td><td></td><td>text</td><td>https://jobs.lever.co/spotify/2a55d6c9-c564-443a-be3e-a3851db5a93b/...</td></tr>
+<tr><td><code>role</code></td><td></td><td>text</td><td>sales</td></tr>
+<tr><td><code>descriptionPlain</code></td><td></td><td>text</td><td>Spotify Technology is our business-to-business software team, helpi...</td></tr>
+<tr><td><code>additionalPlain</code></td><td></td><td>text</td><td>The United States base range for this position is $87,069-$124,385 ...</td></tr>
+<tr><td><code>descriptionLength</code></td><td></td><td>number</td><td>1125</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;companies&quot;: [
+    &quot;spotify&quot;,
+    &quot;palantir&quot;
+  ],
+  &quot;maxJobsPerCompany&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>companies</code> (required)</td><td>array</td><td>The slug in jobs.lever.co/.</td></tr>
+<tr><td><code>includeDescriptions</code></td><td>boolean</td><td>Adds the plain-text job description (descriptionPlain) and addenda (additionalPlain) per row.</td></tr>
+<tr><td><code>maxJobsPerCompany</code></td><td>integer</td><td>Hard cap per company. Lever returns the whole board in one response.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;company&quot;: &quot;spotify&quot;,
+    &quot;jobId&quot;: &quot;2a55d6c9-c564-443a-be3e-a3851db5a93b&quot;,
+    &quot;title&quot;: &quot;Account Executive - Commercial, Spotify Technology&quot;,
+    &quot;team&quot;: &quot;Platform&quot;,
+    &quot;department&quot;: &quot;Operations and Business Support&quot;,
+    &quot;location&quot;: &quot;New York, NY&quot;,
+    &quot;allLocations&quot;: [
+      &quot;New York, NY&quot;
+    ],
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;workplaceType&quot;: &quot;hybrid&quot;,
+    &quot;commitment&quot;: &quot;Permanent&quot;,
+    &quot;createdAtMs&quot;: 1792767640768,
+    &quot;createdAt&quot;: &quot;2026-10-23T15:00:40.768000+00:00&quot;,
+    &quot;url&quot;: &quot;https://jobs.lever.co/spotify/2a55d6c9-c564-443a-be3e-a3851db5a93b&quot;,
+    &quot;applyUrl&quot;: &quot;https://jobs.lever.co/spotify/2a55d6c9-c564-443a-be3e-a3851db5a93b/apply&quot;,
+    &quot;role&quot;: &quot;sales&quot;,
+    &quot;descriptionPlain&quot;: &quot;Spotify Technology is our business-to-business software team, helping organizations improve how they build and deliver software. Our prod...&quot;,
+    &quot;additionalPlain&quot;: &quot;The United States base range for this position is $87,069-$124,385 plus equity. The benefits available for this position include health i...&quot;,
+    &quot;descriptionLength&quot;: 1125
+  },
+  {
+    &quot;company&quot;: &quot;spotify&quot;,
+    &quot;jobId&quot;: &quot;2d67c471-9015-41c0-a041-b982ec4a14fd&quot;,
+    &quot;title&quot;: &quot;Account Executive - Commercial, Spotify Technology&quot;,
+    &quot;team&quot;: &quot;Platform&quot;,
+    &quot;department&quot;: &quot;Operations and Business Support&quot;,
+    &quot;location&quot;: &quot;London&quot;,
+    &quot;allLocations&quot;: [
+      &quot;London&quot;
+    ],
+    &quot;country&quot;: &quot;GB&quot;,
+    &quot;workplaceType&quot;: &quot;hybrid&quot;,
+    &quot;commitment&quot;: &quot;Permanent&quot;,
+    &quot;createdAtMs&quot;: 1792792277203,
+    &quot;createdAt&quot;: &quot;2026-10-23T21:51:17.203000+00:00&quot;,
+    &quot;url&quot;: &quot;https://jobs.lever.co/spotify/2d67c471-9015-41c0-a041-b982ec4a14fd&quot;,
+    &quot;applyUrl&quot;: &quot;https://jobs.lever.co/spotify/2d67c471-9015-41c0-a041-b982ec4a14fd/apply&quot;,
+    &quot;role&quot;: &quot;sales&quot;,
+    &quot;descriptionPlain&quot;: &quot;Spotify Technology is our business-to-business software team, helping organizations improve how they build and deliver software. Our prod...&quot;,
+    &quot;additionalPlain&quot;: &quot;The Canada base range for this position is $82,902 - $118,432 CAD plus equity. Benefits available for this position include extended heal...&quot;,
+    &quot;descriptionLength&quot;: 1125
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/lever-public-jobs</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;companies&#x27;: [&#x27;spotify&#x27;, &#x27;palantir&#x27;], &#x27;maxJobsPerCompany&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/lever-public-jobs&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;companies&quot;: [
+    &quot;spotify&quot;,
+    &quot;palantir&quot;
+  ],
+  &quot;maxJobsPerCompany&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/lever-public-jobs&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~lever-public-jobs/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;companies&quot;: [&quot;spotify&quot;, &quot;palantir&quot;], &quot;maxJobsPerCompany&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. See the <a href="https://apify.com/v0iddo/lever-public-jobs/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Lever Jobs API and Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include company, jobId, title, team, department, location, allLocations, country, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Lever Jobs API and Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/lever-public-jobs</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/lever-public-jobs">Open Lever Jobs API and Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/indeed-scraper/">Indeed Jobs Scraper</a>: Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran...</li>
+<li><a href="/remote-jobs-scraper/">Remote Jobs Scraper</a>: Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

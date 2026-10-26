@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yahoo Finance Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/yahoo-finance-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yahoo Finance Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/yahoo-finance-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Yahoo Finance Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include symbol, name, quoteType, price, currency, changePercent, volume, marketCap, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Yahoo Finance Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/yahoo-finance-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>Yahoo Finance Scraper: how to get Stock Quotes and Key Statistics as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: price, change, volume, market cap, P/E, EPS, dividend, 52 week range, analyst target, sector and next earnings date. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/yahoo-finance-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/yahoo-finance-scraper">Open Yahoo Finance Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>symbol</code></td><td>Symbol</td><td>text</td><td>AAPL</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>Apple Inc.</td></tr>
+<tr><td><code>quoteType</code></td><td>Type</td><td>text</td><td>EQUITY</td></tr>
+<tr><td><code>price</code></td><td>Price</td><td>number</td><td>347.725</td></tr>
+<tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
+<tr><td><code>changePercent</code></td><td>Change %</td><td>number</td><td>-0.14215012</td></tr>
+<tr><td><code>volume</code></td><td>Volume</td><td>number</td><td>39539690</td></tr>
+<tr><td><code>marketCap</code></td><td>Market cap</td><td>number</td><td>5074761285632</td></tr>
+<tr><td><code>trailingPE</code></td><td>P/E</td><td>number</td><td>39.87672</td></tr>
+<tr><td><code>dividendYield</code></td><td>Dividend yield %</td><td>number</td><td>0.31</td></tr>
+<tr><td><code>fiftyTwoWeekLow</code></td><td>52 week low</td><td>number</td><td>243.42</td></tr>
+<tr><td><code>fiftyTwoWeekHigh</code></td><td>52 week high</td><td>number</td><td>351.73</td></tr>
+<tr><td><code>regularMarketTime</code></td><td>Quote time</td><td>date</td><td>2026-10-23T20:00:01Z</td></tr>
+<tr><td><code>url</code></td><td>Yahoo Finance page</td><td>URL</td><td>https://finance.yahoo.com/quote/AAPL/</td></tr>
+<tr><td><code>exchange</code></td><td></td><td>text</td><td>NasdaqGS</td></tr>
+<tr><td><code>marketState</code></td><td></td><td>text</td><td>OVERNIGHT</td></tr>
+<tr><td><code>change</code></td><td></td><td>number</td><td>-0.49499512</td></tr>
+<tr><td><code>previousClose</code></td><td></td><td>number</td><td>348.22</td></tr>
+<tr><td><code>open</code></td><td></td><td>number</td><td>349.11</td></tr>
+<tr><td><code>dayLow</code></td><td></td><td>number</td><td>345.75</td></tr>
+<tr><td><code>dayHigh</code></td><td></td><td>number</td><td>351.73</td></tr>
+<tr><td><code>averageVolume</code></td><td></td><td>number</td><td>43991589</td></tr>
+<tr><td><code>forwardPE</code></td><td></td><td>number</td><td>36.365494</td></tr>
+<tr><td><code>epsTrailing</code></td><td></td><td>number</td><td>8.72</td></tr>
+<tr><td><code>dividendRate</code></td><td></td><td>number</td><td>1.08</td></tr>
+<tr><td><code>exDividendDate</code></td><td></td><td>text</td><td>2026-08-10</td></tr>
+<tr><td><code>beta</code></td><td></td><td>number</td><td>1.069</td></tr>
+<tr><td><code>earningsDate</code></td><td></td><td>text</td><td>2026-11-02</td></tr>
+<tr><td><code>targetMeanPrice</code></td><td></td><td>number</td><td>329.24768</td></tr>
+<tr><td><code>recommendation</code></td><td></td><td>text</td><td>buy</td></tr>
+<tr><td><code>sector</code></td><td></td><td>text</td><td>Technology</td></tr>
+<tr><td><code>industry</code></td><td></td><td>text</td><td>Consumer Electronics</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T04:30:36Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;tickers&quot;: [
+    &quot;AAPL&quot;,
+    &quot;MSFT&quot;,
+    &quot;NVDA&quot;,
+    &quot;AMZN&quot;,
+    &quot;GOOGL&quot;,
+    &quot;META&quot;,
+    &quot;TSLA&quot;,
+    &quot;SPY&quot;,
+    &quot;QQQ&quot;,
+    &quot;^GSPC&quot;,
+    &quot;BTC-USD&quot;,
+    &quot;EURUSD=X&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>tickers</code> (required)</td><td>array</td><td>Yahoo Finance symbols, one per entry: stocks such as AAPL or BRK-B, ETFs such as SPY, indexes such as ^GSPC, crypto such as BTC-USD, currency pairs such as EURUSD=X an...</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;symbol&quot;: &quot;AAPL&quot;,
+    &quot;name&quot;: &quot;Apple Inc.&quot;,
+    &quot;quoteType&quot;: &quot;EQUITY&quot;,
+    &quot;exchange&quot;: &quot;NasdaqGS&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;marketState&quot;: &quot;OVERNIGHT&quot;,
+    &quot;price&quot;: 347.725,
+    &quot;change&quot;: -0.49499512,
+    &quot;changePercent&quot;: -0.14215012,
+    &quot;previousClose&quot;: 348.22,
+    &quot;open&quot;: 349.11,
+    &quot;dayLow&quot;: 345.75,
+    &quot;dayHigh&quot;: 351.73,
+    &quot;fiftyTwoWeekLow&quot;: 243.42,
+    &quot;fiftyTwoWeekHigh&quot;: 351.73,
+    &quot;volume&quot;: 39539690,
+    &quot;averageVolume&quot;: 43991589,
+    &quot;marketCap&quot;: 5074761285632,
+    &quot;trailingPE&quot;: 39.87672,
+    &quot;forwardPE&quot;: 36.365494,
+    &quot;epsTrailing&quot;: 8.72,
+    &quot;dividendRate&quot;: 1.08,
+    &quot;dividendYield&quot;: 0.31,
+    &quot;exDividendDate&quot;: &quot;2026-08-10&quot;,
+    &quot;beta&quot;: 1.069,
+    &quot;earningsDate&quot;: &quot;2026-11-02&quot;,
+    &quot;targetMeanPrice&quot;: 329.24768,
+    &quot;recommendation&quot;: &quot;buy&quot;,
+    &quot;sector&quot;: &quot;Technology&quot;,
+    &quot;industry&quot;: &quot;Consumer Electronics&quot;,
+    &quot;regularMarketTime&quot;: &quot;2026-10-23T20:00:01Z&quot;,
+    &quot;url&quot;: &quot;https://finance.yahoo.com/quote/AAPL/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:30:36Z&quot;
+  },
+  {
+    &quot;symbol&quot;: &quot;MSFT&quot;,
+    &quot;name&quot;: &quot;Microsoft Corporation&quot;,
+    &quot;quoteType&quot;: &quot;EQUITY&quot;,
+    &quot;exchange&quot;: &quot;NasdaqGS&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;marketState&quot;: &quot;OVERNIGHT&quot;,
+    &quot;price&quot;: 524.51,
+    &quot;change&quot;: 3.4299927,
+    &quot;changePercent&quot;: 0.6582468,
+    &quot;previousClose&quot;: 521.08,
+    &quot;open&quot;: 517.995,
+    &quot;dayLow&quot;: 515.7,
+    &quot;dayHigh&quot;: 525.77,
+    &quot;fiftyTwoWeekLow&quot;: 349.2,
+    &quot;fiftyTwoWeekHigh&quot;: 553.72,
+    &quot;volume&quot;: 13681067,
+    &quot;averageVolume&quot;: 25928984,
+    &quot;marketCap&quot;: 3894773022720,
+    &quot;trailingPE&quot;: 29.220612,
+    &quot;forwardPE&quot;: 22.128946,
+    &quot;epsTrailing&quot;: 17.95,
+    &quot;dividendRate&quot;: 3.92,
+    &quot;dividendYield&quot;: 0.75,
+    &quot;exDividendDate&quot;: &quot;2026-11-19&quot;,
+    &quot;beta&quot;: 1.099,
+    &quot;earningsDate&quot;: &quot;2026-10-28&quot;,
+    &quot;targetMeanPrice&quot;: 601.7281,
+    &quot;recommendation&quot;: &quot;strong_buy&quot;,
+    &quot;sector&quot;: &quot;Technology&quot;,
+    &quot;industry&quot;: &quot;Software - Infrastructure&quot;,
+    &quot;regularMarketTime&quot;: &quot;2026-10-23T20:00:01Z&quot;,
+    &quot;url&quot;: &quot;https://finance.yahoo.com/quote/MSFT/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:30:38Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/yahoo-finance-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;tickers&#x27;: [&#x27;AAPL&#x27;,
+             &#x27;MSFT&#x27;,
+             &#x27;NVDA&#x27;,
+             &#x27;AMZN&#x27;,
+             &#x27;GOOGL&#x27;,
+             &#x27;META&#x27;,
+             &#x27;TSLA&#x27;,
+             &#x27;SPY&#x27;,
+             &#x27;QQQ&#x27;,
+             &#x27;^GSPC&#x27;,
+             &#x27;BTC-USD&#x27;,
+             &#x27;EURUSD=X&#x27;],
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/yahoo-finance-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;tickers&quot;: [
+    &quot;AAPL&quot;,
+    &quot;MSFT&quot;,
+    &quot;NVDA&quot;,
+    &quot;AMZN&quot;,
+    &quot;GOOGL&quot;,
+    &quot;META&quot;,
+    &quot;TSLA&quot;,
+    &quot;SPY&quot;,
+    &quot;QQQ&quot;,
+    &quot;^GSPC&quot;,
+    &quot;BTC-USD&quot;,
+    &quot;EURUSD=X&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/yahoo-finance-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~yahoo-finance-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;tickers&quot;: [&quot;AAPL&quot;, &quot;MSFT&quot;, &quot;NVDA&quot;, &quot;AMZN&quot;, &quot;GOOGL&quot;, &quot;META&quot;, &quot;TSLA&quot;, &quot;SPY&quot;, &quot;QQQ&quot;, &quot;^GSPC&quot;, &quot;BTC-USD&quot;, &quot;EURUSD=X&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/yahoo-finance-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One row per ticker, read from the public quote page finance.yahoo.com/quote/TICKER/. That page already carries the quote and the key statistics, so the run makes one request per ticker.</li>
+<li>Prices are Yahoo&#x27;s public quotes, delayed by up to 15 minutes on some exchanges (crypto and currencies are close to live). When a market is closed, price is the last regular session price and...</li>
+<li>changePercent and dividendYield are percentages: 0.43 means 0.43 percent. Dates are ISO 8601: exDividendDate and earningsDate as YYYY-MM-DD, regularMarketTime and scrapedAt in UTC.</li>
+<li>A field that does not exist for the kind of instrument comes back as null, for example no dividend for an index, no sector for a crypto and no market cap for an ETF. For funds, dividendYield is...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Yahoo Finance Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include symbol, name, quoteType, price, currency, changePercent, volume, marketCap, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Yahoo Finance Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/yahoo-finance-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/yahoo-finance-scraper">Open Yahoo Finance Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+<li><a href="/coingecko-category-snapshot/">CoinGecko Scraper</a>: For each CoinGecko category ID (layer-1, defi, meme-token, etc.), pull its coins by market cap: 250 per cat...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

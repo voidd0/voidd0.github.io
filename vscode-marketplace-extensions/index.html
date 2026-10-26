@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VS Code Extension Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Fetches extension metadata (downloads, version, publisher, repo, license, tags, timestamps) from the Open V... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/vscode-marketplace-extensions/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VS Code Extension Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Fetches extension metadata (downloads, version, publisher, repo, license, tags, timestamps) from the Open V... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/vscode-marketplace-extensions/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the VS Code Extension Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include extension_id, namespace, name, version, display_name, description, published_by, download_count, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the VS Code Extension Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/vscode-marketplace-extensions with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Developer data, packages and registries</nav>
+<h1>VS Code Extension Scraper: how to get Open VSX Registry Metadata as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Fetches extension metadata (downloads, version, publisher, repo, license, tags, timestamps) from the Open VSX registry: the open marketplace used by VSCodium, Gitpod, Theia, Cursor. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/vscode-marketplace-extensions</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/vscode-marketplace-extensions">Open VS Code Extension Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>extension_id</code></td><td>Extension id</td><td>text</td><td>redhat/java</td></tr>
+<tr><td><code>namespace</code></td><td>Namespace</td><td>text</td><td>redhat</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>java</td></tr>
+<tr><td><code>version</code></td><td>Version</td><td>text</td><td>1.59.2026102408</td></tr>
+<tr><td><code>display_name</code></td><td>Display name</td><td>text</td><td>Language Support for Java(TM) by Red Hat</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>Java Linting, Intellisense, formatting, refactoring, Maven/Gradle s...</td></tr>
+<tr><td><code>published_by</code></td><td>Published by</td><td>text</td><td></td></tr>
+<tr><td><code>download_count</code></td><td>Download count</td><td>number</td><td>46883485</td></tr>
+<tr><td><code>average_rating</code></td><td>Average rating</td><td>number</td><td>5</td></tr>
+<tr><td><code>review_count</code></td><td>Review count</td><td>number</td><td>16</td></tr>
+<tr><td><code>published_at</code></td><td>Published at</td><td>date</td><td>2026-10-24T08:23:30.984453Z</td></tr>
+<tr><td><code>license</code></td><td>License</td><td>text</td><td>EPL-2.0</td></tr>
+<tr><td><code>repository</code></td><td></td><td>text</td><td>https://github.com/redhat-developer/vscode-java.git</td></tr>
+<tr><td><code>homepage</code></td><td></td><td>text</td><td>https://github.com/redhat-developer/vscode-java#readme</td></tr>
+<tr><td><code>categories</code></td><td></td><td>list</td><td>[&quot;Programming Languages&quot;, &quot;Linters&quot;, &quot;Formatters&quot;]</td></tr>
+<tr><td><code>tags</code></td><td></td><td>list</td><td>[&quot;__ext_class&quot;, &quot;__ext_gradle.kts&quot;, &quot;__ext_java&quot;]</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;extension_id&quot;: [
+    &quot;redhat/java&quot;,
+    &quot;ms-python/python&quot;,
+    &quot;dbaeumer/vscode-eslint&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>extension_id</code></td><td>array</td><td>Open VSX extension id in &#x27;namespace/extension&#x27; form (e.g.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;extension_id&quot;: &quot;redhat/java&quot;,
+    &quot;namespace&quot;: &quot;redhat&quot;,
+    &quot;name&quot;: &quot;java&quot;,
+    &quot;version&quot;: &quot;1.59.2026102408&quot;,
+    &quot;display_name&quot;: &quot;Language Support for Java(TM) by Red Hat&quot;,
+    &quot;description&quot;: &quot;Java Linting, Intellisense, formatting, refactoring, Maven/Gradle support and more...&quot;,
+    &quot;download_count&quot;: 46883485,
+    &quot;average_rating&quot;: 5,
+    &quot;review_count&quot;: 16,
+    &quot;published_at&quot;: &quot;2026-10-24T08:23:30.984453Z&quot;,
+    &quot;license&quot;: &quot;EPL-2.0&quot;,
+    &quot;repository&quot;: &quot;https://github.com/redhat-developer/vscode-java.git&quot;,
+    &quot;homepage&quot;: &quot;https://github.com/redhat-developer/vscode-java#readme&quot;,
+    &quot;categories&quot;: [
+      &quot;Programming Languages&quot;,
+      &quot;Linters&quot;,
+      &quot;Formatters&quot;
+    ],
+    &quot;tags&quot;: [
+      &quot;__ext_class&quot;,
+      &quot;__ext_gradle.kts&quot;,
+      &quot;__ext_java&quot;
+    ]
+  },
+  {
+    &quot;extension_id&quot;: &quot;ms-python/python&quot;,
+    &quot;namespace&quot;: &quot;ms-python&quot;,
+    &quot;name&quot;: &quot;python&quot;,
+    &quot;version&quot;: &quot;2026.4.0&quot;,
+    &quot;display_name&quot;: &quot;Python&quot;,
+    &quot;description&quot;: &quot;Python language support with extension access points for IntelliSense (Pylance), Debugging (Python Debugger), linting, formatting, refact...&quot;,
+    &quot;download_count&quot;: 61564157,
+    &quot;average_rating&quot;: 3.875,
+    &quot;review_count&quot;: 16,
+    &quot;published_at&quot;: &quot;2026-03-13T04:21:53.228120Z&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;repository&quot;: &quot;https://github.com/Microsoft/vscode-python.git&quot;,
+    &quot;homepage&quot;: &quot;https://github.com/Microsoft/vscode-python&quot;,
+    &quot;categories&quot;: [
+      &quot;Programming Languages&quot;,
+      &quot;Debuggers&quot;,
+      &quot;Other&quot;
+    ],
+    &quot;tags&quot;: [
+      &quot;__ext_j2&quot;,
+      &quot;__ext_jinja2&quot;,
+      &quot;__web_extension&quot;
+    ]
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/vscode-marketplace-extensions</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;extension_id&#x27;: [&#x27;redhat/java&#x27;, &#x27;ms-python/python&#x27;, &#x27;dbaeumer/vscode-eslint&#x27;]}
+
+run = client.actor(&quot;v0iddo/vscode-marketplace-extensions&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;extension_id&quot;: [
+    &quot;redhat/java&quot;,
+    &quot;ms-python/python&quot;,
+    &quot;dbaeumer/vscode-eslint&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/vscode-marketplace-extensions&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~vscode-marketplace-extensions/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;extension_id&quot;: [&quot;redhat/java&quot;, &quot;ms-python/python&quot;, &quot;dbaeumer/vscode-eslint&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/vscode-marketplace-extensions/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the VS Code Extension Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include extension_id, namespace, name, version, display_name, description, published_by, download_count, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the VS Code Extension Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/vscode-marketplace-extensions</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/vscode-marketplace-extensions">Open VS Code Extension Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/chrome-webstore-extensions/">Chrome Web Store Scraper</a>: Snapshot Chrome Web Store extension metadata via the public listing page.</li>
+<li><a href="/github-trending-repos/">GitHub Trending Scraper</a>: Pull the GitHub Trending repository list: daily, weekly, or monthly, filtered by programming language and s...</li>
+<li><a href="/pypi-package-tracker/">PyPI Scraper</a>: Snapshot PyPI package metadata using the public pypi.org/pypi//json endpoint.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

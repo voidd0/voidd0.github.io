@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIH RePORTER Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull recent NIH research grants from RePORTER. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/nih-reporter-grants/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NIH RePORTER Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull recent NIH research grants from RePORTER. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/nih-reporter-grants/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the NIH RePORTER Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include applId, projectNum, projectTitle, fiscalYear, activityCode, awardType, awardAmount, isActive, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the NIH RePORTER Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/nih-reporter-grants with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$3.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.10 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxResults input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>NIH RePORTER Scraper: how to get Research Grants by Query as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull recent NIH research grants from RePORTER. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/nih-reporter-grants</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nih-reporter-grants">Open NIH RePORTER Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>applId</code></td><td>Appl Id</td><td>number</td><td>11447550</td></tr>
+<tr><td><code>projectNum</code></td><td>Project Num</td><td>text</td><td>1R01AG097729-01A1</td></tr>
+<tr><td><code>projectTitle</code></td><td>Project Title</td><td>text</td><td>Statistical Approaches for Data Harmonization for PET Imaging Studi...</td></tr>
+<tr><td><code>fiscalYear</code></td><td>Fiscal Year</td><td>number</td><td>2026</td></tr>
+<tr><td><code>activityCode</code></td><td>Activity Code</td><td>text</td><td>R01</td></tr>
+<tr><td><code>awardType</code></td><td>Award Type</td><td>text</td><td>1</td></tr>
+<tr><td><code>awardAmount</code></td><td>Award Amount</td><td>number</td><td>1418192</td></tr>
+<tr><td><code>isActive</code></td><td>Is Active</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>projectStartDate</code></td><td>Project Start Date</td><td>date</td><td>2026-09-30T00:00:00</td></tr>
+<tr><td><code>projectEndDate</code></td><td>Project End Date</td><td>date</td><td>2031-08-31T00:00:00</td></tr>
+<tr><td><code>organizationName</code></td><td>Organization Name</td><td>text</td><td>UNIVERSITY OF PITTSBURGH AT PITTSBURGH</td></tr>
+<tr><td><code>organizationCity</code></td><td>Organization City</td><td>text</td><td>PITTSBURGH</td></tr>
+<tr><td><code>organizationState</code></td><td></td><td>text</td><td>PA</td></tr>
+<tr><td><code>organizationCountry</code></td><td></td><td>text</td><td>UNITED STATES</td></tr>
+<tr><td><code>organizationUei</code></td><td></td><td>text</td><td>MKAGLD59JRL1</td></tr>
+<tr><td><code>fundingAgencyCode</code></td><td></td><td>text</td><td>AG</td></tr>
+<tr><td><code>fundingAgencyAbbreviation</code></td><td></td><td>text</td><td>NIA</td></tr>
+<tr><td><code>fundingAgencyName</code></td><td></td><td>text</td><td>National Institute on Aging</td></tr>
+<tr><td><code>totalCostByIc</code></td><td></td><td>list</td><td>[{&quot;ic&quot;: &quot;NIA&quot;, &quot;totalCost&quot;: 1418192}]</td></tr>
+<tr><td><code>opportunityNumber</code></td><td></td><td>text</td><td>PAR-25-065</td></tr>
+<tr><td><code>congressionalDistrict</code></td><td></td><td>text</td><td>PA-12</td></tr>
+<tr><td><code>abstract</code></td><td></td><td>text</td><td>PROJECT ABSTRACT
+This project focuses on the development of statist...</td></tr>
+<tr><td><code>reporterUrl</code></td><td></td><td>text</td><td>https://reporter.nih.gov/project-details/11447550</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;maxResults&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>fiscalYears</code></td><td>array</td><td>NIH fiscal years to include.</td></tr>
+<tr><td><code>activityCodes</code></td><td>array</td><td>Grant mechanism codes. R01 = standard research, R21 = exploratory, K99 = early-career, U01 = cooperative, P50 = center.</td></tr>
+<tr><td><code>agencies</code></td><td>array</td><td>NIH IC codes: NCI (Cancer), NIAID (Allergy/Infectious), NIMH (Mental Health), NHLBI (Heart/Lung/Blood), NIA (Aging), NIDDK (Diabetes/Digestive/Kidney).</td></tr>
+<tr><td><code>textSearch</code></td><td>string</td><td>Search across project title, abstract, terms.</td></tr>
+<tr><td><code>organizationStates</code></td><td>array</td><td>Filter by recipient organization&#x27;s US state.</td></tr>
+<tr><td><code>principalInvestigators</code></td><td>array</td><td>Investigator names as RePORTER lists them: last name first, or the full name.</td></tr>
+<tr><td><code>sinceProjectStartDays</code></td><td>integer</td><td>Filter to projects with projectstartdate &gt;= now-N.</td></tr>
+<tr><td><code>maxResults</code></td><td>integer</td><td>Hard cap. RePORTER caps offset+limit at ~14000.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;applId&quot;: 11447550,
+    &quot;projectNum&quot;: &quot;1R01AG097729-01A1&quot;,
+    &quot;projectTitle&quot;: &quot;Statistical Approaches for Data Harmonization for PET Imaging Studies of Alzheimer&#x27;s Disease&quot;,
+    &quot;fiscalYear&quot;: 2026,
+    &quot;activityCode&quot;: &quot;R01&quot;,
+    &quot;awardType&quot;: &quot;1&quot;,
+    &quot;awardAmount&quot;: 1418192,
+    &quot;isActive&quot;: true,
+    &quot;projectStartDate&quot;: &quot;2026-09-30T00:00:00&quot;,
+    &quot;projectEndDate&quot;: &quot;2031-08-31T00:00:00&quot;,
+    &quot;organizationName&quot;: &quot;UNIVERSITY OF PITTSBURGH AT PITTSBURGH&quot;,
+    &quot;organizationCity&quot;: &quot;PITTSBURGH&quot;,
+    &quot;organizationState&quot;: &quot;PA&quot;,
+    &quot;organizationCountry&quot;: &quot;UNITED STATES&quot;,
+    &quot;organizationUei&quot;: &quot;MKAGLD59JRL1&quot;,
+    &quot;fundingAgencyCode&quot;: &quot;AG&quot;,
+    &quot;fundingAgencyAbbreviation&quot;: &quot;NIA&quot;,
+    &quot;fundingAgencyName&quot;: &quot;National Institute on Aging&quot;,
+    &quot;totalCostByIc&quot;: [
+      {
+        &quot;ic&quot;: &quot;NIA&quot;,
+        &quot;totalCost&quot;: 1418192
+      }
+    ],
+    &quot;opportunityNumber&quot;: &quot;PAR-25-065&quot;,
+    &quot;congressionalDistrict&quot;: &quot;PA-12&quot;,
+    &quot;abstract&quot;: &quot;PROJECT ABSTRACT\nThis project focuses on the development of statistical methods for data harmonization of amyloid and tau PET\nneuroimagin...&quot;,
+    &quot;reporterUrl&quot;: &quot;https://reporter.nih.gov/project-details/11447550&quot;
+  },
+  {
+    &quot;applId&quot;: 11485475,
+    &quot;projectNum&quot;: &quot;1R01AI204107-01&quot;,
+    &quot;projectTitle&quot;: &quot;Quantifying Pollen Allergens with DNA Metabarcoding&quot;,
+    &quot;fiscalYear&quot;: 2026,
+    &quot;activityCode&quot;: &quot;R01&quot;,
+    &quot;awardType&quot;: &quot;1&quot;,
+    &quot;awardAmount&quot;: 378758,
+    &quot;isActive&quot;: true,
+    &quot;projectStartDate&quot;: &quot;2026-09-30T00:00:00&quot;,
+    &quot;projectEndDate&quot;: &quot;2031-08-31T00:00:00&quot;,
+    &quot;organizationName&quot;: &quot;UNIVERSITY OF WASHINGTON&quot;,
+    &quot;organizationCity&quot;: &quot;SEATTLE&quot;,
+    &quot;organizationState&quot;: &quot;WA&quot;,
+    &quot;organizationCountry&quot;: &quot;UNITED STATES&quot;,
+    &quot;organizationUei&quot;: &quot;HD1WMN6945W6&quot;,
+    &quot;fundingAgencyAbbreviation&quot;: &quot;NIAID&quot;,
+    &quot;fundingAgencyName&quot;: &quot;National Institute of Allergy and Infectious Diseases&quot;,
+    &quot;totalCostByIc&quot;: [
+      {
+        &quot;ic&quot;: &quot;NIAID&quot;,
+        &quot;totalCost&quot;: 378758
+      }
+    ],
+    &quot;opportunityNumber&quot;: &quot;PA-25-301&quot;,
+    &quot;congressionalDistrict&quot;: &quot;WA-07&quot;,
+    &quot;abstract&quot;: &quot;PROJECT SUMMARY\n Pollen allergy incurs a substantial burden of disease in the US, resulting in millions of lost work\nand school days and...&quot;,
+    &quot;reporterUrl&quot;: &quot;https://reporter.nih.gov/project-details/11485475&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/nih-reporter-grants</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;maxResults&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/nih-reporter-grants&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;maxResults&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/nih-reporter-grants&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~nih-reporter-grants/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;maxResults&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$3.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.10 per 1,000. See the <a href="https://apify.com/v0iddo/nih-reporter-grants/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the NIH RePORTER Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include applId, projectNum, projectTitle, fiscalYear, activityCode, awardType, awardAmount, isActive, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the NIH RePORTER Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/nih-reporter-grants</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$3.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.10 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxResults</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nih-reporter-grants">Open NIH RePORTER Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/yahoo-finance-scraper/">Yahoo Finance Scraper</a>: Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

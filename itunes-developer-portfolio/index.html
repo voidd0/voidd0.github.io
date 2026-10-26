@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Store Developer Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull every app under an Apple App Store developer identifier (artistId). Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/itunes-developer-portfolio/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Store Developer Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull every app under an Apple App Store developer identifier (artistId). Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/itunes-developer-portfolio/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the App Store Developer Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, country, appId, appName, artistId, developerName, price, ratingValue, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the App Store Developer Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/itunes-developer-portfolio with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.38 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.67 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>App Store Developer Scraper: how to get All Apps by Developer as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull every app under an Apple App Store developer identifier (artistId). This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/itunes-developer-portfolio</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/itunes-developer-portfolio">Open App Store Developer Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:25:42+00:00</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>us</td></tr>
+<tr><td><code>appId</code></td><td>App Id</td><td>number</td><td>284882215</td></tr>
+<tr><td><code>appName</code></td><td>App Name</td><td>text</td><td>Facebook</td></tr>
+<tr><td><code>artistId</code></td><td>Artist Id</td><td>number</td><td></td></tr>
+<tr><td><code>developerName</code></td><td>Developer Name</td><td>text</td><td></td></tr>
+<tr><td><code>price</code></td><td>Price</td><td>number</td><td>0</td></tr>
+<tr><td><code>ratingValue</code></td><td>Rating Value</td><td>number</td><td>4.52647</td></tr>
+<tr><td><code>ratingCount</code></td><td>Rating Count</td><td>number</td><td>28900321</td></tr>
+<tr><td><code>version</code></td><td>Version</td><td>text</td><td>584.1</td></tr>
+<tr><td><code>lastVersionReleaseAt</code></td><td>Last Version Release At</td><td>date</td><td>2026-10-23T09:58:23Z</td></tr>
+<tr><td><code>primaryGenre</code></td><td>Primary Genre</td><td>text</td><td>Social Networking</td></tr>
+<tr><td><code>storeUrl</code></td><td></td><td>text</td><td>https://apps.apple.com/us/app/facebook/id284882215?uo=4</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;artistIds&quot;: [
+    &quot;284882218&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>artistIds</code></td><td>array</td><td>Apple developer (artist) IDs.</td></tr>
+<tr><td><code>countries</code></td><td>array</td><td>ISO 3166-1 alpha-2</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:25:42+00:00&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;appId&quot;: 284882215,
+    &quot;appName&quot;: &quot;Facebook&quot;,
+    &quot;price&quot;: 0,
+    &quot;ratingValue&quot;: 4.52647,
+    &quot;ratingCount&quot;: 28900321,
+    &quot;version&quot;: &quot;584.1&quot;,
+    &quot;lastVersionReleaseAt&quot;: &quot;2026-10-23T09:58:23Z&quot;,
+    &quot;primaryGenre&quot;: &quot;Social Networking&quot;,
+    &quot;storeUrl&quot;: &quot;https://apps.apple.com/us/app/facebook/id284882215?uo=4&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:25:42+00:00&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;appId&quot;: 454638411,
+    &quot;appName&quot;: &quot;Messenger&quot;,
+    &quot;price&quot;: 0,
+    &quot;ratingValue&quot;: 4.66166,
+    &quot;ratingCount&quot;: 13865654,
+    &quot;version&quot;: &quot;584.0.0&quot;,
+    &quot;lastVersionReleaseAt&quot;: &quot;2026-10-17T16:36:30Z&quot;,
+    &quot;primaryGenre&quot;: &quot;Social Networking&quot;,
+    &quot;storeUrl&quot;: &quot;https://apps.apple.com/us/app/messenger/id454638411?uo=4&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/itunes-developer-portfolio</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;artistIds&#x27;: [&#x27;284882218&#x27;]}
+
+run = client.actor(&quot;v0iddo/itunes-developer-portfolio&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;artistIds&quot;: [
+    &quot;284882218&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/itunes-developer-portfolio&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~itunes-developer-portfolio/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;artistIds&quot;: [&quot;284882218&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.38 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.67 per 1,000. See the <a href="https://apify.com/v0iddo/itunes-developer-portfolio/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the App Store Developer Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, country, appId, appName, artistId, developerName, price, ratingValue, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the App Store Developer Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/itunes-developer-portfolio</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.38 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.67 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/itunes-developer-portfolio">Open App Store Developer Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+<li><a href="/amazon-search-scraper/">Amazon Search Scraper</a>: Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati...</li>
+<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: Scrape AliExpress search results into product rows: product ID, title, sale price, original price, discount...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

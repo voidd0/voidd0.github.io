@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Store Search Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Search the Apple App Store by keyword and country. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/app-store-search/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App Store Search Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Search the Apple App Store by keyword and country. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/app-store-search/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the App Store Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, query, country, rank, appId, bundleId, trackName, artistName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the App Store Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/app-store-search with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the limit input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>App Store Search Scraper: how to get Apps by Keyword as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Search the Apple App Store by keyword and country. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/app-store-search</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/app-store-search">Open App Store Search Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:24:45+00:00</td></tr>
+<tr><td><code>query</code></td><td>Query</td><td>text</td><td>meditation</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>us</td></tr>
+<tr><td><code>rank</code></td><td>Rank</td><td>number</td><td>1</td></tr>
+<tr><td><code>appId</code></td><td>App Id</td><td>text</td><td>337472899</td></tr>
+<tr><td><code>bundleId</code></td><td>Bundle Id</td><td>text</td><td>com.spotlightsix.zentimer</td></tr>
+<tr><td><code>trackName</code></td><td>Track Name</td><td>text</td><td>Insight Timer: Meditate, Sleep</td></tr>
+<tr><td><code>artistName</code></td><td>Artist Name</td><td>text</td><td></td></tr>
+<tr><td><code>artistId</code></td><td>Artist Id</td><td>number</td><td></td></tr>
+<tr><td><code>sellerName</code></td><td>Seller Name</td><td>text</td><td></td></tr>
+<tr><td><code>primaryGenreName</code></td><td>Primary Genre Name</td><td>text</td><td>Health &amp; Fitness</td></tr>
+<tr><td><code>genres</code></td><td>Genres</td><td>list</td><td>[&quot;Health &amp; Fitness&quot;, &quot;Lifestyle&quot;]</td></tr>
+<tr><td><code>price</code></td><td></td><td>number</td><td>0</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>averageUserRating</code></td><td></td><td>number</td><td>4.89512</td></tr>
+<tr><td><code>userRatingCount</code></td><td></td><td>number</td><td>448353</td></tr>
+<tr><td><code>version</code></td><td></td><td>text</td><td>20.40.0</td></tr>
+<tr><td><code>currentVersionReleaseDate</code></td><td></td><td>text</td><td>2026-10-25T08:30:36Z</td></tr>
+<tr><td><code>releaseDate</code></td><td></td><td>text</td><td>2009-11-05T18:55:12Z</td></tr>
+<tr><td><code>minimumOsVersion</code></td><td></td><td>text</td><td>15.0</td></tr>
+<tr><td><code>fileSizeBytes</code></td><td></td><td>number</td><td>241229824</td></tr>
+<tr><td><code>contentAdvisoryRating</code></td><td></td><td>text</td><td>12+</td></tr>
+<tr><td><code>features</code></td><td></td><td>list</td><td>[&quot;iosUniversal&quot;]</td></tr>
+<tr><td><code>supportedLanguages</code></td><td></td><td>list</td><td>[&quot;NL&quot;, &quot;EN&quot;, &quot;FR&quot;]</td></tr>
+<tr><td><code>trackViewUrl</code></td><td></td><td>text</td><td>https://apps.apple.com/us/app/insight-timer-meditate-sleep/id337472...</td></tr>
+<tr><td><code>artworkUrl100</code></td><td></td><td>text</td><td>https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b7/68/07/b768...</td></tr>
+<tr><td><code>artworkUrl512</code></td><td></td><td>text</td><td>https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b7/68/07/b768...</td></tr>
+<tr><td><code>description</code></td><td></td><td>text</td><td>The world’s most popular wellness app.
+
+* Apps of the Year Winner -...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;queries&quot;: [
+    &quot;meditation&quot;,
+    &quot;habit tracker&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>queries</code></td><td>array</td><td>Keywords to search for. Each query is run against each country independently.</td></tr>
+<tr><td><code>countries</code></td><td>array</td><td>ISO 3166-1 alpha-2 storefront codes.</td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>Max results per query. iTunes Search caps at 200.</td></tr>
+<tr><td><code>entity</code></td><td>string</td><td>Which Apple catalog to search.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:24:45+00:00&quot;,
+    &quot;query&quot;: &quot;meditation&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;rank&quot;: 1,
+    &quot;appId&quot;: &quot;337472899&quot;,
+    &quot;bundleId&quot;: &quot;com.spotlightsix.zentimer&quot;,
+    &quot;trackName&quot;: &quot;Insight Timer: Meditate, Sleep&quot;,
+    &quot;primaryGenreName&quot;: &quot;Health &amp; Fitness&quot;,
+    &quot;genres&quot;: [
+      &quot;Health &amp; Fitness&quot;,
+      &quot;Lifestyle&quot;
+    ],
+    &quot;price&quot;: 0,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;averageUserRating&quot;: 4.89512,
+    &quot;userRatingCount&quot;: 448353,
+    &quot;version&quot;: &quot;20.40.0&quot;,
+    &quot;currentVersionReleaseDate&quot;: &quot;2026-10-25T08:30:36Z&quot;,
+    &quot;releaseDate&quot;: &quot;2009-11-05T18:55:12Z&quot;,
+    &quot;minimumOsVersion&quot;: &quot;15.0&quot;,
+    &quot;fileSizeBytes&quot;: 241229824,
+    &quot;contentAdvisoryRating&quot;: &quot;12+&quot;,
+    &quot;features&quot;: [
+      &quot;iosUniversal&quot;
+    ],
+    &quot;supportedLanguages&quot;: [
+      &quot;NL&quot;,
+      &quot;EN&quot;,
+      &quot;FR&quot;
+    ],
+    &quot;trackViewUrl&quot;: &quot;https://apps.apple.com/us/app/insight-timer-meditate-sleep/id337472899?uo=4&quot;,
+    &quot;artworkUrl100&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b7/68/07/b768071e-fb00-0d0f-f9d3-e0e427d85e4b/AppIcon-0-0-1x_U007epad-0-1-85-220.pn...&quot;,
+    &quot;artworkUrl512&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b7/68/07/b768071e-fb00-0d0f-f9d3-e0e427d85e4b/AppIcon-0-0-1x_U007epad-0-1-85-220.pn...&quot;,
+    &quot;description&quot;: &quot;The world’s most popular wellness app.\n\n* Apps of the Year Winner - TIME magazine and Women&#x27;s Health *\n* More time is spent on Insight Ti...&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:24:45+00:00&quot;,
+    &quot;query&quot;: &quot;meditation&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;rank&quot;: 2,
+    &quot;appId&quot;: &quot;493145008&quot;,
+    &quot;bundleId&quot;: &quot;com.getsomeheadspace.headspace&quot;,
+    &quot;trackName&quot;: &quot;Headspace: Sleep &amp; Meditation&quot;,
+    &quot;primaryGenreName&quot;: &quot;Health &amp; Fitness&quot;,
+    &quot;genres&quot;: [
+      &quot;Health &amp; Fitness&quot;,
+      &quot;Productivity&quot;
+    ],
+    &quot;price&quot;: 0,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;averageUserRating&quot;: 4.84217,
+    &quot;userRatingCount&quot;: 973794,
+    &quot;version&quot;: &quot;8.37.0&quot;,
+    &quot;currentVersionReleaseDate&quot;: &quot;2026-10-20T00:13:27Z&quot;,
+    &quot;releaseDate&quot;: &quot;2012-02-02T18:57:49Z&quot;,
+    &quot;minimumOsVersion&quot;: &quot;15.6&quot;,
+    &quot;fileSizeBytes&quot;: 450787328,
+    &quot;contentAdvisoryRating&quot;: &quot;12+&quot;,
+    &quot;features&quot;: [
+      &quot;iosUniversal&quot;
+    ],
+    &quot;supportedLanguages&quot;: [
+      &quot;EN&quot;
+    ],
+    &quot;trackViewUrl&quot;: &quot;https://apps.apple.com/us/app/headspace-sleep-meditation/id493145008?uo=4&quot;,
+    &quot;artworkUrl100&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/69/b2/4769b27b-0ca9-879c-7348-37afa93a9525/AppIcon-0-0-1x_U007epad-0-1-85-220.pn...&quot;,
+    &quot;artworkUrl512&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/47/69/b2/4769b27b-0ca9-879c-7348-37afa93a9525/AppIcon-0-0-1x_U007epad-0-1-85-220.pn...&quot;,
+    &quot;description&quot;: &quot;Welcome to Headspace, your expert-led guide to mental health, mindfulness, and meditation. Whether you&#x27;re navigating stress, anxiety, sle...&quot;,
+    &quot;releaseNotes&quot;: &quot;Thanks for using Headspace! This update includes bug fixes and performance improvements.\n\nAs always, if you run into any troubles, let us...&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/app-store-search</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;queries&#x27;: [&#x27;meditation&#x27;, &#x27;habit tracker&#x27;]}
+
+run = client.actor(&quot;v0iddo/app-store-search&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;queries&quot;: [
+    &quot;meditation&quot;,
+    &quot;habit tracker&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/app-store-search&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~app-store-search/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;queries&quot;: [&quot;meditation&quot;, &quot;habit tracker&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. See the <a href="https://apify.com/v0iddo/app-store-search/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the App Store Search Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, query, country, rank, appId, bundleId, trackName, artistName, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the App Store Search Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/app-store-search</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>limit</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/app-store-search">Open App Store Search Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+<li><a href="/amazon-search-scraper/">Amazon Search Scraper</a>: Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati...</li>
+<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: Scrape AliExpress search results into product rows: product ID, title, sale price, original price, discount...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

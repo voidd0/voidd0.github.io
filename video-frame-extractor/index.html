@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video frame extractor: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Extract still frames from video files as JPEG, PNG or WebP images with timecodes: one every N seconds, a nu... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/video-frame-extractor/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Video frame extractor: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Extract still frames from video files as JPEG, PNG or WebP images with timecodes: one every N seconds, a nu... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/video-frame-extractor/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Video frame extractor return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include imageUrl, timecode, frameNumber, kind, videoFile, imageWidth, imageHeight, videoDurationSeconds, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Video frame extractor from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/video-frame-extractor with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Video frame extractor: how to get frames and thumbnails from a video (API, Python, no code)</h1>
+<p class="lead">Extract still frames from video files as JPEG, PNG or WebP images with timecodes: one every N seconds, a number evenly spaced, exact times, one per scene or every keyframe, plus a contact sheet. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/video-frame-extractor</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/video-frame-extractor">Open Video frame extractor on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>imageUrl</code></td><td>Frame</td><td>image URL</td><td>https://api.apify.com/v2/key-value-stores/qp1WtKypldaV10Cny/records...</td></tr>
+<tr><td><code>timecode</code></td><td>Time</td><td>text</td><td>00:00:03.045</td></tr>
+<tr><td><code>frameNumber</code></td><td>No.</td><td>number</td><td>1</td></tr>
+<tr><td><code>kind</code></td><td>Row</td><td>text</td><td>frame</td></tr>
+<tr><td><code>videoFile</code></td><td>Video</td><td>text</td><td>Modern_Times_trailer_(1936).webm</td></tr>
+<tr><td><code>imageWidth</code></td><td>Width</td><td>number</td><td>472</td></tr>
+<tr><td><code>imageHeight</code></td><td>Height</td><td>number</td><td>360</td></tr>
+<tr><td><code>videoDurationSeconds</code></td><td>Video length (s)</td><td>number</td><td>121.5</td></tr>
+<tr><td><code>videoUrl</code></td><td></td><td>text</td><td>https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_tr...</td></tr>
+<tr><td><code>requestedSeconds</code></td><td></td><td>number</td><td>3.039</td></tr>
+<tr><td><code>timeSeconds</code></td><td></td><td>number</td><td>3.045</td></tr>
+<tr><td><code>imageFormat</code></td><td></td><td>text</td><td>jpeg</td></tr>
+<tr><td><code>imageBytes</code></td><td></td><td>number</td><td>22885</td></tr>
+<tr><td><code>keyframe</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>mode</code></td><td></td><td>text</td><td>count</td></tr>
+<tr><td><code>videoWidth</code></td><td></td><td>number</td><td>472</td></tr>
+<tr><td><code>videoHeight</code></td><td></td><td>number</td><td>360</td></tr>
+<tr><td><code>videoFps</code></td><td></td><td>number</td><td>23.976</td></tr>
+<tr><td><code>videoCodec</code></td><td></td><td>text</td><td>vp8</td></tr>
+<tr><td><code>videoContainer</code></td><td></td><td>text</td><td>matroska</td></tr>
+<tr><td><code>videoBytes</code></td><td></td><td>number</td><td>10916363</td></tr>
+<tr><td><code>frames</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>extractedAt</code></td><td></td><td>text</td><td>2026-10-26T07:24:02Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;videoUrls&quot;: [
+    &quot;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&quot;
+  ],
+  &quot;mode&quot;: &quot;count&quot;,
+  &quot;frameCount&quot;: 20,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>videoUrls</code> (required)</td><td>array</td><td>Direct links to video files: MP4, MOV, M4V, WEBM, MKV, AVI, FLV, MPEG TS, OGV, WMV, MXF or animated GIF.</td></tr>
+<tr><td><code>mode</code></td><td>string</td><td>Every N seconds (Seconds between frames), a number of frames spread evenly over the video (Number of frames), the times you list (Times), the first frame of each scene...</td></tr>
+<tr><td><code>intervalSeconds</code></td><td>integer</td><td>For One frame every N seconds: the first frame is at Start at second.</td></tr>
+<tr><td><code>frameCount</code></td><td>integer</td><td>For evenly spaced frames: each frame sits in the middle of its equal part of the video, so the first and last are not the black start and end.</td></tr>
+<tr><td><code>timestamps</code></td><td>array</td><td>For Frames at exact times: seconds or hours:minutes:seconds, such as 90, 1:30 or 00:01:30.5.</td></tr>
+<tr><td><code>sceneSensitivity</code></td><td>string</td><td>For One frame per scene: how much the picture must change to count as a new scene.</td></tr>
+<tr><td><code>startSeconds</code></td><td>integer</td><td>Skip the part of each video before this second.</td></tr>
+<tr><td><code>endSeconds</code></td><td>integer</td><td>Stop at this second of each video; 0 reads to the end.</td></tr>
+<tr><td><code>maxFramesPerVideo</code></td><td>integer</td><td>Caps the frames of one video in every mode.</td></tr>
+<tr><td><code>maxWidth</code></td><td>integer</td><td>Wider frames are scaled down to this width, keeping their shape; 0 keeps the size of the video.</td></tr>
+<tr><td><code>imageFormat</code></td><td>string</td><td>File type of the frame images.</td></tr>
+<tr><td><code>imageQuality</code></td><td>integer</td><td>JPEG and WebP quality from 1 to 100; PNG is always lossless.</td></tr>
+<tr><td><code>contactSheet</code></td><td>boolean</td><td>Add one image per video that shows its frames side by side with their times (up to 100 frames).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;kind&quot;: &quot;frame&quot;,
+    &quot;videoUrl&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&quot;,
+    &quot;videoFile&quot;: &quot;Modern_Times_trailer_(1936).webm&quot;,
+    &quot;frameNumber&quot;: 1,
+    &quot;requestedSeconds&quot;: 3.039,
+    &quot;timeSeconds&quot;: 3.045,
+    &quot;timecode&quot;: &quot;00:00:03.045&quot;,
+    &quot;imageUrl&quot;: &quot;https://api.apify.com/v2/key-value-stores/qp1WtKypldaV10Cny/records/000001-Modern_Times_trailer_(1936)-0001-00h00m03s045.jpg?signature=1j...&quot;,
+    &quot;imageFormat&quot;: &quot;jpeg&quot;,
+    &quot;imageWidth&quot;: 472,
+    &quot;imageHeight&quot;: 360,
+    &quot;imageBytes&quot;: 22885,
+    &quot;keyframe&quot;: false,
+    &quot;mode&quot;: &quot;count&quot;,
+    &quot;videoDurationSeconds&quot;: 121.5,
+    &quot;videoWidth&quot;: 472,
+    &quot;videoHeight&quot;: 360,
+    &quot;videoFps&quot;: 23.976,
+    &quot;videoCodec&quot;: &quot;vp8&quot;,
+    &quot;videoContainer&quot;: &quot;matroska&quot;,
+    &quot;videoBytes&quot;: 10916363,
+    &quot;frames&quot;: 1,
+    &quot;extractedAt&quot;: &quot;2026-10-26T07:24:02Z&quot;
+  },
+  {
+    &quot;kind&quot;: &quot;frame&quot;,
+    &quot;videoUrl&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&quot;,
+    &quot;videoFile&quot;: &quot;Modern_Times_trailer_(1936).webm&quot;,
+    &quot;frameNumber&quot;: 2,
+    &quot;requestedSeconds&quot;: 9.116,
+    &quot;timeSeconds&quot;: 9.134,
+    &quot;timecode&quot;: &quot;00:00:09.134&quot;,
+    &quot;imageUrl&quot;: &quot;https://api.apify.com/v2/key-value-stores/qp1WtKypldaV10Cny/records/000002-Modern_Times_trailer_(1936)-0002-00h00m09s134.jpg?signature=rp...&quot;,
+    &quot;imageFormat&quot;: &quot;jpeg&quot;,
+    &quot;imageWidth&quot;: 472,
+    &quot;imageHeight&quot;: 360,
+    &quot;imageBytes&quot;: 25440,
+    &quot;keyframe&quot;: false,
+    &quot;mode&quot;: &quot;count&quot;,
+    &quot;videoDurationSeconds&quot;: 121.5,
+    &quot;videoWidth&quot;: 472,
+    &quot;videoHeight&quot;: 360,
+    &quot;videoFps&quot;: 23.976,
+    &quot;videoCodec&quot;: &quot;vp8&quot;,
+    &quot;videoContainer&quot;: &quot;matroska&quot;,
+    &quot;videoBytes&quot;: 10916363,
+    &quot;frames&quot;: 1,
+    &quot;extractedAt&quot;: &quot;2026-10-26T07:24:02Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/video-frame-extractor</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;videoUrls&#x27;: [&#x27;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&#x27;],
+ &#x27;mode&#x27;: &#x27;count&#x27;,
+ &#x27;frameCount&#x27;: 20,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/video-frame-extractor&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;videoUrls&quot;: [
+    &quot;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&quot;
+  ],
+  &quot;mode&quot;: &quot;count&quot;,
+  &quot;frameCount&quot;: 20,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/video-frame-extractor&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~video-frame-extractor/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;videoUrls&quot;: [&quot;https://upload.wikimedia.org/wikipedia/commons/8/86/Modern_Times_trailer_%281936%29.webm&quot;], &quot;mode&quot;: &quot;count&quot;, &quot;frameCount&quot;: 20, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. See the <a href="https://apify.com/v0iddo/video-frame-extractor/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One row per frame: the image link (imageUrl), its time in seconds and as a timecode, its size, whether it is a keyframe, and the length, size, frame rate, codec and container of the video. With...</li>
+<li>The images are files in the run&#x27;s key-value store; imageUrl opens them directly and works in the dataset table, in spreadsheets and in your own code. They are kept as long as your Apify plan keeps...</li>
+<li>Files up to 250 MB are downloaded once and read from disk. Bigger ones are read with range requests around each frame, so ten frames from a two hour film read a small part of the file. Scene and...</li>
+<li>Scenes: the frame is the first keyframe of each new scene. Most web video has a keyframe at every cut; camera files and some screen recordings place keyframes every one or two seconds, so a scene...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Video frame extractor return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include imageUrl, timecode, frameNumber, kind, videoFile, imageWidth, imageHeight, videoDurationSeconds, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Video frame extractor from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/video-frame-extractor</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/video-frame-extractor">Open Video frame extractor on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
+<li><a href="/pdf-text-extractor/">PDF text extractor</a>: Extract the text of PDF files page by page, as plain text or as Markdown with headings, bold, lists and par...</li>
+<li><a href="/audio-transcription/">Audio transcription</a>: Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

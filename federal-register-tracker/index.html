@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Federal Register Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull Federal Register articles filtered by agency, document type, date range, significant-rule flag, or ful... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/federal-register-tracker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Federal Register Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull Federal Register articles filtered by agency, document type, date range, significant-rule flag, or ful... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/federal-register-tracker/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Federal Register Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, documentNumber, title, type, subtype, action, abstract, publicationDate, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Federal Register Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/federal-register-tracker with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxResults input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Business, finance and public records</nav>
+<h1>Federal Register Scraper: how to get Rules, Proposed Rules, Notices as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull Federal Register articles filtered by agency, document type, date range, significant-rule flag, or full-text query. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/federal-register-tracker</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/federal-register-tracker">Open Federal Register Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:34:24+00:00</td></tr>
+<tr><td><code>documentNumber</code></td><td>Document Number</td><td>text</td><td>2026-21622</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Virginia: Approval of State Coal Combustion Residuals Permit Program</td></tr>
+<tr><td><code>type</code></td><td>Type</td><td>text</td><td>Rule</td></tr>
+<tr><td><code>subtype</code></td><td>Subtype</td><td>text</td><td></td></tr>
+<tr><td><code>action</code></td><td>Action</td><td>text</td><td>Availability of final decision.</td></tr>
+<tr><td><code>abstract</code></td><td>Abstract</td><td>text</td><td>The Environmental Protection Agency (EPA or the Agency) is approvin...</td></tr>
+<tr><td><code>publicationDate</code></td><td>Publication Date</td><td>date</td><td>2026-10-22</td></tr>
+<tr><td><code>signingDate</code></td><td>Signing Date</td><td>text</td><td></td></tr>
+<tr><td><code>effectiveOn</code></td><td>Effective On</td><td>date</td><td>2026-11-23</td></tr>
+<tr><td><code>commentsCloseOn</code></td><td>Comments Close On</td><td>date</td><td></td></tr>
+<tr><td><code>agencies</code></td><td>Agencies</td><td>list</td><td>[&quot;environmental-protection-agency&quot;]</td></tr>
+<tr><td><code>agencyNames</code></td><td></td><td>list</td><td>[&quot;Environmental Protection Agency&quot;]</td></tr>
+<tr><td><code>cfrReferences</code></td><td></td><td>list</td><td>[&quot;40 CFR 257&quot;]</td></tr>
+<tr><td><code>presidentName</code></td><td></td><td>text</td><td>Donald Trump</td></tr>
+<tr><td><code>htmlUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/2026/10/22/2026-21622/vir...</td></tr>
+<tr><td><code>pdfUrl</code></td><td></td><td>text</td><td>https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21622.pdf</td></tr>
+<tr><td><code>jsonUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/api/v1/documents/2026-21622?publica...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;maxResults&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>agencies</code></td><td>array</td><td>Restrict to these agency slugs.</td></tr>
+<tr><td><code>types</code></td><td>array</td><td>Restrict to these document types.</td></tr>
+<tr><td><code>query</code></td><td>string</td><td>Optional full-text search across title, abstract, and full text.</td></tr>
+<tr><td><code>publicationDateFrom</code></td><td>string</td><td>Lower bound for publication date.</td></tr>
+<tr><td><code>publicationDateTo</code></td><td>string</td><td>Upper bound for publication date.</td></tr>
+<tr><td><code>significantOnly</code></td><td>boolean</td><td>If true, restricts to documents flagged &#x27;significant&#x27; under E.O.</td></tr>
+<tr><td><code>maxResults</code></td><td>integer</td><td>Stop after this many articles.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:34:24+00:00&quot;,
+    &quot;documentNumber&quot;: &quot;2026-21622&quot;,
+    &quot;title&quot;: &quot;Virginia: Approval of State Coal Combustion Residuals Permit Program&quot;,
+    &quot;type&quot;: &quot;Rule&quot;,
+    &quot;action&quot;: &quot;Availability of final decision.&quot;,
+    &quot;abstract&quot;: &quot;The Environmental Protection Agency (EPA or the Agency) is approving Virginia&#x27;s coal combustion residuals (CCR) permit program under the...&quot;,
+    &quot;publicationDate&quot;: &quot;2026-10-22&quot;,
+    &quot;effectiveOn&quot;: &quot;2026-11-23&quot;,
+    &quot;agencies&quot;: [
+      &quot;environmental-protection-agency&quot;
+    ],
+    &quot;agencyNames&quot;: [
+      &quot;Environmental Protection Agency&quot;
+    ],
+    &quot;cfrReferences&quot;: [
+      &quot;40 CFR 257&quot;
+    ],
+    &quot;presidentName&quot;: &quot;Donald Trump&quot;,
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/22/2026-21622/virginia-approval-of-state-coal-combustion-residuals-permit-program&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21622.pdf&quot;,
+    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-21622?publication_date=2026-10-22&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:34:24+00:00&quot;,
+    &quot;documentNumber&quot;: &quot;2026-21603&quot;,
+    &quot;title&quot;: &quot;Nevada: Codification and Incorporation by Reference of Approved Underground Storage Tank Program&quot;,
+    &quot;type&quot;: &quot;Rule&quot;,
+    &quot;action&quot;: &quot;Direct final rule.&quot;,
+    &quot;abstract&quot;: &quot;On September 30, 2021, the State of Nevada (Nevada) received final approval, from the Environmental Protection Agency (EPA), of revisions...&quot;,
+    &quot;publicationDate&quot;: &quot;2026-10-22&quot;,
+    &quot;effectiveOn&quot;: &quot;2026-12-21&quot;,
+    &quot;commentsCloseOn&quot;: &quot;2026-11-23&quot;,
+    &quot;agencies&quot;: [
+      &quot;environmental-protection-agency&quot;
+    ],
+    &quot;agencyNames&quot;: [
+      &quot;Environmental Protection Agency&quot;
+    ],
+    &quot;topics&quot;: [
+      &quot;Administrative practice and procedure&quot;,
+      &quot;Environmental protection&quot;,
+      &quot;Hazardous substances&quot;
+    ],
+    &quot;cfrReferences&quot;: [
+      &quot;40 CFR 282&quot;
+    ],
+    &quot;presidentName&quot;: &quot;Donald Trump&quot;,
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/22/2026-21603/nevada-codification-and-incorporation-by-reference-of-approved-undergroun...&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21603.pdf&quot;,
+    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-21603?publication_date=2026-10-22&quot;,
+    &quot;regulationsDotGovUrl&quot;: &quot;http://www.regulations.gov/commenton/EPA-R09-UST-2025-0703-0001&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/federal-register-tracker</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;maxResults&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/federal-register-tracker&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;maxResults&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/federal-register-tracker&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~federal-register-tracker/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;maxResults&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. See the <a href="https://apify.com/v0iddo/federal-register-tracker/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Federal Register Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, documentNumber, title, type, subtype, action, abstract, publicationDate, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Federal Register Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/federal-register-tracker</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.10 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.07 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxResults</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/federal-register-tracker">Open Federal Register Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/trustpilot-reviews-deep/">Trustpilot Reviews Scraper</a>: Scrape Trustpilot reviews by business slug: stars, title, text, language, dates and owner reply, plus senti...</li>
+<li><a href="/yahoo-finance-scraper/">Yahoo Finance Scraper</a>: Scrape Yahoo Finance quotes and key statistics for stocks, ETFs, indexes, crypto, currencies and futures: p...</li>
+<li><a href="/steam-game-reviews/">Steam game reviews scraper</a>: Scrape Steam player reviews by App ID.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

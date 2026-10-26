@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Search Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/amazon-search-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Amazon Search Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/amazon-search-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Amazon Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include asin, title, price, rating, ratingsCount, badge, sponsored, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Amazon Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/amazon-search-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Amazon Search Scraper: how to get Monthly Sales, Badges, Prices as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, ratings count, monthly sales badge, Best Seller and Overall Pick badges, sponsored flag, image and link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-search-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/amazon-search-scraper">Open Amazon Search Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>asin</code></td><td>ASIN</td><td>text</td><td>B0FQFB8FMG</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation</td></tr>
+<tr><td><code>price</code></td><td>Price</td><td>number</td><td>199</td></tr>
+<tr><td><code>rating</code></td><td>Stars</td><td>number</td><td>4.4</td></tr>
+<tr><td><code>ratingsCount</code></td><td>Ratings</td><td>number</td><td>445</td></tr>
+<tr><td><code>badge</code></td><td>Badge</td><td>text</td><td></td></tr>
+<tr><td><code>sponsored</code></td><td>Sponsored</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.amazon.com/dp/B0FQFB8FMG</td></tr>
+<tr><td><code>searchTerm</code></td><td></td><td>text</td><td>wireless earbuds</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>listPrice</code></td><td></td><td>number</td><td>249</td></tr>
+<tr><td><code>boughtPastMonth</code></td><td></td><td>text</td><td>10K+ bought in past month</td></tr>
+<tr><td><code>prime</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>image</code></td><td></td><td>text</td><td>https://m.media-amazon.com/images/I/61solmQSSlL._AC_UY218_.jpg</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;searchTerms&quot;: [
+    &quot;wireless earbuds&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>searchTerms</code></td><td>array</td><td>What you would type into the Amazon search box, one per line.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Optional Amazon.com search result URLs (with your filters already applied).</td></tr>
+<tr><td><code>sort</code></td><td>string</td><td>Sort order for search terms (search URLs keep their own).</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages to read for each search term or URL.</td></tr>
+<tr><td><code>includeSponsored</code></td><td>boolean</td><td>Keep ads in the results (they are marked with sponsored = true).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;searchTerm&quot;: &quot;wireless earbuds&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 1,
+    &quot;asin&quot;: &quot;B0FQFB8FMG&quot;,
+    &quot;title&quot;: &quot;Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation&quot;,
+    &quot;price&quot;: 199,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;listPrice&quot;: 249,
+    &quot;rating&quot;: 4.4,
+    &quot;ratingsCount&quot;: 445,
+    &quot;boughtPastMonth&quot;: &quot;10K+ bought in past month&quot;,
+    &quot;sponsored&quot;: false,
+    &quot;prime&quot;: false,
+    &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61solmQSSlL._AC_UY218_.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.amazon.com/dp/B0FQFB8FMG&quot;
+  },
+  {
+    &quot;searchTerm&quot;: &quot;wireless earbuds&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2,
+    &quot;asin&quot;: &quot;B0HDB173YV&quot;,
+    &quot;title&quot;: &quot;Wireless Earbuds, Bluetooth 6.0 Headphones HiFi Stereo 50H Playback LED Digital Display Ear Buds with ENC Noise Canceling Headset, IPX7 W...&quot;,
+    &quot;price&quot;: 18.97,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;listPrice&quot;: 19.97,
+    &quot;rating&quot;: 4.7,
+    &quot;ratingsCount&quot;: 475,
+    &quot;boughtPastMonth&quot;: &quot;8K+ bought in past month&quot;,
+    &quot;badge&quot;: &quot;Overall Pick&quot;,
+    &quot;sponsored&quot;: false,
+    &quot;prime&quot;: false,
+    &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61lW-nQhWIL._AC_UY218_.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.amazon.com/dp/B0HDB173YV&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/amazon-search-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;searchTerms&#x27;: [&#x27;wireless earbuds&#x27;], &#x27;maxPages&#x27;: 1, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/amazon-search-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;searchTerms&quot;: [
+    &quot;wireless earbuds&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/amazon-search-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~amazon-search-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;searchTerms&quot;: [&quot;wireless earbuds&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/amazon-search-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers amazon.com. Amazon shows at most about 7 pages of results for one search; use several narrower search terms to collect more products.</li>
+<li>Prices are what amazon.com shows to a visitor without an account in the United States.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Amazon Search Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include asin, title, price, rating, ratingsCount, badge, sponsored, url, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Amazon Search Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/amazon-search-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/amazon-search-scraper">Open Amazon Search Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: Scrape AliExpress search results into product rows: product ID, title, sale price, original price, discount...</li>
+<li><a href="/amazon-bestsellers-scraper/">Amazon Bestsellers Scraper</a>: Scrape Amazon.com Best Sellers and New Releases lists by category link: rank, ASIN, title, price, star rati...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

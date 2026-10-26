@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Podcasts Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Search the Apple Podcasts catalog via the public iTunes Search API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/itunes-podcast-search/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apple Podcasts Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Search the Apple Podcasts catalog via the public iTunes Search API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/itunes-podcast-search/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Apple Podcasts Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include snapshotAt, query, country, collectionId, trackId, artistName, collectionName, trackName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Apple Podcasts Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/itunes-podcast-search with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the limit input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Social media and publishing</nav>
+<h1>Apple Podcasts Scraper: how to get Podcasts by Keyword and Country as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Search the Apple Podcasts catalog via the public iTunes Search API. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/itunes-podcast-search</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/itunes-podcast-search">Open Apple Podcasts Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:26:11+00:00</td></tr>
+<tr><td><code>query</code></td><td>Query</td><td>text</td><td>crypto</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>us</td></tr>
+<tr><td><code>collectionId</code></td><td>Collection Id</td><td>number</td><td>1670431020</td></tr>
+<tr><td><code>trackId</code></td><td>Track Id</td><td>number</td><td>1670431020</td></tr>
+<tr><td><code>artistName</code></td><td>Artist Name</td><td>text</td><td></td></tr>
+<tr><td><code>collectionName</code></td><td>Collection Name</td><td>text</td><td>Daily Crypto News</td></tr>
+<tr><td><code>trackName</code></td><td>Track Name</td><td>text</td><td>Daily Crypto News</td></tr>
+<tr><td><code>showUrl</code></td><td>Show Url</td><td>URL</td><td>https://podcasts.apple.com/us/podcast/daily-crypto-news/id167043102...</td></tr>
+<tr><td><code>feedUrl</code></td><td>Feed Url</td><td>URL</td><td>https://feeds.acast.com/public/shows/63e26a946b77a10011ea5094</td></tr>
+<tr><td><code>artworkUrl</code></td><td>Artwork Url</td><td>URL</td><td>https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c1/4b/9f/c1...</td></tr>
+<tr><td><code>genre</code></td><td>Genre</td><td>text</td><td>Daily News</td></tr>
+<tr><td><code>episodeCount</code></td><td></td><td>number</td><td>879</td></tr>
+<tr><td><code>latestEpisodeAt</code></td><td></td><td>text</td><td>2026-10-22T12:14:00Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;queries&quot;: [
+    &quot;crypto&quot;,
+    &quot;startup&quot;,
+    &quot;business&quot;
+  ]
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>queries</code></td><td>array</td><td>Search keywords</td></tr>
+<tr><td><code>countries</code></td><td>array</td><td>ISO 3166-1 alpha-2 storefront codes</td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>Results per (query × country), max 200</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:26:11+00:00&quot;,
+    &quot;query&quot;: &quot;crypto&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;collectionId&quot;: 1670431020,
+    &quot;trackId&quot;: 1670431020,
+    &quot;collectionName&quot;: &quot;Daily Crypto News&quot;,
+    &quot;trackName&quot;: &quot;Daily Crypto News&quot;,
+    &quot;showUrl&quot;: &quot;https://podcasts.apple.com/us/podcast/daily-crypto-news/id1670431020?uo=4&quot;,
+    &quot;feedUrl&quot;: &quot;https://feeds.acast.com/public/shows/63e26a946b77a10011ea5094&quot;,
+    &quot;artworkUrl&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Podcasts221/v4/c1/4b/9f/c14b9f1b-19cf-5290-0887-3a057c6cdb24/mza_14143343576957003504.jpeg/600x6...&quot;,
+    &quot;genre&quot;: &quot;Daily News&quot;,
+    &quot;episodeCount&quot;: 879,
+    &quot;latestEpisodeAt&quot;: &quot;2026-10-22T12:14:00Z&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-10-26T04:26:11+00:00&quot;,
+    &quot;query&quot;: &quot;crypto&quot;,
+    &quot;country&quot;: &quot;us&quot;,
+    &quot;collectionId&quot;: 1262351840,
+    &quot;trackId&quot;: 1262351840,
+    &quot;collectionName&quot;: &quot;CRYPTO 101&quot;,
+    &quot;trackName&quot;: &quot;CRYPTO 101&quot;,
+    &quot;showUrl&quot;: &quot;https://podcasts.apple.com/us/podcast/crypto-101/id1262351840?uo=4&quot;,
+    &quot;feedUrl&quot;: &quot;https://feeds.redcircle.com/0db3d0cf-03b2-46da-b6df-5755ad63a6d5&quot;,
+    &quot;artworkUrl&quot;: &quot;https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/a0/2d/7c/a02d7cca-057a-f63e-547e-79ad5c8ed869/mza_12083084920655773923.jpg/600x60...&quot;,
+    &quot;genre&quot;: &quot;Investing&quot;,
+    &quot;episodeCount&quot;: 999,
+    &quot;latestEpisodeAt&quot;: &quot;2026-10-24T10:00:00Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/itunes-podcast-search</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;queries&#x27;: [&#x27;crypto&#x27;, &#x27;startup&#x27;, &#x27;business&#x27;]}
+
+run = client.actor(&quot;v0iddo/itunes-podcast-search&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;queries&quot;: [
+    &quot;crypto&quot;,
+    &quot;startup&quot;,
+    &quot;business&quot;
+  ]
+};
+
+const run = await client.actor(&#x27;v0iddo/itunes-podcast-search&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~itunes-podcast-search/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;queries&quot;: [&quot;crypto&quot;, &quot;startup&quot;, &quot;business&quot;]}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. See the <a href="https://apify.com/v0iddo/itunes-podcast-search/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Apple Podcasts Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include snapshotAt, query, country, collectionId, trackId, artistName, collectionName, trackName, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Apple Podcasts Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/itunes-podcast-search</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.14 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>limit</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/itunes-podcast-search">Open Apple Podcasts Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/medium-rss-tracker/">Medium Scraper</a>: Pull Medium articles via the public RSS feed endpoints: /feed/@user, /feed/tag/{tag}, /feed/{publication-sl...</li>
+<li><a href="/substack-newsletter-posts/">Substack Scraper</a>: Substack scraper for newsletter posts.</li>
+<li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Collect public ads from the Meta Ad Library by keyword, advertiser Page ID or Ad Library link: ad text, hea...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

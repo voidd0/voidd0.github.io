@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClinicalTrials.gov Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Pull recently-updated ClinicalTrials.gov studies matching a query. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/clinicaltrials-updates-tracker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ClinicalTrials.gov Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Pull recently-updated ClinicalTrials.gov studies matching a query. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/clinicaltrials-updates-tracker/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the ClinicalTrials.gov Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include nctId, briefTitle, officialTitle, overallStatus, phases, studyType, leadSponsor, collaborators, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the ClinicalTrials.gov Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/clinicaltrials-updates-tracker with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / News, research and publishing</nav>
+<h1>ClinicalTrials.gov Scraper: how to get Trial Updates by Query as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Pull recently-updated ClinicalTrials.gov studies matching a query. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/clinicaltrials-updates-tracker</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/clinicaltrials-updates-tracker">Open ClinicalTrials.gov Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>nctId</code></td><td>Nct Id</td><td>text</td><td>NCT07524530</td></tr>
+<tr><td><code>briefTitle</code></td><td>Brief Title</td><td>text</td><td>Stem Cell Transplantation for Participants With Germline RUNX1 Asso...</td></tr>
+<tr><td><code>officialTitle</code></td><td>Official Title</td><td>text</td><td>Phase II Haploidentical Hematopoietic Stem Cell Transplantation for...</td></tr>
+<tr><td><code>overallStatus</code></td><td>Overall Status</td><td>text</td><td>NOT_YET_RECRUITING</td></tr>
+<tr><td><code>phases</code></td><td>Phases</td><td>list</td><td>[&quot;PHASE2&quot;]</td></tr>
+<tr><td><code>studyType</code></td><td>Study Type</td><td>text</td><td>INTERVENTIONAL</td></tr>
+<tr><td><code>leadSponsor</code></td><td>Lead Sponsor</td><td>text</td><td>National Cancer Institute (NCI)</td></tr>
+<tr><td><code>collaborators</code></td><td>Collaborators</td><td>list</td><td></td></tr>
+<tr><td><code>conditions</code></td><td>Conditions</td><td>list</td><td>[&quot;Core Binding Factor Alpha Subunits&quot;, &quot;Hematologic Neoplasms&quot;, &quot;Le...</td></tr>
+<tr><td><code>keywords</code></td><td>Keywords</td><td>list</td><td>[&quot;RUNX1&quot;, &quot;Haploidentical Hematopoietic Stem Cell Transplant&quot;, &quot;Ger...</td></tr>
+<tr><td><code>interventions</code></td><td>Interventions</td><td>list</td><td>[{&quot;type&quot;: &quot;DRUG&quot;, &quot;name&quot;: &quot;Cyclophosphamide&quot;}, {&quot;type&quot;: &quot;DRUG&quot;, &quot;na...</td></tr>
+<tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-10-28</td></tr>
+<tr><td><code>primaryCompletionDate</code></td><td></td><td>text</td><td>2033-06-01</td></tr>
+<tr><td><code>completionDate</code></td><td></td><td>text</td><td>2036-06-01</td></tr>
+<tr><td><code>studyFirstPostDate</code></td><td></td><td>text</td><td>2026-04-13</td></tr>
+<tr><td><code>lastUpdatePostDate</code></td><td></td><td>text</td><td>2026-10-23</td></tr>
+<tr><td><code>enrollment</code></td><td></td><td>number</td><td>102</td></tr>
+<tr><td><code>minimumAge</code></td><td></td><td>text</td><td>4 Years</td></tr>
+<tr><td><code>maximumAge</code></td><td></td><td>text</td><td>70 Years</td></tr>
+<tr><td><code>sex</code></td><td></td><td>text</td><td>ALL</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[{&quot;facility&quot;: &quot;National Institutes of Health Clinical Center&quot;, &quot;cit...</td></tr>
+<tr><td><code>briefSummary</code></td><td></td><td>text</td><td>Background:
+
+Some blood cancers can be caused by germline variants ...</td></tr>
+<tr><td><code>query</code></td><td></td><td>text</td><td>lung cancer</td></tr>
+<tr><td><code>studyUrl</code></td><td></td><td>text</td><td>https://clinicaltrials.gov/study/NCT07524530</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;queries&quot;: [
+    &quot;lung cancer&quot;
+  ],
+  &quot;maxResultsPerQuery&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>queries</code> (required)</td><td>array</td><td>List of ClinicalTrials.gov search terms, in the same syntax as the website search box.</td></tr>
+<tr><td><code>sinceDays</code></td><td>integer</td><td>Filter by lastUpdatePostDate &gt;= now-sinceDays.</td></tr>
+<tr><td><code>statusFilter</code></td><td>array</td><td>Limit to specific overall statuses (RECRUITING, ACTIVENOTRECRUITING, COMPLETED, TERMINATED, ...).</td></tr>
+<tr><td><code>maxResultsPerQuery</code></td><td>integer</td><td>Hard cap per query. Use to keep runs cheap.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;nctId&quot;: &quot;NCT07524530&quot;,
+    &quot;briefTitle&quot;: &quot;Stem Cell Transplantation for Participants With Germline RUNX1 Associated Blood Cancers&quot;,
+    &quot;officialTitle&quot;: &quot;Phase II Haploidentical Hematopoietic Stem Cell Transplantation for Participants With Germline RUNX1 Associated Hematologic Malignancies&quot;,
+    &quot;overallStatus&quot;: &quot;NOT_YET_RECRUITING&quot;,
+    &quot;phases&quot;: [
+      &quot;PHASE2&quot;
+    ],
+    &quot;studyType&quot;: &quot;INTERVENTIONAL&quot;,
+    &quot;leadSponsor&quot;: &quot;National Cancer Institute (NCI)&quot;,
+    &quot;conditions&quot;: [
+      &quot;Core Binding Factor Alpha Subunits&quot;,
+      &quot;Hematologic Neoplasms&quot;,
+      &quot;Leukemia&quot;
+    ],
+    &quot;keywords&quot;: [
+      &quot;RUNX1&quot;,
+      &quot;Haploidentical Hematopoietic Stem Cell Transplant&quot;,
+      &quot;Germline RUNX1&quot;
+    ],
+    &quot;interventions&quot;: [
+      {
+        &quot;type&quot;: &quot;DRUG&quot;,
+        &quot;name&quot;: &quot;Cyclophosphamide&quot;
+      },
+      {
+        &quot;type&quot;: &quot;DRUG&quot;,
+        &quot;name&quot;: &quot;Busulfan&quot;
+      },
+      {
+        &quot;type&quot;: &quot;DRUG&quot;,
+        &quot;name&quot;: &quot;Fludarabine&quot;
+      }
+    ],
+    &quot;startDate&quot;: &quot;2026-10-28&quot;,
+    &quot;primaryCompletionDate&quot;: &quot;2033-06-01&quot;,
+    &quot;completionDate&quot;: &quot;2036-06-01&quot;,
+    &quot;studyFirstPostDate&quot;: &quot;2026-04-13&quot;,
+    &quot;lastUpdatePostDate&quot;: &quot;2026-10-23&quot;,
+    &quot;enrollment&quot;: 102,
+    &quot;minimumAge&quot;: &quot;4 Years&quot;,
+    &quot;maximumAge&quot;: &quot;70 Years&quot;,
+    &quot;sex&quot;: &quot;ALL&quot;,
+    &quot;locations&quot;: [
+      {
+        &quot;facility&quot;: &quot;National Institutes of Health Clinical Center&quot;,
+        &quot;city&quot;: &quot;Bethesda&quot;,
+        &quot;state&quot;: &quot;Maryland&quot;,
+        &quot;country&quot;: &quot;United States&quot;,
+        &quot;status&quot;: null
+      }
+    ],
+    &quot;briefSummary&quot;: &quot;Background:\n\nSome blood cancers can be caused by germline variants (changes) in a person s RUNX1 gene. Germline variants are genetic inhe...&quot;,
+    &quot;query&quot;: &quot;lung cancer&quot;,
+    &quot;studyUrl&quot;: &quot;https://clinicaltrials.gov/study/NCT07524530&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/clinicaltrials-updates-tracker</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;queries&#x27;: [&#x27;lung cancer&#x27;], &#x27;maxResultsPerQuery&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/clinicaltrials-updates-tracker&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;queries&quot;: [
+    &quot;lung cancer&quot;
+  ],
+  &quot;maxResultsPerQuery&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/clinicaltrials-updates-tracker&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~clinicaltrials-updates-tracker/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;queries&quot;: [&quot;lung cancer&quot;], &quot;maxResultsPerQuery&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. See the <a href="https://apify.com/v0iddo/clinicaltrials-updates-tracker/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the ClinicalTrials.gov Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include nctId, briefTitle, officialTitle, overallStatus, phases, studyType, leadSponsor, collaborators, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the ClinicalTrials.gov Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/clinicaltrials-updates-tracker</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/clinicaltrials-updates-tracker">Open ClinicalTrials.gov Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/news-scraper/">News article scraper</a>: Extract news articles from any publisher.</li>
+<li><a href="/substack-scraper/">Substack Posts Scraper</a>: Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen...</li>
+<li><a href="/hn-algolia-search/">Hacker News Scraper</a>: Search Hacker News via the public Algolia API.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

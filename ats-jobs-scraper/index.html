@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greenhouse, Lever, Workday and Ashby jobs scraper: API guide | vøiddo</title>
+<meta name="description" content="Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and Bambo... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/ats-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Greenhouse, Lever, Workday and Ashby jobs scraper: API guide | vøiddo">
+<meta property="og:description" content="Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and Bambo... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/ats-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Greenhouse, Lever, Workday and Ashby jobs scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include ats, company, title, department, location, remote, workplaceType, employmentType, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Greenhouse, Lever, Workday and Ashby jobs scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/ats-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.84 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Greenhouse, Lever, Workday and Ashby jobs scraper: how to get job postings as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and BambooHR with one consistent schema. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/ats-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/ats-jobs-scraper">Open Greenhouse, Lever, Workday and Ashby jobs scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>ats</code></td><td>System</td><td>text</td><td>greenhouse</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>discord</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Commercial Policy Lead</td></tr>
+<tr><td><code>department</code></td><td>Department</td><td>text</td><td>Policy</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>San Francisco Bay Area</td></tr>
+<tr><td><code>remote</code></td><td>Remote</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>workplaceType</code></td><td>Workplace</td><td>text</td><td></td></tr>
+<tr><td><code>employmentType</code></td><td>Employment</td><td>text</td><td></td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-09-15T16:52:11Z</td></tr>
+<tr><td><code>salaryMin</code></td><td>Pay from</td><td>number</td><td>192000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Pay to</td><td>number</td><td>216000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
+<tr><td><code>url</code></td><td>Link</td><td>URL</td><td>https://job-boards.greenhouse.io/discord/jobs/8806482002</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>8806482002</td></tr>
+<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-10-21T00:27:20Z</td></tr>
+<tr><td><code>applyUrl</code></td><td></td><td>text</td><td>https://job-boards.greenhouse.io/discord/jobs/8806482002</td></tr>
+<tr><td><code>salaryInterval</code></td><td></td><td>text</td><td>year</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Discord has a highly engaged community of millions of daily active ...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T04:26:49Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;companies&quot;: [
+    &quot;https://job-boards.greenhouse.io/discord&quot;,
+    &quot;https://jobs.lever.co/spotify&quot;,
+    &quot;https://apply.workable.com/huggingface&quot;
+  ],
+  &quot;includeDescription&quot;: true,
+  &quot;maxItems&quot;: 50,
+  &quot;maxJobsPerCompany&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>companies</code> (required)</td><td>array</td><td>One company per line, at most 200.</td></tr>
+<tr><td><code>titleKeywords</code></td><td>array</td><td>Optional. Only postings whose title contains at least one of these words or phrases are returned.</td></tr>
+<tr><td><code>locationContains</code></td><td>string</td><td>Optional text such as Berlin, Remote, Canada or US.</td></tr>
+<tr><td><code>remoteOnly</code></td><td>boolean</td><td>Return only postings that are marked remote or say remote in their location.</td></tr>
+<tr><td><code>postedWithinDays</code></td><td>integer</td><td>Optional. Skip postings that were published longer ago than this.</td></tr>
+<tr><td><code>includeDescription</code></td><td>boolean</td><td>Add the job description as plain text.</td></tr>
+<tr><td><code>maxJobsPerCompany</code></td><td>integer</td><td>Optional. Stop reading a company after this many matching postings and go on to the next one, so a large employer first in the list does not fill the whole run.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;ats&quot;: &quot;greenhouse&quot;,
+    &quot;company&quot;: &quot;discord&quot;,
+    &quot;jobId&quot;: &quot;8806482002&quot;,
+    &quot;title&quot;: &quot;Commercial Policy Lead&quot;,
+    &quot;department&quot;: &quot;Policy&quot;,
+    &quot;location&quot;: &quot;San Francisco Bay Area&quot;,
+    &quot;remote&quot;: true,
+    &quot;postedAt&quot;: &quot;2026-09-15T16:52:11Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-21T00:27:20Z&quot;,
+    &quot;url&quot;: &quot;https://job-boards.greenhouse.io/discord/jobs/8806482002&quot;,
+    &quot;applyUrl&quot;: &quot;https://job-boards.greenhouse.io/discord/jobs/8806482002&quot;,
+    &quot;salaryMin&quot;: 192000,
+    &quot;salaryMax&quot;: 216000,
+    &quot;salaryCurrency&quot;: &quot;USD&quot;,
+    &quot;salaryInterval&quot;: &quot;year&quot;,
+    &quot;descriptionText&quot;: &quot;Discord has a highly engaged community of millions of daily active users who use the platform for many different reasons, but there’s one...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:26:49Z&quot;
+  },
+  {
+    &quot;ats&quot;: &quot;greenhouse&quot;,
+    &quot;company&quot;: &quot;discord&quot;,
+    &quot;jobId&quot;: &quot;8840756002&quot;,
+    &quot;title&quot;: &quot;Data Scientist - Client Platform&quot;,
+    &quot;department&quot;: &quot;Data Science &amp; Engineering&quot;,
+    &quot;location&quot;: &quot;San Francisco Bay Area&quot;,
+    &quot;postedAt&quot;: &quot;2026-09-24T21:26:49Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-21T00:14:41Z&quot;,
+    &quot;url&quot;: &quot;https://job-boards.greenhouse.io/discord/jobs/8840756002&quot;,
+    &quot;applyUrl&quot;: &quot;https://job-boards.greenhouse.io/discord/jobs/8840756002&quot;,
+    &quot;salaryMin&quot;: 160000,
+    &quot;salaryMax&quot;: 200000,
+    &quot;salaryCurrency&quot;: &quot;USD&quot;,
+    &quot;salaryInterval&quot;: &quot;year&quot;,
+    &quot;descriptionText&quot;: &quot;Discord has a highly engaged community of millions of daily active users who use the platform for many different reasons, but there’s one...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-26T04:26:49Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/ats-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;companies&#x27;: [&#x27;https://job-boards.greenhouse.io/discord&#x27;,
+               &#x27;https://jobs.lever.co/spotify&#x27;,
+               &#x27;https://apply.workable.com/huggingface&#x27;],
+ &#x27;includeDescription&#x27;: True,
+ &#x27;maxItems&#x27;: 50,
+ &#x27;maxJobsPerCompany&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/ats-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;companies&quot;: [
+    &quot;https://job-boards.greenhouse.io/discord&quot;,
+    &quot;https://jobs.lever.co/spotify&quot;,
+    &quot;https://apply.workable.com/huggingface&quot;
+  ],
+  &quot;includeDescription&quot;: true,
+  &quot;maxItems&quot;: 50,
+  &quot;maxJobsPerCompany&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/ats-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~ats-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;companies&quot;: [&quot;https://job-boards.greenhouse.io/discord&quot;, &quot;https://jobs.lever.co/spotify&quot;, &quot;https://apply.workable.com/huggingface&quot;], &quot;includeDescription&quot;: true, &quot;maxItems&quot;: 50, &quot;maxJobsPerCompany&quot;: 20}&#x27;
+</code></pre><p>Ready-to-run example scripts: <a href="https://github.com/voidd0/greenhouse-lever-workday-jobs-api">example repository on GitHub</a>.</p>
+<h2>Price</h2>
+<p>$1.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.84 per 1,000. See the <a href="https://apify.com/v0iddo/ats-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Give up to 200 companies. A careers page link is enough: the system is detected from the address. Supported: Greenhouse, Lever (also the EU instance), Workday, Workable, Ashby, Recruitee, Personio...</li>
+<li>Every row has the same fields for every system. A field the source does not publish is empty. The company field is the board name from the careers link (for example discord), the same for all rows...</li>
+<li>Remote is true when the posting is marked remote or says remote in its location, false when it is marked hybrid or on site, and empty when unknown. Workplace is remote, hybrid or onsite when the...</li>
+<li>Pay is returned only where the posting publishes it (Greenhouse, Lever, Recruitee, Ashby, Workday). Interval is year, month, week, day or hour. Ashby and Workday show pay as text, so the first...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Greenhouse, Lever, Workday and Ashby jobs scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include ats, company, title, department, location, remote, workplaceType, employmentType, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Greenhouse, Lever, Workday and Ashby jobs scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/ats-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.20 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.84 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/ats-jobs-scraper">Open Greenhouse, Lever, Workday and Ashby jobs scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/indeed-scraper/">Indeed Jobs Scraper</a>: Scrape Indeed.com job search results: title, company and its rating, location, remote or hybrid, salary ran...</li>
+<li><a href="/remote-jobs-scraper/">Remote Jobs Scraper</a>: Scrape remote jobs from Remote OK, We Work Remotely, Jobicy, Working Nomads and Arbeitnow in one feed: titl...</li>
+<li><a href="/workday-jobs-scraper/">Workday Jobs Scraper</a>: Collect every open job from any Workday careers site (myworkdayjobs.com): title, location, country, remote...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
