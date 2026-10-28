@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wellfound Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page:... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/wellfound-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wellfound Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page:... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/wellfound-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Wellfound Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, locations, workplace, salaryMin, salaryMax, salaryCurrency, equityMin, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Wellfound Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/wellfound-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Wellfound Jobs Scraper: how to get Salary, Equity, Stage as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page: title, salary and equity ranges, experience, job type, remote policy, description, and the startup&#x27;s size, stage, pitch and badges. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/wellfound-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/wellfound-jobs-scraper">Open Wellfound Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Software Engineer</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Check</td></tr>
+<tr><td><code>locations</code></td><td>Locations</td><td>list</td><td>[&quot;New York&quot;]</td></tr>
+<tr><td><code>workplace</code></td><td>Workplace</td><td>text</td><td>onsite</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary from</td><td>number</td><td>142000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary to</td><td>number</td><td>187000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
+<tr><td><code>equityMin</code></td><td>Equity from %</td><td>number</td><td></td></tr>
+<tr><td><code>companyStage</code></td><td>Stage</td><td>text</td><td>Growth Stage</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-15T00:02:06Z</td></tr>
+<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://wellfound.com/jobs/4844846-software-engineer</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>4844846</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://wellfound.com/role/l/software-engineer/new-york</td></tr>
+<tr><td><code>role</code></td><td></td><td>text</td><td>Software Engineer</td></tr>
+<tr><td><code>jobType</code></td><td></td><td>text</td><td>full-time</td></tr>
+<tr><td><code>remote</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>wfhFlexible</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>compensation</code></td><td></td><td>text</td><td>$142k - $187k</td></tr>
+<tr><td><code>salaryPeriod</code></td><td></td><td>text</td><td>year</td></tr>
+<tr><td><code>ats</code></td><td></td><td>text</td><td>Ashby</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>About Check
+
+Payroll is broken. It&#x27;s still running on decades-old i...</td></tr>
+<tr><td><code>companySlug</code></td><td></td><td>text</td><td>checkhq</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://wellfound.com/company/checkhq</td></tr>
+<tr><td><code>companyTagline</code></td><td></td><td>text</td><td>Check’s mission is to make paying people simple</td></tr>
+<tr><td><code>companySize</code></td><td></td><td>text</td><td>51-200</td></tr>
+<tr><td><code>companyBadges</code></td><td></td><td>list</td><td>[&quot;Actively Hiring&quot;, &quot;B2B&quot;, &quot;Growth Stage&quot;]</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://photos.wellfound.com/startups/i/8170097-670b14dbd6d668e33d4...</td></tr>
+<tr><td><code>datePosted</code></td><td></td><td>text</td><td>2026-10-15</td></tr>
+<tr><td><code>industry</code></td><td></td><td>text</td><td>SaaS, Enterprise Software, B2B, Payments, Hr Tech, and Fin Tech</td></tr>
+<tr><td><code>benefits</code></td><td></td><td>text</td><td>Health insurance - We provide full competitive medical, dental, and...</td></tr>
+<tr><td><code>visaSponsorship</code></td><td></td><td>text</td><td>Not Available</td></tr>
+<tr><td><code>relocation</code></td><td></td><td>text</td><td>Not Allowed</td></tr>
+<tr><td><code>companyWebsite</code></td><td></td><td>text</td><td>https://checkhq.com/</td></tr>
+<tr><td><code>regions</code></td><td></td><td>list</td><td>[&quot;New York&quot;]</td></tr>
+<tr><td><code>countries</code></td><td></td><td>list</td><td>[&quot;United States&quot;]</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-28T01:35:58Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;roles&quot;: [
+    &quot;Software Engineer&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;New York&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>roles</code></td><td>array</td><td>Job roles as Wellfound names them, such as Software Engineer, Product Manager, Data Scientist, Designer, Sales Manager or Marketing Manager (spaces or dashes both work).</td></tr>
+<tr><td><code>locations</code></td><td>array</td><td>Optional cities or countries as Wellfound names them, such as New York, San Francisco, London, Berlin, Bangalore or India.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Optional links to Wellfound job search pages, for example https://wellfound.com/role/l/software-engineer/new-york, https://wellfound.com/role/r/data-scientist or https...</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Adds the exact posting date, salary as numbers with its period, benefits, industry, visa sponsorship, relocation, the startup&#x27;s website and every location with its reg...</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 4844846,
+    &quot;searchUrl&quot;: &quot;https://wellfound.com/role/l/software-engineer/new-york&quot;,
+    &quot;title&quot;: &quot;Software Engineer&quot;,
+    &quot;role&quot;: &quot;Software Engineer&quot;,
+    &quot;jobType&quot;: &quot;full-time&quot;,
+    &quot;locations&quot;: [
+      &quot;New York&quot;
+    ],
+    &quot;remote&quot;: false,
+    &quot;workplace&quot;: &quot;onsite&quot;,
+    &quot;wfhFlexible&quot;: false,
+    &quot;compensation&quot;: &quot;$142k - $187k&quot;,
+    &quot;salaryMin&quot;: 142000,
+    &quot;salaryMax&quot;: 187000,
+    &quot;salaryCurrency&quot;: &quot;USD&quot;,
+    &quot;salaryPeriod&quot;: &quot;year&quot;,
+    &quot;postedAt&quot;: &quot;2026-10-15T00:02:06Z&quot;,
+    &quot;ats&quot;: &quot;Ashby&quot;,
+    &quot;descriptionText&quot;: &quot;About Check\n\nPayroll is broken. It&#x27;s still running on decades-old infrastructure. We&#x27;re rebuilding it.\n\nWe don&#x27;t run payroll ourselves -...&quot;,
+    &quot;company&quot;: &quot;Check&quot;,
+    &quot;companySlug&quot;: &quot;checkhq&quot;,
+    &quot;companyUrl&quot;: &quot;https://wellfound.com/company/checkhq&quot;,
+    &quot;companyTagline&quot;: &quot;Check’s mission is to make paying people simple&quot;,
+    &quot;companySize&quot;: &quot;51-200&quot;,
+    &quot;companyStage&quot;: &quot;Growth Stage&quot;,
+    &quot;companyBadges&quot;: [
+      &quot;Actively Hiring&quot;,
+      &quot;B2B&quot;,
+      &quot;Growth Stage&quot;
+    ],
+    &quot;companyLogo&quot;: &quot;https://photos.wellfound.com/startups/i/8170097-670b14dbd6d668e33d45382818a7008d-medium_jpg.jpg?buster=1778954896&quot;,
+    &quot;datePosted&quot;: &quot;2026-10-15&quot;,
+    &quot;industry&quot;: &quot;SaaS, Enterprise Software, B2B, Payments, Hr Tech, and Fin Tech&quot;,
+    &quot;benefits&quot;: &quot;Health insurance - We provide full competitive medical, dental, and vision coverage, with options for 100% company-paid coverage. Generou...&quot;,
+    &quot;visaSponsorship&quot;: &quot;Not Available&quot;,
+    &quot;relocation&quot;: &quot;Not Allowed&quot;,
+    &quot;companyWebsite&quot;: &quot;https://checkhq.com/&quot;,
+    &quot;regions&quot;: [
+      &quot;New York&quot;
+    ],
+    &quot;countries&quot;: [
+      &quot;United States&quot;
+    ],
+    &quot;url&quot;: &quot;https://wellfound.com/jobs/4844846-software-engineer&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-28T01:35:58Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/wellfound-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;roles&#x27;: [&#x27;Software Engineer&#x27;],
+ &#x27;locations&#x27;: [&#x27;New York&#x27;],
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/wellfound-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;roles&quot;: [
+    &quot;Software Engineer&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;New York&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/wellfound-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~wellfound-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;roles&quot;: [&quot;Software Engineer&quot;], &quot;locations&quot;: [&quot;New York&quot;], &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/wellfound-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each role is searched in each location; jobs are unique by ID across the run. A search page lists 20 startups with up to three of their matching jobs each, the way Wellfound shows them; a startup...</li>
+<li>salaryMin, salaryMax and salaryCurrency come from the compensation text (a range such as $142k to $187k); equityMin and equityMax are percent, and equityOffered is false where the posting says no...</li>
+<li>workplace is remote, onsite or onsite or remote, as the posting states it (or as its places say: a job that lists Remote or accepts remote places is open to remote); wfhFlexible marks onsite jobs...</li>
+<li>A role or location Wellfound does not know is named in the log and skipped; a search is never widened to other places.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Wellfound Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, locations, workplace, salaryMin, salaryMax, salaryCurrency, equityMin, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Wellfound Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/wellfound-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/wellfound-jobs-scraper">Open Wellfound Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Scrape India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs wh...</li>
+<li><a href="/instahyre-jobs-scraper/">Instahyre Jobs Scraper</a>: Scrape India jobs from Instahyre: title, company, locations, skills, experience in years, posting date, emp...</li>
+<li><a href="/pracuj-pl-scraper/">Pracuj.pl Scraper</a>: Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -175,10 +175,10 @@ console.log(items);
 <p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. See the <a href="https://apify.com/v0iddo/amazon-product-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
+<li>Links from other Amazon stores (amazon.co.uk, amazon.de and so on) are read by their ASIN on amazon.com. An entry that is not an ASIN or a product link is skipped and named in the log; the run...</li>
 <li>Covers amazon.com (United States). One row per product, at most 1000 products per run. Each product is one page request of about 2 MB, so large lists take a while.</li>
 <li>Prices, stock and shipping are what amazon.com shows to a visitor without an account in the United States. When a product shows several offers, the price of the main offer is used.</li>
 <li>Seller names, customer reviews and book author names are not collected.</li>
-<li>Fields that a page does not show (for example list price, best sellers rank or product dimensions) are empty instead of guessed. Date first available is shown by Amazon on only a few product pages.</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Amazon Product Details Scraper return?</h3>

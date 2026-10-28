@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instahyre Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape India jobs from Instahyre: title, company, locations, skills, experience in years, posting date, emp... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/instahyre-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instahyre Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape India jobs from Instahyre: title, company, locations, skills, experience in years, posting date, emp... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/instahyre-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Instahyre Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, experienceMin, experienceMax, skills, companyEmployees, postedDate, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Instahyre Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/instahyre-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Instahyre Jobs Scraper: how to get India Jobs, Skills as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape India jobs from Instahyre: title, company, locations, skills, experience in years, posting date, employment type, the description, and the employer&#x27;s size, founding year, tagline and website. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/instahyre-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/instahyre-jobs-scraper">Open Instahyre Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Python Developer</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>TopDoc</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Bangalore</td></tr>
+<tr><td><code>experienceMin</code></td><td>Experience from</td><td>number</td><td>4</td></tr>
+<tr><td><code>experienceMax</code></td><td>Experience to</td><td>number</td><td>8</td></tr>
+<tr><td><code>skills</code></td><td>Skills</td><td>list</td><td>[&quot;Python&quot;, &quot;FastAPI&quot;, &quot;LLMs&quot;]</td></tr>
+<tr><td><code>companyEmployees</code></td><td>Employees</td><td>text</td><td>0-10</td></tr>
+<tr><td><code>postedDate</code></td><td>Posted</td><td>date</td><td>2026-10-21</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.instahyre.com/job-447614-python-developer-at-topdoc-ban...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>447614</td></tr>
+<tr><td><code>searchTerm</code></td><td></td><td>text</td><td>python</td></tr>
+<tr><td><code>internship</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>50756</td></tr>
+<tr><td><code>companyTagline</code></td><td></td><td>text</td><td>A leading technology-enabled healthcare platform</td></tr>
+<tr><td><code>companyFounded</code></td><td></td><td>number</td><td>2000</td></tr>
+<tr><td><code>companyAbout</code></td><td></td><td>text</td><td>TopDoc is a US-based healthcare platform that simplifies the patien...</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://media.instahyre.com/images/profile/base/employer/50756/0f0a...</td></tr>
+<tr><td><code>companyWebsite</code></td><td></td><td>text</td><td>https://topdoc.com/</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Bangalore&quot;]</td></tr>
+<tr><td><code>remote</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>regions</code></td><td></td><td>list</td><td>[&quot;Karnataka&quot;]</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>India</td></tr>
+<tr><td><code>experienceText</code></td><td></td><td>text</td><td>4-8 Years</td></tr>
+<tr><td><code>employmentType</code></td><td></td><td>text</td><td>FULL_TIME</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>We are looking for a hands-on Python Developer with strong backend ...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-27T10:24:29Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Bangalore&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Words such as python, react, data engineer or sales manager.</td></tr>
+<tr><td><code>locations</code></td><td>array</td><td>Optional cities, states or regions as Instahyre names them, such as Bangalore, Mumbai, Delhi, Gurgaon, Pune, Hyderabad, South India or Work From Home.</td></tr>
+<tr><td><code>jobFunctions</code></td><td>array</td><td>Optional Instahyre job functions, such as Backend Development, Data Science / Machine Learning, DevOps / Cloud, Product Management or Sales / Business Development.</td></tr>
+<tr><td><code>companies</code></td><td>array</td><td>Optional employer names as Instahyre shows them, for example Amazon or Accenture.</td></tr>
+<tr><td><code>experienceYears</code></td><td>integer</td><td>Optional. Postings open to a candidate with this many years.</td></tr>
+<tr><td><code>experienceLevel</code></td><td>string</td><td>Optional. Instahyre&#x27;s own level of the posting.</td></tr>
+<tr><td><code>jobType</code></td><td>string</td><td>Full time jobs, internships, or both.</td></tr>
+<tr><td><code>companySize</code></td><td>string</td><td>Optional. Instahyre&#x27;s size group of the employer.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Open each posting&#x27;s page for the description, posting date, experience range, employment type, region and the employer&#x27;s website.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 447614,
+    &quot;searchTerm&quot;: &quot;python&quot;,
+    &quot;title&quot;: &quot;Python Developer&quot;,
+    &quot;internship&quot;: false,
+    &quot;company&quot;: &quot;TopDoc&quot;,
+    &quot;companyId&quot;: 50756,
+    &quot;companyTagline&quot;: &quot;A leading technology-enabled healthcare platform&quot;,
+    &quot;companyFounded&quot;: 2000,
+    &quot;companyEmployees&quot;: &quot;0-10&quot;,
+    &quot;companyAbout&quot;: &quot;TopDoc is a US-based healthcare platform that simplifies the patient experience by offering a centralized app for managing medical care b...&quot;,
+    &quot;companyLogo&quot;: &quot;https://media.instahyre.com/images/profile/base/employer/50756/0f0a558f79/Screenshot_2025-04-22_at_6.05.54PM.webp&quot;,
+    &quot;companyWebsite&quot;: &quot;https://topdoc.com/&quot;,
+    &quot;locations&quot;: [
+      &quot;Bangalore&quot;
+    ],
+    &quot;location&quot;: &quot;Bangalore&quot;,
+    &quot;remote&quot;: false,
+    &quot;regions&quot;: [
+      &quot;Karnataka&quot;
+    ],
+    &quot;country&quot;: &quot;India&quot;,
+    &quot;skills&quot;: [
+      &quot;Python&quot;,
+      &quot;FastAPI&quot;,
+      &quot;LLMs&quot;
+    ],
+    &quot;experienceMin&quot;: 4,
+    &quot;experienceMax&quot;: 8,
+    &quot;experienceText&quot;: &quot;4-8 Years&quot;,
+    &quot;employmentType&quot;: &quot;FULL_TIME&quot;,
+    &quot;postedDate&quot;: &quot;2026-10-21&quot;,
+    &quot;descriptionText&quot;: &quot;We are looking for a hands-on Python Developer with strong backend development skills and a keen interest in Artificial Intelligence to j...&quot;,
+    &quot;url&quot;: &quot;https://www.instahyre.com/job-447614-python-developer-at-topdoc-bangalore/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:24:29Z&quot;
+  },
+  {
+    &quot;jobId&quot;: 441980,
+    &quot;searchTerm&quot;: &quot;python&quot;,
+    &quot;title&quot;: &quot;Python Developer&quot;,
+    &quot;internship&quot;: false,
+    &quot;company&quot;: &quot;Nineleaps&quot;,
+    &quot;companyId&quot;: 5003,
+    &quot;companyTagline&quot;: &quot;We build high performance solutions&quot;,
+    &quot;companyFounded&quot;: 2014,
+    &quot;companyEmployees&quot;: &quot;200-500&quot;,
+    &quot;companyAbout&quot;: &quot;Nineleaps are enablers of Digital Transformation across industries, helping partner companies become future ready. They have developed hi...&quot;,
+    &quot;companyLogo&quot;: &quot;https://media.instahyre.com/images/profile/base/employer/5003/dcac758458/nineleaps.webp&quot;,
+    &quot;companyWebsite&quot;: &quot;https://www.nineleaps.com/&quot;,
+    &quot;locations&quot;: [
+      &quot;Bangalore&quot;
+    ],
+    &quot;location&quot;: &quot;Bangalore&quot;,
+    &quot;remote&quot;: false,
+    &quot;regions&quot;: [
+      &quot;Karnataka&quot;
+    ],
+    &quot;country&quot;: &quot;India&quot;,
+    &quot;skills&quot;: [
+      &quot;Python&quot;
+    ],
+    &quot;experienceMin&quot;: 6,
+    &quot;experienceMax&quot;: 8,
+    &quot;experienceText&quot;: &quot;6-8 Years&quot;,
+    &quot;employmentType&quot;: &quot;FULL_TIME&quot;,
+    &quot;postedDate&quot;: &quot;2026-09-04&quot;,
+    &quot;descriptionText&quot;: &quot;We are looking for an experienced Python Developer to design, develop, and maintain scalable backend applications and APIs.\n\nResponsibili...&quot;,
+    &quot;url&quot;: &quot;https://www.instahyre.com/job-441980-python-developer-at-nineleaps-2-bangalore/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:24:30Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/instahyre-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;python&#x27;],
+ &#x27;locations&#x27;: [&#x27;Bangalore&#x27;],
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/instahyre-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;locations&quot;: [
+    &quot;Bangalore&quot;
+  ],
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/instahyre-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~instahyre-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;python&quot;], &quot;locations&quot;: [&quot;Bangalore&quot;], &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/instahyre-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per skill or title; postings are unique by ID across the whole run. Instahyre ranks a search by how well postings match, so the first rows fit best and a long run reaches looser...</li>
+<li>A search shows at most 10,000 postings. For a broader list, split it by location, job function or company.</li>
+<li>experienceMin and experienceMax are the years the posting asks for (from its page); companyEmployees is Instahyre&#x27;s size band of the employer, such as 50-200.</li>
+<li>Locations, job functions and companies are checked against Instahyre&#x27;s own lists; the run names the ones it does not know in the log and goes on with the others.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Instahyre Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, experienceMin, experienceMax, skills, companyEmployees, postedDate, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Instahyre Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/instahyre-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/instahyre-jobs-scraper">Open Instahyre Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Scrape India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs wh...</li>
+<li><a href="/wellfound-jobs-scraper/">Wellfound Jobs Scraper</a>: Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page:...</li>
+<li><a href="/pracuj-pl-scraper/">Pracuj.pl Scraper</a>: Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

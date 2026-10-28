@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Zone Converter: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Convert a date and time between IANA time zones with exact daylight-saving handling, inspect a zone&#x27;s offse... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/time-zone-converter/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Time Zone Converter: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Convert a date and time between IANA time zones with exact daylight-saving handling, inspect a zone&#x27;s offse... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/time-zone-converter/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Time Zone Converter return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include index, input, from_tz, output, offset_from, offset_to, dst_to, day_offset, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Time Zone Converter from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/time-zone-converter with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Developer data, packages and registries</nav>
+<h1>Time Zone Converter: how to get IANA Zones, DST, Offsets, Batch as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Convert a date and time between IANA time zones with exact daylight-saving handling, inspect a zone&#x27;s offset and transitions, or list a country&#x27;s zones. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/time-zone-converter</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/time-zone-converter">Open Time Zone Converter on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>index</code></td><td>#</td><td>number</td><td>0</td></tr>
+<tr><td><code>input</code></td><td>Input time</td><td>text</td><td>2026-03-29T01:30:00+01:00</td></tr>
+<tr><td><code>from_tz</code></td><td>From zone</td><td>text</td><td>Europe/Berlin</td></tr>
+<tr><td><code>output</code></td><td>Converted time</td><td>text</td><td>2026-03-28T20:30:00-04:00</td></tr>
+<tr><td><code>offset_from</code></td><td>Offset from</td><td>text</td><td>+01:00</td></tr>
+<tr><td><code>offset_to</code></td><td>Offset to</td><td>text</td><td>-04:00</td></tr>
+<tr><td><code>dst_to</code></td><td>Daylight saving at target</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>day_offset</code></td><td>Day change</td><td>number</td><td>-1</td></tr>
+<tr><td><code>op</code></td><td></td><td>text</td><td>convert</td></tr>
+<tr><td><code>to_tz</code></td><td></td><td>text</td><td>America/New_York</td></tr>
+<tr><td><code>dst_from</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>abbreviation_from</code></td><td></td><td>text</td><td>CET</td></tr>
+<tr><td><code>abbreviation_to</code></td><td></td><td>text</td><td>EDT</td></tr>
+<tr><td><code>ambiguous</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>utc</code></td><td></td><td>text</td><td>2026-03-29T00:30:00Z</td></tr>
+<tr><td><code>timestamp</code></td><td></td><td>number</td><td>1774744200</td></tr>
+<tr><td><code>offset_difference_minutes</code></td><td>offsetdifferenceminutes</td><td>number</td><td>-300</td></tr>
+<tr><td><code>credits</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>ms</code></td><td></td><td>number</td><td>31</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;op&quot;: &quot;convert&quot;,
+  &quot;datetime&quot;: &quot;2026-03-29T01:30:00&quot;,
+  &quot;from_tz&quot;: &quot;Europe/Berlin&quot;,
+  &quot;to_tz&quot;: &quot;America/New_York&quot;
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>op</code></td><td>string</td><td>One of: convert, info, list.</td></tr>
+<tr><td><code>datetime</code></td><td>string</td><td>ISO 8601, e.g. 2026-03-29T01:30:00 (wall clock in from_tz / tz) or 2026-03-29T00:30:00Z / 2026-03-29T01:30:00+01:00 (exact instant).</td></tr>
+<tr><td><code>from_tz</code></td><td>string</td><td>convert: source zone, an IANA name such as Europe/Berlin or a fixed offset such as +05:30.</td></tr>
+<tr><td><code>to_tz</code></td><td>string</td><td>convert: target zone, an IANA name or a fixed offset.</td></tr>
+<tr><td><code>tz</code></td><td>string</td><td>info: the zone to describe, an IANA name or a fixed offset (from_tz is accepted as an alias).</td></tr>
+<tr><td><code>country</code></td><td>string</td><td>list: ISO 3166-1 alpha-2 code, e.g.</td></tr>
+<tr><td><code>query</code></td><td>string</td><td>list: only zones whose name contains this text (case-insensitive), e.g.</td></tr>
+<tr><td><code>items</code></td><td>array</td><td>Optional. A list of input objects with the same fields as above; every object is processed in its own right and the top-level fields act as shared defaults.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;index&quot;: 0,
+    &quot;op&quot;: &quot;convert&quot;,
+    &quot;input&quot;: &quot;2026-03-29T01:30:00+01:00&quot;,
+    &quot;output&quot;: &quot;2026-03-28T20:30:00-04:00&quot;,
+    &quot;from_tz&quot;: &quot;Europe/Berlin&quot;,
+    &quot;to_tz&quot;: &quot;America/New_York&quot;,
+    &quot;offset_from&quot;: &quot;+01:00&quot;,
+    &quot;offset_to&quot;: &quot;-04:00&quot;,
+    &quot;dst_from&quot;: false,
+    &quot;dst_to&quot;: true,
+    &quot;abbreviation_from&quot;: &quot;CET&quot;,
+    &quot;abbreviation_to&quot;: &quot;EDT&quot;,
+    &quot;ambiguous&quot;: false,
+    &quot;utc&quot;: &quot;2026-03-29T00:30:00Z&quot;,
+    &quot;timestamp&quot;: 1774744200,
+    &quot;offset_difference_minutes&quot;: -300,
+    &quot;day_offset&quot;: -1,
+    &quot;credits&quot;: 1,
+    &quot;ms&quot;: 31
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/time-zone-converter</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;op&#x27;: &#x27;convert&#x27;,
+ &#x27;datetime&#x27;: &#x27;2026-03-29T01:30:00&#x27;,
+ &#x27;from_tz&#x27;: &#x27;Europe/Berlin&#x27;,
+ &#x27;to_tz&#x27;: &#x27;America/New_York&#x27;}
+
+run = client.actor(&quot;v0iddo/time-zone-converter&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;op&quot;: &quot;convert&quot;,
+  &quot;datetime&quot;: &quot;2026-03-29T01:30:00&quot;,
+  &quot;from_tz&quot;: &quot;Europe/Berlin&quot;,
+  &quot;to_tz&quot;: &quot;America/New_York&quot;
+};
+
+const run = await client.actor(&#x27;v0iddo/time-zone-converter&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~time-zone-converter/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;op&quot;: &quot;convert&quot;, &quot;datetime&quot;: &quot;2026-03-29T01:30:00&quot;, &quot;from_tz&quot;: &quot;Europe/Berlin&quot;, &quot;to_tz&quot;: &quot;America/New_York&quot;}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/time-zone-converter/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the Time Zone Converter return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include index, input, from_tz, output, offset_from, offset_to, dst_to, day_offset, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Time Zone Converter from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/time-zone-converter</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/time-zone-converter">Open Time Zone Converter on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/github-trending-repos/">GitHub Trending Scraper</a>: Pull the GitHub Trending repository list: daily, weekly, or monthly, filtered by programming language and s...</li>
+<li><a href="/chrome-webstore-extensions/">Chrome Web Store Scraper</a>: Snapshot Chrome Web Store extension metadata via the public listing page.</li>
+<li><a href="/crossref-recent-publications/">Crossref Scraper</a>: For each query, pull recent works from Crossref&#x27;s public REST API with a server-side date filter.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
