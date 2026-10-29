@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luma Event Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape public event listings from luma.com city and calendar pages. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/luma-event-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luma Event Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape public event listings from luma.com city and calendar pages. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/luma-event-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Luma Event Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include name, startDate, endDate, locationType, city, fullAddress, latitude, longitude, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Luma Event Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/luma-event-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Events and travel</nav>
+<h1>Luma Event Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape public event listings from luma.com city and calendar pages. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/luma-event-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/luma-event-scraper">Open Luma Event Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>name</code></td><td>Event Name</td><td>text</td><td>STŌA x WELDA Marathon Shakeout Run</td></tr>
+<tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-10-29T07:00:00.000-04:00</td></tr>
+<tr><td><code>endDate</code></td><td>End Date</td><td>date</td><td>2026-10-29T08:00:00.000-04:00</td></tr>
+<tr><td><code>locationType</code></td><td>Location Type</td><td>text</td><td>offline</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>New York</td></tr>
+<tr><td><code>fullAddress</code></td><td>Full Address</td><td>text</td><td>2 Rivington St, New York, NY 10002, USA</td></tr>
+<tr><td><code>latitude</code></td><td>Latitude</td><td>number</td><td>40.7215978</td></tr>
+<tr><td><code>longitude</code></td><td>Longitude</td><td>number</td><td>-73.9930424</td></tr>
+<tr><td><code>price</code></td><td>Ticket Price</td><td>number</td><td>0</td></tr>
+<tr><td><code>priceCurrency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
+<tr><td><code>soldOut</code></td><td>Sold Out</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>url</code></td><td>Event URL</td><td>URL</td><td>https://luma.com/hlw0n33p</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;pageUrls&quot;: [
+    &quot;https://luma.com/nyc&quot;,
+    &quot;https://luma.com/sf&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>pageUrls</code> (required)</td><td>array</td><td>luma.com city or calendar pages to scrape, such as https://luma.com/nyc or https://luma.com/sf.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;name&quot;: &quot;STŌA x WELDA Marathon Shakeout Run&quot;,
+    &quot;startDate&quot;: &quot;2026-10-29T07:00:00.000-04:00&quot;,
+    &quot;endDate&quot;: &quot;2026-10-29T08:00:00.000-04:00&quot;,
+    &quot;locationType&quot;: &quot;offline&quot;,
+    &quot;city&quot;: &quot;New York&quot;,
+    &quot;fullAddress&quot;: &quot;2 Rivington St, New York, NY 10002, USA&quot;,
+    &quot;latitude&quot;: 40.7215978,
+    &quot;longitude&quot;: -73.9930424,
+    &quot;price&quot;: 0,
+    &quot;priceCurrency&quot;: &quot;USD&quot;,
+    &quot;soldOut&quot;: true,
+    &quot;url&quot;: &quot;https://luma.com/hlw0n33p&quot;
+  },
+  {
+    &quot;startDate&quot;: &quot;2026-10-29T10:00:00.000-04:00&quot;,
+    &quot;endDate&quot;: &quot;2026-10-29T19:30:00.000-04:00&quot;,
+    &quot;locationType&quot;: &quot;offline&quot;,
+    &quot;city&quot;: &quot;New York&quot;,
+    &quot;fullAddress&quot;: &quot;The Times Center, 242 W 41st St, New York, NY 10036, USA&quot;,
+    &quot;latitude&quot;: 40.7557487,
+    &quot;longitude&quot;: -73.9895629,
+    &quot;price&quot;: 0,
+    &quot;priceCurrency&quot;: &quot;USD&quot;,
+    &quot;soldOut&quot;: false,
+    &quot;url&quot;: &quot;https://luma.com/05z8y8xs&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/luma-event-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;pageUrls&#x27;: [&#x27;https://luma.com/nyc&#x27;, &#x27;https://luma.com/sf&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/luma-event-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;pageUrls&quot;: [
+    &quot;https://luma.com/nyc&quot;,
+    &quot;https://luma.com/sf&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/luma-event-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~luma-event-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;pageUrls&quot;: [&quot;https://luma.com/nyc&quot;, &quot;https://luma.com/sf&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. See the <a href="https://apify.com/v0iddo/luma-event-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each luma.com city or calendar page returns up to 20 upcoming events. Add multiple page URLs to collect more results.</li>
+<li>Ticket price is the first public offer price shown on the listing. Exact venue address may be hidden for some events until RSVP.</li>
+<li>Events with location type &#x27;online&#x27; typically have no GPS coordinates.</li>
+<li>Not affiliated with Luma.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Luma Event Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include name, startDate, endDate, locationType, city, fullAddress, latitude, longitude, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Luma Event Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/luma-event-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/luma-event-scraper">Open Luma Event Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/snapchat-scraper/">Snapchat Profile and Spotlight Scraper</a>: Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats...</li>
+<li><a href="/y-combinator-scraper/">Y Combinator Company Directory Scraper</a>: Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-l...</li>
+<li><a href="/whois-domain-lookup/">WHOIS Domain Lookup</a>: WHOIS lookup for any domain: registrar, creation and expiry dates, domain age, days to expiry, name servers...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

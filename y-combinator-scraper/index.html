@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Y Combinator Company Directory Scraper: API and Python guide | vøiddo</title>
+<meta name="description" content="Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-l... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/y-combinator-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Y Combinator Company Directory Scraper: API and Python guide | vøiddo">
+<meta property="og:description" content="Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-l... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/y-combinator-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Y Combinator Company Directory Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include name, batch, status, industries, location, website, oneLiner, teamSize, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Y Combinator Company Directory Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/y-combinator-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.92 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.04 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Y Combinator Company Directory Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-liner, team size, open job count, and YC profile link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/y-combinator-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/y-combinator-scraper">Open Y Combinator Company Directory Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>name</code></td><td>Company</td><td>text</td><td>Stripe</td></tr>
+<tr><td><code>batch</code></td><td>Batch</td><td>text</td><td>S09</td></tr>
+<tr><td><code>status</code></td><td>Status</td><td>text</td><td>Active</td></tr>
+<tr><td><code>industries</code></td><td>Industries</td><td>list</td><td>[&quot;Banking as a Service&quot;, &quot;Fintech&quot;, &quot;SaaS&quot;]</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>San Francisco</td></tr>
+<tr><td><code>website</code></td><td>Website</td><td>URL</td><td>http://stripe.com</td></tr>
+<tr><td><code>oneLiner</code></td><td>One-liner</td><td>text</td><td>Economic infrastructure for the internet.</td></tr>
+<tr><td><code>teamSize</code></td><td>Team Size</td><td>number</td><td>7000</td></tr>
+<tr><td><code>jobCount</code></td><td>Open Jobs</td><td>number</td><td>3</td></tr>
+<tr><td><code>url</code></td><td>YC Profile</td><td>URL</td><td>https://www.ycombinator.com/companies/stripe</td></tr>
+<tr><td><code>slug</code></td><td></td><td>text</td><td>stripe</td></tr>
+<tr><td><code>batchName</code></td><td></td><td>text</td><td>Summer 2009</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>US</td></tr>
+<tr><td><code>description</code></td><td></td><td>text</td><td>Launched out of Y Combinator’s 2009 Summer batch, Stripe is a globa...</td></tr>
+<tr><td><code>yearFounded</code></td><td></td><td>number</td><td>2009</td></tr>
+<tr><td><code>founders</code></td><td></td><td>list</td><td>[{&quot;name&quot;: &quot;Patrick Collison&quot;, &quot;title&quot;: &quot;Founder/CEO&quot;}, {&quot;name&quot;: &quot;Jo...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;companyUrls&quot;: [
+    &quot;https://www.ycombinator.com/companies/stripe&quot;,
+    &quot;https://www.ycombinator.com/companies/airbnb&quot;,
+    &quot;https://www.ycombinator.com/companies/dropbox&quot;,
+    &quot;https://www.ycombinator.com/companies/reddit&quot;,
+    &quot;https://www.ycombinator.com/companies/doordash&quot;,
+    &quot;https://www.ycombinator.com/companies/coinbase&quot;,
+    &quot;https://www.ycombinator.com/companies/instacart&quot;,
+    &quot;https://www.ycombinator.com/companies/gitlab&quot;,
+    &quot;https://www.ycombinator.com/companies/gusto&quot;,
+    &quot;https://www.ycombinator.com/companies/brex&quot;,
+    &quot;https://www.ycombinator.com/companies/openai&quot;,
+    &quot;https://www.ycombinator.com/companies/figma&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>companyUrls</code> (required)</td><td>array</td><td>ycombinator.com company profile URLs (https://www.ycombinator.com/companies/stripe) or bare slugs (stripe, airbnb).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;name&quot;: &quot;Stripe&quot;,
+    &quot;slug&quot;: &quot;stripe&quot;,
+    &quot;batch&quot;: &quot;S09&quot;,
+    &quot;batchName&quot;: &quot;Summer 2009&quot;,
+    &quot;status&quot;: &quot;Active&quot;,
+    &quot;industries&quot;: [
+      &quot;Banking as a Service&quot;,
+      &quot;Fintech&quot;,
+      &quot;SaaS&quot;
+    ],
+    &quot;location&quot;: &quot;San Francisco&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;website&quot;: &quot;http://stripe.com&quot;,
+    &quot;oneLiner&quot;: &quot;Economic infrastructure for the internet.&quot;,
+    &quot;description&quot;: &quot;Launched out of Y Combinator’s 2009 Summer batch, Stripe is a global technology company that builds economic infrastructure for the inter...&quot;,
+    &quot;teamSize&quot;: 7000,
+    &quot;yearFounded&quot;: 2009,
+    &quot;jobCount&quot;: 3,
+    &quot;founders&quot;: [
+      {
+        &quot;name&quot;: &quot;Patrick Collison&quot;,
+        &quot;title&quot;: &quot;Founder/CEO&quot;
+      },
+      {
+        &quot;name&quot;: &quot;John Collison&quot;,
+        &quot;title&quot;: &quot;Founder/President&quot;
+      }
+    ],
+    &quot;url&quot;: &quot;https://www.ycombinator.com/companies/stripe&quot;
+  },
+  {
+    &quot;name&quot;: &quot;Airbnb&quot;,
+    &quot;slug&quot;: &quot;airbnb&quot;,
+    &quot;batch&quot;: &quot;W09&quot;,
+    &quot;batchName&quot;: &quot;Winter 2009&quot;,
+    &quot;status&quot;: &quot;Public&quot;,
+    &quot;industries&quot;: [
+      &quot;Marketplace&quot;,
+      &quot;Travel&quot;
+    ],
+    &quot;location&quot;: &quot;San Francisco&quot;,
+    &quot;country&quot;: &quot;US&quot;,
+    &quot;website&quot;: &quot;http://airbnb.com&quot;,
+    &quot;oneLiner&quot;: &quot;Book accommodations around the world.&quot;,
+    &quot;description&quot;: &quot;Founded in August of 2008 and based in San Francisco, California, Airbnb is a trusted community marketplace for people to list, discover,...&quot;,
+    &quot;teamSize&quot;: 6132,
+    &quot;yearFounded&quot;: 2008,
+    &quot;jobCount&quot;: 0,
+    &quot;founders&quot;: [
+      {
+        &quot;name&quot;: &quot;Brian Chesky&quot;,
+        &quot;title&quot;: &quot;Founder/CEO&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Nathan Blecharczyk&quot;,
+        &quot;title&quot;: &quot;Founder/CTO&quot;
+      },
+      {
+        &quot;name&quot;: &quot;Joe Gebbia&quot;,
+        &quot;title&quot;: &quot;Founder/CPO&quot;
+      }
+    ],
+    &quot;url&quot;: &quot;https://www.ycombinator.com/companies/airbnb&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/y-combinator-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;companyUrls&#x27;: [&#x27;https://www.ycombinator.com/companies/stripe&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/airbnb&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/dropbox&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/reddit&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/doordash&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/coinbase&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/instacart&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/gitlab&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/gusto&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/brex&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/openai&#x27;,
+                 &#x27;https://www.ycombinator.com/companies/figma&#x27;],
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/y-combinator-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;companyUrls&quot;: [
+    &quot;https://www.ycombinator.com/companies/stripe&quot;,
+    &quot;https://www.ycombinator.com/companies/airbnb&quot;,
+    &quot;https://www.ycombinator.com/companies/dropbox&quot;,
+    &quot;https://www.ycombinator.com/companies/reddit&quot;,
+    &quot;https://www.ycombinator.com/companies/doordash&quot;,
+    &quot;https://www.ycombinator.com/companies/coinbase&quot;,
+    &quot;https://www.ycombinator.com/companies/instacart&quot;,
+    &quot;https://www.ycombinator.com/companies/gitlab&quot;,
+    &quot;https://www.ycombinator.com/companies/gusto&quot;,
+    &quot;https://www.ycombinator.com/companies/brex&quot;,
+    &quot;https://www.ycombinator.com/companies/openai&quot;,
+    &quot;https://www.ycombinator.com/companies/figma&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/y-combinator-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~y-combinator-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;companyUrls&quot;: [&quot;https://www.ycombinator.com/companies/stripe&quot;, &quot;https://www.ycombinator.com/companies/airbnb&quot;, &quot;https://www.ycombinator.com/companies/dropbox&quot;, &quot;https://www.ycombinator.com/companies/reddit&quot;, &quot;https://www.ycombinator.com/companies/doordash&quot;, &quot;https://www.ycombinator.com/companies/coinbase&quot;, &quot;https://www.ycombinator.com/companies/instacart&quot;, &quot;https://www.ycombinator.com/companies/gitlab&quot;, &quot;https://www.ycombinator.com/companies/gusto&quot;, &quot;https://www.ycombinator.com/companies/brex&quot;, &quot;https://www.ycombinator.com/companies/openai&quot;, &quot;https://www.ycombinator.com/companies/figma&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.92 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.04 per 1,000. See the <a href="https://apify.com/v0iddo/y-combinator-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Reads individual YC company profile pages at ycombinator.com/companies/. Filtered directory pages (by batch, industry, etc.) are closed in robots.txt and are never requested; provide explicit...</li>
+<li>Each input must be a ycombinator.com/companies/ URL or a bare slug such as stripe or airbnb.</li>
+<li>Team size and open job count reflect what the public YC profile shows at scrape time and may lag behind current reality.</li>
+<li>Not affiliated with Y Combinator.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Y Combinator Company Directory Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include name, batch, status, industries, location, website, oneLiner, teamSize, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Y Combinator Company Directory Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/y-combinator-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.92 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.04 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/y-combinator-scraper">Open Y Combinator Company Directory Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/snapchat-scraper/">Snapchat Profile and Spotlight Scraper</a>: Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats...</li>
+<li><a href="/moz-scraper/">Moz Top 500 Scraper</a>: Scrape Moz&#x27;s Top 500 Websites list: rank, root domain, DA score, and linking root domain count.</li>
+<li><a href="/google-maps-scraper/">Google Maps Scraper</a>: Scrape Google Maps business listings by search and place: name, category, address, coordinates, rating, rev...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapchat Profile and Spotlight Scraper: API and Python guide | vøiddo</title>
+<meta name="description" content="Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/snapchat-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Snapchat Profile and Spotlight Scraper: API and Python guide | vøiddo">
+<meta property="og:description" content="Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/snapchat-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Snapchat Profile and Spotlight Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include handle, displayName, subscriberCount, videoTitle, viewCount, likeCount, uploadDate, durationSecs, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Snapchat Profile and Spotlight Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/snapchat-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.49 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.04 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Snapchat Profile and Spotlight Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats including view count, like count, upload date, duration, and thumbnail. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Profile and Spotlight Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>handle</code></td><td>Handle</td><td>text</td><td></td></tr>
+<tr><td><code>displayName</code></td><td>Display Name</td><td>text</td><td></td></tr>
+<tr><td><code>subscriberCount</code></td><td>Subscribers</td><td>number</td><td>28597400</td></tr>
+<tr><td><code>videoTitle</code></td><td>Video Title</td><td>text</td><td>new day in the life on my youtube</td></tr>
+<tr><td><code>viewCount</code></td><td>Views</td><td>number</td><td>68340</td></tr>
+<tr><td><code>likeCount</code></td><td>Likes</td><td>number</td><td>2941</td></tr>
+<tr><td><code>uploadDate</code></td><td>Upload Date</td><td>date</td><td>2026-10-04</td></tr>
+<tr><td><code>durationSecs</code></td><td>Duration (s)</td><td>number</td><td>43</td></tr>
+<tr><td><code>thumbnailUrl</code></td><td>Thumbnail</td><td>image URL</td><td>https://cf-st.sc-cdn.net/d/fP2DrQyUjHVZgWhE7sNy8.256.IRZXSOY?mo=GkY...</td></tr>
+<tr><td><code>url</code></td><td>Video URL</td><td>URL</td><td>https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPw...</td></tr>
+<tr><td><code>websiteUrl</code></td><td></td><td>text</td><td>kyliecosmetics.com</td></tr>
+<tr><td><code>profilePictureUrl</code></td><td></td><td>text</td><td>https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L...</td></tr>
+<tr><td><code>keywords</code></td><td></td><td>list</td><td>[&quot;bedtime&quot;, &quot;relaxation&quot;, &quot;sleep&quot;]</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;handles&quot;: [
+    &quot;kyliejenner&quot;,
+    &quot;daviddobrik&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>handles</code> (required)</td><td>array</td><td>Snapchat creator handles (e.g.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;subscriberCount&quot;: 28597400,
+    &quot;websiteUrl&quot;: &quot;kyliecosmetics.com&quot;,
+    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvaEJwN3Z0ZFl5NFVOeFpnWk04dXBYP2JvPUVna3lBUVJJQWxBWllBRSUzRCZ1Yz0yNQ....&quot;,
+    &quot;videoTitle&quot;: &quot;new day in the life on my youtube&quot;,
+    &quot;viewCount&quot;: 68340,
+    &quot;likeCount&quot;: 2941,
+    &quot;uploadDate&quot;: &quot;2026-10-04&quot;,
+    &quot;durationSecs&quot;: 43,
+    &quot;keywords&quot;: [
+      &quot;bedtime&quot;,
+      &quot;relaxation&quot;,
+      &quot;sleep&quot;
+    ],
+    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/fP2DrQyUjHVZgWhE7sNy8.256.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVCgAVoQRGZMYXJnZVRodW1ibmFpbKIBEAiAAiILEgAqB0lSWlhTT1miA...&quot;,
+    &quot;url&quot;: &quot;https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYcWVmcHNqb2p5AaEEYCyMAaEEX5T1AAAAAQ&quot;
+  },
+  {
+    &quot;subscriberCount&quot;: 28597400,
+    &quot;websiteUrl&quot;: &quot;kyliecosmetics.com&quot;,
+    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvaEJwN3Z0ZFl5NFVOeFpnWk04dXBYP2JvPUVna3lBUVJJQWxBWllBRSUzRCZ1Yz0yNQ....&quot;,
+    &quot;videoTitle&quot;: &quot;Spotlight Snap&quot;,
+    &quot;viewCount&quot;: 111804,
+    &quot;likeCount&quot;: 3756,
+    &quot;uploadDate&quot;: &quot;2026-09-24&quot;,
+    &quot;durationSecs&quot;: 48,
+    &quot;keywords&quot;: [
+      &quot;siblings&quot;,
+      &quot;sister love&quot;,
+      &quot;daughter&quot;
+    ],
+    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/kZfX0TMVEFNAuPlye1Fst.256.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVCgAVoQRGZMYXJnZVRodW1ibmFpbKIBEAiAAiILEgAqB0lSWlhTT1miA...&quot;,
+    &quot;url&quot;: &quot;https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYZWlsa25xZHJpAaDReu8GAaDReozIAAAAAQ&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/snapchat-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;handles&#x27;: [&#x27;kyliejenner&#x27;, &#x27;daviddobrik&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/snapchat-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;handles&quot;: [
+    &quot;kyliejenner&quot;,
+    &quot;daviddobrik&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/snapchat-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~snapchat-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;handles&quot;: [&quot;kyliejenner&quot;, &quot;daviddobrik&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.49 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.04 per 1,000. See the <a href="https://apify.com/v0iddo/snapchat-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Only public Snapchat creator profiles are scraped; private accounts and unknown handles are skipped with a log message.</li>
+<li>Each output row is one Spotlight video from the creator profile page. Profiles with no public Spotlight videos yield one row with video fields set to null.</li>
+<li>Subscriber counts and view counts are as displayed on the public profile page and may be rounded by Snapchat.</li>
+<li>Not affiliated with Snapchat or Snap Inc.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Snapchat Profile and Spotlight Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include handle, displayName, subscriberCount, videoTitle, viewCount, likeCount, uploadDate, durationSecs, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Snapchat Profile and Spotlight Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/snapchat-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.49 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.04 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Profile and Spotlight Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/y-combinator-scraper/">Y Combinator Company Directory Scraper</a>: Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-l...</li>
+<li><a href="/moz-scraper/">Moz Top 500 Scraper</a>: Scrape Moz&#x27;s Top 500 Websites list: rank, root domain, DA score, and linking root domain count.</li>
+<li><a href="/google-maps-scraper/">Google Maps Scraper</a>: Scrape Google Maps business listings by search and place: name, category, address, coordinates, rating, rev...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
