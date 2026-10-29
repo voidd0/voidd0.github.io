@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jobs.ch &amp; Jobup.ch Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, emp... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/jobs-ch-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jobs.ch &amp; Jobup.ch Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, emp... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/jobs-ch-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Jobs.ch & Jobup.ch Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, place, canton, workload, employmentType, position, postedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Jobs.ch & Jobup.ch Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/jobs-ch-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.90 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.63 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Jobs.ch &amp; Jobup.ch Scraper: how to get Swiss Jobs as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, employment type, position, posting dates, weekly hours, industry, category, skills, benefits, the employer&#x27;s website and the description. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/jobs-ch-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/jobs-ch-scraper">Open Jobs.ch &amp; Jobup.ch Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Business Analyst Vertriebsstammdaten und -Prozesse</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Pro Informatik AG</td></tr>
+<tr><td><code>place</code></td><td>Place</td><td>text</td><td>Zürich</td></tr>
+<tr><td><code>canton</code></td><td>Canton</td><td>text</td><td></td></tr>
+<tr><td><code>workload</code></td><td>Workload</td><td>text</td><td>100%</td></tr>
+<tr><td><code>employmentType</code></td><td>Employment</td><td>text</td><td>permanent</td></tr>
+<tr><td><code>position</code></td><td>Position</td><td>text</td><td>specialist</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-26T12:32:27Z</td></tr>
+<tr><td><code>weeklyHours</code></td><td>Hours a week</td><td>text</td><td>42 - 42 hours/week</td></tr>
+<tr><td><code>industry</code></td><td>Industry</td><td>text</td><td>Information technology / Telecom.</td></tr>
+<tr><td><code>site</code></td><td>Board</td><td>text</td><td>jobs.ch</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.jobs.ch/en/vacancies/detail/5dc95ee0-650b-44ae-aac9-f29...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>5dc95ee0-650b-44ae-aac9-f296f56a9ba0</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://www.jobs.ch/en/companies/6114-pro-informatik-ag/</td></tr>
+<tr><td><code>companyWebsite</code></td><td></td><td>text</td><td>https://www.pro-informatik.ch</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://media.jobs.ch/images/26cbdc01-08af-448d-8ead-0c2881216da4/2...</td></tr>
+<tr><td><code>country</code></td><td></td><td>text</td><td>CH</td></tr>
+<tr><td><code>workloadMin</code></td><td></td><td>number</td><td>100</td></tr>
+<tr><td><code>workloadMax</code></td><td></td><td>number</td><td>100</td></tr>
+<tr><td><code>employmentTypes</code></td><td></td><td>list</td><td>[&quot;permanent&quot;, &quot;freelance&quot;]</td></tr>
+<tr><td><code>firstPostedAt</code></td><td></td><td>text</td><td>2026-10-26T12:33:30Z</td></tr>
+<tr><td><code>isNew</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>easyApply</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Technical / Information Technology / Telecom. / Project Management ...</td></tr>
+<tr><td><code>occupation</code></td><td></td><td>text</td><td>Business analyst</td></tr>
+<tr><td><code>companyOpenJobs</code></td><td></td><td>number</td><td>5</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Business analysis - CRM - Siebel - Customer master data - Master Da...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-27T10:41:17Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;data analyst&quot;
+  ],
+  &quot;location&quot;: &quot;Zürich&quot;,
+  &quot;site&quot;: &quot;jobs.ch&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as Python, Pflegefachfrau or comptable.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city, canton or postcode such as Zürich, Vaud or 8001.</td></tr>
+<tr><td><code>site</code></td><td>string</td><td>Where the search terms are searched.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://www.jobs.ch/en/vacancies/?term=data%20analyst&amp;location=Basel .</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the weekly hours, industry, category, occupation, skills, benefits, the employer&#x27;s website, how many jobs the company has open and the des...</td></tr>
+<tr><td><code>postedWithinDays</code></td><td>integer</td><td>Optional. Only postings published in the last N days (by their latest publication date).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: &quot;5dc95ee0-650b-44ae-aac9-f296f56a9ba0&quot;,
+    &quot;site&quot;: &quot;jobs.ch&quot;,
+    &quot;title&quot;: &quot;Business Analyst Vertriebsstammdaten und -Prozesse&quot;,
+    &quot;company&quot;: &quot;Pro Informatik AG&quot;,
+    &quot;companyUrl&quot;: &quot;https://www.jobs.ch/en/companies/6114-pro-informatik-ag/&quot;,
+    &quot;companyWebsite&quot;: &quot;https://www.pro-informatik.ch&quot;,
+    &quot;companyLogo&quot;: &quot;https://media.jobs.ch/images/26cbdc01-08af-448d-8ead-0c2881216da4/248x88.png&quot;,
+    &quot;place&quot;: &quot;Zürich&quot;,
+    &quot;country&quot;: &quot;CH&quot;,
+    &quot;workloadMin&quot;: 100,
+    &quot;workloadMax&quot;: 100,
+    &quot;workload&quot;: &quot;100%&quot;,
+    &quot;employmentType&quot;: &quot;permanent&quot;,
+    &quot;employmentTypes&quot;: [
+      &quot;permanent&quot;,
+      &quot;freelance&quot;
+    ],
+    &quot;position&quot;: &quot;specialist&quot;,
+    &quot;postedAt&quot;: &quot;2026-10-26T12:32:27Z&quot;,
+    &quot;firstPostedAt&quot;: &quot;2026-10-26T12:33:30Z&quot;,
+    &quot;isNew&quot;: true,
+    &quot;easyApply&quot;: false,
+    &quot;weeklyHours&quot;: &quot;42 - 42 hours/week&quot;,
+    &quot;industry&quot;: &quot;Information technology / Telecom.&quot;,
+    &quot;category&quot;: &quot;Technical / Information Technology / Telecom. / Project Management / Analysis&quot;,
+    &quot;occupation&quot;: &quot;Business analyst&quot;,
+    &quot;companyOpenJobs&quot;: 5,
+    &quot;descriptionText&quot;: &quot;Business analysis - CRM - Siebel - Customer master data - Master Data - MDM - Banks - Stakeholder Management - Change Management\n\nBusines...&quot;,
+    &quot;url&quot;: &quot;https://www.jobs.ch/en/vacancies/detail/5dc95ee0-650b-44ae-aac9-f296f56a9ba0/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:41:17Z&quot;
+  },
+  {
+    &quot;jobId&quot;: &quot;6a964e4b-acdc-48cc-b541-1f86754b3564&quot;,
+    &quot;site&quot;: &quot;jobs.ch&quot;,
+    &quot;title&quot;: &quot;Business Analyst Bauprozesse, Daten &amp; KI&quot;,
+    &quot;company&quot;: &quot;HRS Real Estate AG&quot;,
+    &quot;companyUrl&quot;: &quot;https://www.jobs.ch/en/companies/00bca2e6-54ee-44d5-882f-a5f05250ced3-hrs-real-estate-ag/&quot;,
+    &quot;companyWebsite&quot;: &quot;https://www.hrs.ch&quot;,
+    &quot;place&quot;: &quot;Frauenfeld&quot;,
+    &quot;street&quot;: &quot;Walzmühlestrasse 48&quot;,
+    &quot;city&quot;: &quot;Frauenfeld&quot;,
+    &quot;postalCode&quot;: &quot;8500&quot;,
+    &quot;canton&quot;: &quot;TG&quot;,
+    &quot;country&quot;: &quot;CH&quot;,
+    &quot;latitude&quot;: 47.54861,
+    &quot;longitude&quot;: 8.8927,
+    &quot;workloadMin&quot;: 80,
+    &quot;workloadMax&quot;: 100,
+    &quot;workload&quot;: &quot;80-100%&quot;,
+    &quot;employmentType&quot;: &quot;permanent&quot;,
+    &quot;employmentTypes&quot;: [
+      &quot;permanent&quot;
+    ],
+    &quot;position&quot;: &quot;specialist&quot;,
+    &quot;postedAt&quot;: &quot;2026-10-13T15:15:40Z&quot;,
+    &quot;firstPostedAt&quot;: &quot;2026-10-13T15:15:40Z&quot;,
+    &quot;isNew&quot;: false,
+    &quot;easyApply&quot;: false,
+    &quot;weeklyHours&quot;: &quot;33.6 - 42 hours/week&quot;,
+    &quot;category&quot;: &quot;Commercial / Banking / Insurance / Financial / Business Analysis&quot;,
+    &quot;occupation&quot;: &quot;Business Applications Analyst&quot;,
+    &quot;companyOpenJobs&quot;: 4,
+    &quot;descriptionText&quot;: &quot;As an owner-managed Swiss real estate service provider, we have been driving Switzerland forward with creative energy for over 60 years....&quot;,
+    &quot;url&quot;: &quot;https://www.jobs.ch/en/vacancies/detail/6a964e4b-acdc-48cc-b541-1f86754b3564/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:41:18Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/jobs-ch-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;data analyst&#x27;],
+ &#x27;location&#x27;: &#x27;Zürich&#x27;,
+ &#x27;site&#x27;: &#x27;jobs.ch&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/jobs-ch-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;data analyst&quot;
+  ],
+  &quot;location&quot;: &quot;Zürich&quot;,
+  &quot;site&quot;: &quot;jobs.ch&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/jobs-ch-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~jobs-ch-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;data analyst&quot;], &quot;location&quot;: &quot;Zürich&quot;, &quot;site&quot;: &quot;jobs.ch&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.90 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.63 per 1,000. See the <a href="https://apify.com/v0iddo/jobs-ch-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per search term on the chosen board (both boards: each term twice). Pasted search URLs keep their own filters. Postings are unique by ID across the whole run.</li>
+<li>A search shows at most 100 pages of 20 postings. For a broad search, add a place or split it into several terms.</li>
+<li>workload is the percent the posting names, such as 80-100% (workloadMin and workloadMax as numbers). employmentType is the first of employmentTypes: permanent, temporary, freelance, internship...</li>
+<li>postedAt is the latest publication date, firstPostedAt the first one; a reposted job keeps its first date. Posted within days filters on postedAt.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Jobs.ch &amp; Jobup.ch Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, place, canton, workload, employmentType, position, postedAt, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Jobs.ch &amp; Jobup.ch Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/jobs-ch-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.90 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.63 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/jobs-ch-scraper">Open Jobs.ch &amp; Jobup.ch Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/computrabajo-scraper/">Computrabajo Scraper</a>: Scrape job postings from Computrabajo in 18 Latin American countries: title, company with rating, city, reg...</li>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Scrape India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs wh...</li>
+<li><a href="/wellfound-jobs-scraper/">Wellfound Jobs Scraper</a>: Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page:...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

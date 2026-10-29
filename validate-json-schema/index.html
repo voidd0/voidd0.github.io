@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSON Schema Validator: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Validate a JSON document, or up to 1000 of them, against a JSON Schema (draft 7, 2019-09 or 2020-12) and li... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/validate-json-schema/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON Schema Validator: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Validate a JSON document, or up to 1000 of them, against a JSON Schema (draft 7, 2019-09 or 2020-12) and li... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/validate-json-schema/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the JSON Schema Validator return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include index, valid, count, errors, credits, ms. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the JSON Schema Validator from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/validate-json-schema with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.91 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.34 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Developer data, packages and registries</nav>
+<h1>JSON Schema Validator: how to get Bulk, Draft 7, 2019-09, 2020-12 as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Validate a JSON document, or up to 1000 of them, against a JSON Schema (draft 7, 2019-09 or 2020-12) and list every error with its path. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/validate-json-schema</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/validate-json-schema">Open JSON Schema Validator on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>index</code></td><td>#</td><td>number</td><td>0</td></tr>
+<tr><td><code>valid</code></td><td>Valid</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>count</code></td><td>Errors</td><td>number</td><td>1</td></tr>
+<tr><td><code>errors</code></td><td>Error details</td><td>list</td><td>[{&quot;index&quot;: 0, &quot;path&quot;: &quot;/age&quot;, &quot;message&quot;: &quot;-3 is less than the minim...</td></tr>
+<tr><td><code>credits</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>ms</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;schema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+      &quot;name&quot;,
+      &quot;age&quot;
+    ],
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;age&quot;: {
+        &quot;type&quot;: &quot;integer&quot;,
+        &quot;minimum&quot;: 0
+      }
+    }
+  },
+  &quot;instance&quot;: &quot;{\&quot;name\&quot;: \&quot;Ada\&quot;, \&quot;age\&quot;: -3}&quot;
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>schema</code> (required)</td><td>object</td><td>The JSON Schema to validate against.</td></tr>
+<tr><td><code>instance</code></td><td>string</td><td>One JSON value to validate (any type, including null).</td></tr>
+<tr><td><code>instances</code></td><td>array</td><td>Up to 1000 JSON values validated against the same schema.</td></tr>
+<tr><td><code>draft</code></td><td>string</td><td>JSON Schema draft. auto follows the schema&#x27;s $schema and defaults to 2020-12.</td></tr>
+<tr><td><code>items</code></td><td>array</td><td>Optional. A list of input objects with the same fields as above; every object is processed in its own right and the top-level fields act as shared defaults.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;index&quot;: 0,
+    &quot;valid&quot;: false,
+    &quot;errors&quot;: [
+      {
+        &quot;index&quot;: 0,
+        &quot;path&quot;: &quot;/age&quot;,
+        &quot;message&quot;: &quot;-3 is less than the minimum of 0&quot;,
+        &quot;validator&quot;: &quot;minimum&quot;
+      }
+    ],
+    &quot;count&quot;: 1,
+    &quot;credits&quot;: 1,
+    &quot;ms&quot;: 1
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/validate-json-schema</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;schema&#x27;: {&#x27;type&#x27;: &#x27;object&#x27;,
+            &#x27;required&#x27;: [&#x27;name&#x27;, &#x27;age&#x27;],
+            &#x27;properties&#x27;: {&#x27;name&#x27;: {&#x27;type&#x27;: &#x27;string&#x27;},
+                           &#x27;age&#x27;: {&#x27;type&#x27;: &#x27;integer&#x27;, &#x27;minimum&#x27;: 0}}},
+ &#x27;instance&#x27;: &#x27;{&quot;name&quot;: &quot;Ada&quot;, &quot;age&quot;: -3}&#x27;}
+
+run = client.actor(&quot;v0iddo/validate-json-schema&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;schema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;required&quot;: [
+      &quot;name&quot;,
+      &quot;age&quot;
+    ],
+    &quot;properties&quot;: {
+      &quot;name&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;age&quot;: {
+        &quot;type&quot;: &quot;integer&quot;,
+        &quot;minimum&quot;: 0
+      }
+    }
+  },
+  &quot;instance&quot;: &quot;{\&quot;name\&quot;: \&quot;Ada\&quot;, \&quot;age\&quot;: -3}&quot;
+};
+
+const run = await client.actor(&#x27;v0iddo/validate-json-schema&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~validate-json-schema/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;schema&quot;: {&quot;type&quot;: &quot;object&quot;, &quot;required&quot;: [&quot;name&quot;, &quot;age&quot;], &quot;properties&quot;: {&quot;name&quot;: {&quot;type&quot;: &quot;string&quot;}, &quot;age&quot;: {&quot;type&quot;: &quot;integer&quot;, &quot;minimum&quot;: 0}}}, &quot;instance&quot;: &quot;{\&quot;name\&quot;: \&quot;Ada\&quot;, \&quot;age\&quot;: -3}&quot;}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.91 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.34 per 1,000. See the <a href="https://apify.com/v0iddo/validate-json-schema/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>FAQ</h2>
+<h3>What data does the JSON Schema Validator return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include index, valid, count, errors, credits, ms. The table above shows every field with an example value.</p>
+<h3>How do I use the JSON Schema Validator from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/validate-json-schema</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.91 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.34 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/validate-json-schema">Open JSON Schema Validator on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/whois-domain-lookup/">WHOIS Domain Lookup</a>: WHOIS lookup for any domain: registrar, creation and expiry dates, domain age, days to expiry, name servers...</li>
+<li><a href="/domain-availability-checker/">Domain Availability Checker</a>: Check if domains are available, in bulk: one row per domain with available or registered, registrar, creati...</li>
+<li><a href="/time-zone-converter/">Time Zone Converter</a>: Convert a date and time between IANA time zones with exact daylight-saving handling, inspect a zone&#x27;s offse...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

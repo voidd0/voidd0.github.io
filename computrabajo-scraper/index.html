@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computrabajo Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape job postings from Computrabajo in 18 Latin American countries: title, company with rating, city, reg... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/computrabajo-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computrabajo Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape job postings from Computrabajo in 18 Latin American countries: title, company with rating, city, reg... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/computrabajo-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Computrabajo Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, city, country, salaryText, contractType, schedule, workMode, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Computrabajo Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/computrabajo-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Computrabajo Scraper: how to get LATAM Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape job postings from Computrabajo in 18 Latin American countries: title, company with rating, city, region, salary with currency and period, contract, schedule, remote or hybrid, education, experience, skills, industry and dates. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/computrabajo-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/computrabajo-scraper">Open Computrabajo Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Contador en Monterrey Sur. $30,000</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Grupo Autofin</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Monterrey</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>Mexico</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>$ 30,000.00 (Mensual)</td></tr>
+<tr><td><code>contractType</code></td><td>Contract</td><td>text</td><td>Contrato por tiempo indeterminado</td></tr>
+<tr><td><code>schedule</code></td><td>Schedule</td><td>text</td><td>Tiempo Completo</td></tr>
+<tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>onsite</td></tr>
+<tr><td><code>postedDate</code></td><td>Posted</td><td>date</td><td>2026-10-26</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>B013D92A5B7659A561373E686DCF3405</td></tr>
+<tr><td><code>countryCode</code></td><td></td><td>text</td><td>mx</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>text</td><td>EED54E9EAAA4B16F</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://mx.computrabajo.com/grupoautofinmonterrey</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://ii.ct-stc.com/2/logos/empresas/2025/10/31//grupoautofinmont...</td></tr>
+<tr><td><code>companyRating</code></td><td></td><td>number</td><td>3.7</td></tr>
+<tr><td><code>companyVerified</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>confidentialEmployer</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>location</code></td><td></td><td>text</td><td>Monterrey, Nuevo León</td></tr>
+<tr><td><code>region</code></td><td></td><td>text</td><td>Nuevo León</td></tr>
+<tr><td><code>salaryMin</code></td><td></td><td>number</td><td>30000</td></tr>
+<tr><td><code>salaryMax</code></td><td></td><td>number</td><td>30000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td></td><td>text</td><td>MXN</td></tr>
+<tr><td><code>salaryInterval</code></td><td></td><td>text</td><td>month</td></tr>
+<tr><td><code>salaryHidden</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>employmentType</code></td><td></td><td>text</td><td>FULL_TIME</td></tr>
+<tr><td><code>industry</code></td><td></td><td>text</td><td>Venta al consumidor</td></tr>
+<tr><td><code>education</code></td><td></td><td>text</td><td>Educación superior - Licenciatura</td></tr>
+<tr><td><code>skills</code></td><td></td><td>list</td><td>[&quot;Contabilidad&quot;]</td></tr>
+<tr><td><code>keywords</code></td><td></td><td>list</td><td>[&quot;pagador&quot;, &quot;contralor&quot;, &quot;accountant&quot;]</td></tr>
+<tr><td><code>directApply</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>urgent</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>postedText</code></td><td></td><td>text</td><td>Hace 13 horas</td></tr>
+<tr><td><code>firstPostedDate</code></td><td></td><td>text</td><td>2026-09-10</td></tr>
+<tr><td><code>validThrough</code></td><td></td><td>text</td><td>2026-11-09</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>¡En Autofin Monterrey estamos buscando CONTADOR/A!
+Únete a nuestro ...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-27T10:39:35Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;countries&quot;: [
+    &quot;mx&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;contador&quot;
+  ],
+  &quot;location&quot;: &quot;Monterrey&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>countries</code></td><td>array</td><td>Computrabajo sites to search; each search term runs on each of them.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as contador, vendedor or desarrollador python.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city, state or region such as Monterrey, Bogotá, Lima or Nuevo León.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only postings published or updated in that period.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only postings that show a salary (not &quot;A convenir&quot;).</td></tr>
+<tr><td><code>remoteOnly</code></td><td>boolean</td><td>Only postings marked remote or hybrid (presencial y remoto).</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://mx.computrabajo.com/trabajo-de-contador-en-monterrey .</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the date first posted, contract type, schedule, industry, salary value, education, experience, languages, skills and the description.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: &quot;B013D92A5B7659A561373E686DCF3405&quot;,
+    &quot;country&quot;: &quot;Mexico&quot;,
+    &quot;countryCode&quot;: &quot;mx&quot;,
+    &quot;title&quot;: &quot;Contador en Monterrey Sur. $30,000&quot;,
+    &quot;company&quot;: &quot;Grupo Autofin&quot;,
+    &quot;companyId&quot;: &quot;EED54E9EAAA4B16F&quot;,
+    &quot;companyUrl&quot;: &quot;https://mx.computrabajo.com/grupoautofinmonterrey&quot;,
+    &quot;companyLogo&quot;: &quot;https://ii.ct-stc.com/2/logos/empresas/2025/10/31//grupoautofinmonterrey020017thumbnail.jpeg&quot;,
+    &quot;companyRating&quot;: 3.7,
+    &quot;companyVerified&quot;: true,
+    &quot;confidentialEmployer&quot;: false,
+    &quot;location&quot;: &quot;Monterrey, Nuevo León&quot;,
+    &quot;city&quot;: &quot;Monterrey&quot;,
+    &quot;region&quot;: &quot;Nuevo León&quot;,
+    &quot;workMode&quot;: &quot;onsite&quot;,
+    &quot;salaryText&quot;: &quot;$ 30,000.00 (Mensual)&quot;,
+    &quot;salaryMin&quot;: 30000,
+    &quot;salaryMax&quot;: 30000,
+    &quot;salaryCurrency&quot;: &quot;MXN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryHidden&quot;: false,
+    &quot;contractType&quot;: &quot;Contrato por tiempo indeterminado&quot;,
+    &quot;schedule&quot;: &quot;Tiempo Completo&quot;,
+    &quot;employmentType&quot;: &quot;FULL_TIME&quot;,
+    &quot;industry&quot;: &quot;Venta al consumidor&quot;,
+    &quot;education&quot;: &quot;Educación superior - Licenciatura&quot;,
+    &quot;skills&quot;: [
+      &quot;Contabilidad&quot;
+    ],
+    &quot;keywords&quot;: [
+      &quot;pagador&quot;,
+      &quot;contralor&quot;,
+      &quot;accountant&quot;
+    ],
+    &quot;directApply&quot;: true,
+    &quot;promoted&quot;: true,
+    &quot;urgent&quot;: true,
+    &quot;postedText&quot;: &quot;Hace 13 horas&quot;,
+    &quot;postedDate&quot;: &quot;2026-10-26&quot;,
+    &quot;firstPostedDate&quot;: &quot;2026-09-10&quot;,
+    &quot;validThrough&quot;: &quot;2026-11-09&quot;,
+    &quot;descriptionText&quot;: &quot;¡En Autofin Monterrey estamos buscando CONTADOR/A!\nÚnete a nuestro equipo de Contraloría Corporativa. Buscamos un profesional con sólida...&quot;,
+    &quot;url&quot;: &quot;https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de-contador-en-monterrey-sur-30000-en-monterrey-B013D92A5B7659A561373E68...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:39:35Z&quot;
+  },
+  {
+    &quot;jobId&quot;: &quot;288F5BACD8FEDD6B61373E686DCF3405&quot;,
+    &quot;country&quot;: &quot;Mexico&quot;,
+    &quot;countryCode&quot;: &quot;mx&quot;,
+    &quot;title&quot;: &quot;Auxiliar Contable&quot;,
+    &quot;company&quot;: &quot;Importante empresa del sector&quot;,
+    &quot;companyVerified&quot;: false,
+    &quot;confidentialEmployer&quot;: true,
+    &quot;location&quot;: &quot;Monterrey, Nuevo León&quot;,
+    &quot;city&quot;: &quot;Monterrey&quot;,
+    &quot;region&quot;: &quot;Nuevo León&quot;,
+    &quot;workMode&quot;: &quot;onsite&quot;,
+    &quot;salaryText&quot;: &quot;$ 15,000.00 (Mensual)&quot;,
+    &quot;salaryMin&quot;: 15000,
+    &quot;salaryMax&quot;: 15000,
+    &quot;salaryCurrency&quot;: &quot;MXN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryHidden&quot;: false,
+    &quot;contractType&quot;: &quot;Contrato por tiempo indeterminado&quot;,
+    &quot;schedule&quot;: &quot;Tiempo Completo&quot;,
+    &quot;education&quot;: &quot;Educación media superior -Bachillerato General&quot;,
+    &quot;experienceYears&quot;: 2,
+    &quot;keywords&quot;: [
+      &quot;ayudante&quot;,
+      &quot;asistente&quot;,
+      &quot;auxiliar&quot;
+    ],
+    &quot;promoted&quot;: false,
+    &quot;urgent&quot;: false,
+    &quot;postedText&quot;: &quot;Hace 13 horas&quot;,
+    &quot;postedDate&quot;: &quot;2026-10-26&quot;,
+    &quot;descriptionText&quot;: &quot;Importante empresa dedicada a la transformación de aluminio solicita:\n\nAuxiliar Contable\nFunciones:\nRevisión y registro contable de entra...&quot;,
+    &quot;url&quot;: &quot;https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de-auxiliar-contable-experiencia-en-impuestos-en-monterrey-288F5BACD8FED...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-10-27T10:39:35Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/computrabajo-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;countries&#x27;: [&#x27;mx&#x27;],
+ &#x27;keywords&#x27;: [&#x27;contador&#x27;],
+ &#x27;location&#x27;: &#x27;Monterrey&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/computrabajo-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;countries&quot;: [
+    &quot;mx&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;contador&quot;
+  ],
+  &quot;location&quot;: &quot;Monterrey&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/computrabajo-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~computrabajo-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;countries&quot;: [&quot;mx&quot;], &quot;keywords&quot;: [&quot;contador&quot;], &quot;location&quot;: &quot;Monterrey&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/computrabajo-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per country and search term, with the city or region you chose. Pasted search URLs are read as they are. Postings are unique by ID across the whole run.</li>
+<li>salaryText is the salary as the posting shows it. salaryMin, salaryMax (the same value: Computrabajo shows one figure), salaryCurrency and salaryInterval come from the posting page with details on...</li>
+<li>postedDate is the date of the posting&#x27;s last publication or update, from the search page&#x27;s &quot;Hace 3 horas&quot; or &quot;Ayer&quot;, the order Computrabajo lists results in. firstPostedDate, with details on, is...</li>
+<li>contractType, schedule, industry, education, skills and the posting&#x27;s own text stay in Spanish as published; workMode is onsite, hybrid or remote and employmentType is the posting&#x27;s schema.org value.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Computrabajo Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, city, country, salaryText, contractType, schedule, workMode, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Computrabajo Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/computrabajo-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/computrabajo-scraper">Open Computrabajo Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/jobs-ch-scraper/">Jobs.ch &amp; Jobup.ch Scraper</a>: Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, emp...</li>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Scrape India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs wh...</li>
+<li><a href="/wellfound-jobs-scraper/">Wellfound Jobs Scraper</a>: Scrape startup jobs from Wellfound (AngelList Talent) by role and location, remote jobs or any search page:...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
