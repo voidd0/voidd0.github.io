@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Substack Newsletter Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Substack newsletter profiles by creator handle: publication name, URL, description, paid tier status... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/creator-leads-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Substack Newsletter Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Substack newsletter profiles by creator handle: publication name, URL, description, paid tier status... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/creator-leads-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Substack Newsletter Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include publicationName, publicationUrl, subdomain, description, hasPaidTier, paymentsState, homepageType, communityEnabled, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Substack Newsletter Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/creator-leads-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Social media and publishing</nav>
+<h1>Substack Newsletter Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Substack newsletter profiles by creator handle: publication name, URL, description, paid tier status, community flag, homepage type, logo, and creation date. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/creator-leads-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/creator-leads-scraper">Open Substack Newsletter Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>publicationName</code></td><td>Newsletter name</td><td>text</td><td>Noahpinion</td></tr>
+<tr><td><code>publicationUrl</code></td><td>Newsletter URL</td><td>URL</td><td>https://www.noahpinion.blog</td></tr>
+<tr><td><code>subdomain</code></td><td>Subdomain</td><td>text</td><td>noahpinion</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>Economics and other interesting stuff</td></tr>
+<tr><td><code>hasPaidTier</code></td><td>Has paid tier</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>paymentsState</code></td><td>Payments state</td><td>text</td><td>enabled</td></tr>
+<tr><td><code>homepageType</code></td><td>Homepage type</td><td>text</td><td></td></tr>
+<tr><td><code>communityEnabled</code></td><td>Community enabled</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>createdAt</code></td><td>Created at</td><td>date</td><td>2020-03-28</td></tr>
+<tr><td><code>logoUrl</code></td><td>Logo</td><td>image URL</td><td>https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;handles&quot;: [
+    &quot;stratechery&quot;,
+    &quot;noahpinion&quot;,
+    &quot;astralcodexten&quot;,
+    &quot;mattstoller&quot;,
+    &quot;platformer&quot;,
+    &quot;byrnehobart&quot;,
+    &quot;worksinprogress&quot;,
+    &quot;slowboring&quot;,
+    &quot;persuasion&quot;,
+    &quot;thedispatch&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>handles</code> (required)</td><td>array</td><td>Substack creator handles to look up, with or without the @ sign (e.g.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;publicationName&quot;: &quot;Noahpinion&quot;,
+    &quot;publicationUrl&quot;: &quot;https://www.noahpinion.blog&quot;,
+    &quot;subdomain&quot;: &quot;noahpinion&quot;,
+    &quot;description&quot;: &quot;Economics and other interesting stuff&quot;,
+    &quot;hasPaidTier&quot;: true,
+    &quot;paymentsState&quot;: &quot;enabled&quot;,
+    &quot;communityEnabled&quot;: true,
+    &quot;createdAt&quot;: &quot;2020-03-28&quot;,
+    &quot;logoUrl&quot;: &quot;https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/04281755-2cd6-42e5-a496-e69153abebb2_281x281.png&quot;
+  },
+  {
+    &quot;publicationName&quot;: &quot;Astral Codex Ten&quot;,
+    &quot;publicationUrl&quot;: &quot;https://www.astralcodexten.com&quot;,
+    &quot;subdomain&quot;: &quot;astralcodexten&quot;,
+    &quot;description&quot;: &quot;P(A|B) = [P(A)*P(B|A)]/P(B), all the rest is commentary.&quot;,
+    &quot;hasPaidTier&quot;: true,
+    &quot;paymentsState&quot;: &quot;enabled&quot;,
+    &quot;homepageType&quot;: &quot;newspaper&quot;,
+    &quot;communityEnabled&quot;: true,
+    &quot;createdAt&quot;: &quot;2020-08-30&quot;,
+    &quot;logoUrl&quot;: &quot;https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/430241cb-ade5-4316-b1c9-6e3fe6e63e5e_256x256.png&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/creator-leads-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;handles&#x27;: [&#x27;stratechery&#x27;,
+             &#x27;noahpinion&#x27;,
+             &#x27;astralcodexten&#x27;,
+             &#x27;mattstoller&#x27;,
+             &#x27;platformer&#x27;,
+             &#x27;byrnehobart&#x27;,
+             &#x27;worksinprogress&#x27;,
+             &#x27;slowboring&#x27;,
+             &#x27;persuasion&#x27;,
+             &#x27;thedispatch&#x27;],
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/creator-leads-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;handles&quot;: [
+    &quot;stratechery&quot;,
+    &quot;noahpinion&quot;,
+    &quot;astralcodexten&quot;,
+    &quot;mattstoller&quot;,
+    &quot;platformer&quot;,
+    &quot;byrnehobart&quot;,
+    &quot;worksinprogress&quot;,
+    &quot;slowboring&quot;,
+    &quot;persuasion&quot;,
+    &quot;thedispatch&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/creator-leads-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~creator-leads-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;handles&quot;: [&quot;stratechery&quot;, &quot;noahpinion&quot;, &quot;astralcodexten&quot;, &quot;mattstoller&quot;, &quot;platformer&quot;, &quot;byrnehobart&quot;, &quot;worksinprogress&quot;, &quot;slowboring&quot;, &quot;persuasion&quot;, &quot;thedispatch&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. See the <a href="https://apify.com/v0iddo/creator-leads-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each handle resolves to the newsletters that creator actively writes for; one row is emitted per publication found on their public profile.</li>
+<li>Subscriber counts are not exposed in the public profile page JSON; visit the newsletter URL directly for additional details.</li>
+<li>Handles with no public publications or a private profile are silently skipped; the run raises an error only when every handle fails.</li>
+<li>Not affiliated with Substack.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Substack Newsletter Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include publicationName, publicationUrl, subdomain, description, hasPaidTier, paymentsState, homepageType, communityEnabled, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Substack Newsletter Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/creator-leads-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/creator-leads-scraper">Open Substack Newsletter Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/substack-scraper/">Substack Posts Scraper</a>: Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen...</li>
+<li><a href="/medium-rss-tracker/">Medium Scraper</a>: Pull Medium articles via the public RSS feed endpoints: /feed/@user, /feed/tag/{tag}, /feed/{publication-sl...</li>
+<li><a href="/substack-newsletter-posts/">Substack Scraper</a>: Substack scraper for newsletter posts.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
