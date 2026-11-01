@@ -55,6 +55,7 @@ This project focuses on the development of statist...</td></tr>
 <h2>Input example</h2>
 <p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
 <pre><code>{
+  &quot;sinceProjectStartDays&quot;: 90,
   &quot;maxResults&quot;: 20
 }</code></pre>
 <table>
@@ -145,7 +146,7 @@ This project focuses on the development of statist...</td></tr>
 
 client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
 
-run_input = {&#x27;maxResults&#x27;: 20}
+run_input = {&#x27;sinceProjectStartDays&#x27;: 90, &#x27;maxResults&#x27;: 20}
 
 run = client.actor(&quot;v0iddo/nih-reporter-grants&quot;).call(run_input=run_input)
 for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
@@ -156,6 +157,7 @@ for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
 const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
 
 const input = {
+  &quot;sinceProjectStartDays&quot;: 90,
   &quot;maxResults&quot;: 20
 };
 
@@ -166,7 +168,7 @@ console.log(items);
 <pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~nih-reporter-grants/run-sync-get-dataset-items&quot; \
   -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
   -H &quot;Content-Type: application/json&quot; \
-  -d &#x27;{&quot;maxResults&quot;: 20}&#x27;
+  -d &#x27;{&quot;sinceProjectStartDays&quot;: 90, &quot;maxResults&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$3.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.10 per 1,000. See the <a href="https://apify.com/v0iddo/nih-reporter-grants/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>FAQ</h2>

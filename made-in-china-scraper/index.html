@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Made-in-China.com Product Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Made-in-China.com product search pages by keyword. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/made-in-china-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Made-in-China.com Product Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Made-in-China.com product search pages by keyword. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/made-in-china-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Made-in-China.com Product Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include keyword, page, position, name, category, lowPriceUsd, highPriceUsd, supplierName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Made-in-China.com Product Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/made-in-china-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.44 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.01 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Made-in-China.com Product Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Made-in-China.com product search pages by keyword. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/made-in-china-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/made-in-china-scraper">Open Made-in-China.com Product Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>keyword</code></td><td>Keyword</td><td>text</td><td>LED Light</td></tr>
+<tr><td><code>page</code></td><td>Page</td><td>number</td><td>1</td></tr>
+<tr><td><code>position</code></td><td>Position</td><td>number</td><td>1</td></tr>
+<tr><td><code>name</code></td><td>Product Name</td><td>text</td><td>600W Solar Aurora LED Flood Light</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Solar Light</td></tr>
+<tr><td><code>lowPriceUsd</code></td><td>Price Low (USD)</td><td>number</td><td>30</td></tr>
+<tr><td><code>highPriceUsd</code></td><td>Price High (USD)</td><td>number</td><td>20</td></tr>
+<tr><td><code>supplierName</code></td><td>Supplier</td><td>text</td><td>Jiangsu Shixin Electric Group Co., Ltd.</td></tr>
+<tr><td><code>inStock</code></td><td>In Stock</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>image</code></td><td>Image</td><td>image URL</td><td>https://image.made-in-china.com/43f34j00UiQMNLEmOtbz/600W-Solar-Aur...</td></tr>
+<tr><td><code>url</code></td><td>URL</td><td>URL</td><td>https://www.made-in-china.com/products-search/hot-china-products/LE...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;LED Light&quot;,
+    &quot;Solar Panel&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code> (required)</td><td>array</td><td>Product keywords to search on Made-in-China.com, e.g.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Number of result pages to read per keyword (about 20 products each).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;keyword&quot;: &quot;LED Light&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 1,
+    &quot;name&quot;: &quot;600W Solar Aurora LED Flood Light&quot;,
+    &quot;category&quot;: &quot;Solar Light&quot;,
+    &quot;lowPriceUsd&quot;: 30,
+    &quot;highPriceUsd&quot;: 20,
+    &quot;supplierName&quot;: &quot;Jiangsu Shixin Electric Group Co., Ltd.&quot;,
+    &quot;inStock&quot;: true,
+    &quot;image&quot;: &quot;https://image.made-in-china.com/43f34j00UiQMNLEmOtbz/600W-Solar-Aurora-LED-Flood-Light.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.made-in-china.com/products-search/hot-china-products/LED_Light.html#product-1&quot;
+  },
+  {
+    &quot;keyword&quot;: &quot;LED Light&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2,
+    &quot;name&quot;: &quot;50W~300W Painted Matte Zijun Carton Customizable Pole Height Avaliable LED Solar Outdoor Light&quot;,
+    &quot;category&quot;: &quot;Solar Light&quot;,
+    &quot;lowPriceUsd&quot;: 28.8,
+    &quot;highPriceUsd&quot;: 58.8,
+    &quot;supplierName&quot;: &quot;Jiangsu Zijun Optoelectronic Technology Co., Ltd.&quot;,
+    &quot;inStock&quot;: true,
+    &quot;image&quot;: &quot;https://image.made-in-china.com/43f34j00KGSvUAIJwBpF/50W-300W-Painted-Matte-Zijun-Carton-Customizable-Pole-Height-Avaliable-LED-Solar-Out...&quot;,
+    &quot;url&quot;: &quot;https://www.made-in-china.com/products-search/hot-china-products/LED_Light.html#product-2&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/made-in-china-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;LED Light&#x27;, &#x27;Solar Panel&#x27;], &#x27;maxPages&#x27;: 1, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/made-in-china-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;LED Light&quot;,
+    &quot;Solar Panel&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/made-in-china-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~made-in-china-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;LED Light&quot;, &quot;Solar Panel&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.44 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.01 per 1,000. See the <a href="https://apify.com/v0iddo/made-in-china-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each listing page returns about 20 products parsed from the structured JSON-LD schema embedded in the page HTML; no JavaScript execution is required.</li>
+<li>Price fields reflect the FOB USD range shown on the search listing page; final negotiated prices may differ.</li>
+<li>Use specific keywords (e.g. Solar Panel Monocrystalline) to narrow results; paginate with maxPages to collect more than 20 products per keyword.</li>
+<li>Not affiliated with Made-in-China.com or Focus Technology Co., Ltd.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Made-in-China.com Product Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include keyword, page, position, name, category, lowPriceUsd, highPriceUsd, supplierName, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Made-in-China.com Product Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/made-in-china-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.44 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.01 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/made-in-china-scraper">Open Made-in-China.com Product Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price...</li>
+<li><a href="/alibaba-scraper/">Alibaba Scraper</a>: Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, u...</li>
+<li><a href="/vinted-scraper/">Vinted Product Scraper</a>: Collect public Vinted listings by search word or catalog link: title, brand, size, condition, price with cu...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kariyer Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link. Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/kariyer-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kariyer Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link. Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/kariyer-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Kariyer Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, location, workModel, employmentType, sector, age, dateStatus, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Kariyer Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/kariyer-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Kariyer Scraper: how to get Kariyer.net Turkey Job Listings as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/kariyer-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/kariyer-scraper">Open Kariyer Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Job title</td><td>text</td><td>Tahsilat Uzmanı</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Credence Risk Yönetimi ve Danışmanlık A.Ş.</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>İstanbul(Avr.)</td></tr>
+<tr><td><code>workModel</code></td><td>Work model</td><td>text</td><td>On-site</td></tr>
+<tr><td><code>employmentType</code></td><td>Employment type</td><td>text</td><td>Full time</td></tr>
+<tr><td><code>sector</code></td><td>Sector</td><td>text</td><td>Finans ve Yatırım Danışmanlığı</td></tr>
+<tr><td><code>age</code></td><td>Listed</td><td>text</td><td>6 days</td></tr>
+<tr><td><code>dateStatus</code></td><td>Date status</td><td>text</td><td>updated</td></tr>
+<tr><td><code>sponsored</code></td><td>Sponsored</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>search</code></td><td>Search</td><td>text</td><td>istanbul</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.kariyer.net/is-ilani/credence-risk-yonetimi-ve-danisman...</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>4315453</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>120483</td></tr>
+<tr><td><code>positionCategory</code></td><td></td><td>text</td><td>Tahsilat Uzmanı</td></tr>
+<tr><td><code>ageHours</code></td><td></td><td>number</td><td>144</td></tr>
+<tr><td><code>disabilityFriendly</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;locations&quot;: [
+    &quot;istanbul&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>locations</code></td><td>array</td><td>Places as Kariyer.net names them, e.g.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Words for the site&#x27;s own job search, e.g.</td></tr>
+<tr><td><code>startUrls</code></td><td>array</td><td>Kariyer.net listing links you opened in the browser, e.g.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Listing pages to read for each search (50 jobs a page; the site shows at most 100 pages).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: 4315453,
+    &quot;title&quot;: &quot;Tahsilat Uzmanı&quot;,
+    &quot;company&quot;: &quot;Credence Risk Yönetimi ve Danışmanlık A.Ş.&quot;,
+    &quot;companyId&quot;: 120483,
+    &quot;location&quot;: &quot;İstanbul(Avr.)&quot;,
+    &quot;workModel&quot;: &quot;On-site&quot;,
+    &quot;employmentType&quot;: &quot;Full time&quot;,
+    &quot;sector&quot;: &quot;Finans ve Yatırım Danışmanlığı&quot;,
+    &quot;positionCategory&quot;: &quot;Tahsilat Uzmanı&quot;,
+    &quot;age&quot;: &quot;6 days&quot;,
+    &quot;ageHours&quot;: 144,
+    &quot;dateStatus&quot;: &quot;updated&quot;,
+    &quot;sponsored&quot;: true,
+    &quot;disabilityFriendly&quot;: false,
+    &quot;url&quot;: &quot;https://www.kariyer.net/is-ilani/credence-risk-yonetimi-ve-danismanlik-a-s-tahsilat-uzmani-4315453&quot;,
+    &quot;search&quot;: &quot;istanbul&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 1
+  },
+  {
+    &quot;jobId&quot;: 4588798,
+    &quot;title&quot;: &quot;Fly Gayrimenkul Danışmanlarını Arıyor&quot;,
+    &quot;company&quot;: &quot;FLY Gayrimenkul&quot;,
+    &quot;companyId&quot;: 248433,
+    &quot;location&quot;: &quot;İstanbul(Avr.)&quot;,
+    &quot;workModel&quot;: &quot;Hybrid&quot;,
+    &quot;employmentType&quot;: &quot;Freelance&quot;,
+    &quot;sector&quot;: &quot;Gayrimenkul, Emlak İşleri&quot;,
+    &quot;positionCategory&quot;: &quot;Gayrimenkul Danışmanı&quot;,
+    &quot;age&quot;: &quot;1 day&quot;,
+    &quot;ageHours&quot;: 24,
+    &quot;dateStatus&quot;: &quot;updated&quot;,
+    &quot;sponsored&quot;: true,
+    &quot;disabilityFriendly&quot;: false,
+    &quot;url&quot;: &quot;https://www.kariyer.net/is-ilani/fly-gayrimenkul-fly-gayrimenkul-danismanlarini-ariyor-4588798&quot;,
+    &quot;search&quot;: &quot;istanbul&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/kariyer-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;locations&#x27;: [&#x27;istanbul&#x27;], &#x27;maxPages&#x27;: 1, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/kariyer-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;locations&quot;: [
+    &quot;istanbul&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/kariyer-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~kariyer-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;locations&quot;: [&quot;istanbul&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. See the <a href="https://apify.com/v0iddo/kariyer-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Reads the public listing pages of kariyer.net only: 50 jobs a page and at most 100 pages a search, as the site shows them. Posting pages and candidate pages are never read; company names are the...</li>
+<li>A place or listing link the site has no page for is skipped and named in the run log, never widened to all of Turkey. Jobs seen on an earlier page or search are not repeated.</li>
+<li>Listed is the age the site shows (updated or posted that long ago, or the last day to apply); work model and employment type are given in English.</li>
+<li>Not affiliated with Kariyer.net.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Kariyer Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, location, workModel, employmentType, sector, age, dateStatus, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Kariyer Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/kariyer-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/kariyer-scraper">Open Kariyer Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/jobs-ch-scraper/">Jobs.ch &amp; Jobup.ch Scraper</a>: Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, emp...</li>
+<li><a href="/computrabajo-scraper/">Computrabajo Scraper</a>: Scrape job postings from Computrabajo in 18 Latin American countries: title, company with rating, city, reg...</li>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Scrape India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs wh...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
