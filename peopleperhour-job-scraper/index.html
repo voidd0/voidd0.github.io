@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PeoplePerHour Job Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape freelance job listings from PeoplePerHour category pages: title, description, budget, currency, proj... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/peopleperhour-job-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PeoplePerHour Job Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape freelance job listings from PeoplePerHour category pages: title, description, budget, currency, proj... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/peopleperhour-job-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the PeoplePerHour Job Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobId, title, budget, currency, projectType, category, subCategory, proposalCount, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the PeoplePerHour Job Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/peopleperhour-job-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>PeoplePerHour Job Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape freelance job listings from PeoplePerHour category pages: title, description, budget, currency, project type, category, proposal count, posted date, expiry date and job URL. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/peopleperhour-job-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/peopleperhour-job-scraper">Open PeoplePerHour Job Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobId</code></td><td>Job ID</td><td>text</td><td>4529226</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td></td></tr>
+<tr><td><code>budget</code></td><td>Budget</td><td>number</td><td>500</td></tr>
+<tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>GBP</td></tr>
+<tr><td><code>projectType</code></td><td>Project Type</td><td>text</td><td>fixed_price</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Marketing, Branding &amp; Sales</td></tr>
+<tr><td><code>subCategory</code></td><td>Sub-Category</td><td>text</td><td>Strategy &amp; Research</td></tr>
+<tr><td><code>proposalCount</code></td><td>Proposals</td><td>number</td><td>13</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-11-01 12:09:02</td></tr>
+<tr><td><code>expiresAt</code></td><td>Expires</td><td>date</td><td>2026-12-01 12:09:02</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>Target Locations: United States and Europe About the Opportunity We...</td></tr>
+<tr><td><code>url</code></td><td>Job URL</td><td>URL</td><td></td></tr>
+<tr><td><code>categorySlug</code></td><td></td><td>text</td><td>technology</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categorySlugs&quot;: [
+    &quot;technology&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categorySlugs</code> (required)</td><td>array</td><td>One or more PeoplePerHour category slugs to scrape, e.g.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Number of listing pages to read per category slug (about 20 jobs each).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;categorySlug&quot;: &quot;technology&quot;,
+    &quot;page&quot;: 1,
+    &quot;jobId&quot;: &quot;4529226&quot;,
+    &quot;budget&quot;: 500,
+    &quot;currency&quot;: &quot;GBP&quot;,
+    &quot;projectType&quot;: &quot;fixed_price&quot;,
+    &quot;category&quot;: &quot;Marketing, Branding &amp; Sales&quot;,
+    &quot;subCategory&quot;: &quot;Strategy &amp; Research&quot;,
+    &quot;proposalCount&quot;: 13,
+    &quot;postedAt&quot;: &quot;2026-11-01 12:09:02&quot;,
+    &quot;expiresAt&quot;: &quot;2026-12-01 12:09:02&quot;,
+    &quot;description&quot;: &quot;Target Locations: United States and Europe About the Opportunity We are currently connecting talented software developers with potential...&quot;
+  },
+  {
+    &quot;categorySlug&quot;: &quot;technology&quot;,
+    &quot;page&quot;: 1,
+    &quot;jobId&quot;: &quot;4529210&quot;,
+    &quot;title&quot;: &quot;WordPress &amp; PHP Developer Required&quot;,
+    &quot;budget&quot;: 200,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;projectType&quot;: &quot;fixed_price&quot;,
+    &quot;category&quot;: &quot;Technology &amp; Programming&quot;,
+    &quot;subCategory&quot;: &quot;Website Development&quot;,
+    &quot;proposalCount&quot;: 29,
+    &quot;postedAt&quot;: &quot;2026-11-01 10:00:34&quot;,
+    &quot;expiresAt&quot;: &quot;2026-12-01 10:00:34&quot;,
+    &quot;description&quot;: &quot;We are looking for an **experienced WordPress and PHP developer** to work on two projects: 1. **Existing Website Enhancement:** Improve a...&quot;,
+    &quot;url&quot;: &quot;https://www.peopleperhour.com/freelance-jobs/technology-programming/website-development/wordpress-php-developer-required-4529210&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/peopleperhour-job-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categorySlugs&#x27;: [&#x27;technology&#x27;], &#x27;maxPages&#x27;: 1, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/peopleperhour-job-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categorySlugs&quot;: [
+    &quot;technology&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/peopleperhour-job-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~peopleperhour-job-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categorySlugs&quot;: [&quot;technology&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. See the <a href="https://apify.com/v0iddo/peopleperhour-job-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each category page returns about 20 jobs; set maxPages to 1 for a quick test. Common slugs: technology, design, writing-translation, digital-marketing, finance, sales, admin-support, music-audio...</li>
+<li>Budget figures are in the job&#x27;s own currency (GBP, USD or EUR). A budget of 0 or null means no fixed amount was set by the client.</li>
+<li>Job descriptions in listing pages may be truncated; the full text appears on the individual job page.</li>
+<li>Not affiliated with PeoplePerHour.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the PeoplePerHour Job Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobId, title, budget, currency, projectType, category, subCategory, proposalCount, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the PeoplePerHour Job Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/peopleperhour-job-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/peopleperhour-job-scraper">Open PeoplePerHour Job Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/rozeepk-jobs-scraper/">Rozee.pk Jobs Scraper</a>: Scrape job listings from Rozee.pk by keyword and optional city.</li>
+<li><a href="/kariyer-scraper/">Kariyer Scraper</a>: Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link.</li>
+<li><a href="/jobs-ch-scraper/">Jobs.ch &amp; Jobup.ch Scraper</a>: Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, emp...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

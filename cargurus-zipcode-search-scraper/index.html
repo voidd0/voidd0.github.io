@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CarGurus Zipcode Search Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel... Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/cargurus-zipcode-search-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CarGurus Zipcode Search Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel... Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/cargurus-zipcode-search-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the CarGurus Zipcode Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include listingId, vin, year, make, model, trim, price, msrp, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the CarGurus Zipcode Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/cargurus-zipcode-search-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / SEO and website analysis</nav>
+<h1>CarGurus Zipcode Search Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel economy, dealer name and location, and direct listing link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/cargurus-zipcode-search-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/cargurus-zipcode-search-scraper">Open CarGurus Zipcode Search Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>listingId</code></td><td>Listing ID</td><td>text</td><td>460003322</td></tr>
+<tr><td><code>vin</code></td><td>VIN</td><td>text</td><td>1FA6P8CF2T5417539</td></tr>
+<tr><td><code>year</code></td><td>Year</td><td>number</td><td>2026</td></tr>
+<tr><td><code>make</code></td><td>Make</td><td>text</td><td>Ford</td></tr>
+<tr><td><code>model</code></td><td>Model</td><td>text</td><td>Mustang</td></tr>
+<tr><td><code>trim</code></td><td>Trim</td><td>text</td><td>GT Fastback RWD</td></tr>
+<tr><td><code>price</code></td><td>Price USD</td><td>number</td><td>58099</td></tr>
+<tr><td><code>msrp</code></td><td>MSRP USD</td><td>number</td><td>62650</td></tr>
+<tr><td><code>mileage</code></td><td>Mileage</td><td>number</td><td></td></tr>
+<tr><td><code>dealerName</code></td><td>Dealer</td><td>text</td><td>Fred Beans Ford of Mechanicsburg</td></tr>
+<tr><td><code>dealerState</code></td><td>State</td><td>text</td><td>PA</td></tr>
+<tr><td><code>url</code></td><td>Listing URL</td><td>URL</td><td>https://www.cargurus.com/details/460003322</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>bodyType</code></td><td></td><td>text</td><td>Coupe</td></tr>
+<tr><td><code>condition</code></td><td></td><td>text</td><td>NEW</td></tr>
+<tr><td><code>engine</code></td><td></td><td>text</td><td>480 hp 5L V8</td></tr>
+<tr><td><code>transmission</code></td><td></td><td>text</td><td>Automatic</td></tr>
+<tr><td><code>drivetrain</code></td><td></td><td>text</td><td>Rear-Wheel Drive</td></tr>
+<tr><td><code>exteriorColor</code></td><td></td><td>text</td><td>Shadow Black</td></tr>
+<tr><td><code>fuelType</code></td><td></td><td>text</td><td>Gasoline</td></tr>
+<tr><td><code>mpgCombined</code></td><td></td><td>number</td><td>19.6</td></tr>
+<tr><td><code>dealerCity</code></td><td></td><td>text</td><td>Mechanicsburg</td></tr>
+<tr><td><code>dealerZip</code></td><td></td><td>text</td><td>17050</td></tr>
+<tr><td><code>distance</code></td><td></td><td>number</td><td>86.99595</td></tr>
+<tr><td><code>imageUrl</code></td><td></td><td>text</td><td>https://static.cargurus.com/images/forsale/2026/09/26/07/04/2026_fo...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;searchUrls&quot;: [
+    &quot;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&quot;
+  ],
+  &quot;zipCode&quot;: &quot;10001&quot;,
+  &quot;radiusMiles&quot;: 100,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>searchUrls</code> (required)</td><td>array</td><td>CarGurus vehicle listing pages such as https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2 or https://www.cargurus.com/Cars/used/nl-Used-Toyota-Camry-d158.</td></tr>
+<tr><td><code>zipCode</code></td><td>string</td><td>5-digit US ZIP code to center the search on (e.g.</td></tr>
+<tr><td><code>radiusMiles</code></td><td>integer</td><td>Search radius in miles from the ZIP code.</td></tr>
+<tr><td><code>condition</code></td><td>string</td><td>Keep only new listings, only used listings, or all regardless of condition.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages to read per search URL (around 15-25 listings per page).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;searchUrl&quot;: &quot;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&quot;,
+    &quot;page&quot;: 1,
+    &quot;listingId&quot;: &quot;460003322&quot;,
+    &quot;vin&quot;: &quot;1FA6P8CF2T5417539&quot;,
+    &quot;year&quot;: 2026,
+    &quot;make&quot;: &quot;Ford&quot;,
+    &quot;model&quot;: &quot;Mustang&quot;,
+    &quot;trim&quot;: &quot;GT Fastback RWD&quot;,
+    &quot;bodyType&quot;: &quot;Coupe&quot;,
+    &quot;condition&quot;: &quot;NEW&quot;,
+    &quot;price&quot;: 58099,
+    &quot;msrp&quot;: 62650,
+    &quot;engine&quot;: &quot;480 hp 5L V8&quot;,
+    &quot;transmission&quot;: &quot;Automatic&quot;,
+    &quot;drivetrain&quot;: &quot;Rear-Wheel Drive&quot;,
+    &quot;exteriorColor&quot;: &quot;Shadow Black&quot;,
+    &quot;fuelType&quot;: &quot;Gasoline&quot;,
+    &quot;mpgCombined&quot;: 19.6,
+    &quot;dealerName&quot;: &quot;Fred Beans Ford of Mechanicsburg&quot;,
+    &quot;dealerCity&quot;: &quot;Mechanicsburg&quot;,
+    &quot;dealerState&quot;: &quot;PA&quot;,
+    &quot;dealerZip&quot;: &quot;17050&quot;,
+    &quot;distance&quot;: 86.99595,
+    &quot;imageUrl&quot;: &quot;https://static.cargurus.com/images/forsale/2026/09/26/07/04/2026_ford_mustang-pic-5048896905568389234-1024x768.jpeg&quot;,
+    &quot;url&quot;: &quot;https://www.cargurus.com/details/460003322&quot;
+  },
+  {
+    &quot;searchUrl&quot;: &quot;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&quot;,
+    &quot;page&quot;: 1,
+    &quot;listingId&quot;: &quot;449569122&quot;,
+    &quot;vin&quot;: &quot;1FA6P8TH3T5124587&quot;,
+    &quot;year&quot;: 2026,
+    &quot;make&quot;: &quot;Ford&quot;,
+    &quot;model&quot;: &quot;Mustang&quot;,
+    &quot;trim&quot;: &quot;EcoBoost Fastback RWD&quot;,
+    &quot;bodyType&quot;: &quot;Coupe&quot;,
+    &quot;condition&quot;: &quot;NEW&quot;,
+    &quot;price&quot;: 30468,
+    &quot;msrp&quot;: 35695,
+    &quot;mileage&quot;: 20,
+    &quot;engine&quot;: &quot;315 hp 2.3L I4&quot;,
+    &quot;transmission&quot;: &quot;Automatic&quot;,
+    &quot;drivetrain&quot;: &quot;Rear-Wheel Drive&quot;,
+    &quot;exteriorColor&quot;: &quot;Adriatic Blue&quot;,
+    &quot;fuelType&quot;: &quot;Gasoline&quot;,
+    &quot;mpgCombined&quot;: 26.95,
+    &quot;dealerName&quot;: &quot;Preston Autoplex Group&quot;,
+    &quot;dealerCity&quot;: &quot;Hurlock&quot;,
+    &quot;dealerState&quot;: &quot;MD&quot;,
+    &quot;dealerZip&quot;: &quot;21643&quot;,
+    &quot;distance&quot;: 89.102234,
+    &quot;imageUrl&quot;: &quot;https://cdn-img.vincue.net/image/opt-dealerid50362-photoid2416062051-olid416438-overlaymodetopbottom--O6X5Z-ltid1/2416062051.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.cargurus.com/details/449569122&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/cargurus-zipcode-search-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;searchUrls&#x27;: [&#x27;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&#x27;],
+ &#x27;zipCode&#x27;: &#x27;10001&#x27;,
+ &#x27;radiusMiles&#x27;: 100,
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/cargurus-zipcode-search-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;searchUrls&quot;: [
+    &quot;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&quot;
+  ],
+  &quot;zipCode&quot;: &quot;10001&quot;,
+  &quot;radiusMiles&quot;: 100,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/cargurus-zipcode-search-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~cargurus-zipcode-search-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;searchUrls&quot;: [&quot;https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2&quot;], &quot;zipCode&quot;: &quot;10001&quot;, &quot;radiusMiles&quot;: 100, &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/cargurus-zipcode-search-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Paste CarGurus vehicle search page URLs from your browser: https://www.cargurus.com/Cars/new/nl-New-Ford-Mustang-d2 for new cars or https://www.cargurus.com/Cars/used/nl-Used-... for used. Each...</li>
+<li>ZIP code and radius filter results by dealer proximity. CarGurus returns 15-25 listings per page; increase Pages per URL to collect more.</li>
+<li>Dealer phone numbers and private contact details are not included in output.</li>
+<li>Not affiliated with CarGurus.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the CarGurus Zipcode Search Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include listingId, vin, year, make, model, trim, price, msrp, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the CarGurus Zipcode Search Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/cargurus-zipcode-search-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/cargurus-zipcode-search-scraper">Open CarGurus Zipcode Search Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/similarweb-scraper/">Similarweb Scraper</a>: Scrape Similarweb top websites rankings by category: global rank, domain, category, rank change, average vi...</li>
+<li><a href="/seo-audit/">SEO audit tool</a>: Audit the on-page SEO of any public web pages: title, meta description, headings, canonical, indexability,...</li>
+<li><a href="/sitemap-url-extractor/">Sitemap URL extractor</a>: Sitemap URL extractor and sitemap index crawler.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

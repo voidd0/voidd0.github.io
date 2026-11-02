@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Data Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/north-data-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="North Data Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/north-data-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the North Data Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include name, registerNumber, registerCourt, leiCode, street, city, postalCode, country, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the North Data Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/north-data-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>North Data Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Extract European company profiles from northdata.com: company name, register number, court, LEI code, address, founding date, corporate purpose, and officer count. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/north-data-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/north-data-scraper">Open North Data Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>name</code></td><td>Company Name</td><td>text</td><td>Bayerische Motoren Werke AG</td></tr>
+<tr><td><code>registerNumber</code></td><td>Register Number</td><td>text</td><td>HRB 42243</td></tr>
+<tr><td><code>registerCourt</code></td><td>Register Court</td><td>text</td><td>District Court of Munich</td></tr>
+<tr><td><code>leiCode</code></td><td>LEI Code</td><td>text</td><td>YEH5ZCD6E441RHVHD759</td></tr>
+<tr><td><code>street</code></td><td>Street</td><td>text</td><td>Petuelring 130</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>München</td></tr>
+<tr><td><code>postalCode</code></td><td>Postal Code</td><td>text</td><td>80809</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>DE</td></tr>
+<tr><td><code>foundingDate</code></td><td>Founding Date</td><td>date</td><td>1995-12-12</td></tr>
+<tr><td><code>corporatePurpose</code></td><td>Corporate Purpose</td><td>text</td><td>manufacture and sale of engines and vehicles equipped with them, th...</td></tr>
+<tr><td><code>officerCount</code></td><td>Officer Count</td><td>number</td><td></td></tr>
+<tr><td><code>url</code></td><td>Profile URL</td><td>URL</td><td>https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;companyUrls&quot;: [
+    &quot;https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243&quot;,
+    &quot;https://www.northdata.com/Volkswagen+AG,+Wolfsburg/HRB+100484&quot;,
+    &quot;https://www.northdata.com/Siemens+AG,+M%C3%BCnchen/HRB+6684&quot;,
+    &quot;https://www.northdata.com/Deutsche+Telekom+AG,+Bonn/HRB+6794&quot;,
+    &quot;https://www.northdata.com/BASF+SE,+Ludwigshafen+am+Rhein/HRB+6729&quot;,
+    &quot;https://www.northdata.com/Bayer+AG,+Leverkusen/HRB+48248&quot;,
+    &quot;https://www.northdata.com/Allianz+SE,+M%C3%BCnchen/HRB+164232&quot;,
+    &quot;https://www.northdata.com/SAP+SE,+Walldorf/HRB+755676&quot;,
+    &quot;https://www.northdata.com/Mercedes-Benz+Group+AG,+Stuttgart/HRB+19360&quot;,
+    &quot;https://www.northdata.com/Deutsche+Bank+AG,+Frankfurt+am+Main/HRB+30000&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>companyUrls</code> (required)</td><td>array</td><td>northdata.com company profile page URLs, one per line.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;name&quot;: &quot;Bayerische Motoren Werke AG&quot;,
+    &quot;registerNumber&quot;: &quot;HRB 42243&quot;,
+    &quot;registerCourt&quot;: &quot;District Court of Munich&quot;,
+    &quot;leiCode&quot;: &quot;YEH5ZCD6E441RHVHD759&quot;,
+    &quot;street&quot;: &quot;Petuelring 130&quot;,
+    &quot;city&quot;: &quot;München&quot;,
+    &quot;postalCode&quot;: &quot;80809&quot;,
+    &quot;country&quot;: &quot;DE&quot;,
+    &quot;foundingDate&quot;: &quot;1995-12-12&quot;,
+    &quot;corporatePurpose&quot;: &quot;manufacture and sale of engines and vehicles equipped with them, their accessories and products of the machinery and metal industry and t...&quot;,
+    &quot;url&quot;: &quot;https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243&quot;
+  },
+  {
+    &quot;name&quot;: &quot;VOLKSWAGEN AG&quot;,
+    &quot;registerNumber&quot;: &quot;HRB 100484&quot;,
+    &quot;registerCourt&quot;: &quot;District Court of Braunschweig&quot;,
+    &quot;leiCode&quot;: &quot;529900NNUPAGGOMPXZ31&quot;,
+    &quot;street&quot;: &quot;Berliner Ring 2&quot;,
+    &quot;city&quot;: &quot;Wolfsburg&quot;,
+    &quot;postalCode&quot;: &quot;38440&quot;,
+    &quot;country&quot;: &quot;DE&quot;,
+    &quot;foundingDate&quot;: &quot;1961-04-27&quot;,
+    &quot;corporatePurpose&quot;: &quot;The object of the company is the manufacture and sale of vehicles and engines of all kinds, their accessories as well as all plants, mach...&quot;,
+    &quot;url&quot;: &quot;https://www.northdata.com/Volkswagen+AG,+Wolfsburg/HRB+100484&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/north-data-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;companyUrls&#x27;: [&#x27;https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243&#x27;,
+                 &#x27;https://www.northdata.com/Volkswagen+AG,+Wolfsburg/HRB+100484&#x27;,
+                 &#x27;https://www.northdata.com/Siemens+AG,+M%C3%BCnchen/HRB+6684&#x27;,
+                 &#x27;https://www.northdata.com/Deutsche+Telekom+AG,+Bonn/HRB+6794&#x27;,
+                 &#x27;https://www.northdata.com/BASF+SE,+Ludwigshafen+am+Rhein/HRB+6729&#x27;,
+                 &#x27;https://www.northdata.com/Bayer+AG,+Leverkusen/HRB+48248&#x27;,
+                 &#x27;https://www.northdata.com/Allianz+SE,+M%C3%BCnchen/HRB+164232&#x27;,
+                 &#x27;https://www.northdata.com/SAP+SE,+Walldorf/HRB+755676&#x27;,
+                 &#x27;https://www.northdata.com/Mercedes-Benz+Group+AG,+Stuttgart/HRB+19360&#x27;,
+                 &#x27;https://www.northdata.com/Deutsche+Bank+AG,+Frankfurt+am+Main/HRB+30000&#x27;],
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/north-data-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;companyUrls&quot;: [
+    &quot;https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243&quot;,
+    &quot;https://www.northdata.com/Volkswagen+AG,+Wolfsburg/HRB+100484&quot;,
+    &quot;https://www.northdata.com/Siemens+AG,+M%C3%BCnchen/HRB+6684&quot;,
+    &quot;https://www.northdata.com/Deutsche+Telekom+AG,+Bonn/HRB+6794&quot;,
+    &quot;https://www.northdata.com/BASF+SE,+Ludwigshafen+am+Rhein/HRB+6729&quot;,
+    &quot;https://www.northdata.com/Bayer+AG,+Leverkusen/HRB+48248&quot;,
+    &quot;https://www.northdata.com/Allianz+SE,+M%C3%BCnchen/HRB+164232&quot;,
+    &quot;https://www.northdata.com/SAP+SE,+Walldorf/HRB+755676&quot;,
+    &quot;https://www.northdata.com/Mercedes-Benz+Group+AG,+Stuttgart/HRB+19360&quot;,
+    &quot;https://www.northdata.com/Deutsche+Bank+AG,+Frankfurt+am+Main/HRB+30000&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/north-data-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~north-data-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;companyUrls&quot;: [&quot;https://www.northdata.com/BMW-AG,+M%C3%BCnchen/HRB+42243&quot;, &quot;https://www.northdata.com/Volkswagen+AG,+Wolfsburg/HRB+100484&quot;, &quot;https://www.northdata.com/Siemens+AG,+M%C3%BCnchen/HRB+6684&quot;, &quot;https://www.northdata.com/Deutsche+Telekom+AG,+Bonn/HRB+6794&quot;, &quot;https://www.northdata.com/BASF+SE,+Ludwigshafen+am+Rhein/HRB+6729&quot;, &quot;https://www.northdata.com/Bayer+AG,+Leverkusen/HRB+48248&quot;, &quot;https://www.northdata.com/Allianz+SE,+M%C3%BCnchen/HRB+164232&quot;, &quot;https://www.northdata.com/SAP+SE,+Walldorf/HRB+755676&quot;, &quot;https://www.northdata.com/Mercedes-Benz+Group+AG,+Stuttgart/HRB+19360&quot;, &quot;https://www.northdata.com/Deutsche+Bank+AG,+Frankfurt+am+Main/HRB+30000&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. See the <a href="https://apify.com/v0iddo/north-data-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each northdata.com company profile URL yields one output row with public register data, LEI code, address, founding date, and officer count.</li>
+<li>Officer names are not collected; only the total count of listed officers is included.</li>
+<li>North Data covers companies in Germany, Austria, Switzerland, the United Kingdom, France, and more than 20 other European countries.</li>
+<li>Not affiliated with North Data GmbH or northdata.com.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the North Data Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include name, registerNumber, registerCourt, leiCode, street, city, postalCode, country, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the North Data Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/north-data-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.98 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.09 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/north-data-scraper">Open North Data Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/internshala-scraper/">Internshala Scraper</a>: Scrape internshala.com for internships and fresher jobs: title, company, location, stipend, duration, work-...</li>
+<li><a href="/snapchat-scraper/">Snapchat Profile and Spotlight Scraper</a>: Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats...</li>
+<li><a href="/y-combinator-scraper/">Y Combinator Company Directory Scraper</a>: Scrape the Y Combinator public company directory: name, batch, status, industries, location, website, one-l...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

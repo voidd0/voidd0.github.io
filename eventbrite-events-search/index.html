@@ -11,7 +11,7 @@
 <meta property="og:description" content="Search Eventbrite events by keyword and location. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
 <meta property="og:url" content="https://voidd0.github.io/eventbrite-events-search/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Eventbrite Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include id, title, organizer, startDate, endDate, isOnline, venueName, city, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Eventbrite Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/eventbrite-events-search with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.30 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.21 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Eventbrite Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include query, title, startDate, endDate, isOnline, venueName, city, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Eventbrite Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/eventbrite-events-search with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.30 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.21 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -26,18 +26,15 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-events-se
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>id</code></td><td>Id</td><td>text</td><td>1994623085342</td></tr>
+<tr><td><code>query</code></td><td>Query</td><td>text</td><td>tech-conference</td></tr>
 <tr><td><code>title</code></td><td>Title</td><td>text</td><td>RockIT Women 8th Annual Women in Tech (WIT) Conference</td></tr>
-<tr><td><code>organizer</code></td><td>Organizer</td><td>text</td><td></td></tr>
 <tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-12-08T08:30:00</td></tr>
 <tr><td><code>endDate</code></td><td>End Date</td><td>date</td><td>2026-12-08T16:30:00</td></tr>
 <tr><td><code>isOnline</code></td><td>Is Online</td><td>true/false</td><td>false</td></tr>
 <tr><td><code>venueName</code></td><td>Venue Name</td><td>text</td><td>The Vista at Origin Park</td></tr>
 <tr><td><code>city</code></td><td>City</td><td>text</td><td>Clarksville</td></tr>
-<tr><td><code>priceMin</code></td><td>Price Min</td><td>text</td><td></td></tr>
-<tr><td><code>priceMax</code></td><td>Price Max</td><td>text</td><td></td></tr>
 <tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://www.eventbrite.com/e/rockit-women-8th-annual-women-in-tech-...</td></tr>
-<tr><td><code>query</code></td><td></td><td>text</td><td>tech-conference</td></tr>
+<tr><td><code>id</code></td><td>Id</td><td>text</td><td>1994623085342</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -130,7 +127,7 @@ console.log(items);
 <p>$0.30 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.21 per 1,000. See the <a href="https://apify.com/v0iddo/eventbrite-events-search/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>FAQ</h2>
 <h3>What data does the Eventbrite Scraper return?</h3>
-<p>Each result is one row in an Apify dataset. Fields include id, title, organizer, startDate, endDate, isOnline, venueName, city, and more. The table above shows every field with an example value.</p>
+<p>Each result is one row in an Apify dataset. Fields include query, title, startDate, endDate, isOnline, venueName, city, url, and more. The table above shows every field with an example value.</p>
 <h3>How do I use the Eventbrite Scraper from Python?</h3>
 <p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/eventbrite-events-search</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
 <h3>Can I use it without writing code?</h3>
@@ -146,7 +143,7 @@ console.log(items);
 <ul>
 <li><a href="/eventbrite-scraper/">Eventbrite Event Data Scraper</a>: Collect public Eventbrite events for any city or online: name, start and end, venue and city, online flag,...</li>
 <li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Collect public ads from the Meta Ad Library by keyword, advertiser Page ID or Ad Library link: ad text, hea...</li>
-<li><a href="/kariyer-scraper/">Kariyer Scraper</a>: Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link.</li>
+<li><a href="/north-data-scraper/">North Data Scraper</a>: Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
