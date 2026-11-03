@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hiring.Cafe Jobs Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, te... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/hiring-cafe-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hiring.Cafe Jobs Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, te... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/hiring-cafe-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Hiring.Cafe Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobTitle, companyName, location, workplaceType, seniorityLevel, employmentType, jobCategory, technicalTools, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Hiring.Cafe Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/hiring-cafe-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Hiring.Cafe Jobs Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, technical tools, requirements summary, visa sponsorship, and apply link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/hiring-cafe-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/hiring-cafe-scraper">Open Hiring.Cafe Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobTitle</code></td><td>Job Title</td><td>text</td><td>Part-Time Manager</td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>Claire&#x27;s</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Clarksburg, Maryland, United States</td></tr>
+<tr><td><code>workplaceType</code></td><td>Workplace Type</td><td>text</td><td>Onsite</td></tr>
+<tr><td><code>seniorityLevel</code></td><td>Seniority</td><td>text</td><td>Mid Level</td></tr>
+<tr><td><code>employmentType</code></td><td>Employment Type</td><td>text</td><td>Part Time</td></tr>
+<tr><td><code>jobCategory</code></td><td>Job Category</td><td>text</td><td>Sales</td></tr>
+<tr><td><code>technicalTools</code></td><td>Technical Tools</td><td>list</td><td>[&quot;POS system&quot;]</td></tr>
+<tr><td><code>applyUrl</code></td><td>Apply URL</td><td>URL</td><td>https://secure5.saashr.com/ta/clairesstores.careers?ShowJob=553985921</td></tr>
+<tr><td><code>url</code></td><td>Listing URL</td><td>URL</td><td>https://hiringcafe.com/jobs/saoeij8jz9n947na</td></tr>
+<tr><td><code>yearlySalaryMin</code></td><td></td><td>number</td><td>37440</td></tr>
+<tr><td><code>yearlySalaryMax</code></td><td></td><td>number</td><td>38792</td></tr>
+<tr><td><code>requirementsSummary</code></td><td></td><td>text</td><td>At least one year of retail management experience; ability to condu...</td></tr>
+<tr><td><code>visaSponsorship</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>indexedAt</code></td><td></td><td>text</td><td>2026-11-02T11:20:15.485018450Z</td></tr>
+<tr><td><code>source</code></td><td></td><td>text</td><td>saashr</td></tr>
+<tr><td><code>requisitionId</code></td><td></td><td>text</td><td>saoeij8jz9n947na</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keyword&quot;: &quot;software engineer&quot;,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keyword</code></td><td>string</td><td>Job title or keyword to search for, e.g.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>City, state, or country to filter by, e.g.</td></tr>
+<tr><td><code>workplaceType</code></td><td>string</td><td>Keep only listings of this workplace type.</td></tr>
+<tr><td><code>seniorityLevel</code></td><td>string</td><td>Keep only listings at this seniority level.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobTitle&quot;: &quot;Part-Time Manager&quot;,
+    &quot;companyName&quot;: &quot;Claire&#x27;s&quot;,
+    &quot;location&quot;: &quot;Clarksburg, Maryland, United States&quot;,
+    &quot;workplaceType&quot;: &quot;Onsite&quot;,
+    &quot;seniorityLevel&quot;: &quot;Mid Level&quot;,
+    &quot;employmentType&quot;: &quot;Part Time&quot;,
+    &quot;yearlySalaryMin&quot;: 37440,
+    &quot;yearlySalaryMax&quot;: 38792,
+    &quot;jobCategory&quot;: &quot;Sales&quot;,
+    &quot;technicalTools&quot;: [
+      &quot;POS system&quot;
+    ],
+    &quot;requirementsSummary&quot;: &quot;At least one year of retail management experience; ability to conduct piercings; POS system proficiency; some high school; physical abili...&quot;,
+    &quot;visaSponsorship&quot;: false,
+    &quot;applyUrl&quot;: &quot;https://secure5.saashr.com/ta/clairesstores.careers?ShowJob=553985921&quot;,
+    &quot;indexedAt&quot;: &quot;2026-11-02T11:20:15.485018450Z&quot;,
+    &quot;url&quot;: &quot;https://hiringcafe.com/jobs/saoeij8jz9n947na&quot;,
+    &quot;source&quot;: &quot;saashr&quot;,
+    &quot;requisitionId&quot;: &quot;saoeij8jz9n947na&quot;
+  },
+  {
+    &quot;jobTitle&quot;: &quot;Sioux Falls Area Nurse&quot;,
+    &quot;companyName&quot;: &quot;Homecare Services of South Dakota&quot;,
+    &quot;location&quot;: &quot;Sioux Falls, South Dakota, United States&quot;,
+    &quot;workplaceType&quot;: &quot;Field&quot;,
+    &quot;seniorityLevel&quot;: &quot;Entry Level&quot;,
+    &quot;employmentType&quot;: &quot;Contract&quot;,
+    &quot;yearlySalaryMin&quot;: 69680,
+    &quot;yearlySalaryMax&quot;: 75920,
+    &quot;jobCategory&quot;: &quot;Healthcare Services - Nursing&quot;,
+    &quot;requirementsSummary&quot;: &quot;RN or LPN license required.&quot;,
+    &quot;visaSponsorship&quot;: false,
+    &quot;applyUrl&quot;: &quot;https://www.homecareservicessd.com/careers/#09B92ktn85a8O439&quot;,
+    &quot;indexedAt&quot;: &quot;2026-11-02T10:32:50.370125373Z&quot;,
+    &quot;url&quot;: &quot;https://hiringcafe.com/jobs/q220klg8tnqvmu50&quot;,
+    &quot;source&quot;: &quot;adhoc&quot;,
+    &quot;requisitionId&quot;: &quot;q220klg8tnqvmu50&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/hiring-cafe-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keyword&#x27;: &#x27;software engineer&#x27;, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/hiring-cafe-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keyword&quot;: &quot;software engineer&quot;,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/hiring-cafe-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~hiring-cafe-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keyword&quot;: &quot;software engineer&quot;, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/hiring-cafe-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each request returns up to ~110 server-side-rendered listings. Passing a keyword causes the site to pre-filter results server-side; leaving it blank fetches the default recent-jobs feed.</li>
+<li>Salary figures are included when disclosed by the employer; many listings carry no salary data. Workplace type and seniority filters are applied client-side after fetching.</li>
+<li>The site surfaces jobs sourced directly from employer career pages across dozens of ATS platforms (Greenhouse, Lever, Workday, and others).</li>
+<li>Not affiliated with Hiring.Cafe or Vasona Technologies, Inc.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Hiring.Cafe Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobTitle, companyName, location, workplaceType, seniorityLevel, employmentType, jobCategory, technicalTools, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Hiring.Cafe Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/hiring-cafe-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/hiring-cafe-scraper">Open Hiring.Cafe Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/jobteaser-job-scraper/">JobTeaser Job Scraper</a>: Scrape job listings from jobteaser.com: title, company, location, contract type, posted time, easy-apply an...</li>
+<li><a href="/peopleperhour-job-scraper/">PeoplePerHour Job Scraper</a>: Scrape freelance job listings from PeoplePerHour category pages: title, description, budget, currency, proj...</li>
+<li><a href="/rozeepk-jobs-scraper/">Rozee.pk Jobs Scraper</a>: Scrape job listings from Rozee.pk by keyword and optional city.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
