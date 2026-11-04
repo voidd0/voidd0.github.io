@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myntra Product Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/myntra-product-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Myntra Product Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/myntra-product-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Myntra Product Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, name, brand, price, mrp, discountPercent, rating, ratingCount, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Myntra Product Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/myntra-product-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Myntra Product Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, discount percent, rating, sizes, category, image, and product URL. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/myntra-product-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/myntra-product-scraper">Open Myntra Product Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>productId</code></td><td>Product ID</td><td>text</td><td>46877313</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>LAZYCHUNKS Unisex Henley Neck T-shirt</td></tr>
+<tr><td><code>brand</code></td><td>Brand</td><td>text</td><td>LAZYCHUNKS</td></tr>
+<tr><td><code>price</code></td><td>Price INR</td><td>number</td><td>697</td></tr>
+<tr><td><code>mrp</code></td><td>MRP INR</td><td>number</td><td>1099</td></tr>
+<tr><td><code>discountPercent</code></td><td>Discount %</td><td>number</td><td>37</td></tr>
+<tr><td><code>rating</code></td><td>Rating</td><td>number</td><td>3.5</td></tr>
+<tr><td><code>ratingCount</code></td><td>Rating Count</td><td>number</td><td>12</td></tr>
+<tr><td><code>sizes</code></td><td>Sizes</td><td>text</td><td>S,M,L,XL,XXL,3XL</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Tshirts</td></tr>
+<tr><td><code>image</code></td><td>Image</td><td>image URL</td><td>http://assets.myntassets.com/assets/images/2026/OCTOBER/3/b350552f6...</td></tr>
+<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.myntra.com/tshirts/lazychunks/lazychunks-unisex-henley-...</td></tr>
+<tr><td><code>gender</code></td><td></td><td>text</td><td>Unisex</td></tr>
+<tr><td><code>color</code></td><td></td><td>text</td><td>Black</td></tr>
+<tr><td><code>additionalInfo</code></td><td></td><td>text</td><td>LazyChunks Henley F/S T-shirt</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categoryUrls&quot;: [
+    &quot;https://www.myntra.com/men-tshirts&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categoryUrls</code> (required)</td><td>array</td><td>Myntra category or search listing pages (e.g.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many listing pages (about 30-40 products each) to read per URL.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;productId&quot;: &quot;46877313&quot;,
+    &quot;name&quot;: &quot;LAZYCHUNKS Unisex Henley Neck T-shirt&quot;,
+    &quot;brand&quot;: &quot;LAZYCHUNKS&quot;,
+    &quot;price&quot;: 697,
+    &quot;mrp&quot;: 1099,
+    &quot;discountPercent&quot;: 37,
+    &quot;rating&quot;: 3.5,
+    &quot;ratingCount&quot;: 12,
+    &quot;sizes&quot;: &quot;S,M,L,XL,XXL,3XL&quot;,
+    &quot;category&quot;: &quot;Tshirts&quot;,
+    &quot;gender&quot;: &quot;Unisex&quot;,
+    &quot;color&quot;: &quot;Black&quot;,
+    &quot;additionalInfo&quot;: &quot;LazyChunks Henley F/S T-shirt&quot;,
+    &quot;image&quot;: &quot;http://assets.myntassets.com/assets/images/2026/OCTOBER/3/b350552f6cd84328871d14352449b889.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.myntra.com/tshirts/lazychunks/lazychunks-unisex-henley-neck-t-shirt/46877313/buy&quot;
+  },
+  {
+    &quot;productId&quot;: &quot;36674095&quot;,
+    &quot;name&quot;: &quot;Puma Unisex TRAIN ALL DAY Essentials Slim Fit dryCELL Polo Sports T-shirt&quot;,
+    &quot;brand&quot;: &quot;Puma&quot;,
+    &quot;price&quot;: 779,
+    &quot;mrp&quot;: 1499,
+    &quot;discountPercent&quot;: 48,
+    &quot;rating&quot;: 4.5,
+    &quot;ratingCount&quot;: 1135,
+    &quot;sizes&quot;: &quot;XXS,XS,S,M,L,XL,XXL,3XL&quot;,
+    &quot;category&quot;: &quot;Tshirts&quot;,
+    &quot;gender&quot;: &quot;Unisex&quot;,
+    &quot;color&quot;: &quot;Navy Blue&quot;,
+    &quot;additionalInfo&quot;: &quot;Unisex Polo Training T-shirt&quot;,
+    &quot;image&quot;: &quot;http://assets.myntassets.com/assets/images/2025/SEPTEMBER/5/K2LJrBsO_9aae96f530b44065b7bf9af39058882a.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.myntra.com/tshirts/puma/puma-unisex-train-all-day-essentials-slim-fit-drycell-polo-sports-t-shirt/36674095/buy&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/myntra-product-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categoryUrls&#x27;: [&#x27;https://www.myntra.com/men-tshirts&#x27;],
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/myntra-product-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categoryUrls&quot;: [
+    &quot;https://www.myntra.com/men-tshirts&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/myntra-product-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~myntra-product-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categoryUrls&quot;: [&quot;https://www.myntra.com/men-tshirts&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/myntra-product-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers myntra.com (India) category and search listing pages. Each page yields about 30-40 products; use a narrower category or filter URL to target specific results.</li>
+<li>Prices are in Indian Rupees (INR) as shown to an unauthenticated visitor.</li>
+<li>Use the URL exactly as it appears in your browser to preserve any filters or sort order you have applied.</li>
+<li>Not affiliated with Myntra.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Myntra Product Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include productId, name, brand, price, mrp, discountPercent, rating, ratingCount, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Myntra Product Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/myntra-product-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/myntra-product-scraper">Open Myntra Product Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/thefork-restaurant-reviews-scraper/">TheFork Restaurant Reviews Scraper</a>: Scrape TheFork city listing pages into restaurant rows: name, cuisine, address, TheFork rating, review coun...</li>
+<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Scrape Made-in-China.com product search pages by keyword.</li>
+<li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
