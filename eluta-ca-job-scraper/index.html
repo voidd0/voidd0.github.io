@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eluta.ca Job Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape Canadian job listings from eluta.ca by keyword and location. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/eluta-ca-job-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eluta.ca Job Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape Canadian job listings from eluta.ca by keyword and location. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/eluta-ca-job-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Eluta.ca Job Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobId, title, employer, location, remote, salaryMin, salaryMax, topEmployer, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Eluta.ca Job Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/eluta-ca-job-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.77 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.54 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Eluta.ca Job Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Canadian job listings from eluta.ca by keyword and location. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/eluta-ca-job-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/eluta-ca-job-scraper">Open Eluta.ca Job Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobId</code></td><td>Job ID</td><td>text</td><td>fc8a5e6b066e7efb9a52d8f1d587b1d4</td></tr>
+<tr><td><code>title</code></td><td>Job Title</td><td>text</td><td>Associé, Manutention</td></tr>
+<tr><td><code>employer</code></td><td>Employer</td><td>text</td><td>Home Depot Canada Inc.</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Toronto, ON</td></tr>
+<tr><td><code>remote</code></td><td>Remote</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary Min</td><td>number</td><td>20.35</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary Max</td><td>number</td><td>22.1</td></tr>
+<tr><td><code>topEmployer</code></td><td>Top Employer</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>snippet</code></td><td>Snippet</td><td>text</td><td>Description du poste Vous aimez aider les autres à réussir et laiss...</td></tr>
+<tr><td><code>lastSeen</code></td><td>Last Seen</td><td>text</td><td>3 minutes ago</td></tr>
+<tr><td><code>url</code></td><td>Job URL</td><td>URL</td><td>https://www.eluta.ca/spl/associ%C3%A9-manutention-fc8a5e6b066e7efb9...</td></tr>
+<tr><td><code>keyword</code></td><td></td><td>text</td><td>software developer</td></tr>
+<tr><td><code>searchLocation</code></td><td></td><td>text</td><td>Toronto ON</td></tr>
+<tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keyword&quot;: &quot;software developer&quot;,
+  &quot;location&quot;: &quot;Toronto ON&quot;,
+  &quot;maxPages&quot;: 2,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keyword</code> (required)</td><td>string</td><td>Job title or keywords to search for, e.g.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>City and province to search in, e.g.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Number of result pages to read.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;keyword&quot;: &quot;software developer&quot;,
+    &quot;searchLocation&quot;: &quot;Toronto ON&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 1,
+    &quot;jobId&quot;: &quot;fc8a5e6b066e7efb9a52d8f1d587b1d4&quot;,
+    &quot;title&quot;: &quot;Associé, Manutention&quot;,
+    &quot;employer&quot;: &quot;Home Depot Canada Inc.&quot;,
+    &quot;location&quot;: &quot;Toronto, ON&quot;,
+    &quot;remote&quot;: false,
+    &quot;salaryMin&quot;: 20.35,
+    &quot;salaryMax&quot;: 22.1,
+    &quot;topEmployer&quot;: false,
+    &quot;snippet&quot;: &quot;Description du poste Vous aimez aider les autres à réussir et laisser votre marque? Vous éprouvez de la fierté à guider les clients vers...&quot;,
+    &quot;lastSeen&quot;: &quot;3 minutes ago&quot;,
+    &quot;url&quot;: &quot;https://www.eluta.ca/spl/associ%C3%A9-manutention-fc8a5e6b066e7efb9a52d8f1d587b1d4&quot;
+  },
+  {
+    &quot;keyword&quot;: &quot;software developer&quot;,
+    &quot;searchLocation&quot;: &quot;Toronto ON&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2,
+    &quot;jobId&quot;: &quot;67a4723830f0199628d3f8c9d8592306&quot;,
+    &quot;title&quot;: &quot;Spécialiste, Expérience Relative Aux Projets&quot;,
+    &quot;employer&quot;: &quot;Home Depot Canada Inc.&quot;,
+    &quot;location&quot;: &quot;Toronto, ON&quot;,
+    &quot;remote&quot;: false,
+    &quot;salaryMin&quot;: 19.9,
+    &quot;salaryMax&quot;: 21.9,
+    &quot;topEmployer&quot;: false,
+    &quot;snippet&quot;: &quot;Description du poste Vous aimez aider les autres à réussir et laisser votre marque? Vous éprouvez de la fierté à guider les clients vers...&quot;,
+    &quot;lastSeen&quot;: &quot;3 minutes ago&quot;,
+    &quot;url&quot;: &quot;https://www.eluta.ca/spl/sp%C3%A9cialiste-exp%C3%A9rience-relative-aux-projets-67a4723830f0199628d3f8c9d8592306&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/eluta-ca-job-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keyword&#x27;: &#x27;software developer&#x27;,
+ &#x27;location&#x27;: &#x27;Toronto ON&#x27;,
+ &#x27;maxPages&#x27;: 2,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/eluta-ca-job-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keyword&quot;: &quot;software developer&quot;,
+  &quot;location&quot;: &quot;Toronto ON&quot;,
+  &quot;maxPages&quot;: 2,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/eluta-ca-job-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~eluta-ca-job-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keyword&quot;: &quot;software developer&quot;, &quot;location&quot;: &quot;Toronto ON&quot;, &quot;maxPages&quot;: 2, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.77 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.54 per 1,000. See the <a href="https://apify.com/v0iddo/eluta-ca-job-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers eluta.ca, a Canadian job aggregator that indexes postings directly from employer websites. Each result page returns 10 listings.</li>
+<li>Salary data is included only when eluta.ca displays it in the search result card; many listings do not show a salary.</li>
+<li>Eluta.ca can return up to 1000 result pages per search; use maxPages to control how many are read.</li>
+<li>Not affiliated with eluta.ca.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Eluta.ca Job Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobId, title, employer, location, remote, salaryMin, salaryMax, topEmployer, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Eluta.ca Job Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/eluta-ca-job-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.77 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.54 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/eluta-ca-job-scraper">Open Eluta.ca Job Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/hiring-cafe-scraper/">Hiring.Cafe Jobs Scraper</a>: Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, te...</li>
+<li><a href="/jobteaser-job-scraper/">JobTeaser Job Scraper</a>: Scrape job listings from jobteaser.com: title, company, location, contract type, posted time, easy-apply an...</li>
+<li><a href="/peopleperhour-job-scraper/">PeoplePerHour Job Scraper</a>: Scrape freelance job listings from PeoplePerHour category pages: title, description, budget, currency, proj...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -65,7 +65,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/bulk-file-downloader
 <tr><td><code>fileTypes</code></td><td>array</td><td>Which files to take from Pages.</td></tr>
 <tr><td><code>sameSiteOnly</code></td><td>boolean</td><td>Take only files on the host of the page or its subdomains, leaving out files on other hosts (many sites keep their images on a separate CDN host, so this can drop them).</td></tr>
 <tr><td><code>maxFilesPerPage</code></td><td>integer</td><td>Caps the files taken from one page, in the order they appear on it.</td></tr>
-<tr><td><code>minImageKB</code></td><td>integer</td><td>Images found on pages that are smaller than this are left out (icons, spacers, tracking pixels) and not charged; 0 keeps every image.</td></tr>
+<tr><td><code>minImageKB</code></td><td>integer</td><td>Images found on pages that are smaller than this are left out (icons, spacers, tracking pixels) and not charged, and so are SVG images drawn under 48 px; 0 keeps every...</td></tr>
 <tr><td><code>maxFileMB</code></td><td>integer</td><td>Larger files come back as a row with the reason, at no charge.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
