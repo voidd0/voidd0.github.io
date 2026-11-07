@@ -96,8 +96,16 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/computrabajo-scraper
 <tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://mx.computrabajo.com/trabajo-de-contador-en-monterrey .</td></tr>
 <tr><td><code>includeDetails</code></td><td>boolean</td><td>Read each posting&#x27;s page for the date first posted, contract type, schedule, industry, salary value, education, experience, languages, skills and the description.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+<tr><td><code>onlyNew</code></td><td>boolean</td><td>Skip rows that an earlier run with the same input already returned, so a scheduled run gives each new row once.</td></tr>
 </tbody>
 </table>
+<h2>Ready-made examples</h2>
+<p>Saved inputs on Apify: run one as it is, or copy it and change the values.</p>
+<ul>
+<li><a href="https://apify.com/v0iddo/computrabajo-scraper/examples/computrabajo-accountant-jobs-bogota">Computrabajo accountant jobs in Bogota with salaries</a></li>
+<li><a href="https://apify.com/v0iddo/computrabajo-scraper/examples/computrabajo-remote-developer-jobs-mexico">Remote developer jobs in Mexico from Computrabajo</a></li>
+<li><a href="https://apify.com/v0iddo/computrabajo-scraper/examples/computrabajo-sales-jobs-lima-salaries">Sales jobs in Lima with salaries from Computrabajo</a></li>
+</ul>
 <h2>Output sample</h2>
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[

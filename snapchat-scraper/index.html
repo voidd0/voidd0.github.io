@@ -16,9 +16,9 @@
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
-<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<nav class="crumbs"><a href="/">Guides</a> / Social media and publishing</nav>
 <h1>Snapchat Profile and Spotlight Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
-<p class="lead">Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats including view count, like count, upload date, duration, and thumbnail. This guide shows the output fields, a working input, and
+<p class="lead">Scrape Snapchat public creator profiles: display name, subscriber count, bio, and per-video Spotlight stats including view count, like count, comment count, share count, upload date, duration, and thumbnail. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</code> on Apify.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Profile and Spotlight Scraper on Apify</a></p>
 <h2>What data you get</h2>
@@ -57,6 +57,12 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</co
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
 </table>
+<h2>Ready-made examples</h2>
+<p>Saved inputs on Apify: run one as it is, or copy it and change the values.</p>
+<ul>
+<li><a href="https://apify.com/v0iddo/snapchat-scraper/examples/snapchat-spotlight-nba-mlb-wwe">Snapchat Spotlight views of NBA, MLB and WWE</a></li>
+<li><a href="https://apify.com/v0iddo/snapchat-scraper/examples/snapchat-brand-spotlight-views-redbull-mtv-netflix">Snapchat brand benchmark: Red Bull, MTV and Netflix</a></li>
+</ul>
 <h2>Output sample</h2>
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
@@ -133,7 +139,7 @@ console.log(items);
 <h2>Good to know</h2>
 <ul>
 <li>Only public Snapchat creator profiles are scraped; private accounts and unknown handles are skipped with a log message.</li>
-<li>Each output row is one Spotlight video from the creator profile page. Profiles with no public Spotlight videos yield one row with video fields set to null.</li>
+<li>Each output row is one Spotlight video the creator profile page lists. A video the profile shows without its counts is read once more from its own Spotlight page for title, views, likes, comments...</li>
 <li>Subscriber counts and view counts are as displayed on the public profile page and may be rounded by Snapchat.</li>
 <li>Not affiliated with Snapchat or Snap Inc.</li>
 </ul>
@@ -153,9 +159,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Profile and Spotlight Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/bluesky-scraper/">Bluesky Scraper</a>: Scrape public Bluesky accounts: posts with text, like count, repost count, reply count, language, media fla...</li>
-<li><a href="/rakuten-japan-listings-scraper/">Rakuten Ichiba Listings Scraper</a>: Scrape Rakuten Ichiba search results into product rows: title, JPY price, shop name, review score, review c...</li>
-<li><a href="/north-data-scraper/">North Data Scraper</a>: Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre...</li>
+<li><a href="/creator-leads-scraper/">Substack Newsletter Scraper</a>: Scrape Substack newsletter profiles by creator handle: publication name, URL, description, paid tier status...</li>
+<li><a href="/medium-rss-tracker/">Medium Scraper</a>: Pull Medium articles via the public RSS feed endpoints: /feed/@user, /feed/tag/{tag}, /feed/{publication-sl...</li>
+<li><a href="/substack-newsletter-posts/">Substack Scraper</a>: Substack scraper for newsletter posts.</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
