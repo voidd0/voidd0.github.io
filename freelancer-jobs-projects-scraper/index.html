@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Freelancer.com Jobs and Projects Scraper: API and Python guide | vøiddo</title>
-<meta name="description" content="Scrape Freelancer.com job listings by skill: project title, description, budget range, bid count, required... Python, JavaScript and cURL code, sample output and price per...">
+<meta name="description" content="Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hour... Python, JavaScript and cURL code, sample output and price...">
 <link rel="canonical" href="https://voidd0.github.io/freelancer-jobs-projects-scraper/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Freelancer.com Jobs and Projects Scraper: API and Python guide | vøiddo">
-<meta property="og:description" content="Scrape Freelancer.com job listings by skill: project title, description, budget range, bid count, required... Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:description" content="Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hour... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/freelancer-jobs-projects-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Freelancer.com Jobs and Projects Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, description, budgetMin, budgetMax, currency, bidCount, skills, paymentVerified, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Freelancer.com Jobs and Projects Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/freelancer-jobs-projects-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.25 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.17 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Freelancer.com Jobs and Projects Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, description, avgBid, hourly, currency, bidCount, skills, paymentVerified, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Freelancer.com Jobs and Projects Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/freelancer-jobs-projects-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.13 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.09 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
 <nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
 <h1>Freelancer.com Jobs and Projects Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
-<p class="lead">Scrape Freelancer.com job listings by skill: project title, description, budget range, bid count, required skills, payment verification status, and project URL. This guide shows the output fields, a working input, and
+<p class="lead">Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hourly, bid count, required skills, payment verification status, and project URL. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/freelancer-jobs-projects-scraper</code> on Apify.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/freelancer-jobs-projects-scraper">Open Freelancer.com Jobs and Projects Scraper on Apify</a></p>
 <h2>What data you get</h2>
@@ -26,20 +26,20 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/freelancer-jobs-proj
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td></td></tr>
-<tr><td><code>description</code></td><td>Description</td><td>text</td><td></td></tr>
-<tr><td><code>budgetMin</code></td><td>Budget Min</td><td>number</td><td>458</td></tr>
-<tr><td><code>budgetMax</code></td><td>Budget Max</td><td>number</td><td>458</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Campus Lost &amp; Found Management System</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>Project Description - Campus Lost &amp; Found Management System Campus ...</td></tr>
+<tr><td><code>avgBid</code></td><td>Average Bid</td><td>number</td><td>10</td></tr>
+<tr><td><code>hourly</code></td><td>Hourly</td><td>true/false</td><td>true</td></tr>
 <tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>USD</td></tr>
-<tr><td><code>bidCount</code></td><td>Bid Count</td><td>number</td><td>116</td></tr>
-<tr><td><code>skills</code></td><td>Skills</td><td>list</td><td>[&quot;Data Analysis&quot;, &quot;Java&quot;, &quot;Machine Learning (ML)&quot;]</td></tr>
+<tr><td><code>bidCount</code></td><td>Bid Count</td><td>number</td><td>29</td></tr>
+<tr><td><code>skills</code></td><td>Skills</td><td>list</td><td>[&quot;Bootstrap&quot;, &quot;CSS&quot;, &quot;Django&quot;]</td></tr>
 <tr><td><code>paymentVerified</code></td><td>Payment Verified</td><td>true/false</td><td>false</td></tr>
 <tr><td><code>daysLeft</code></td><td>Days Left</td><td>text</td><td>6 days left</td></tr>
-<tr><td><code>url</code></td><td>Project URL</td><td>URL</td><td>https://www.freelancer.com/projects/machine-learning/gradient-optim...</td></tr>
+<tr><td><code>url</code></td><td>Project URL</td><td>URL</td><td>https://www.freelancer.com/projects/css/campus-lost-found-managemen...</td></tr>
 <tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
 <tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
 <tr><td><code>skill</code></td><td></td><td>text</td><td>python</td></tr>
-<tr><td><code>projectSlug</code></td><td></td><td>text</td><td>gradient-optimization-solutions-for</td></tr>
+<tr><td><code>projectSlug</code></td><td></td><td>text</td><td>campus-lost-found-management-system</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -66,39 +66,33 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/freelancer-jobs-proj
     &quot;page&quot;: 1,
     &quot;position&quot;: 1,
     &quot;skill&quot;: &quot;python&quot;,
-    &quot;projectSlug&quot;: &quot;gradient-optimization-solutions-for&quot;,
-    &quot;budgetMin&quot;: 458,
-    &quot;budgetMax&quot;: 458,
+    &quot;projectSlug&quot;: &quot;campus-lost-found-management-system&quot;,
+    &quot;title&quot;: &quot;Campus Lost &amp; Found Management System&quot;,
+    &quot;description&quot;: &quot;Project Description - Campus Lost &amp; Found Management System Campus Lost &amp; Found is a web-based application developed using Python Flask,...&quot;,
+    &quot;avgBid&quot;: 10,
+    &quot;hourly&quot;: true,
     &quot;currency&quot;: &quot;USD&quot;,
-    &quot;bidCount&quot;: 116,
+    &quot;bidCount&quot;: 29,
     &quot;skills&quot;: [
-      &quot;Data Analysis&quot;,
-      &quot;Java&quot;,
-      &quot;Machine Learning (ML)&quot;
+      &quot;Bootstrap&quot;,
+      &quot;CSS&quot;,
+      &quot;Django&quot;
     ],
     &quot;paymentVerified&quot;: false,
     &quot;daysLeft&quot;: &quot;6 days left&quot;,
-    &quot;url&quot;: &quot;https://www.freelancer.com/projects/machine-learning/gradient-optimization-solutions-for&quot;
+    &quot;url&quot;: &quot;https://www.freelancer.com/projects/css/campus-lost-found-management-system&quot;
   },
   {
     &quot;page&quot;: 1,
     &quot;position&quot;: 2,
     &quot;skill&quot;: &quot;python&quot;,
-    &quot;projectSlug&quot;: &quot;full-stack-crypto-app-testnet&quot;,
-    &quot;title&quot;: &quot;Full-Stack Crypto App Testnet Launch&quot;,
-    &quot;description&quot;: &quot;Only working with people in (India,Westbengal,Kolkata) I have a working codebase that spans Python APIs and database layers, a TypeScript...&quot;,
-    &quot;budgetMin&quot;: 591,
-    &quot;budgetMax&quot;: 591,
+    &quot;projectSlug&quot;: &quot;video-automation-developer&quot;,
+    &quot;avgBid&quot;: 69,
+    &quot;hourly&quot;: false,
     &quot;currency&quot;: &quot;USD&quot;,
-    &quot;bidCount&quot;: 24,
-    &quot;skills&quot;: [
-      &quot;API Development&quot;,
-      &quot;Blockchain&quot;,
-      &quot;Cryptocurrency&quot;
-    ],
-    &quot;paymentVerified&quot;: false,
-    &quot;daysLeft&quot;: &quot;6 days left&quot;,
-    &quot;url&quot;: &quot;https://www.freelancer.com/projects/typescript/full-stack-crypto-app-testnet&quot;
+    &quot;bidCount&quot;: 41,
+    &quot;paymentVerified&quot;: true,
+    &quot;daysLeft&quot;: &quot;6 days left&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -135,23 +129,23 @@ console.log(items);
   -H &quot;Content-Type: application/json&quot; \
   -d &#x27;{&quot;skills&quot;: [&quot;python&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
-<p>$0.25 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.17 per 1,000. See the <a href="https://apify.com/v0iddo/freelancer-jobs-projects-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<p>$0.13 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.09 per 1,000. See the <a href="https://apify.com/v0iddo/freelancer-jobs-projects-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
 <li>Each listing page shows approximately 50 projects. Pagination is capped at 20 pages per skill to prevent runaway fetches.</li>
 <li>Skill slugs must match the Freelancer.com URL format exactly, e.g. web-scraping not Web Scraping. Find slugs in URLs such as freelancer.com/jobs/web-scraping/.</li>
-<li>Budget figures are as displayed on the listing page; hourly projects show a per-hour range.</li>
+<li>The listing page shows the average bid of each project, not the client&#x27;s budget: avgBid is that average (per hour when hourly is true). A contest shows its prize instead (prize, with entries as...</li>
 <li>Not affiliated with Freelancer.com or Freelancer International Pty Ltd.</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Freelancer.com Jobs and Projects Scraper return?</h3>
-<p>Each result is one row in an Apify dataset. Fields include title, description, budgetMin, budgetMax, currency, bidCount, skills, paymentVerified, and more. The table above shows every field with an example value.</p>
+<p>Each result is one row in an Apify dataset. Fields include title, description, avgBid, hourly, currency, bidCount, skills, paymentVerified, and more. The table above shows every field with an example value.</p>
 <h3>How do I use the Freelancer.com Jobs and Projects Scraper from Python?</h3>
 <p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/freelancer-jobs-projects-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
 <h3>Can I use it without writing code?</h3>
 <p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
 <h3>How much does it cost?</h3>
-<p>$0.25 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.17 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<p>$0.13 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.09 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
 <h3>How do I limit the number of results?</h3>
 <p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
 <h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>

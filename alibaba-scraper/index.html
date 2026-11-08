@@ -74,7 +74,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/alibaba-scraper</cod
 <thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
 <tbody>
 <tr><td><code>searchTerms</code></td><td>array</td><td>Products as a buyer would type them, one per line, for example led strip lights.</td></tr>
-<tr><td><code>searchUrls</code></td><td>array</td><td>Optional alibaba.com keyword pages (https://www.alibaba.com/wholesale/....html).</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Optional alibaba.com keyword pages (https://www.alibaba.com/wholesale/....html) or the link of a search on alibaba.com: its words are searched as a Search Term.</td></tr>
 <tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages (about 47 offers each) to read per keyword.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 <tr><td><code>onlyNew</code></td><td>boolean</td><td>Skip rows that an earlier run with the same input already returned, so a scheduled run gives each new row once.</td></tr>
@@ -240,8 +240,8 @@ console.log(items);
 <h2>Related guides</h2>
 <ul>
 <li><a href="/myntra-product-scraper/">Myntra Product Scraper</a>: Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis...</li>
-<li><a href="/thefork-restaurant-reviews-scraper/">TheFork Restaurant Reviews Scraper</a>: Scrape TheFork city listing pages into restaurant rows: name, cuisine, address, TheFork rating, review coun...</li>
-<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Scrape Made-in-China.com product search pages by keyword.</li>
+<li><a href="/rakuten-japan-listings-scraper/">Rakuten Ichiba Listings Scraper</a>: Scrape Rakuten Ichiba search results into product rows: title, JPY price, shop name, review score, review c...</li>
+<li><a href="/cargurus-zipcode-search-scraper/">CarGurus Zipcode Search Scraper</a>: Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

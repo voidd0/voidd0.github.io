@@ -16,7 +16,7 @@
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
-<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<nav class="crumbs"><a href="/">Guides</a> / Events and travel</nav>
 <h1>TheFork Restaurant Reviews Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
 <p class="lead">Scrape TheFork city listing pages into restaurant rows: name, cuisine, address, TheFork rating, review count, average price, price range level, Michelin distinctions, booking status, and a direct link. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/thefork-restaurant-reviews-scraper</code> on Apify.</p>
@@ -150,13 +150,6 @@ console.log(items);
   -d &#x27;{&quot;cityUrls&quot;: [&quot;https://www.thefork.com/restaurants/paris-c415144&quot;], &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. See the <a href="https://apify.com/v0iddo/thefork-restaurant-reviews-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
-<h2>Good to know</h2>
-<ul>
-<li>Each TheFork city listing page returns up to 25 restaurants. Use multiple city or neighborhood URLs to collect more results.</li>
-<li>Ratings are on a 0 to 10 scale as displayed on TheFork. Review counts reflect all TheFork-verified diner reviews recorded for that restaurant.</li>
-<li>Average price is converted from the site internal cents value to the local currency (usually EUR). Price range level runs from 1 (budget) to 4 (fine dining).</li>
-<li>Not affiliated with TheFork or its parent company.</li>
-</ul>
 <h2>FAQ</h2>
 <h3>What data does the TheFork Restaurant Reviews Scraper return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include restaurantId, name, cuisine, address, rating, reviewCount, avgPriceEur, priceRangeLevel, and more. The table above shows every field with an example value.</p>
@@ -173,9 +166,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/thefork-restaurant-reviews-scraper">Open TheFork Restaurant Reviews Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/myntra-product-scraper/">Myntra Product Scraper</a>: Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis...</li>
-<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Scrape Made-in-China.com product search pages by keyword.</li>
-<li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price...</li>
+<li><a href="/google-maps-scraper/">Google Maps Scraper</a>: Scrape Google Maps business listings by search and place: name, category, address, coordinates, rating, rev...</li>
+<li><a href="/tennis-scores-api/">Tennis Scores and Results Scraper</a>: Scrape tennis scores: ATP and WTA match results of any day with set by set scores, tiebreaks, winner and pr...</li>
+<li><a href="/freelancer-jobs-projects-scraper/">Freelancer.com Jobs and Projects Scraper</a>: Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hour...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

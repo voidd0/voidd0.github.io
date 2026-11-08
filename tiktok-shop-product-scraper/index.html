@@ -78,13 +78,11 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/tiktok-shop-product-
     &quot;https://shop.tiktok.com/us/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516&quot;,
     &quot;https://shop.tiktok.com/us/pdp/zila-cropped-cable-knit-top-100-cotton-front-button-closures/1732500518270439586&quot;,
     &quot;https://shop.tiktok.com/us/pdp/jetech-matte-case-for-iphone-16-shockproof-anti-fingerprint/1732347639758557964&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/jetech-screen-protector-for-ipad-a16-9h-tempered-glass-2-pack/1732359237559685900&quot;,
     &quot;https://shop.tiktok.com/us/pdp/waterproof-mascara-by-sace-lady/1730219123026333900&quot;,
     &quot;https://shop.tiktok.com/us/pdp/deodorant-truly-beauty-unicorn-fruit-cotton-candy-scent-for-bright-skin/1729430515554816714&quot;,
     &quot;https://shop.tiktok.com/us/pdp/womens-bucket-hat-by-unknown-colorblock-knit-warm-fisherman-style/1729721254514234223&quot;,
     &quot;https://shop.tiktok.com/us/pdp/ashwagandha-gummies-by-goli-ksm-66-mixed-berry-vegan-non-gmo/1729527313880355335&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/centella-green-tea-hydrating-gel-cleanser-gentle-daily-use/1729449803340812401&quot;
+    &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;
   ],
   &quot;maxItems&quot;: 20
 }</code></pre>
@@ -211,13 +209,11 @@ client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
 run_input = {&#x27;products&#x27;: [&#x27;https://shop.tiktok.com/us/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/zila-cropped-cable-knit-top-100-cotton-front-button-closures/1732500518270439586&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/jetech-matte-case-for-iphone-16-shockproof-anti-fingerprint/1732347639758557964&#x27;,
-              &#x27;https://shop.tiktok.com/us/pdp/jetech-screen-protector-for-ipad-a16-9h-tempered-glass-2-pack/1732359237559685900&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/waterproof-mascara-by-sace-lady/1730219123026333900&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/deodorant-truly-beauty-unicorn-fruit-cotton-candy-scent-for-bright-skin/1729430515554816714&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/womens-bucket-hat-by-unknown-colorblock-knit-warm-fisherman-style/1729721254514234223&#x27;,
               &#x27;https://shop.tiktok.com/us/pdp/ashwagandha-gummies-by-goli-ksm-66-mixed-berry-vegan-non-gmo/1729527313880355335&#x27;,
-              &#x27;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&#x27;,
-              &#x27;https://shop.tiktok.com/us/pdp/centella-green-tea-hydrating-gel-cleanser-gentle-daily-use/1729449803340812401&#x27;],
+              &#x27;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&#x27;],
  &#x27;maxItems&#x27;: 20}
 
 run = client.actor(&quot;v0iddo/tiktok-shop-product-scraper&quot;).call(run_input=run_input)
@@ -233,13 +229,11 @@ const input = {
     &quot;https://shop.tiktok.com/us/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516&quot;,
     &quot;https://shop.tiktok.com/us/pdp/zila-cropped-cable-knit-top-100-cotton-front-button-closures/1732500518270439586&quot;,
     &quot;https://shop.tiktok.com/us/pdp/jetech-matte-case-for-iphone-16-shockproof-anti-fingerprint/1732347639758557964&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/jetech-screen-protector-for-ipad-a16-9h-tempered-glass-2-pack/1732359237559685900&quot;,
     &quot;https://shop.tiktok.com/us/pdp/waterproof-mascara-by-sace-lady/1730219123026333900&quot;,
     &quot;https://shop.tiktok.com/us/pdp/deodorant-truly-beauty-unicorn-fruit-cotton-candy-scent-for-bright-skin/1729430515554816714&quot;,
     &quot;https://shop.tiktok.com/us/pdp/womens-bucket-hat-by-unknown-colorblock-knit-warm-fisherman-style/1729721254514234223&quot;,
     &quot;https://shop.tiktok.com/us/pdp/ashwagandha-gummies-by-goli-ksm-66-mixed-berry-vegan-non-gmo/1729527313880355335&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;,
-    &quot;https://shop.tiktok.com/us/pdp/centella-green-tea-hydrating-gel-cleanser-gentle-daily-use/1729449803340812401&quot;
+    &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;
   ],
   &quot;maxItems&quot;: 20
 };
@@ -251,7 +245,7 @@ console.log(items);
 <pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~tiktok-shop-product-scraper/run-sync-get-dataset-items&quot; \
   -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
   -H &quot;Content-Type: application/json&quot; \
-  -d &#x27;{&quot;products&quot;: [&quot;https://shop.tiktok.com/us/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516&quot;, &quot;https://shop.tiktok.com/us/pdp/zila-cropped-cable-knit-top-100-cotton-front-button-closures/1732500518270439586&quot;, &quot;https://shop.tiktok.com/us/pdp/jetech-matte-case-for-iphone-16-shockproof-anti-fingerprint/1732347639758557964&quot;, &quot;https://shop.tiktok.com/us/pdp/jetech-screen-protector-for-ipad-a16-9h-tempered-glass-2-pack/1732359237559685900&quot;, &quot;https://shop.tiktok.com/us/pdp/waterproof-mascara-by-sace-lady/1730219123026333900&quot;, &quot;https://shop.tiktok.com/us/pdp/deodorant-truly-beauty-unicorn-fruit-cotton-candy-scent-for-bright-skin/1729430515554816714&quot;, &quot;https://shop.tiktok.com/us/pdp/womens-bucket-hat-by-unknown-colorblock-knit-warm-fisherman-style/1729721254514234223&quot;, &quot;https://shop.tiktok.com/us/pdp/ashwagandha-gummies-by-goli-ksm-66-mixed-berry-vegan-non-gmo/1729527313880355335&quot;, &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;, &quot;https://shop.tiktok.com/us/pdp/centella-green-tea-hydrating-gel-cleanser-gentle-daily-use/1729449803340812401&quot;], &quot;maxItems&quot;: 20}&#x27;
+  -d &#x27;{&quot;products&quot;: [&quot;https://shop.tiktok.com/us/pdp/cat-nail-clipper-by-potaroma-adjustable-sizes-built-in-file-safe-for-kittens-cats/1731578642912612516&quot;, &quot;https://shop.tiktok.com/us/pdp/zila-cropped-cable-knit-top-100-cotton-front-button-closures/1732500518270439586&quot;, &quot;https://shop.tiktok.com/us/pdp/jetech-matte-case-for-iphone-16-shockproof-anti-fingerprint/1732347639758557964&quot;, &quot;https://shop.tiktok.com/us/pdp/waterproof-mascara-by-sace-lady/1730219123026333900&quot;, &quot;https://shop.tiktok.com/us/pdp/deodorant-truly-beauty-unicorn-fruit-cotton-candy-scent-for-bright-skin/1729430515554816714&quot;, &quot;https://shop.tiktok.com/us/pdp/womens-bucket-hat-by-unknown-colorblock-knit-warm-fisherman-style/1729721254514234223&quot;, &quot;https://shop.tiktok.com/us/pdp/ashwagandha-gummies-by-goli-ksm-66-mixed-berry-vegan-non-gmo/1729527313880355335&quot;, &quot;https://shop.tiktok.com/us/pdp/eskute-v101-1500w-electric-bike-28mph-85mi-range-7-speed/1729506602529690818&quot;], &quot;maxItems&quot;: 20}&#x27;
 </code></pre><p>Ready-to-run example scripts: <a href="https://github.com/voidd0/tiktok-shop-scraper">example repository on GitHub</a>.</p>
 <h2>Price</h2>
 <p>$2.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.89 per 1,000. See the <a href="https://apify.com/v0iddo/tiktok-shop-product-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
@@ -279,8 +273,8 @@ console.log(items);
 <h2>Related guides</h2>
 <ul>
 <li><a href="/myntra-product-scraper/">Myntra Product Scraper</a>: Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis...</li>
-<li><a href="/thefork-restaurant-reviews-scraper/">TheFork Restaurant Reviews Scraper</a>: Scrape TheFork city listing pages into restaurant rows: name, cuisine, address, TheFork rating, review coun...</li>
-<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Scrape Made-in-China.com product search pages by keyword.</li>
+<li><a href="/rakuten-japan-listings-scraper/">Rakuten Ichiba Listings Scraper</a>: Scrape Rakuten Ichiba search results into product rows: title, JPY price, shop name, review score, review c...</li>
+<li><a href="/cargurus-zipcode-search-scraper/">CarGurus Zipcode Search Scraper</a>: Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
