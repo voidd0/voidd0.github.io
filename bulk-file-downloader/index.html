@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bulk file and image downloader: JSON/CSV via API and Python | vøiddo</title>
-<meta name="description" content="Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a... Python, JavaScript and cURL code, sample output and price per...">
+<meta name="description" content="Download files in bulk from links, web pages, a CSV or Google Sheet, or another actor&#x27;s dataset: images, vi... Python, JavaScript and cURL code, sample output and price...">
 <link rel="canonical" href="https://voidd0.github.io/bulk-file-downloader/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bulk file and image downloader: JSON/CSV via API and Python | vøiddo">
-<meta property="og:description" content="Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a... Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:description" content="Download files in bulk from links, web pages, a CSV or Google Sheet, or another actor&#x27;s dataset: images, vi... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/bulk-file-downloader/">
 <link rel="stylesheet" href="/style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Bulk file and image downloader return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include fileUrl, fileName, fileType, fileBytes, imageWidth, imageHeight, altText, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Bulk file and image downloader from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/bulk-file-downloader with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
@@ -18,7 +18,7 @@
 <main>
 <nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
 <h1>Bulk file and image downloader: how to download images and files from a website (API, Python, no code)</h1>
-<p class="lead">Download files in bulk from direct links, or every image, video, audio file, PDF, document or archive on a list of web pages. This guide shows the output fields, a working input, and
+<p class="lead">Download files in bulk from links, web pages, a CSV or Google Sheet, or another actor&#x27;s dataset: images, video, audio, PDFs, documents, archives. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/bulk-file-downloader</code> on Apify.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/bulk-file-downloader">Open Bulk file and image downloader on Apify</a></p>
 <h2>More on voiddo.com</h2>
@@ -66,11 +66,16 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/bulk-file-downloader
 <tbody>
 <tr><td><code>fileUrls</code></td><td>array</td><td>Direct links to files of any type (images, video, audio, PDF, documents, archives).</td></tr>
 <tr><td><code>pageUrls</code></td><td>array</td><td>Web pages to download files from: the images it shows (the largest size it offers), its video and audio, and the files it links to, filtered by File types.</td></tr>
+<tr><td><code>datasetIds</code></td><td>array</td><td>Datasets of your Apify account whose items hold file links, for example the results of a TikTok, eBay or Shopify scraper: pick them, or give their IDs or names through...</td></tr>
+<tr><td><code>csvUrls</code></td><td>array</td><td>Links to CSV, TSV, JSON or JSON Lines files, or Google Sheets shared with anyone who has the link: the file links in their rows are downloaded like File links.</td></tr>
+<tr><td><code>urlFields</code></td><td>array</td><td>The dataset fields or spreadsheet columns that hold the file links, for example displayUrl, images, media.url or Image URL (a field with a list takes every link in it).</td></tr>
+<tr><td><code>fileNameField</code></td><td>string</td><td>A dataset field or spreadsheet column whose value names each file, for example sku or handle: the file is then sku123.jpg (sku123-2.jpg for the second file of the same...</td></tr>
 <tr><td><code>fileTypes</code></td><td>array</td><td>Which files to take from Pages.</td></tr>
 <tr><td><code>sameSiteOnly</code></td><td>boolean</td><td>Take only files on the host of the page or its subdomains, leaving out files on other hosts (many sites keep their images on a separate CDN host, so this can drop them).</td></tr>
 <tr><td><code>maxFilesPerPage</code></td><td>integer</td><td>Caps the files taken from one page, in the order they appear on it.</td></tr>
 <tr><td><code>minImageKB</code></td><td>integer</td><td>Images found on pages that are smaller than this are left out (icons, spacers, tracking pixels) and not charged, and so are SVG images drawn under 48 px; 0 keeps every...</td></tr>
 <tr><td><code>maxFileMB</code></td><td>integer</td><td>Larger files come back as a row with the reason, at no charge.</td></tr>
+<tr><td><code>zipFiles</code></td><td>boolean</td><td>Every file the run stores also goes into files.zip, linked in the last row of the dataset (that row costs nothing).</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
 </table>
@@ -163,7 +168,7 @@ console.log(items);
 <ul>
 <li>One row per file: the stored copy (fileUrl), the link it came from, the page it was found on and where on the page (img, srcset, link, video, og:image ...), its name, type, content type, size...</li>
 <li>The files are records in the run&#x27;s key-value store; fileUrl opens them directly and works in the dataset table, in spreadsheets and in your own code. They are kept as long as your Apify plan keeps...</li>
-<li>Images on pages come in the largest size the page offers in srcset, and lazy loading attributes (data-src and the like) are read, so the real image is taken instead of a placeholder.</li>
+<li>Images on pages come in the largest size the page offers in srcset, and lazy loading attributes (data-src and the like) are read, so the real image is taken instead of a placeholder. One picture...</li>
 <li>The same file under two links is stored once: the second row has duplicateOf and costs nothing. A link that appears on several pages is downloaded once.</li>
 </ul>
 <h2>FAQ</h2>

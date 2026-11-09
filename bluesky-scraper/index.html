@@ -119,6 +119,13 @@ console.log(items);
   -d &#x27;{&quot;handles&quot;: [&quot;bsky.app&quot;], &quot;postsPerHandle&quot;: 20, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$0.85 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.59 per 1,000. See the <a href="https://apify.com/v0iddo/bluesky-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Only public Bluesky accounts are supported. The AT Protocol public API at public.api.bsky.app requires no login or API key.</li>
+<li>Keyword and hashtag search is not available: the Bluesky search endpoint is closed to automated access in the site robots.txt.</li>
+<li>Every row is a post of an account you entered: reposts of other accounts are left out.</li>
+<li>Like, repost, and reply counts are live snapshots taken at scrape time; they will change as engagement grows.</li>
+</ul>
 <h2>FAQ</h2>
 <h3>What data does the Bluesky Scraper return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include postUri, url, handle, did, text, likeCount, repostCount, replyCount, and more. The table above shows every field with an example value.</p>

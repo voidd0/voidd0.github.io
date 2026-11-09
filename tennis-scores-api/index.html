@@ -168,6 +168,13 @@ console.log(items);
   -d &#x27;{&quot;dataType&quot;: &quot;match_results&quot;, &quot;matchType&quot;: &quot;all&quot;, &quot;days&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$1.95 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.36 per 1,000. See the <a href="https://apify.com/v0iddo/tennis-scores-api/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Match results (the default) list every finished ATP and WTA match of the day, Challenger events included, with the winner first: set by set games, a tiebreak as 7-6(5), sets won and the two...</li>
+<li>Times are the site&#x27;s (GMT+1, as tennisexplorer.com shows them); startTimeUtc gives the same start in UTC. Doubles rows name both players of each team. status is finished, retired, walkover...</li>
+<li>Rankings (dataType wtarankings) cover active WTA tour professionals, about 20 players a page; the WTA calendar (wtatournaments) lists the season&#x27;s events with start and end dates.</li>
+<li>Data reflects what the sites publish at the time of collection; a match in progress is not followed live.</li>
+</ul>
 <h2>FAQ</h2>
 <h3>What data does the Tennis Scores and Results Scraper return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include date, time, tournamentName, player1, player2, score, winner, odds1, and more. The table above shows every field with an example value.</p>

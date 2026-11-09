@@ -151,6 +151,13 @@ console.log(items);
   -d &#x27;{&quot;keywords&quot;: [&quot;カメラ&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$1.28 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.90 per 1,000. See the <a href="https://apify.com/v0iddo/rakuten-japan-listings-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers search.rakuten.co.jp (Rakuten Ichiba, Japan). Results and prices are shown as a guest visitor without a Rakuten account.</li>
+<li>Rakuten caps search pagination at about 150 pages (roughly 6,750 items) per query. Paste a pre-filtered URL from the site to narrow results before scraping.</li>
+<li>Prices are in Japanese Yen (JPY). Whether the displayed price includes consumption tax depends on each shop&#x27;s display setting.</li>
+<li>Not affiliated with Rakuten, Inc.</li>
+</ul>
 <h2>FAQ</h2>
 <h3>What data does the Rakuten Ichiba Listings Scraper return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include title, price, shopName, reviewScore, reviewCount, points, freeShipping, isSoldOut, and more. The table above shows every field with an example value.</p>

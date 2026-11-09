@@ -136,6 +136,13 @@ console.log(items);
   -d &#x27;{&quot;keyword&quot;: &quot;software engineer&quot;, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
 <p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/hiring-cafe-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each request returns up to ~110 server-side-rendered listings. Passing a keyword causes the site to pre-filter results server-side; leaving it blank fetches the default recent-jobs feed.</li>
+<li>Salary figures are included when disclosed by the employer; many listings carry no salary data. Workplace type and seniority filters are applied client-side after fetching.</li>
+<li>The site surfaces jobs sourced directly from employer career pages across dozens of ATS platforms (Greenhouse, Lever, Workday, and others).</li>
+<li>Not affiliated with Hiring.Cafe or Vasona Technologies, Inc.</li>
+</ul>
 <h2>FAQ</h2>
 <h3>What data does the Hiring.Cafe Jobs Scraper return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include jobTitle, companyName, location, workplaceType, seniorityLevel, employmentType, jobCategory, technicalTools, and more. The table above shows every field with an example value.</p>

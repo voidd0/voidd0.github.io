@@ -176,6 +176,13 @@ console.log(items);
 </code></pre><p>Ready-to-run example scripts: <a href="https://github.com/voidd0/domain-availability-checker">example repository on GitHub</a>.</p>
 <h2>Price</h2>
 <p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/domain-availability-checker/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Available means not registered at the registry. A reserved or premium name can still be refused or cost more at a registrar.</li>
+<li>A TLD without an RDAP service, or a registry that closes its RDAP service in robots.txt, gives status unknown with the reason; check those names at a registrar. No guessing from DNS.</li>
+<li>A name under a registered domain (shop.example.com) gives status subdomain: it cannot be registered on its own.</li>
+<li>Answered: .com, .net, .org, .app, .dev, .page, .info, .biz, .club, .fr, .nl, .ca, .au and every other extension whose registry runs an open RDAP service. Not answered (status unknown): .io, .de...</li>
+</ul>
 <h2>FAQ</h2>
 <h3>What data does the Domain Availability Checker return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include domain, available, status, registrar, expirationDate, daysToExpiry, registrationDate, note, and more. The table above shows every field with an example value.</p>

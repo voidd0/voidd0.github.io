@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alibaba Scraper: JSON/CSV via API and Python | vøiddo</title>
-<meta name="description" content="Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, u... Python, JavaScript and cURL code, sample output and price...">
+<meta name="description" content="Scrape Alibaba.com product offers by keyword: price range and quantity price tiers, minimum order, units so... Python, JavaScript and cURL code, sample output and price...">
 <link rel="canonical" href="https://voidd0.github.io/alibaba-scraper/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Alibaba Scraper: JSON/CSV via API and Python | vøiddo">
-<meta property="og:description" content="Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, u... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:description" content="Scrape Alibaba.com product offers by keyword: price range and quantity price tiers, minimum order, units so... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/alibaba-scraper/">
 <link rel="stylesheet" href="/style.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Alibaba Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, title, priceMin, priceMax, minOrder, minOrderUnit, sold, supplierName, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Alibaba Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/alibaba-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
@@ -17,8 +17,8 @@
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
 <nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
-<h1>Alibaba Scraper: how to get Prices, MOQ, Suppliers as JSON/CSV (API, Python, no code)</h1>
-<p class="lead">Scrape Alibaba.com product offers by keyword: title, price range and quantity price tiers, minimum order, units sold, ratings, certifications, and the supplier&#x27;s name, country, years, Gold and verified badges, Trade Assurance and response rate. This guide shows the output fields, a working input, and
+<h1>Alibaba Scraper: how to get Prices, MOQ, Verified Suppliers as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Alibaba.com product offers by keyword: price range and quantity price tiers, minimum order, units sold, ratings, certifications, and the supplier&#x27;s name, country, years, verified badge and response rate. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/alibaba-scraper</code> on Apify.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/alibaba-scraper">Open Alibaba Scraper on Apify</a></p>
 <h2>More on voiddo.com</h2>
@@ -76,6 +76,15 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/alibaba-scraper</cod
 <tr><td><code>searchTerms</code></td><td>array</td><td>Products as a buyer would type them, one per line, for example led strip lights.</td></tr>
 <tr><td><code>searchUrls</code></td><td>array</td><td>Optional alibaba.com keyword pages (https://www.alibaba.com/wholesale/....html) or the link of a search on alibaba.com: its words are searched as a Search Term.</td></tr>
 <tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages (about 47 offers each) to read per keyword.</td></tr>
+<tr><td><code>minPrice</code></td><td>number</td><td>Keep offers whose price range reaches this price or more.</td></tr>
+<tr><td><code>maxPrice</code></td><td>number</td><td>Keep offers with a price at or under this one (their lowest tier).</td></tr>
+<tr><td><code>maxMOQ</code></td><td>integer</td><td>Keep offers whose minimum order is this many units or fewer.</td></tr>
+<tr><td><code>supplierCountries</code></td><td>array</td><td>Keep suppliers from these countries: names or codes, for example China, Vietnam, IN, Hong Kong.</td></tr>
+<tr><td><code>verifiedSupplier</code></td><td>boolean</td><td>Keep offers of suppliers with Alibaba&#x27;s verified badge.</td></tr>
+<tr><td><code>tradeAssurance</code></td><td>boolean</td><td>Keep offers of suppliers that take Trade Assurance orders.</td></tr>
+<tr><td><code>minSupplierRating</code></td><td>string</td><td>Keep suppliers rated at least this (out of 5).</td></tr>
+<tr><td><code>minSold</code></td><td>integer</td><td>Keep offers that show at least this many units sold.</td></tr>
+<tr><td><code>certifications</code></td><td>array</td><td>Keep offers with any of these certifications, for example CE, RoHS, FCC.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 <tr><td><code>onlyNew</code></td><td>boolean</td><td>Skip rows that an earlier run with the same input already returned, so a scheduled run gives each new row once.</td></tr>
 </tbody>
@@ -218,10 +227,10 @@ console.log(items);
 <p>$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. See the <a href="https://apify.com/v0iddo/alibaba-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
-<li>Reads Alibaba&#x27;s public keyword pages (alibaba.com/wholesale/...). Its search box pages are closed to automated access in robots.txt, so filters such as price range or supplier type are not offered.</li>
+<li>Reads Alibaba&#x27;s public keyword pages (alibaba.com/wholesale/...). Its search box pages, where Alibaba filters and sorts on its side, are closed to automated access in robots.txt, so the filters...</li>
+<li>The link of a filtered alibaba.com search brings its filters along: price, minimum order, supplier country, Trade Assurance, Verified Supplier and product certification are read from the link and...</li>
 <li>Most product keywords have a page. When one has none, the run tries the plural once and logs the keyword if that has none either.</li>
 <li>Prices are as shown to a visitor of the English site, usually in US dollars; quantityPrices lists the price per quantity tier when the offer has tiers.</li>
-<li>Supplier contact details are not collected.</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Alibaba Scraper return?</h3>
