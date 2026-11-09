@@ -1,0 +1,37 @@
+jobTitle,country,countryCode,currency,salaryPeriod,listingsOnSite,listingsCounted,salariesUsed,salaryP25,salaryMedian,salaryP75,salaryMin,salaryMax,benchmarkReady,readAt
+contador,Mexico,mx,MXN,month,8507,100,68,18000,20000,25000,12000,50000,True,2026-11-09T13:44:16Z
+contador,Colombia,co,COP,month,4309,69,39,2725000,3200000,5000000,1750905,8500000,True,2026-11-09T13:45:35Z
+contador,Peru,pe,PEN,month,2860,41,8,2450,2750,3000,1350,5000,True,2026-11-09T13:46:58Z
+contador,Argentina,ar,ARS,month,830,78,11,1200000,1500000,2100000,700000,4300000,True,2026-11-09T13:48:25Z
+contador,Chile,cl,CLP,month,1491,66,32,650000,950000,1212500,200000,2500000,True,2026-11-09T13:49:28Z
+contador,Ecuador,ec,USD,month,89,10,5,700,900,900,600,1500,True,2026-11-09T13:50:24Z
+vendedor,Mexico,mx,MXN,month,36339,100,75,9582,10962,13000,2290,25000,True,2026-11-09T13:44:29Z
+vendedor,Colombia,co,COP,month,19925,41,26,1750905,1750928,2091666,1750905,3500000,True,2026-11-09T13:45:54Z
+vendedor,Peru,pe,PEN,month,16929,100,34,1130,1265,1800,750,3500,True,2026-11-09T13:47:14Z
+vendedor,Argentina,ar,ARS,month,4212,100,32,715000,825000,1025000,480000,1500000,True,2026-11-09T13:48:37Z
+vendedor,Chile,cl,CLP,month,14961,100,35,590000,724000,850000,200000,3300000,True,2026-11-09T13:49:38Z
+vendedor,Ecuador,ec,USD,month,398,64,42,482,482,500,394,1500,True,2026-11-09T13:50:43Z
+desarrollador,Mexico,mx,MXN,month,1797,100,50,20000,34500,40000,12000,70000,True,2026-11-09T13:44:38Z
+desarrollador,Colombia,co,COP,month,832,100,66,2500000,3350000,5000000,1750905,10000000,True,2026-11-09T13:46:03Z
+desarrollador,Peru,pe,PEN,month,856,81,26,1550,3000,5250,1000,15000,True,2026-11-09T13:47:28Z
+desarrollador,Argentina,ar,ARS,month,367,68,1,,,,,,False,2026-11-09T13:48:47Z
+desarrollador,Chile,cl,CLP,month,605,100,15,1500000,2000000,2290000,1000000,2800000,True,2026-11-09T13:49:47Z
+desarrollador,Ecuador,ec,USD,month,28,12,5,400,800,950,400,2300,True,2026-11-09T13:50:46Z
+auxiliar administrativo,Mexico,mx,MXN,month,4331,100,76,10375,11635,13294,8400,19322,True,2026-11-09T13:44:47Z
+auxiliar administrativo,Colombia,co,COP,month,4125,100,68,1750905,1763500,2000000,1565850,3000000,True,2026-11-09T13:46:13Z
+auxiliar administrativo,Peru,pe,PEN,month,2213,65,26,1208,1350,1500,1130,2500,True,2026-11-09T13:47:48Z
+auxiliar administrativo,Argentina,ar,ARS,month,281,26,3,,,,,,False,2026-11-09T13:48:56Z
+auxiliar administrativo,Chile,cl,CLP,month,1255,29,29,729999,730000,730000,578000,730000,True,2026-11-09T13:49:57Z
+auxiliar administrativo,Ecuador,ec,USD,month,39,2,2,,,,,,False,2026-11-09T13:50:49Z
+ingeniero industrial,Mexico,mx,MXN,month,1219,59,33,13600,15000,18600,6000,30000,True,2026-11-09T13:45:04Z
+ingeniero industrial,Colombia,co,COP,month,1040,65,39,2500000,3000000,4300000,1571000,8026000,True,2026-11-09T13:46:29Z
+ingeniero industrial,Peru,pe,PEN,month,921,30,7,2000,2500,3300,1230,4000,True,2026-11-09T13:47:57Z
+ingeniero industrial,Argentina,ar,ARS,month,261,11,1,,,,,,False,2026-11-09T13:49:02Z
+ingeniero industrial,Chile,cl,CLP,month,1194,39,8,1550000,1700000,1900000,539000,2800000,True,2026-11-09T13:50:10Z
+ingeniero industrial,Ecuador,ec,USD,month,12,2,1,,,,,,False,2026-11-09T13:50:50Z
+analista de datos,Mexico,mx,MXN,month,2038,99,66,10800,15000,18000,8000,35000,True,2026-11-09T13:45:16Z
+analista de datos,Colombia,co,COP,month,1488,83,54,2612500,3137800,4000000,1750905,7500000,True,2026-11-09T13:46:39Z
+analista de datos,Peru,pe,PEN,month,1190,37,12,1750,3135,3850,1330,6999,True,2026-11-09T13:48:05Z
+analista de datos,Argentina,ar,ARS,month,366,25,0,,,,,,False,2026-11-09T13:49:08Z
+analista de datos,Chile,cl,CLP,month,789,46,17,950000,950000,1500000,840000,2500000,True,2026-11-09T13:50:17Z
+analista de datos,Ecuador,ec,USD,month,25,1,1,,,,,,False,2026-11-09T13:50:53Z
