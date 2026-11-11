@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alibaba Supplier Shortlist by Price, MOQ and Trust: API guide | vøiddo</title>
+<meta name="description" content="Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price ag... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/alibaba-supplier-shortlist/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alibaba Supplier Shortlist by Price, MOQ and Trust: API guide | vøiddo">
+<meta property="og:description" content="Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price ag... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/alibaba-supplier-shortlist/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Alibaba Supplier Shortlist by Price, MOQ and Trust return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include rank, score, supplierName, supplierCountry, bestPrice, bestMinOrder, fitsTargets, verifiedSupplier, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Alibaba Supplier Shortlist by Price, MOQ and Trust from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/alibaba-supplier-shortlist with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Alibaba Supplier Shortlist by Price, MOQ and Trust: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price against the market median, fit to your minimum order, Verified, Trade Assurance, years, rating and units sold, with its best offer and the reasons. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/alibaba-supplier-shortlist</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/alibaba-supplier-shortlist">Open Alibaba Supplier Shortlist by Price, MOQ and Trust on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>rank</code></td><td>Rank</td><td>number</td><td>1</td></tr>
+<tr><td><code>score</code></td><td>Score</td><td>number</td><td>94.3</td></tr>
+<tr><td><code>supplierName</code></td><td>Supplier</td><td>text</td><td>Shenzhen OPTO365 Technology Co., Ltd.</td></tr>
+<tr><td><code>supplierCountry</code></td><td>Country</td><td>text</td><td>China</td></tr>
+<tr><td><code>bestPrice</code></td><td>Best price</td><td>number</td><td>0.69</td></tr>
+<tr><td><code>bestMinOrder</code></td><td>Min order</td><td>number</td><td>10</td></tr>
+<tr><td><code>fitsTargets</code></td><td>Fits targets</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>verifiedSupplier</code></td><td>Verified</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>supplierYears</code></td><td>Years</td><td>number</td><td>12</td></tr>
+<tr><td><code>why</code></td><td>Why</td><td>text</td><td>from $0.69, 59% under the median $1.67 of the 87 offers read; withi...</td></tr>
+<tr><td><code>bestOfferUrl</code></td><td>Best offer</td><td>URL</td><td>https://www.alibaba.com/product-detail/High-Lumen-Black-FPC-12V-24V...</td></tr>
+<tr><td><code>searchTerm</code></td><td></td><td>text</td><td>led strip lights</td></tr>
+<tr><td><code>scoreParts</code></td><td></td><td>object</td><td>{&quot;price&quot;: 30.2, &quot;order&quot;: 15, &quot;trust&quot;: 34.9, &quot;proof&quot;: 14.2}</td></tr>
+<tr><td><code>priceFit</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>moqFit</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>supplierCountryCode</code></td><td></td><td>text</td><td>CN</td></tr>
+<tr><td><code>tradeAssurance</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>goldSupplier</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>responseRate</code></td><td></td><td>number</td><td>99.1</td></tr>
+<tr><td><code>supplierRating</code></td><td></td><td>number</td><td>4.8</td></tr>
+<tr><td><code>supplierReviews</code></td><td></td><td>number</td><td>227</td></tr>
+<tr><td><code>bestPriceMax</code></td><td></td><td>number</td><td>0.99</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
+<tr><td><code>minOrderUnit</code></td><td></td><td>text</td><td>meters</td></tr>
+<tr><td><code>bestOfferTitle</code></td><td></td><td>text</td><td>2-Year Warranty High Lumen Black Copper 12V LED Strip Light SMD5050...</td></tr>
+<tr><td><code>image</code></td><td></td><td>text</td><td>https://s.alicdn.com/@sc04/kf/HTB1hwKpJpXXXXa4XpXXq6xXFXXXv.jpg</td></tr>
+<tr><td><code>marketMedianPrice</code></td><td></td><td>number</td><td>1.67</td></tr>
+<tr><td><code>priceVsMedianPct</code></td><td></td><td>number</td><td>-59</td></tr>
+<tr><td><code>offersRead</code></td><td></td><td>number</td><td>87</td></tr>
+<tr><td><code>suppliersSeen</code></td><td></td><td>number</td><td>83</td></tr>
+<tr><td><code>suppliersMatched</code></td><td></td><td>number</td><td>83</td></tr>
+<tr><td><code>offersOfSupplier</code></td><td></td><td>number</td><td>1</td></tr>
+<tr><td><code>unitsSold</code></td><td></td><td>number</td><td>1372</td></tr>
+<tr><td><code>certifications</code></td><td></td><td>list</td><td>[&quot;CE&quot;, &quot;DECLARATION OF CONFORMITY&quot;, &quot;ROHS&quot;]</td></tr>
+<tr><td><code>chargeUnits</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;searchTerms&quot;: [
+    &quot;led strip lights&quot;
+  ],
+  &quot;targetPrice&quot;: 5,
+  &quot;targetMOQ&quot;: 50,
+  &quot;maxPages&quot;: 2,
+  &quot;shortlistSize&quot;: 10,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>searchTerms</code></td><td>array</td><td>Products as a buyer would type them, one per line, for example led strip lights.</td></tr>
+<tr><td><code>targetPrice</code></td><td>number</td><td>The most you want to pay per unit.</td></tr>
+<tr><td><code>targetMOQ</code></td><td>integer</td><td>How many units you plan to order first.</td></tr>
+<tr><td><code>shortlistSize</code></td><td>integer</td><td>How many suppliers each product&#x27;s shortlist names.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Alibaba result pages (about 47 offers each) read for each product.</td></tr>
+<tr><td><code>supplierCountries</code></td><td>array</td><td>Only suppliers from these countries: names or codes, for example China, Vietnam, IN, Hong Kong.</td></tr>
+<tr><td><code>verifiedSupplier</code></td><td>boolean</td><td>Only suppliers with Alibaba&#x27;s verified badge.</td></tr>
+<tr><td><code>tradeAssurance</code></td><td>boolean</td><td>Only suppliers that take Trade Assurance orders.</td></tr>
+<tr><td><code>minSupplierRating</code></td><td>string</td><td>Only suppliers rated at least this (out of 5).</td></tr>
+<tr><td><code>certifications</code></td><td>array</td><td>Only offers with any of these certifications, for example CE, RoHS, FCC.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;searchTerm&quot;: &quot;led strip lights&quot;,
+    &quot;rank&quot;: 1,
+    &quot;score&quot;: 94.3,
+    &quot;scoreParts&quot;: {
+      &quot;price&quot;: 30.2,
+      &quot;order&quot;: 15,
+      &quot;trust&quot;: 34.9,
+      &quot;proof&quot;: 14.2
+    },
+    &quot;fitsTargets&quot;: true,
+    &quot;priceFit&quot;: true,
+    &quot;moqFit&quot;: true,
+    &quot;supplierName&quot;: &quot;Shenzhen OPTO365 Technology Co., Ltd.&quot;,
+    &quot;supplierCountry&quot;: &quot;China&quot;,
+    &quot;supplierCountryCode&quot;: &quot;CN&quot;,
+    &quot;supplierYears&quot;: 12,
+    &quot;verifiedSupplier&quot;: true,
+    &quot;tradeAssurance&quot;: true,
+    &quot;goldSupplier&quot;: true,
+    &quot;responseRate&quot;: 99.1,
+    &quot;supplierRating&quot;: 4.8,
+    &quot;supplierReviews&quot;: 227,
+    &quot;bestPrice&quot;: 0.69,
+    &quot;bestPriceMax&quot;: 0.99,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;bestMinOrder&quot;: 10,
+    &quot;minOrderUnit&quot;: &quot;meters&quot;,
+    &quot;bestOfferTitle&quot;: &quot;2-Year Warranty High Lumen Black Copper 12V LED Strip Light SMD5050 RGB Multicolor 60LED/M IP65 Waterproof Voice Control 5M/Roll&quot;,
+    &quot;bestOfferUrl&quot;: &quot;https://www.alibaba.com/product-detail/High-Lumen-Black-FPC-12V-24V_60341772053.html&quot;,
+    &quot;image&quot;: &quot;https://s.alicdn.com/@sc04/kf/HTB1hwKpJpXXXXa4XpXXq6xXFXXXv.jpg&quot;,
+    &quot;marketMedianPrice&quot;: 1.67,
+    &quot;priceVsMedianPct&quot;: -59,
+    &quot;offersRead&quot;: 87,
+    &quot;suppliersSeen&quot;: 83,
+    &quot;suppliersMatched&quot;: 83,
+    &quot;offersOfSupplier&quot;: 1,
+    &quot;unitsSold&quot;: 1372,
+    &quot;certifications&quot;: [
+      &quot;CE&quot;,
+      &quot;DECLARATION OF CONFORMITY&quot;,
+      &quot;ROHS&quot;
+    ],
+    &quot;why&quot;: &quot;from $0.69, 59% under the median $1.67 of the 87 offers read; within your $5.00; minimum order 10 meters fits your 50; Verified; Trade As...&quot;,
+    &quot;chargeUnits&quot;: 1
+  },
+  {
+    &quot;searchTerm&quot;: &quot;led strip lights&quot;,
+    &quot;rank&quot;: 2,
+    &quot;score&quot;: 89.8,
+    &quot;scoreParts&quot;: {
+      &quot;price&quot;: 26.1,
+      &quot;order&quot;: 15,
+      &quot;trust&quot;: 35,
+      &quot;proof&quot;: 13.7
+    },
+    &quot;fitsTargets&quot;: true,
+    &quot;priceFit&quot;: true,
+    &quot;moqFit&quot;: true,
+    &quot;supplierName&quot;: &quot;Shenzhen Hongtai World Lighting Co., Ltd.&quot;,
+    &quot;supplierCountry&quot;: &quot;China&quot;,
+    &quot;supplierCountryCode&quot;: &quot;CN&quot;,
+    &quot;supplierYears&quot;: 15,
+    &quot;verifiedSupplier&quot;: true,
+    &quot;tradeAssurance&quot;: true,
+    &quot;goldSupplier&quot;: true,
+    &quot;responseRate&quot;: 99.2,
+    &quot;supplierRating&quot;: 4.9,
+    &quot;supplierReviews&quot;: 54,
+    &quot;bestPrice&quot;: 0.9,
+    &quot;bestPriceMax&quot;: 1.2,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;bestMinOrder&quot;: 1,
+    &quot;minOrderUnit&quot;: &quot;meter&quot;,
+    &quot;bestOfferTitle&quot;: &quot;Led Strip Silicone Profile Diffuser Silicone Neon Light Strips Led Strip Lights Driveway Lighting with Silicone&quot;,
+    &quot;bestOfferUrl&quot;: &quot;https://www.alibaba.com/product-detail/Led-Strip-Silicone-Profile-Diffuser-Silicone_1601567633729.html&quot;,
+    &quot;image&quot;: &quot;https://s.alicdn.com/@sc04/kf/H09f8b639fac84489a0f8ce01bca7d299k.jpg&quot;,
+    &quot;marketMedianPrice&quot;: 1.67,
+    &quot;priceVsMedianPct&quot;: -46,
+    &quot;offersRead&quot;: 87,
+    &quot;suppliersSeen&quot;: 83,
+    &quot;suppliersMatched&quot;: 83,
+    &quot;offersOfSupplier&quot;: 1,
+    &quot;unitsSold&quot;: 407,
+    &quot;certifications&quot;: [
+      &quot;CE&quot;,
+      &quot;DECLARATION OF CONFORMITY&quot;,
+      &quot;ROHS&quot;
+    ],
+    &quot;why&quot;: &quot;from $0.90, 46% under the median $1.67 of the 87 offers read; within your $5.00; minimum order 1 meter fits your 50; Verified; Trade Assu...&quot;,
+    &quot;chargeUnits&quot;: 0
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/alibaba-supplier-shortlist</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;searchTerms&#x27;: [&#x27;led strip lights&#x27;],
+ &#x27;targetPrice&#x27;: 5,
+ &#x27;targetMOQ&#x27;: 50,
+ &#x27;maxPages&#x27;: 2,
+ &#x27;shortlistSize&#x27;: 10,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/alibaba-supplier-shortlist&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;searchTerms&quot;: [
+    &quot;led strip lights&quot;
+  ],
+  &quot;targetPrice&quot;: 5,
+  &quot;targetMOQ&quot;: 50,
+  &quot;maxPages&quot;: 2,
+  &quot;shortlistSize&quot;: 10,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/alibaba-supplier-shortlist&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~alibaba-supplier-shortlist/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;searchTerms&quot;: [&quot;led strip lights&quot;], &quot;targetPrice&quot;: 5, &quot;targetMOQ&quot;: 50, &quot;maxPages&quot;: 2, &quot;shortlistSize&quot;: 10, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. See the <a href="https://apify.com/v0iddo/alibaba-supplier-shortlist/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Reads Alibaba&#x27;s public keyword pages (alibaba.com/wholesale/...), the same pages as our Alibaba Scraper; its search box pages are closed to automated access in robots.txt. Supplier contact details...</li>
+<li>The score, out of 100: price 35 (how many offers read cost the same or more), order size 15, trust 35 (Verified 10, Trade Assurance 8, Gold Supplier 3, years up to 8, response rate up to 6), proof...</li>
+<li>With a target price or order size, the suppliers that fit both come first, then the score decides. Each supplier&#x27;s best offer is the one that fits best and then costs least; otherOffers lists up...</li>
+<li>The market median is that of the offers read, so more pages give a steadier median and more suppliers.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Alibaba Supplier Shortlist by Price, MOQ and Trust return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include rank, score, supplierName, supplierCountry, bestPrice, bestMinOrder, fitsTargets, verifiedSupplier, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Alibaba Supplier Shortlist by Price, MOQ and Trust from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/alibaba-supplier-shortlist</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/alibaba-supplier-shortlist">Open Alibaba Supplier Shortlist by Price, MOQ and Trust on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/myntra-product-scraper/">Myntra Product Scraper</a>: Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis...</li>
+<li><a href="/rakuten-japan-listings-scraper/">Rakuten Ichiba Listings Scraper</a>: Scrape Rakuten Ichiba search results into product rows: title, JPY price, shop name, review score, review c...</li>
+<li><a href="/cargurus-zipcode-search-scraper/">CarGurus Zipcode Search Scraper</a>: Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
