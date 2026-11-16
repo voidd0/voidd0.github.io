@@ -58,6 +58,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/hiring-cafe-scraper<
 <tr><td><code>location</code></td><td>string</td><td>City, state, or country to filter by, e.g.</td></tr>
 <tr><td><code>workplaceType</code></td><td>string</td><td>Keep only listings of this workplace type.</td></tr>
 <tr><td><code>seniorityLevel</code></td><td>string</td><td>Keep only listings at this seniority level.</td></tr>
+<tr><td><code>seniorityLevels</code></td><td>array</td><td>Optional. Keep listings at any of these levels; empty or every level means all.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
 </table>
@@ -138,7 +139,7 @@ console.log(items);
 <p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/hiring-cafe-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
-<li>Each request returns up to ~110 server-side-rendered listings. Passing a keyword causes the site to pre-filter results server-side; leaving it blank fetches the default recent-jobs feed.</li>
+<li>Each request returns up to ~110 server-side-rendered listings. Passing a keyword causes the site to pre-filter results server-side; leaving it blank fetches the default recent-jobs feed. A run...</li>
 <li>Salary figures are included when disclosed by the employer; many listings carry no salary data. Workplace type and seniority filters are applied client-side after fetching.</li>
 <li>The site surfaces jobs sourced directly from employer career pages across dozens of ATS platforms (Greenhouse, Lever, Workday, and others).</li>
 <li>Not affiliated with Hiring.Cafe or Vasona Technologies, Inc.</li>
@@ -159,9 +160,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/hiring-cafe-scraper">Open Hiring.Cafe Jobs Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/freelancer-jobs-projects-scraper/">Freelancer.com Jobs and Projects Scraper</a>: Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hour...</li>
-<li><a href="/eluta-ca-job-scraper/">Eluta.ca Job Scraper</a>: Scrape Canadian job listings from eluta.ca by keyword and location.</li>
-<li><a href="/jobteaser-job-scraper/">JobTeaser Job Scraper</a>: Scrape job listings from jobteaser.com: title, company, location, contract type, posted time, easy-apply an...</li>
+<li><a href="/handshake-jobs/">Handshake Jobs Scraper</a>: Scrape open job postings from joinhandshake.com into structured rows: title, department, employment type, l...</li>
+<li><a href="/irishjobs-scraper/">IrishJobs.ie and Jobs.ie Scraper</a>: Scrape job postings from IrishJobs.ie and Jobs.ie in Ireland: title, company, town, county, salary in EUR w...</li>
+<li><a href="/elempleo-scraper/">elempleo Scraper</a>: Scrape job postings from elempleo.com, Colombia&#x27;s second largest job board: title, company, city, salary ba...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

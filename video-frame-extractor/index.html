@@ -64,9 +64,9 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/video-frame-extracto
 <table>
 <thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
 <tbody>
-<tr><td><code>videoUrls</code> (required)</td><td>array</td><td>Direct links to video files: MP4, MOV, M4V, WEBM, MKV, AVI, FLV, MPEG TS, OGV, WMV, MXF or animated GIF.</td></tr>
+<tr><td><code>videoUrls</code></td><td>array</td><td>Direct links to video files: MP4, MOV, M4V, WEBM, MKV, AVI, FLV, MPEG TS, OGV, WMV, MXF or animated GIF.</td></tr>
 <tr><td><code>mode</code></td><td>string</td><td>Every N seconds (Seconds between frames), a number of frames spread evenly over the video (Number of frames), the times you list (Times), the first frame of each scene...</td></tr>
-<tr><td><code>intervalSeconds</code></td><td>integer</td><td>For One frame every N seconds: the first frame is at Start at second.</td></tr>
+<tr><td><code>intervalSeconds</code></td><td>number</td><td>For One frame every N seconds, such as 10 or 2.5: the first frame is at Start at second.</td></tr>
 <tr><td><code>frameCount</code></td><td>integer</td><td>For evenly spaced frames: each frame sits in the middle of its equal part of the video, so the first and last are not the black start and end.</td></tr>
 <tr><td><code>timestamps</code></td><td>array</td><td>For Frames at exact times: seconds or hours:minutes:seconds, such as 90, 1:30 or 00:01:30.5.</td></tr>
 <tr><td><code>sceneSensitivity</code></td><td>string</td><td>For One frame per scene: how much the picture must change to count as a new scene.</td></tr>
@@ -201,9 +201,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/video-frame-extractor">Open Video frame extractor on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/north-data-scraper/">North Data Scraper</a>: Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre...</li>
+<li><a href="/forexfactory-economic-calendar/">ForexFactory Economic Calendar Scraper</a>: Scrape the ForexFactory economic calendar into rows with date, time (ET), currency, impact level, event nam...</li>
+<li><a href="/mlb-daily-scoreboard-scraper/">MLB Daily Scoreboard Scraper</a>: Fetch MLB game scores from the official Stats API: game ID, teams, final score, R-H-E totals, inning-by-inn...</li>
 <li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
-<li><a href="/audio-transcription/">Audio transcription</a>: Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

@@ -11,7 +11,7 @@
 <meta property="og:description" content="Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, dis... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/myntra-product-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Myntra Product Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, name, brand, price, mrp, discountPercent, rating, ratingCount, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Myntra Product Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/myntra-product-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Myntra Product Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, name, brand, price, mrp, discountPercent, rating, ratingCount, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Myntra Product Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/myntra-product-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -55,7 +55,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/myntra-product-scrap
 <table>
 <thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
 <tbody>
-<tr><td><code>categoryUrls</code> (required)</td><td>array</td><td>Myntra category or search listing pages (e.g.</td></tr>
+<tr><td><code>categoryUrls</code></td><td>array</td><td>Myntra category or search listing pages (e.g.</td></tr>
 <tr><td><code>maxPages</code></td><td>integer</td><td>How many listing pages (about 30-40 products each) to read per URL.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
@@ -134,7 +134,7 @@ console.log(items);
   -H &quot;Content-Type: application/json&quot; \
   -d &#x27;{&quot;categoryUrls&quot;: [&quot;https://www.myntra.com/men-tshirts&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
-<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/myntra-product-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<p>$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. See the <a href="https://apify.com/v0iddo/myntra-product-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
 <li>Covers myntra.com (India) category and search listing pages. Each page yields about 30-40 products; use a narrower category or filter URL to target specific results.</li>
@@ -150,7 +150,7 @@ console.log(items);
 <h3>Can I use it without writing code?</h3>
 <p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
 <h3>How much does it cost?</h3>
-<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<p>$2.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
 <h3>How do I limit the number of results?</h3>
 <p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
 <h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
@@ -160,7 +160,7 @@ console.log(items);
 <ul>
 <li><a href="/alibaba-supplier-shortlist/">Alibaba Supplier Shortlist by Price, MOQ and Trust</a>: Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price ag...</li>
 <li><a href="/rakuten-japan-listings-scraper/">Rakuten Ichiba Listings Scraper</a>: Scrape Rakuten Ichiba search results into product rows: title, JPY price, shop name, review score, review c...</li>
-<li><a href="/cargurus-zipcode-search-scraper/">CarGurus Zipcode Search Scraper</a>: Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel...</li>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

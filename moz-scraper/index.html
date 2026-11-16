@@ -104,7 +104,7 @@ console.log(items);
 <p>$0.85 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.59 per 1,000. See the <a href="https://apify.com/v0iddo/moz-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
-<li>The Moz Top 500 list contains exactly 500 entries updated periodically by Moz; a single page fetch returns all 500 rows so the actor makes only one HTTP request per run.</li>
+<li>The Moz Top 500 list contains exactly 500 entries updated periodically by Moz; a single page fetch returns all 500 rows so the actor makes only one HTTP request per run, and a run gives at most...</li>
 <li>DA Score is a Moz proprietary 1-100 score based on linking root domains; scores are the integers shown on the public list page.</li>
 <li>Individual domain detail pages (/domain-analysis/*) are closed to automated access per moz.com robots.txt and are never requested by this actor.</li>
 <li>Not affiliated with Moz.</li>
@@ -125,9 +125,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/moz-scraper">Open Moz Top 500 Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/north-data-scraper/">North Data Scraper</a>: Extract European company profiles from northdata.com: company name, register number, court, LEI code, addre...</li>
+<li><a href="/forexfactory-economic-calendar/">ForexFactory Economic Calendar Scraper</a>: Scrape the ForexFactory economic calendar into rows with date, time (ET), currency, impact level, event nam...</li>
+<li><a href="/mlb-daily-scoreboard-scraper/">MLB Daily Scoreboard Scraper</a>: Fetch MLB game scores from the official Stats API: game ID, teams, final score, R-H-E totals, inning-by-inn...</li>
 <li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
-<li><a href="/audio-transcription/">Audio transcription</a>: Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

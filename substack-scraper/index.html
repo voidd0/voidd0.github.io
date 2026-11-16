@@ -53,7 +53,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/substack-scraper</co
 <table>
 <thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
 <tbody>
-<tr><td><code>publications</code> (required)</td><td>array</td><td>Publication addresses such as https://on.substack.com or https://www.lennysnewsletter.com, or just the name before .substack.com (on).</td></tr>
+<tr><td><code>publications</code></td><td>array</td><td>Publication addresses such as https://on.substack.com or https://www.lennysnewsletter.com, or just the name before .substack.com (on).</td></tr>
 <tr><td><code>maxPostsPerPublication</code></td><td>integer</td><td>How many posts to collect from each publication.</td></tr>
 <tr><td><code>sortBy</code></td><td>string</td><td>Order in which the posts are read.</td></tr>
 <tr><td><code>keyword</code></td><td>string</td><td>Optional word or phrase: only posts that match it inside the publication are returned.</td></tr>
@@ -138,7 +138,7 @@ console.log(items);
 <li>Works for any publication, including those on their own domain. Use the address the publication is read at; a name.substack.com address of a publication that moved to its own domain does not work.</li>
 <li>Author names, profiles, handles and photos are not collected.</li>
 <li>Reactions are the heart count shown on the post.</li>
-<li>With post text switched on, each post costs one more request, so the run is slower.</li>
+<li>With post text switched on, each post costs one more request, so the run is slower. For paid posts only the public preview that a visitor sees is returned, and bodyIsPreview is true.</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Substack Posts Scraper return?</h3>

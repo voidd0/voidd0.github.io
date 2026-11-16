@@ -54,9 +54,9 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eluta-ca-job-scraper
 <table>
 <thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
 <tbody>
-<tr><td><code>keyword</code> (required)</td><td>string</td><td>Job title or keywords to search for, e.g.</td></tr>
+<tr><td><code>keyword</code></td><td>string</td><td>Job title or keywords to search for, e.g.</td></tr>
 <tr><td><code>location</code></td><td>string</td><td>City and province to search in, e.g.</td></tr>
-<tr><td><code>maxPages</code></td><td>integer</td><td>Number of result pages to read.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>Number of result pages to read per search, up to 50.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
 </table>
@@ -139,7 +139,7 @@ console.log(items);
 <ul>
 <li>Covers eluta.ca, a Canadian job aggregator that indexes postings directly from employer websites. Each result page returns 10 listings.</li>
 <li>Salary data is included only when eluta.ca displays it in the search result card; many listings do not show a salary.</li>
-<li>Eluta.ca can return up to 1000 result pages per search; use maxPages to control how many are read.</li>
+<li>Eluta.ca can return up to 1000 result pages per search; use maxPages to control how many are read (up to 50 per search, about 500 jobs).</li>
 <li>Not affiliated with eluta.ca.</li>
 </ul>
 <h2>FAQ</h2>
@@ -158,9 +158,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/eluta-ca-job-scraper">Open Eluta.ca Job Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/freelancer-jobs-projects-scraper/">Freelancer.com Jobs and Projects Scraper</a>: Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hour...</li>
-<li><a href="/hiring-cafe-scraper/">Hiring.Cafe Jobs Scraper</a>: Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, te...</li>
-<li><a href="/jobteaser-job-scraper/">JobTeaser Job Scraper</a>: Scrape job listings from jobteaser.com: title, company, location, contract type, posted time, easy-apply an...</li>
+<li><a href="/handshake-jobs/">Handshake Jobs Scraper</a>: Scrape open job postings from joinhandshake.com into structured rows: title, department, employment type, l...</li>
+<li><a href="/irishjobs-scraper/">IrishJobs.ie and Jobs.ie Scraper</a>: Scrape job postings from IrishJobs.ie and Jobs.ie in Ireland: title, company, town, county, salary in EUR w...</li>
+<li><a href="/elempleo-scraper/">elempleo Scraper</a>: Scrape job postings from elempleo.com, Colombia&#x27;s second largest job board: title, company, city, salary ba...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
