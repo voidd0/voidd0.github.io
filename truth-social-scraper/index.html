@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Truth Social Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape public posts from Truth Social accounts via the public REST API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/truth-social-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Truth Social Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape public posts from Truth Social accounts via the public REST API. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/truth-social-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Truth Social Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include postId, accountId, createdAt, content, likesCount, reblogsCount, repliesCount, mediaUrls, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Truth Social Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/truth-social-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Truth Social Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape public posts from Truth Social accounts via the public REST API. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/truth-social-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/truth-social-scraper">Open Truth Social Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>postId</code></td><td>Post ID</td><td>text</td><td>117623641217339970</td></tr>
+<tr><td><code>accountId</code></td><td>Account ID</td><td>text</td><td>107780257626128497</td></tr>
+<tr><td><code>createdAt</code></td><td>Created At</td><td>date</td><td>2026-11-16T01:58:50.098Z</td></tr>
+<tr><td><code>content</code></td><td>Content</td><td>text</td><td>RT: https://truthsocial.com/users/realDonaldTrump/statuses/11762364...</td></tr>
+<tr><td><code>likesCount</code></td><td>Likes</td><td>number</td><td>10855</td></tr>
+<tr><td><code>reblogsCount</code></td><td>Re-Truths</td><td>number</td><td>3268</td></tr>
+<tr><td><code>repliesCount</code></td><td>Replies</td><td>number</td><td>1547</td></tr>
+<tr><td><code>mediaUrls</code></td><td>Media URLs</td><td>list</td><td>[&quot;https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/medi...</td></tr>
+<tr><td><code>sensitive</code></td><td>Sensitive</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>postUrl</code></td><td>Post URL</td><td>URL</td><td>https://truthsocial.com/@realDonaldTrump/117623641217339970</td></tr>
+<tr><td><code>visibility</code></td><td></td><td>text</td><td>public</td></tr>
+<tr><td><code>isReblog</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>quotedPostId</code></td><td></td><td>text</td><td>117623640519503406</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;usernames&quot;: [
+    &quot;realDonaldTrump&quot;
+  ],
+  &quot;maxPostsPerUser&quot;: 20,
+  &quot;excludeReblogs&quot;: false,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>usernames</code> (required)</td><td>array</td><td>Truth Social account handles to scrape, without the @ sign.</td></tr>
+<tr><td><code>maxPostsPerUser</code></td><td>integer</td><td>Maximum number of posts to collect per username.</td></tr>
+<tr><td><code>excludeReblogs</code></td><td>boolean</td><td>When enabled, shared posts (re-Truths) are skipped.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;postId&quot;: &quot;117623641217339970&quot;,
+    &quot;accountId&quot;: &quot;107780257626128497&quot;,
+    &quot;createdAt&quot;: &quot;2026-11-16T01:58:50.098Z&quot;,
+    &quot;content&quot;: &quot;RT: https://truthsocial.com/users/realDonaldTrump/statuses/117623640519503406&quot;,
+    &quot;likesCount&quot;: 10855,
+    &quot;reblogsCount&quot;: 3268,
+    &quot;repliesCount&quot;: 1547,
+    &quot;mediaUrls&quot;: [
+      &quot;https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/117/623/641/100/360/218/original/5010adcc459db0ad.jpg&quot;
+    ],
+    &quot;sensitive&quot;: false,
+    &quot;visibility&quot;: &quot;public&quot;,
+    &quot;isReblog&quot;: false,
+    &quot;quotedPostId&quot;: &quot;117623640519503406&quot;,
+    &quot;postUrl&quot;: &quot;https://truthsocial.com/@realDonaldTrump/117623641217339970&quot;
+  },
+  {
+    &quot;postId&quot;: &quot;117623640519503406&quot;,
+    &quot;accountId&quot;: &quot;107780257626128497&quot;,
+    &quot;createdAt&quot;: &quot;2026-11-16T01:58:39.450Z&quot;,
+    &quot;likesCount&quot;: 7387,
+    &quot;reblogsCount&quot;: 1677,
+    &quot;repliesCount&quot;: 435,
+    &quot;mediaUrls&quot;: [
+      &quot;https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/117/623/639/352/323/877/original/bc7d17228aaae97a.mp4&quot;
+    ],
+    &quot;sensitive&quot;: false,
+    &quot;visibility&quot;: &quot;public&quot;,
+    &quot;isReblog&quot;: false,
+    &quot;postUrl&quot;: &quot;https://truthsocial.com/@realDonaldTrump/117623640519503406&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/truth-social-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;usernames&#x27;: [&#x27;realDonaldTrump&#x27;],
+ &#x27;maxPostsPerUser&#x27;: 20,
+ &#x27;excludeReblogs&#x27;: False,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/truth-social-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;usernames&quot;: [
+    &quot;realDonaldTrump&quot;
+  ],
+  &quot;maxPostsPerUser&quot;: 20,
+  &quot;excludeReblogs&quot;: false,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/truth-social-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~truth-social-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;usernames&quot;: [&quot;realDonaldTrump&quot;], &quot;maxPostsPerUser&quot;: 20, &quot;excludeReblogs&quot;: false, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. See the <a href="https://apify.com/v0iddo/truth-social-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Only public accounts are accessible; private or suspended accounts return no data.</li>
+<li>The Truth Social API returns at most 40 posts per request; large collections require multiple paginated requests.</li>
+<li>Post content is plain text after HTML tags are stripped; embedded media URLs are listed in mediaUrls.</li>
+<li>Not affiliated with Truth Social or TMTG.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Truth Social Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include postId, accountId, createdAt, content, likesCount, reblogsCount, repliesCount, mediaUrls, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Truth Social Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/truth-social-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.70 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.19 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/truth-social-scraper">Open Truth Social Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/forexfactory-economic-calendar/">ForexFactory Economic Calendar Scraper</a>: Scrape the ForexFactory economic calendar into rows with date, time (ET), currency, impact level, event nam...</li>
+<li><a href="/mlb-daily-scoreboard-scraper/">MLB Daily Scoreboard Scraper</a>: Fetch MLB game scores from the official Stats API: game ID, teams, final score, R-H-E totals, inning-by-inn...</li>
+<li><a href="/website-content-crawler/">Website content crawler</a>: Crawls any public website from a start URL, follows internal links up to a set depth, and extracts title, b...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
