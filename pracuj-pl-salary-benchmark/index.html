@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pracuj.pl Salary Benchmark by Job Title and City: API guide | vøiddo</title>
+<meta name="description" content="Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/pracuj-pl-salary-benchmark/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pracuj.pl Salary Benchmark by Job Title and City: API guide | vøiddo">
+<meta property="og:description" content="Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/pracuj-pl-salary-benchmark/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Pracuj.pl Salary Benchmark by Job Title and City return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobTitle, location, listingsOnSite, salariesUsed, salaryMin, salaryMedian, salaryMax, salarySharePercent, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Pracuj.pl Salary Benchmark by Job Title and City from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/pracuj-pl-salary-benchmark with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Pracuj.pl Salary Benchmark by Job Title and City: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles and range in PLN, share of postings showing pay, listings, direct employers and agencies, top employers, work modes and contract types. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/pracuj-pl-salary-benchmark</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pracuj-pl-salary-benchmark">Open Pracuj.pl Salary Benchmark by Job Title and City on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobTitle</code></td><td>Job title</td><td>text</td><td>księgowa</td></tr>
+<tr><td><code>location</code></td><td>City</td><td>text</td><td>Warszawa</td></tr>
+<tr><td><code>listingsOnSite</code></td><td>Listings</td><td>number</td><td>626</td></tr>
+<tr><td><code>salariesUsed</code></td><td>Salaries</td><td>number</td><td>31</td></tr>
+<tr><td><code>salaryMin</code></td><td>Min</td><td>number</td><td>6500</td></tr>
+<tr><td><code>salaryMedian</code></td><td>Median</td><td>number</td><td>10500</td></tr>
+<tr><td><code>salaryMax</code></td><td>Max</td><td>number</td><td>22000</td></tr>
+<tr><td><code>salarySharePercent</code></td><td>Show pay %</td><td>number</td><td>42</td></tr>
+<tr><td><code>directEmployerPercent</code></td><td>Direct employer %</td><td>number</td><td>100</td></tr>
+<tr><td><code>searchUrl</code></td><td>Search</td><td>URL</td><td>https://www.pracuj.pl/praca/ksi%C4%99gowa;kw/Warszawa;wp?rd=30</td></tr>
+<tr><td><code>distanceKm</code></td><td></td><td>number</td><td>30</td></tr>
+<tr><td><code>listingsRead</code></td><td></td><td>number</td><td>150</td></tr>
+<tr><td><code>titleMatchPercent</code></td><td></td><td>number</td><td>74.7</td></tr>
+<tr><td><code>listingsCounted</code></td><td></td><td>number</td><td>100</td></tr>
+<tr><td><code>salariesShown</code></td><td></td><td>number</td><td>42</td></tr>
+<tr><td><code>salariesLeftOut</code></td><td></td><td>object</td><td>{&quot;otherCurrency&quot;: 0, &quot;netPay&quot;: 3, &quot;hourlyOrNoPeriod&quot;: 2, &quot;grossOrNe...</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>PLN</td></tr>
+<tr><td><code>salaryPeriod</code></td><td></td><td>text</td><td>month</td></tr>
+<tr><td><code>salaryKind</code></td><td></td><td>text</td><td>gross</td></tr>
+<tr><td><code>salaryP25</code></td><td></td><td>number</td><td>8275</td></tr>
+<tr><td><code>salaryP75</code></td><td></td><td>number</td><td>13500</td></tr>
+<tr><td><code>salaryAverage</code></td><td></td><td>number</td><td>11165</td></tr>
+<tr><td><code>salaryByLevel</code></td><td></td><td>list</td><td>[{&quot;positionLevel&quot;: &quot;mid&quot;, &quot;salaries&quot;: 17, &quot;salaryMedian&quot;: 9000}]</td></tr>
+<tr><td><code>salaryByCity</code></td><td></td><td>list</td><td>[{&quot;city&quot;: &quot;Warszawa&quot;, &quot;salaries&quot;: 23, &quot;salaryMedian&quot;: 10500}]</td></tr>
+<tr><td><code>detailPagesRead</code></td><td></td><td>number</td><td>10</td></tr>
+<tr><td><code>agencyPercent</code></td><td></td><td>number</td><td>0</td></tr>
+<tr><td><code>topEmployers</code></td><td></td><td>list</td><td>[{&quot;company&quot;: &quot;EnercoNet S.A.&quot;, &quot;listings&quot;: 2, &quot;salaryMedian&quot;: null}...</td></tr>
+<tr><td><code>topCities</code></td><td></td><td>list</td><td>[{&quot;city&quot;: &quot;Warszawa&quot;, &quot;listings&quot;: 73}, {&quot;city&quot;: &quot;Janki&quot;, &quot;listings&quot;...</td></tr>
+<tr><td><code>contractTypes</code></td><td></td><td>list</td><td>[{&quot;contractType&quot;: &quot;employment contract&quot;, &quot;listings&quot;: 89, &quot;percent&quot;:...</td></tr>
+<tr><td><code>workModes</code></td><td></td><td>list</td><td>[{&quot;workMode&quot;: &quot;onsite&quot;, &quot;listings&quot;: 78, &quot;percent&quot;: 78}, {&quot;workMode&quot;...</td></tr>
+<tr><td><code>positionLevels</code></td><td></td><td>list</td><td>[{&quot;positionLevel&quot;: &quot;mid&quot;, &quot;listings&quot;: 64, &quot;percent&quot;: 64}, {&quot;positio...</td></tr>
+<tr><td><code>topCategories</code></td><td></td><td>list</td><td>[{&quot;category&quot;: &quot;Księgowość&quot;, &quot;listings&quot;: 10}]</td></tr>
+<tr><td><code>newestPostedDate</code></td><td></td><td>text</td><td>2026-11-17</td></tr>
+<tr><td><code>oldestPostedDate</code></td><td></td><td>text</td><td>2026-11-15</td></tr>
+<tr><td><code>benchmarkReady</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>status</code></td><td></td><td>text</td><td>benchmark of 31 gross monthly salaries from 100 postings</td></tr>
+<tr><td><code>readAt</code></td><td></td><td>text</td><td>2026-11-17T19:01:01Z</td></tr>
+<tr><td><code>chargeUnits</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;jobTitles&quot;: [
+    &quot;księgowa&quot;
+  ],
+  &quot;location&quot;: &quot;Warszawa&quot;,
+  &quot;listingsPerBenchmark&quot;: 100,
+  &quot;detailPages&quot;: 10,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>jobTitles</code></td><td>array</td><td>Job titles as postings name them, one per line, for example księgowa, kierowca or Java developer.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city or town such as Warszawa, Kraków or Gdańsk, for a benchmark of that place; empty means all of Poland.</td></tr>
+<tr><td><code>distanceKm</code></td><td>integer</td><td>How far from the city postings may be.</td></tr>
+<tr><td><code>contractTypes</code></td><td>array</td><td>Optional. Only postings that offer one of these contract types; empty means all.</td></tr>
+<tr><td><code>positionLevels</code></td><td>array</td><td>Optional. Only postings at one of these levels; empty means all.</td></tr>
+<tr><td><code>listingsPerBenchmark</code></td><td>integer</td><td>Postings counted for each benchmark, in pracuj.pl&#x27;s order (50 a page).</td></tr>
+<tr><td><code>detailPages</code></td><td>integer</td><td>Posting pages read for each benchmark: first those whose search card does not say gross or net, then spread over the other postings.</td></tr>
+<tr><td><code>titleMustMatch</code></td><td>boolean</td><td>Count only postings whose title holds every word of the job title (case and Polish letters ignored, and a final vowel: księgowa counts Księgowy).</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>pracuj.pl search result pages copied from your browser, one benchmark each, for example https://www.pracuj.pl/praca/księgowa;kw/warszawa;wp?rd=30 .</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobTitle&quot;: &quot;księgowa&quot;,
+    &quot;location&quot;: &quot;Warszawa&quot;,
+    &quot;distanceKm&quot;: 30,
+    &quot;searchUrl&quot;: &quot;https://www.pracuj.pl/praca/ksi%C4%99gowa;kw/Warszawa;wp?rd=30&quot;,
+    &quot;listingsOnSite&quot;: 626,
+    &quot;listingsRead&quot;: 150,
+    &quot;titleMatchPercent&quot;: 74.7,
+    &quot;listingsCounted&quot;: 100,
+    &quot;salariesShown&quot;: 42,
+    &quot;salarySharePercent&quot;: 42,
+    &quot;salariesUsed&quot;: 31,
+    &quot;salariesLeftOut&quot;: {
+      &quot;otherCurrency&quot;: 0,
+      &quot;netPay&quot;: 3,
+      &quot;hourlyOrNoPeriod&quot;: 2,
+      &quot;grossOrNetNotShown&quot;: 6,
+      &quot;outliers&quot;: 0
+    },
+    &quot;currency&quot;: &quot;PLN&quot;,
+    &quot;salaryPeriod&quot;: &quot;month&quot;,
+    &quot;salaryKind&quot;: &quot;gross&quot;,
+    &quot;salaryMin&quot;: 6500,
+    &quot;salaryP25&quot;: 8275,
+    &quot;salaryMedian&quot;: 10500,
+    &quot;salaryP75&quot;: 13500,
+    &quot;salaryMax&quot;: 22000,
+    &quot;salaryAverage&quot;: 11165,
+    &quot;salaryByLevel&quot;: [
+      {
+        &quot;positionLevel&quot;: &quot;mid&quot;,
+        &quot;salaries&quot;: 17,
+        &quot;salaryMedian&quot;: 9000
+      }
+    ],
+    &quot;salaryByCity&quot;: [
+      {
+        &quot;city&quot;: &quot;Warszawa&quot;,
+        &quot;salaries&quot;: 23,
+        &quot;salaryMedian&quot;: 10500
+      }
+    ],
+    &quot;detailPagesRead&quot;: 10,
+    &quot;directEmployerPercent&quot;: 100,
+    &quot;agencyPercent&quot;: 0,
+    &quot;topEmployers&quot;: [
+      {
+        &quot;company&quot;: &quot;EnercoNet S.A.&quot;,
+        &quot;listings&quot;: 2,
+        &quot;salaryMedian&quot;: null
+      },
+      {
+        &quot;company&quot;: &quot;IKEA Retail, Janki k/Warszawy&quot;,
+        &quot;listings&quot;: 2,
+        &quot;salaryMedian&quot;: null
+      },
+      {
+        &quot;company&quot;: &quot;Infakt sp. z o.o.&quot;,
+        &quot;listings&quot;: 2,
+        &quot;salaryMedian&quot;: null
+      }
+    ],
+    &quot;topCities&quot;: [
+      {
+        &quot;city&quot;: &quot;Warszawa&quot;,
+        &quot;listings&quot;: 73
+      },
+      {
+        &quot;city&quot;: &quot;Janki&quot;,
+        &quot;listings&quot;: 3
+      },
+      {
+        &quot;city&quot;: &quot;Biała Podlaska&quot;,
+        &quot;listings&quot;: 2
+      }
+    ],
+    &quot;contractTypes&quot;: [
+      {
+        &quot;contractType&quot;: &quot;employment contract&quot;,
+        &quot;listings&quot;: 89,
+        &quot;percent&quot;: 89
+      },
+      {
+        &quot;contractType&quot;: &quot;B2B&quot;,
+        &quot;listings&quot;: 28,
+        &quot;percent&quot;: 28
+      },
+      {
+        &quot;contractType&quot;: &quot;mandate contract&quot;,
+        &quot;listings&quot;: 16,
+        &quot;percent&quot;: 16
+      }
+    ],
+    &quot;workModes&quot;: [
+      {
+        &quot;workMode&quot;: &quot;onsite&quot;,
+        &quot;listings&quot;: 78,
+        &quot;percent&quot;: 78
+      },
+      {
+        &quot;workMode&quot;: &quot;hybrid&quot;,
+        &quot;listings&quot;: 32,
+        &quot;percent&quot;: 32
+      },
+      {
+        &quot;workMode&quot;: &quot;remote&quot;,
+        &quot;listings&quot;: 9,
+        &quot;percent&quot;: 9
+      }
+    ],
+    &quot;positionLevels&quot;: [
+      {
+        &quot;positionLevel&quot;: &quot;mid&quot;,
+        &quot;listings&quot;: 64,
+        &quot;percent&quot;: 64
+      },
+      {
+        &quot;positionLevel&quot;: &quot;junior&quot;,
+        &quot;listings&quot;: 17,
+        &quot;percent&quot;: 17
+      },
+      {
+        &quot;positionLevel&quot;: &quot;senior&quot;,
+        &quot;listings&quot;: 17,
+        &quot;percent&quot;: 17
+      }
+    ],
+    &quot;topCategories&quot;: [
+      {
+        &quot;category&quot;: &quot;Księgowość&quot;,
+        &quot;listings&quot;: 10
+      }
+    ],
+    &quot;newestPostedDate&quot;: &quot;2026-11-17&quot;,
+    &quot;oldestPostedDate&quot;: &quot;2026-11-15&quot;,
+    &quot;benchmarkReady&quot;: true,
+    &quot;status&quot;: &quot;benchmark of 31 gross monthly salaries from 100 postings&quot;,
+    &quot;readAt&quot;: &quot;2026-11-17T19:01:01Z&quot;,
+    &quot;chargeUnits&quot;: 1
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/pracuj-pl-salary-benchmark</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;jobTitles&#x27;: [&#x27;księgowa&#x27;],
+ &#x27;location&#x27;: &#x27;Warszawa&#x27;,
+ &#x27;listingsPerBenchmark&#x27;: 100,
+ &#x27;detailPages&#x27;: 10,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/pracuj-pl-salary-benchmark&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;jobTitles&quot;: [
+    &quot;księgowa&quot;
+  ],
+  &quot;location&quot;: &quot;Warszawa&quot;,
+  &quot;listingsPerBenchmark&quot;: 100,
+  &quot;detailPages&quot;: 10,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/pracuj-pl-salary-benchmark&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~pracuj-pl-salary-benchmark/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;jobTitles&quot;: [&quot;księgowa&quot;], &quot;location&quot;: &quot;Warszawa&quot;, &quot;listingsPerBenchmark&quot;: 100, &quot;detailPages&quot;: 10, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. See the <a href="https://apify.com/v0iddo/pracuj-pl-salary-benchmark/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Reads pracuj.pl&#x27;s public search pages and a sample of posting pages, the same pages as our Pracuj.pl Scraper. Its robots.txt is obeyed. Contact phone numbers, e-mail addresses and recruiter names...</li>
+<li>Salaries are gross monthly pay (brutto) in PLN. A range counts as its midpoint. Net pay, B2B rates (net plus VAT), hourly pay or pay without a period, another currency and outliers (under a fifth...</li>
+<li>A search card does not always say gross or net; the posting page states it for each contract type. Posting pages are read first for those postings, then spread over the others (detailPages); a...</li>
+<li>salarySharePercent is the share of the postings counted that show a salary at all. salaryByLevel and salaryByCity give a median where 5 salaries or more are left for one position level or city.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Pracuj.pl Salary Benchmark by Job Title and City return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobTitle, location, listingsOnSite, salariesUsed, salaryMin, salaryMedian, salaryMax, salarySharePercent, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Pracuj.pl Salary Benchmark by Job Title and City from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/pracuj-pl-salary-benchmark</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$490.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $343.00 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/pracuj-pl-salary-benchmark">Open Pracuj.pl Salary Benchmark by Job Title and City on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/handshake-jobs/">Handshake Jobs Scraper</a>: Scrape open job postings from joinhandshake.com into structured rows: title, department, employment type, l...</li>
+<li><a href="/irishjobs-scraper/">IrishJobs.ie and Jobs.ie Scraper</a>: Scrape job postings from IrishJobs.ie and Jobs.ie in Ireland: title, company, town, county, salary in EUR w...</li>
+<li><a href="/elempleo-scraper/">elempleo Scraper</a>: Scrape job postings from elempleo.com, Colombia&#x27;s second largest job board: title, company, city, salary ba...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

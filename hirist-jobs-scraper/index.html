@@ -79,6 +79,7 @@ Founded in 1993, Techno-Comp Computer Servic...</td></tr>
 <tbody>
 <tr><td><code>keywords</code></td><td>array</td><td>Job titles, skills or words such as Python, React, DevOps or data engineer.</td></tr>
 <tr><td><code>category</code></td><td>string</td><td>Optional. With search terms it keeps the results of this category; alone it lists the category, for example Machine Learning or Backend Development.</td></tr>
+<tr><td><code>categories</code></td><td>array</td><td>Optional, to pick several categories at once.</td></tr>
 <tr><td><code>locations</code></td><td>array</td><td>Optional cities or states such as Bangalore, Mumbai, Delhi NCR, Pune, Hyderabad, Chennai or Remote.</td></tr>
 <tr><td><code>experienceMin</code></td><td>integer</td><td>Optional. Postings whose experience band overlaps the range you give.</td></tr>
 <tr><td><code>experienceMax</code></td><td>integer</td><td>Optional. Upper end of the experience range in years.</td></tr>
@@ -222,7 +223,7 @@ console.log(items);
 <p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/hirist-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
-<li>One search runs per search term; postings are unique by ID across the whole run. Without search terms, a category lists every open posting of that category on hirist.tech.</li>
+<li>One search runs per search term; postings are unique by ID across the whole run. Without search terms, each category picked lists every open posting of that category on hirist.tech.</li>
 <li>A search shows at most 100 pages of 50 postings. For a broad search, add locations or an experience range.</li>
 <li>salaryMinLakhs and salaryMaxLakhs are the yearly salary in lakhs of rupees (1 lakh = 100,000 INR), only when the employer shows it; salaryHidden is true otherwise. Most employers hide it.</li>
 <li>experienceMin and experienceMax are the years of experience the posting asks for. The experience filter keeps postings whose band overlaps your range.</li>
@@ -243,9 +244,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/hirist-jobs-scraper">Open Hirist Jobs Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
+<li><a href="/pracuj-pl-salary-benchmark/">Pracuj.pl Salary Benchmark by Job Title and City</a>: Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles...</li>
 <li><a href="/handshake-jobs/">Handshake Jobs Scraper</a>: Scrape open job postings from joinhandshake.com into structured rows: title, department, employment type, l...</li>
 <li><a href="/irishjobs-scraper/">IrishJobs.ie and Jobs.ie Scraper</a>: Scrape job postings from IrishJobs.ie and Jobs.ie in Ireland: title, company, town, county, salary in EUR w...</li>
-<li><a href="/elempleo-scraper/">elempleo Scraper</a>: Scrape job postings from elempleo.com, Colombia&#x27;s second largest job board: title, company, city, salary ba...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

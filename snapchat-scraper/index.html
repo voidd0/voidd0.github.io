@@ -54,8 +54,8 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</co
 <p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
 <pre><code>{
   &quot;handles&quot;: [
-    &quot;kyliejenner&quot;,
-    &quot;daviddobrik&quot;
+    &quot;daviddobrik&quot;,
+    &quot;kyliejenner&quot;
   ],
   &quot;includeHighlights&quot;: true,
   &quot;maxItems&quot;: 20
@@ -123,7 +123,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</co
 
 client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
 
-run_input = {&#x27;handles&#x27;: [&#x27;kyliejenner&#x27;, &#x27;daviddobrik&#x27;],
+run_input = {&#x27;handles&#x27;: [&#x27;daviddobrik&#x27;, &#x27;kyliejenner&#x27;],
  &#x27;includeHighlights&#x27;: True,
  &#x27;maxItems&#x27;: 20}
 
@@ -137,8 +137,8 @@ const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
 
 const input = {
   &quot;handles&quot;: [
-    &quot;kyliejenner&quot;,
-    &quot;daviddobrik&quot;
+    &quot;daviddobrik&quot;,
+    &quot;kyliejenner&quot;
   ],
   &quot;includeHighlights&quot;: true,
   &quot;maxItems&quot;: 20
@@ -151,7 +151,7 @@ console.log(items);
 <pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~snapchat-scraper/run-sync-get-dataset-items&quot; \
   -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
   -H &quot;Content-Type: application/json&quot; \
-  -d &#x27;{&quot;handles&quot;: [&quot;kyliejenner&quot;, &quot;daviddobrik&quot;], &quot;includeHighlights&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+  -d &#x27;{&quot;handles&quot;: [&quot;daviddobrik&quot;, &quot;kyliejenner&quot;], &quot;includeHighlights&quot;: true, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><p>Ready-to-run example scripts: <a href="https://github.com/voidd0/snapchat-scraper">example repository on GitHub</a>.</p>
 <h2>Price</h2>
 <p>$1.49 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.04 per 1,000. See the <a href="https://apify.com/v0iddo/snapchat-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
@@ -178,9 +178,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/bluesky-scraper/">Bluesky Scraper</a>: Scrape public Bluesky accounts: posts with text, like count, repost count, reply count, language, media fla...</li>
 <li><a href="/medium-rss-tracker/">Medium Scraper</a>: Pull Medium articles via the public RSS feed endpoints: /feed/@user, /feed/tag/{tag}, /feed/{publication-sl...</li>
 <li><a href="/substack-newsletter-posts/">Substack Scraper</a>: Substack scraper for newsletter posts.</li>
+<li><a href="/substack-scraper/">Substack Posts Scraper</a>: Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
