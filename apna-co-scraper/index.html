@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apna.co Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/apna-co-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apna.co Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/apna-co-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Apna.co Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, companyName, city, location, salaryMin, salaryMax, workMode, workType, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Apna.co Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/apna-co-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.78 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.55 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Apna.co Scraper: how to get India Jobs and Monthly Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, office, field or work from home, full or part time, experience and link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/apna-co-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/apna-co-scraper">Open Apna.co Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Job title</td><td>text</td><td>Delivery Boy</td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>Swiggy delivery boy</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Mumbai</td></tr>
+<tr><td><code>location</code></td><td>Area</td><td>text</td><td>Mumbai/Bombay</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary from INR a month</td><td>number</td><td>48000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary to INR a month</td><td>number</td><td>100000</td></tr>
+<tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>field</td></tr>
+<tr><td><code>workType</code></td><td>Work type</td><td>text</td><td>full-time, part-time</td></tr>
+<tr><td><code>experience</code></td><td>Experience</td><td>text</td><td>Any experience</td></tr>
+<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://apna.co/job/mumbai-bombay/delivery-boy-57829588</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>57829588</td></tr>
+<tr><td><code>currency</code></td><td></td><td>text</td><td>INR</td></tr>
+<tr><td><code>salaryPeriod</code></td><td></td><td>text</td><td>month</td></tr>
+<tr><td><code>nightShift</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>minExperienceYears</code></td><td></td><td>number</td><td>0</td></tr>
+<tr><td><code>englishLevel</code></td><td></td><td>text</td><td>No English Required</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-18T04:17:15Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;delivery boy&quot;
+  ],
+  &quot;cities&quot;: [
+    &quot;Mumbai&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles as the site names them, such as delivery boy, telecaller, accountant, data entry, sales or python developer, one per line.</td></tr>
+<tr><td><code>cities</code></td><td>array</td><td>Cities such as Mumbai, Bengaluru, Delhi, Gurgaon, Hyderabad, Chennai, Pune or Kolkata, one per line (Bangalore, Bombay and the other old names work too).</td></tr>
+<tr><td><code>departments</code></td><td>array</td><td>Optional. Only jobs of these departments of the site; empty means all.</td></tr>
+<tr><td><code>workModes</code></td><td>array</td><td>Optional. Only work from home, work from office or field jobs; empty means all.</td></tr>
+<tr><td><code>workTypes</code></td><td>array</td><td>Optional. Only full time or part time jobs; empty means both.</td></tr>
+<tr><td><code>shifts</code></td><td>array</td><td>Optional. Only day shift or night shift jobs; empty means both.</td></tr>
+<tr><td><code>minSalary</code></td><td>integer</td><td>Only jobs that pay at least this much a month, as the site&#x27;s salary filter.</td></tr>
+<tr><td><code>experienceYears</code></td><td>integer</td><td>Optional. Only jobs open to a candidate with this many years of experience, as the site&#x27;s experience filter (0 for freshers).</td></tr>
+<tr><td><code>education</code></td><td>string</td><td>Only jobs open to a candidate with this education, as the site&#x27;s filter.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only jobs posted in that period.</td></tr>
+<tr><td><code>sortBy</code></td><td>string</td><td>The order of the site&#x27;s listing: its own, highest salary first or newest first.</td></tr>
+<tr><td><code>jobPages</code></td><td>boolean</td><td>Off: one request reads 25 jobs with the columns the listing shows.</td></tr>
+<tr><td><code>cityJobsOnly</code></td><td>boolean</td><td>The site goes on with jobs of other cities of the same state once a city&#x27;s own jobs run out (Pune and Nashik after Mumbai).</td></tr>
+<tr><td><code>jobsPerSearch</code></td><td>integer</td><td>Optional cap for each search (job title and city), so one search does not use the whole run.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: &quot;57829588&quot;,
+    &quot;title&quot;: &quot;Delivery Boy&quot;,
+    &quot;companyName&quot;: &quot;Swiggy delivery boy&quot;,
+    &quot;city&quot;: &quot;Mumbai&quot;,
+    &quot;location&quot;: &quot;Mumbai/Bombay&quot;,
+    &quot;salaryMin&quot;: 48000,
+    &quot;salaryMax&quot;: 100000,
+    &quot;currency&quot;: &quot;INR&quot;,
+    &quot;salaryPeriod&quot;: &quot;month&quot;,
+    &quot;workMode&quot;: &quot;field&quot;,
+    &quot;workType&quot;: &quot;full-time, part-time&quot;,
+    &quot;nightShift&quot;: false,
+    &quot;experience&quot;: &quot;Any experience&quot;,
+    &quot;minExperienceYears&quot;: 0,
+    &quot;englishLevel&quot;: &quot;No English Required&quot;,
+    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-57829588&quot;,
+    &quot;searchUrl&quot;: &quot;https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-18T04:17:15Z&quot;
+  },
+  {
+    &quot;jobId&quot;: &quot;489852196&quot;,
+    &quot;title&quot;: &quot;Delivery Boy&quot;,
+    &quot;companyName&quot;: &quot;Swiggy&quot;,
+    &quot;city&quot;: &quot;Mumbai&quot;,
+    &quot;location&quot;: &quot;Mumbai/Bombay&quot;,
+    &quot;salaryMin&quot;: 65000,
+    &quot;salaryMax&quot;: 95000,
+    &quot;currency&quot;: &quot;INR&quot;,
+    &quot;salaryPeriod&quot;: &quot;month&quot;,
+    &quot;workMode&quot;: &quot;field&quot;,
+    &quot;workType&quot;: &quot;full-time&quot;,
+    &quot;nightShift&quot;: false,
+    &quot;experience&quot;: &quot;Any experience&quot;,
+    &quot;minExperienceYears&quot;: 0,
+    &quot;englishLevel&quot;: &quot;No English Required&quot;,
+    &quot;companyLogo&quot;: &quot;https://apna-organization-logos.gumlet.io/production/60f9307556dbcf235eb557b2?w=128&quot;,
+    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-489852196&quot;,
+    &quot;searchUrl&quot;: &quot;https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-18T04:17:15Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/apna-co-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;delivery boy&#x27;], &#x27;cities&#x27;: [&#x27;Mumbai&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/apna-co-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;delivery boy&quot;
+  ],
+  &quot;cities&quot;: [
+    &quot;Mumbai&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/apna-co-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~apna-co-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;delivery boy&quot;], &quot;cities&quot;: [&quot;Mumbai&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.78 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.55 per 1,000. See the <a href="https://apify.com/v0iddo/apna-co-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per job title and city, with the filters you set. Pasted listing URLs keep their own filters. Each job comes once per run, however many searches list it.</li>
+<li>Job titles are read from the site&#x27;s own pages, such as apna.co/jobs/delivery-boy-jobs-in-mumbai. A title the site has no page for is searched with the site&#x27;s search box across India (at most 500...</li>
+<li>salaryMin and salaryMax are the fixed monthly pay in INR as the posting states it. With job pages on, maxEarnings is the most a month with the incentives the employer names. Jobs Apna lists from...</li>
+<li>A city&#x27;s listing on the site goes on with jobs of other cities of the same state once the city&#x27;s own jobs run out (on 2026-11-16, 32 of the first 100 delivery jobs listed for Mumbai were in...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Apna.co Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, companyName, city, location, salaryMin, salaryMax, workMode, workType, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Apna.co Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/apna-co-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.78 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.55 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/apna-co-scraper">Open Apna.co Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+<li><a href="/justjoin-it/">JustJoin.it Scraper</a>: Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, sa...</li>
+<li><a href="/francetravail/">France Travail Scraper</a>: Scrape France Travail (ex Pole Emploi) job offers by town or department, ROME domain and contract type: tit...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

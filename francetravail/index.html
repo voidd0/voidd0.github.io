@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>France Travail Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape France Travail (ex Pole Emploi) job offers by town or department, ROME domain and contract type: tit... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/francetravail/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="France Travail Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape France Travail (ex Pole Emploi) job offers by town or department, ROME domain and contract type: tit... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/francetravail/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the France Travail Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include offerId, title, companyName, location, city, contractType, contractDuration, workingHours, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the France Travail Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/francetravail with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>France Travail Scraper: how to get Pole Emploi Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape France Travail (ex Pole Emploi) job offers by town or department, ROME domain and contract type: title, company, town, contract and its length, weekly hours, schedule, salary with its period and minimum and maximum in euros, benefits, posting age, source and offer link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/francetravail</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/francetravail">Open France Travail Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>offerId</code></td><td>Offer ID</td><td>text</td><td>215WFWM</td></tr>
+<tr><td><code>title</code></td><td>Job Title</td><td>text</td><td>DEVELOPPEUR .NET ET PYTHON - PARIS LA DÉFENSE (H/F)</td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>ORSYS</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>75 - Paris 1er Arrondissement</td></tr>
+<tr><td><code>city</code></td><td>Town</td><td>text</td><td>Paris 1er Arrondissement</td></tr>
+<tr><td><code>contractType</code></td><td>Contract Type</td><td>text</td><td>CDI</td></tr>
+<tr><td><code>contractDuration</code></td><td>Contract Length</td><td>text</td><td></td></tr>
+<tr><td><code>workingHours</code></td><td>Working Hours</td><td>text</td><td>Temps plein</td></tr>
+<tr><td><code>weeklyHours</code></td><td>Hours per Week</td><td>number</td><td>37</td></tr>
+<tr><td><code>schedule</code></td><td>Schedule</td><td>text</td><td>Travail en journée</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>Mensuel de 4000.0 Euros à 6000.0 Euros</td></tr>
+<tr><td><code>salaryPeriod</code></td><td>Salary Period</td><td>text</td><td>monthly</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary Min (EUR)</td><td>number</td><td>4000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary Max (EUR)</td><td>number</td><td>6000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td>EUR</td></tr>
+<tr><td><code>benefits</code></td><td>Benefits</td><td>list</td><td></td></tr>
+<tr><td><code>snippet</code></td><td>Description Snippet</td><td>text</td><td>Rattaché au service SI - études et développements, vos missions ser...</td></tr>
+<tr><td><code>postedAge</code></td><td>Posted</td><td>text</td><td>Publié il y a 19 jours</td></tr>
+<tr><td><code>source</code></td><td>Source</td><td>text</td><td>France Travail</td></tr>
+<tr><td><code>url</code></td><td>Offer URL</td><td>URL</td><td>https://candidat.francetravail.fr/offres/recherche/detail/215WFWM</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;locationCodes&quot;: [
+    &quot;75D&quot;,
+    &quot;69D&quot;
+  ],
+  &quot;domainCode&quot;: &quot;M18&quot;,
+  &quot;contractType&quot;: &quot;&quot;,
+  &quot;includePartners&quot;: true,
+  &quot;includeSalary&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>locationCodes</code> (required)</td><td>array</td><td>INSEE commune codes (5 digits, e.g.</td></tr>
+<tr><td><code>domainCode</code></td><td>string</td><td>Optional ROME occupational domain code to narrow results (e.g.</td></tr>
+<tr><td><code>contractType</code></td><td>string</td><td>Optional contract type code: CDI (permanent), CDD (fixed-term), MIS (interim/temp), SAI (seasonal), E2 (apprenticeship), FS (professionalisation).</td></tr>
+<tr><td><code>includePartners</code></td><td>boolean</td><td>Also return offers sourced from France Travail partner job boards in addition to France Travail own listings.</td></tr>
+<tr><td><code>includeSalary</code></td><td>boolean</td><td>Open each offer page for its salary (period, minimum and maximum in euros), weekly hours, schedule, contract length, benefits and exact town.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;offerId&quot;: &quot;215WFWM&quot;,
+    &quot;title&quot;: &quot;DEVELOPPEUR .NET ET PYTHON - PARIS LA DÉFENSE (H/F)&quot;,
+    &quot;companyName&quot;: &quot;ORSYS&quot;,
+    &quot;location&quot;: &quot;75 - Paris 1er Arrondissement&quot;,
+    &quot;city&quot;: &quot;Paris 1er Arrondissement&quot;,
+    &quot;contractType&quot;: &quot;CDI&quot;,
+    &quot;workingHours&quot;: &quot;Temps plein&quot;,
+    &quot;weeklyHours&quot;: 37,
+    &quot;schedule&quot;: &quot;Travail en journée&quot;,
+    &quot;salaryText&quot;: &quot;Mensuel de 4000.0 Euros à 6000.0 Euros&quot;,
+    &quot;salaryPeriod&quot;: &quot;monthly&quot;,
+    &quot;salaryMin&quot;: 4000,
+    &quot;salaryMax&quot;: 6000,
+    &quot;salaryCurrency&quot;: &quot;EUR&quot;,
+    &quot;snippet&quot;: &quot;Rattaché au service SI - études et développements, vos missions seront de : * Concevoir et développer de nouveaux projets de bout en bout...&quot;,
+    &quot;postedAge&quot;: &quot;Publié il y a 19 jours&quot;,
+    &quot;source&quot;: &quot;France Travail&quot;,
+    &quot;url&quot;: &quot;https://candidat.francetravail.fr/offres/recherche/detail/215WFWM&quot;
+  },
+  {
+    &quot;offerId&quot;: &quot;216NKZK&quot;,
+    &quot;title&quot;: &quot;Ingénieur(e) Automatisation et Cybersécurité ICS/SCADA (H/F)&quot;,
+    &quot;companyName&quot;: &quot;CLOUDSEC CONSULTING&quot;,
+    &quot;location&quot;: &quot;75 - PARIS&quot;,
+    &quot;city&quot;: &quot;PARIS&quot;,
+    &quot;contractType&quot;: &quot;CDI&quot;,
+    &quot;workingHours&quot;: &quot;Temps plein&quot;,
+    &quot;weeklyHours&quot;: 35,
+    &quot;schedule&quot;: &quot;Travail en journée&quot;,
+    &quot;salaryText&quot;: &quot;Annuel de 31000.0 Euros&quot;,
+    &quot;salaryPeriod&quot;: &quot;yearly&quot;,
+    &quot;salaryMin&quot;: 31000,
+    &quot;salaryMax&quot;: 31000,
+    &quot;salaryCurrency&quot;: &quot;EUR&quot;,
+    &quot;benefits&quot;: [
+      &quot;Complémentaire santé&quot;,
+      &quot;Indemnité transports&quot;,
+      &quot;Titres restaurant / Prime de panier&quot;
+    ],
+    &quot;snippet&quot;: &quot;Vous concevez, développez et sécurisez des solutions d&#x27;automatisation pour des infrastructures industrielles. Votre mission combine progr...&quot;,
+    &quot;postedAge&quot;: &quot;Publié hier&quot;,
+    &quot;source&quot;: &quot;France Travail&quot;,
+    &quot;url&quot;: &quot;https://candidat.francetravail.fr/offres/recherche/detail/216NKZK&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/francetravail</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;locationCodes&#x27;: [&#x27;75D&#x27;, &#x27;69D&#x27;],
+ &#x27;domainCode&#x27;: &#x27;M18&#x27;,
+ &#x27;contractType&#x27;: &#x27;&#x27;,
+ &#x27;includePartners&#x27;: True,
+ &#x27;includeSalary&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/francetravail&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;locationCodes&quot;: [
+    &quot;75D&quot;,
+    &quot;69D&quot;
+  ],
+  &quot;domainCode&quot;: &quot;M18&quot;,
+  &quot;contractType&quot;: &quot;&quot;,
+  &quot;includePartners&quot;: true,
+  &quot;includeSalary&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/francetravail&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~francetravail/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;locationCodes&quot;: [&quot;75D&quot;, &quot;69D&quot;], &quot;domainCode&quot;: &quot;M18&quot;, &quot;contractType&quot;: &quot;&quot;, &quot;includePartners&quot;: true, &quot;includeSalary&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/francetravail/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers candidat.francetravail.fr (France). Location codes are 5-digit INSEE commune codes (e.g. 75056 for Paris) or department codes with a D suffix (e.g. 75D, 69D).</li>
+<li>Each page returns 20 listings; the scraper reads up to 50 pages per location (1,000 offers). Use the ROME domain code and contract type inputs to narrow results.</li>
+<li>Working hours is null when the listing does not specify it (shown as Non renseignee on the site). Full descriptions are in a JS component and not included; the snippet field holds the card-level...</li>
+<li>Salary, hours per week, schedule, contract length, benefits and town come from each offer page (one more page per offer). salaryMin and salaryMax are euros per salaryPeriod (hourly, monthly or...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the France Travail Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include offerId, title, companyName, location, city, contractType, contractDuration, workingHours, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the France Travail Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/francetravail</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/francetravail">Open France Travail Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+<li><a href="/apna-co-scraper/">Apna.co Scraper</a>: Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi...</li>
+<li><a href="/justjoin-it/">JustJoin.it Scraper</a>: Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, sa...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

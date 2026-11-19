@@ -32,22 +32,22 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</co
 <tbody>
 <tr><td><code>handle</code></td><td>Handle</td><td>text</td><td></td></tr>
 <tr><td><code>rowType</code></td><td>Row Type</td><td>text</td><td>spotlight</td></tr>
-<tr><td><code>displayName</code></td><td>Display Name</td><td>text</td><td></td></tr>
-<tr><td><code>subscriberCount</code></td><td>Subscribers</td><td>number</td><td>28584800</td></tr>
-<tr><td><code>videoTitle</code></td><td>Video Title</td><td>text</td><td>new day in the life on my youtube</td></tr>
-<tr><td><code>viewCount</code></td><td>Views</td><td>number</td><td>80341</td></tr>
-<tr><td><code>likeCount</code></td><td>Likes</td><td>number</td><td>3292</td></tr>
-<tr><td><code>uploadDate</code></td><td>Upload Date</td><td>date</td><td>2026-10-04</td></tr>
-<tr><td><code>durationSecs</code></td><td>Duration (s)</td><td>number</td><td>43</td></tr>
+<tr><td><code>displayName</code></td><td>Display Name</td><td>text</td><td>David Dobrik</td></tr>
+<tr><td><code>subscriberCount</code></td><td>Subscribers</td><td>number</td><td>5900300</td></tr>
+<tr><td><code>videoTitle</code></td><td>Video Title</td><td>text</td><td>David Dobrik Drinks Water in Kitchen - Behind the Scenes</td></tr>
+<tr><td><code>viewCount</code></td><td>Views</td><td>number</td><td>81632</td></tr>
+<tr><td><code>likeCount</code></td><td>Likes</td><td>number</td><td>2889</td></tr>
+<tr><td><code>uploadDate</code></td><td>Upload Date</td><td>date</td><td>2026-04-02</td></tr>
 <tr><td><code>highlightTitle</code></td><td>Highlight Title</td><td>text</td><td></td></tr>
 <tr><td><code>snapCount</code></td><td>Snaps</td><td>number</td><td></td></tr>
-<tr><td><code>thumbnailUrl</code></td><td>Thumbnail</td><td>image URL</td><td>https://cf-st.sc-cdn.net/d/fP2DrQyUjHVZgWhE7sNy8.256.IRZXSOY?mo=GkY...</td></tr>
-<tr><td><code>url</code></td><td>Video URL</td><td>URL</td><td>https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPw...</td></tr>
+<tr><td><code>thumbnailUrl</code></td><td>Thumbnail</td><td>image URL</td><td>https://cf-st.sc-cdn.net/d/HT7gBc69uwRZ3YCypzmU6.1400.IRZXSOY?mo=Gk...</td></tr>
+<tr><td><code>url</code></td><td>Video URL</td><td>URL</td><td>https://www.snapchat.com/@daviddobrik/spotlight/W7_EDlXWTBiXAEEniNo...</td></tr>
 <tr><td><code>mediaUrls</code></td><td>Photo and Video Links</td><td>list</td><td></td></tr>
-<tr><td><code>websiteUrl</code></td><td></td><td>text</td><td>kyliecosmetics.com</td></tr>
+<tr><td><code>bio</code></td><td></td><td>text</td><td>welcome to my snap yo!!!</td></tr>
 <tr><td><code>profilePictureUrl</code></td><td></td><td>text</td><td>https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L...</td></tr>
-<tr><td><code>commentCount</code></td><td></td><td>number</td><td>190</td></tr>
-<tr><td><code>keywords</code></td><td></td><td>list</td><td>[&quot;bedtime&quot;, &quot;relaxation&quot;, &quot;sleep&quot;]</td></tr>
+<tr><td><code>commentCount</code></td><td></td><td>number</td><td>147</td></tr>
+<tr><td><code>shareCount</code></td><td></td><td>number</td><td>11</td></tr>
+<tr><td><code>keywords</code></td><td></td><td>list</td><td>[&quot;David Dobrik&quot;, &quot;David Dobrik behind the scenes&quot;, &quot;how to drink wa...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -78,42 +78,44 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/snapchat-scraper</co
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;subscriberCount&quot;: 28584800,
-    &quot;websiteUrl&quot;: &quot;kyliecosmetics.com&quot;,
-    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvaEJwN3Z0ZFl5NFVOeFpnWk04dXBYP2JvPUVna3lBUVJJQWxBWllBRSUzRCZ1Yz0yNQ....&quot;,
+    &quot;displayName&quot;: &quot;David Dobrik&quot;,
+    &quot;subscriberCount&quot;: 5900300,
+    &quot;bio&quot;: &quot;welcome to my snap yo!!!&quot;,
+    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvbVNOaVdwTGdyWUhFeUNLRjUyTVZIP2JvPUVnMGFBQm9BTWdFRVNBSlFHV0FCJnVjPTI...&quot;,
     &quot;rowType&quot;: &quot;spotlight&quot;,
-    &quot;videoTitle&quot;: &quot;new day in the life on my youtube&quot;,
-    &quot;viewCount&quot;: 80341,
-    &quot;likeCount&quot;: 3292,
-    &quot;commentCount&quot;: 190,
-    &quot;uploadDate&quot;: &quot;2026-10-04&quot;,
-    &quot;durationSecs&quot;: 43,
+    &quot;videoTitle&quot;: &quot;David Dobrik Drinks Water in Kitchen - Behind the Scenes&quot;,
+    &quot;viewCount&quot;: 81632,
+    &quot;likeCount&quot;: 2889,
+    &quot;commentCount&quot;: 147,
+    &quot;shareCount&quot;: 11,
+    &quot;uploadDate&quot;: &quot;2026-04-02&quot;,
     &quot;keywords&quot;: [
-      &quot;bedtime&quot;,
-      &quot;relaxation&quot;,
-      &quot;sleep&quot;
+      &quot;David Dobrik&quot;,
+      &quot;David Dobrik behind the scenes&quot;,
+      &quot;how to drink water&quot;
     ],
-    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/fP2DrQyUjHVZgWhE7sNy8.256.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVCgAVoQRGZMYXJnZVRodW1ibmFpbKIBEAiAAiILEgAqB0lSWlhTT1miA...&quot;,
-    &quot;url&quot;: &quot;https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYcWVmcHNqb2p5AaEEYCyMAaEEX5T1AAAAAQ&quot;
+    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/HT7gBc69uwRZ3YCypzmU6.1400.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVClAloQRGZMYXJnZVRodW1ibmFpbKIBEAj4CiILEgAqB0lSWlhTT1mi...&quot;,
+    &quot;url&quot;: &quot;https://www.snapchat.com/@daviddobrik/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaGVnd3Nqa3ZvAZ1L1sUjAZ1L1rMtAAAAAQ&quot;
   },
   {
-    &quot;subscriberCount&quot;: 28584800,
-    &quot;websiteUrl&quot;: &quot;kyliecosmetics.com&quot;,
-    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvaEJwN3Z0ZFl5NFVOeFpnWk04dXBYP2JvPUVna3lBUVJJQWxBWllBRSUzRCZ1Yz0yNQ....&quot;,
+    &quot;displayName&quot;: &quot;David Dobrik&quot;,
+    &quot;subscriberCount&quot;: 5900300,
+    &quot;bio&quot;: &quot;welcome to my snap yo!!!&quot;,
+    &quot;profilePictureUrl&quot;: &quot;https://cf-st.sc-cdn.net/aps/bolt/aHR0cHM6Ly9jZi1zdC5zYy1jZG4ubmV0L2QvbVNOaVdwTGdyWUhFeUNLRjUyTVZIP2JvPUVnMGFBQm9BTWdFRVNBSlFHV0FCJnVjPTI...&quot;,
     &quot;rowType&quot;: &quot;spotlight&quot;,
-    &quot;videoTitle&quot;: &quot;Spotlight Snap&quot;,
-    &quot;viewCount&quot;: 140185,
-    &quot;likeCount&quot;: 4538,
-    &quot;commentCount&quot;: 239,
-    &quot;uploadDate&quot;: &quot;2026-09-24&quot;,
-    &quot;durationSecs&quot;: 48,
+    &quot;videoTitle&quot;: &quot;David Dobrik&#x27;s Casual Snack Time Vlog&quot;,
+    &quot;viewCount&quot;: 149419,
+    &quot;likeCount&quot;: 2519,
+    &quot;commentCount&quot;: 251,
+    &quot;shareCount&quot;: 44,
+    &quot;uploadDate&quot;: &quot;2026-04-01&quot;,
     &quot;keywords&quot;: [
-      &quot;siblings&quot;,
-      &quot;sister love&quot;,
-      &quot;daughter&quot;
+      &quot;David Dobrik snack time&quot;,
+      &quot;David Dobrik casual vlog&quot;,
+      &quot;eating sour patch kids&quot;
     ],
-    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/kZfX0TMVEFNAuPlye1Fst.256.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVCgAVoQRGZMYXJnZVRodW1ibmFpbKIBEAiAAiILEgAqB0lSWlhTT1miA...&quot;,
-    &quot;url&quot;: &quot;https://www.snapchat.com/@snapchat/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYZWlsa25xZHJpAaDReu8GAaDReozIAAAAAQ&quot;
+    &quot;thumbnailUrl&quot;: &quot;https://cf-st.sc-cdn.net/d/eNJ32Jvs3CY4JA9xn25gp.1400.IRZXSOY?mo=GkYaCTIBBEgCUC5gAVClAloQRGZMYXJnZVRodW1ibmFpbKIBEAj4CiILEgAqB0lSWlhTT1mi...&quot;,
+    &quot;url&quot;: &quot;https://www.snapchat.com/@daviddobrik/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYcHJ2eml3cGdoAZ1LUHDGAZ1LUDf_AAAAAQ&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -160,7 +162,7 @@ console.log(items);
 <li>Only public Snapchat creator profiles are scraped; private accounts and unknown handles are skipped with a log message.</li>
 <li>Each output row is one Spotlight video the creator profile page lists. A video the profile shows without its counts is read once more from its own Spotlight page for title, views, likes, comments...</li>
 <li>With Also return Highlights on, each saved Highlight and the current Story is one more row (Row Type highlight or story): its title, number of snaps, newest snap date, cover image and the links to...</li>
-<li>Subscriber counts and view counts are as displayed on the public profile page and may be rounded by Snapchat.</li>
+<li>Snapchat no longer states a video&#x27;s duration on its pages, so Duration (durationSecs) stays empty.</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Snapchat Scraper return?</h3>
@@ -178,9 +180,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/snapchat-scraper">Open Snapchat Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
+<li><a href="/truth-social-scraper/">Truth Social Scraper</a>: Scrape public posts from Truth Social accounts via the public REST API.</li>
 <li><a href="/medium-rss-tracker/">Medium Scraper</a>: Pull Medium articles via the public RSS feed endpoints: /feed/@user, /feed/tag/{tag}, /feed/{publication-sl...</li>
 <li><a href="/substack-newsletter-posts/">Substack Scraper</a>: Substack scraper for newsletter posts.</li>
-<li><a href="/substack-scraper/">Substack Posts Scraper</a>: Collect the posts of any Substack publication: title, subtitle, date, link, paywall flag, reactions, commen...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

@@ -11,7 +11,7 @@
 <meta property="og:description" content="Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/reed-jobs-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Reed Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, jobType, workingOption, postedAt, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Reed Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/reed-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.45 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.32 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Reed Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, salaryMin, salaryMax, salaryPeriod, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Reed Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/reed-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.45 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.32 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -26,46 +26,46 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/reed-jobs-scraper</c
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Data Analyst</td></tr>
-<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Harnham - Data &amp; Analytics Recruitment</td></tr>
-<tr><td><code>advertiser</code></td><td>Advertiser</td><td>text</td><td>agency</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>HR Data Analyst</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>SGN</td></tr>
+<tr><td><code>advertiser</code></td><td>Advertiser</td><td>text</td><td>employer</td></tr>
 <tr><td><code>location</code></td><td>Place</td><td>text</td><td>London</td></tr>
-<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>£ 40,000 - £ 60,000 per annum</td></tr>
-<tr><td><code>jobType</code></td><td>Type</td><td>text</td><td>permanent</td></tr>
-<tr><td><code>workingOption</code></td><td>Work place</td><td>text</td><td>hybrid</td></tr>
-<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-10-14T16:09:33Z</td></tr>
-<tr><td><code>expiresAt</code></td><td>Expires</td><td>date</td><td>2026-11-25T23:55:00Z</td></tr>
-<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.reed.co.uk/jobs/data-analyst/57459297</td></tr>
-<tr><td><code>jobId</code></td><td></td><td>number</td><td>57459297</td></tr>
-<tr><td><code>companyId</code></td><td></td><td>number</td><td>331522</td></tr>
-<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://www.reed.co.uk/company-profile/Harnham---Data---Analytics-R...</td></tr>
-<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://resources.reed.co.uk/profileimages/logos/thumbs/Logo_9243.png</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>Salary not specified</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary Min (GBP)</td><td>number</td><td></td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary Max (GBP)</td><td>number</td><td></td></tr>
+<tr><td><code>salaryPeriod</code></td><td>Salary Period</td><td>text</td><td></td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td></td></tr>
+<tr><td><code>jobType</code></td><td>Type</td><td>text</td><td>contract</td></tr>
+<tr><td><code>workingOption</code></td><td>Work place</td><td>text</td><td></td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-11-17T19:28:04Z</td></tr>
+<tr><td><code>expiresAt</code></td><td>Expires</td><td>date</td><td>2026-12-29T19:28:04Z</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://www.reed.co.uk/jobs/hr-data-analyst/57584982</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>number</td><td>57584982</td></tr>
+<tr><td><code>companyId</code></td><td></td><td>number</td><td>558777</td></tr>
+<tr><td><code>companyUrl</code></td><td></td><td>text</td><td>https://www.reed.co.uk/company-profile/SGN-41464</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://resources.reed.co.uk/profileimages/logos/thumbs/Logo_44074.png</td></tr>
 <tr><td><code>county</code></td><td></td><td>text</td><td>London</td></tr>
 <tr><td><code>region</code></td><td></td><td>text</td><td>South East England</td></tr>
+<tr><td><code>postcode</code></td><td></td><td>text</td><td>EC1N</td></tr>
 <tr><td><code>country</code></td><td></td><td>text</td><td>GB</td></tr>
 <tr><td><code>fullTime</code></td><td></td><td>true/false</td><td>true</td></tr>
-<tr><td><code>partTime</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>salaryMin</code></td><td></td><td>number</td><td>40000</td></tr>
-<tr><td><code>salaryMax</code></td><td></td><td>number</td><td>60000</td></tr>
-<tr><td><code>salaryCurrency</code></td><td></td><td>text</td><td>GBP</td></tr>
-<tr><td><code>salaryInterval</code></td><td></td><td>text</td><td>year</td></tr>
-<tr><td><code>salaryMinYearly</code></td><td></td><td>number</td><td>40000</td></tr>
-<tr><td><code>salaryMaxYearly</code></td><td></td><td>number</td><td>60000</td></tr>
+<tr><td><code>partTime</code></td><td></td><td>true/false</td><td>true</td></tr>
 <tr><td><code>salaryHidden</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-10-22T16:17:17Z</td></tr>
+<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-11-17T19:28:04Z</td></tr>
 <tr><td><code>category</code></td><td></td><td>text</td><td>Analyst</td></tr>
 <tr><td><code>subcategory</code></td><td></td><td>text</td><td>Data Analyst</td></tr>
-<tr><td><code>sector</code></td><td></td><td>text</td><td>Analyst</td></tr>
-<tr><td><code>parentSector</code></td><td></td><td>text</td><td>Scientific</td></tr>
-<tr><td><code>easyApply</code></td><td></td><td>true/false</td><td>true</td></tr>
-<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>sector</code></td><td></td><td>text</td><td>HR Analyst</td></tr>
+<tr><td><code>parentSector</code></td><td></td><td>text</td><td>Human Resources</td></tr>
+<tr><td><code>skills</code></td><td></td><td>list</td><td>[&quot;Analytical Thinking&quot;, &quot;Attention to Detail&quot;, &quot;Communication Skills&quot;]</td></tr>
+<tr><td><code>easyApply</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>true</td></tr>
 <tr><td><code>graduate</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>ukWorkRightRequired</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>snippet</code></td><td></td><td>text</td><td>Data Analyst London (Hybrid, 3 days per week in office) | Up to 60,...</td></tr>
-<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Data Analyst
+<tr><td><code>ukWorkRightRequired</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>snippet</code></td><td></td><td>text</td><td>HR Data Analyst - 12 Months FTC Across SGN | Epsom, Horley, Godston...</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>HR Data Analyst - 12 Months FTC
 
-London (Hybrid, 3 days per week in office) | Up to £6...</td></tr>
-<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-10-26T10:34:35Z</td></tr>
+Across SGN | Epsom, Horley, Godsto...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-18T08:33:33Z</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -99,6 +99,45 @@ London (Hybrid, 3 days per week in office) | Up to £6...</td></tr>
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
+    &quot;jobId&quot;: 57584982,
+    &quot;title&quot;: &quot;HR Data Analyst&quot;,
+    &quot;company&quot;: &quot;SGN&quot;,
+    &quot;companyId&quot;: 558777,
+    &quot;advertiser&quot;: &quot;employer&quot;,
+    &quot;companyUrl&quot;: &quot;https://www.reed.co.uk/company-profile/SGN-41464&quot;,
+    &quot;companyLogo&quot;: &quot;https://resources.reed.co.uk/profileimages/logos/thumbs/Logo_44074.png&quot;,
+    &quot;location&quot;: &quot;London&quot;,
+    &quot;county&quot;: &quot;London&quot;,
+    &quot;region&quot;: &quot;South East England&quot;,
+    &quot;postcode&quot;: &quot;EC1N&quot;,
+    &quot;country&quot;: &quot;GB&quot;,
+    &quot;jobType&quot;: &quot;contract&quot;,
+    &quot;fullTime&quot;: true,
+    &quot;partTime&quot;: true,
+    &quot;salaryText&quot;: &quot;Salary not specified&quot;,
+    &quot;salaryHidden&quot;: false,
+    &quot;postedAt&quot;: &quot;2026-11-17T19:28:04Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-11-17T19:28:04Z&quot;,
+    &quot;expiresAt&quot;: &quot;2026-12-29T19:28:04Z&quot;,
+    &quot;category&quot;: &quot;Analyst&quot;,
+    &quot;subcategory&quot;: &quot;Data Analyst&quot;,
+    &quot;sector&quot;: &quot;HR Analyst&quot;,
+    &quot;parentSector&quot;: &quot;Human Resources&quot;,
+    &quot;skills&quot;: [
+      &quot;Analytical Thinking&quot;,
+      &quot;Attention to Detail&quot;,
+      &quot;Communication Skills&quot;
+    ],
+    &quot;easyApply&quot;: false,
+    &quot;promoted&quot;: true,
+    &quot;graduate&quot;: false,
+    &quot;ukWorkRightRequired&quot;: true,
+    &quot;snippet&quot;: &quot;HR Data Analyst - 12 Months FTC Across SGN | Epsom, Horley, Godstone, Aldershot, Portsmouth, Farringdon, Edinburgh, Glasgow, Paisley, Abe...&quot;,
+    &quot;descriptionText&quot;: &quot;HR Data Analyst - 12 Months FTC\n\nAcross SGN | Epsom, Horley, Godstone, Aldershot, Portsmouth, Farringdon, Edinburgh, Glasgow, Paisley, Ab...&quot;,
+    &quot;url&quot;: &quot;https://www.reed.co.uk/jobs/hr-data-analyst/57584982&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-18T08:33:33Z&quot;
+  },
+  {
     &quot;jobId&quot;: 57459297,
     &quot;title&quot;: &quot;Data Analyst&quot;,
     &quot;company&quot;: &quot;Harnham - Data &amp; Analytics Recruitment&quot;,
@@ -118,12 +157,13 @@ London (Hybrid, 3 days per week in office) | Up to £6...</td></tr>
     &quot;salaryMax&quot;: 60000,
     &quot;salaryCurrency&quot;: &quot;GBP&quot;,
     &quot;salaryInterval&quot;: &quot;year&quot;,
+    &quot;salaryPeriod&quot;: &quot;yearly&quot;,
     &quot;salaryText&quot;: &quot;£ 40,000 - £ 60,000 per annum&quot;,
     &quot;salaryMinYearly&quot;: 40000,
     &quot;salaryMaxYearly&quot;: 60000,
     &quot;salaryHidden&quot;: false,
     &quot;postedAt&quot;: &quot;2026-10-14T16:09:33Z&quot;,
-    &quot;updatedAt&quot;: &quot;2026-10-22T16:17:17Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-10-26T16:17:17Z&quot;,
     &quot;expiresAt&quot;: &quot;2026-11-25T23:55:00Z&quot;,
     &quot;category&quot;: &quot;Analyst&quot;,
     &quot;subcategory&quot;: &quot;Data Analyst&quot;,
@@ -136,7 +176,7 @@ London (Hybrid, 3 days per week in office) | Up to £6...</td></tr>
     &quot;snippet&quot;: &quot;Data Analyst London (Hybrid, 3 days per week in office) | Up to 60,000 This is an excellent opportunity for a Data Analyst to join a high...&quot;,
     &quot;descriptionText&quot;: &quot;Data Analyst\n\nLondon (Hybrid, 3 days per week in office) | Up to £60,000\n\nThis is an excellent opportunity for a Data Analyst to join a h...&quot;,
     &quot;url&quot;: &quot;https://www.reed.co.uk/jobs/data-analyst/57459297&quot;,
-    &quot;scrapedAt&quot;: &quot;2026-10-26T10:34:35Z&quot;
+    &quot;scrapedAt&quot;: &quot;2026-11-18T08:33:34Z&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -181,13 +221,13 @@ console.log(items);
 <h2>Good to know</h2>
 <ul>
 <li>One search runs per search term, with the place, distance and filters you chose. Pasted search URLs keep their own filters. Postings are unique by ID across the whole run.</li>
-<li>salaryMin and salaryMax are the figures the posting shows, per salaryInterval (hour, day or year). salaryMinYearly and salaryMaxYearly are Reed&#x27;s yearly equivalents. A posting that shows...</li>
+<li>salaryMin and salaryMax are the figures the posting shows, per salaryInterval (hour, day or year). salaryPeriod names that period as hourly, daily, weekly, monthly or yearly, and salaryCurrency is...</li>
 <li>advertiser is employer or agency (a recruitment agency posting for a client).</li>
 <li>With posting details on, each posting is read once more for its full description, contract type, sector, region, postcode, the salary as shown and Reed&#x27;s skill tags. Skill tags are the ones Reed...</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Reed Jobs Scraper return?</h3>
-<p>Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, jobType, workingOption, postedAt, and more. The table above shows every field with an example value.</p>
+<p>Each result is one row in an Apify dataset. Fields include title, company, advertiser, location, salaryText, salaryMin, salaryMax, salaryPeriod, and more. The table above shows every field with an example value.</p>
 <h3>How do I use the Reed Jobs Scraper from Python?</h3>
 <p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/reed-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
 <h3>Can I use it without writing code?</h3>
@@ -201,9 +241,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/reed-jobs-scraper">Open Reed Jobs Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
-<li><a href="/pracuj-pl-salary-benchmark/">Pracuj.pl Salary Benchmark by Job Title and City</a>: Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles...</li>
-<li><a href="/handshake-jobs/">Handshake Jobs Scraper</a>: Scrape open job postings from joinhandshake.com into structured rows: title, department, employment type, l...</li>
-<li><a href="/irishjobs-scraper/">IrishJobs.ie and Jobs.ie Scraper</a>: Scrape job postings from IrishJobs.ie and Jobs.ie in Ireland: title, company, town, county, salary in EUR w...</li>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+<li><a href="/apna-co-scraper/">Apna.co Scraper</a>: Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi...</li>
+<li><a href="/justjoin-it/">JustJoin.it Scraper</a>: Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, sa...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

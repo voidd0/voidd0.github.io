@@ -11,7 +11,7 @@
 <meta property="og:description" content="Scrape Rightmove property listings for sale or to rent across the UK: price, address, bedrooms, bathrooms,... Python, JavaScript and cURL code, sample output and price per...">
 <meta property="og:url" content="https://voidd0.github.io/rightmove-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Rightmove Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include propertyId, displayAddress, priceText, bedrooms, bathrooms, propertyType, propertySubType, agent, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Rightmove Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/rightmove-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Rightmove Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include propertyId, displayAddress, priceText, price, currency, bedrooms, bathrooms, propertyType, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Rightmove Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/rightmove-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -26,24 +26,22 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/rightmove-scraper</c
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>propertyId</code></td><td>Property ID</td><td>text</td><td>89554110</td></tr>
-<tr><td><code>displayAddress</code></td><td>Address</td><td>text</td><td>Grecian Street, Salford, M7</td></tr>
-<tr><td><code>priceText</code></td><td>Price</td><td>text</td><td>£225,000</td></tr>
-<tr><td><code>bedrooms</code></td><td>Bedrooms</td><td>number</td><td>4</td></tr>
-<tr><td><code>bathrooms</code></td><td>Bathrooms</td><td>number</td><td>2</td></tr>
-<tr><td><code>propertyType</code></td><td>Type</td><td>text</td><td>House</td></tr>
-<tr><td><code>propertySubType</code></td><td>Sub type</td><td>text</td><td>Detached</td></tr>
-<tr><td><code>agent</code></td><td>Agent branch</td><td>text</td><td>Miller Metcalfe, Worsley</td></tr>
-<tr><td><code>addedOrReduced</code></td><td>Added or reduced</td><td>text</td><td>Reduced on 21/10/2026</td></tr>
+<tr><td><code>propertyId</code></td><td>Property ID</td><td>text</td><td>95549274</td></tr>
+<tr><td><code>displayAddress</code></td><td>Address</td><td>text</td><td>Eccles New Road, Salford</td></tr>
+<tr><td><code>priceText</code></td><td>Price</td><td>text</td><td>£130,000</td></tr>
+<tr><td><code>price</code></td><td>Price (number)</td><td>number</td><td>130000</td></tr>
+<tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>GBP</td></tr>
+<tr><td><code>bedrooms</code></td><td>Bedrooms</td><td>number</td><td>2</td></tr>
+<tr><td><code>bathrooms</code></td><td>Bathrooms</td><td>number</td><td>1</td></tr>
+<tr><td><code>propertyType</code></td><td>Type</td><td>text</td><td>Flat</td></tr>
+<tr><td><code>propertySubType</code></td><td>Sub type</td><td>text</td><td>Flat</td></tr>
+<tr><td><code>agent</code></td><td>Agent branch</td><td>text</td><td>Keenans Estate Agents, Swinton</td></tr>
+<tr><td><code>addedOrReduced</code></td><td>Added or reduced</td><td>text</td><td>Added yesterday</td></tr>
 <tr><td><code>image</code></td><td>Photo</td><td>image URL</td><td>https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo...</td></tr>
-<tr><td><code>url</code></td><td>Listing</td><td>URL</td><td>https://www.rightmove.co.uk/properties/89554110</td></tr>
-<tr><td><code>price</code></td><td></td><td>number</td><td>225000</td></tr>
-<tr><td><code>priceQualifier</code></td><td></td><td>text</td><td>Guide Price</td></tr>
-<tr><td><code>currency</code></td><td></td><td>text</td><td>GBP</td></tr>
-<tr><td><code>size</code></td><td></td><td>text</td><td>979 sq. ft.</td></tr>
-<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-10-21T12:36:59Z</td></tr>
-<tr><td><code>latitude</code></td><td></td><td>number</td><td>53.498873</td></tr>
-<tr><td><code>longitude</code></td><td></td><td>number</td><td>-2.266797</td></tr>
+<tr><td><code>url</code></td><td>Listing</td><td>URL</td><td>https://www.rightmove.co.uk/properties/95549274</td></tr>
+<tr><td><code>updatedAt</code></td><td></td><td>text</td><td>2026-11-17T09:58:04Z</td></tr>
+<tr><td><code>latitude</code></td><td></td><td>number</td><td>53.483566</td></tr>
+<tr><td><code>longitude</code></td><td></td><td>number</td><td>-2.315018</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -73,24 +71,22 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/rightmove-scraper</c
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;propertyId&quot;: 89554110,
-    &quot;price&quot;: 225000,
-    &quot;priceText&quot;: &quot;£225,000&quot;,
-    &quot;priceQualifier&quot;: &quot;Guide Price&quot;,
+    &quot;propertyId&quot;: 95549274,
+    &quot;price&quot;: 130000,
+    &quot;priceText&quot;: &quot;£130,000&quot;,
     &quot;currency&quot;: &quot;GBP&quot;,
-    &quot;displayAddress&quot;: &quot;Grecian Street, Salford, M7&quot;,
-    &quot;bedrooms&quot;: 4,
-    &quot;bathrooms&quot;: 2,
-    &quot;propertyType&quot;: &quot;House&quot;,
-    &quot;propertySubType&quot;: &quot;Detached&quot;,
-    &quot;size&quot;: &quot;979 sq. ft.&quot;,
-    &quot;agent&quot;: &quot;Miller Metcalfe, Worsley&quot;,
-    &quot;addedOrReduced&quot;: &quot;Reduced on 21/10/2026&quot;,
-    &quot;updatedAt&quot;: &quot;2026-10-21T12:36:59Z&quot;,
-    &quot;latitude&quot;: 53.498873,
-    &quot;longitude&quot;: -2.266797,
-    &quot;image&quot;: &quot;https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/3c2ec7942/89554110/3c2ec794270f50abb0ff9a64c0aa6684_max_476x317.jpeg&quot;,
-    &quot;url&quot;: &quot;https://www.rightmove.co.uk/properties/89554110&quot;
+    &quot;displayAddress&quot;: &quot;Eccles New Road, Salford&quot;,
+    &quot;bedrooms&quot;: 2,
+    &quot;bathrooms&quot;: 1,
+    &quot;propertyType&quot;: &quot;Flat&quot;,
+    &quot;propertySubType&quot;: &quot;Flat&quot;,
+    &quot;agent&quot;: &quot;Keenans Estate Agents, Swinton&quot;,
+    &quot;addedOrReduced&quot;: &quot;Added yesterday&quot;,
+    &quot;updatedAt&quot;: &quot;2026-11-17T09:58:04Z&quot;,
+    &quot;latitude&quot;: 53.483566,
+    &quot;longitude&quot;: -2.315018,
+    &quot;image&quot;: &quot;https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/906ca4c21/95549274/906ca4c2183f7dc7d03a264d57667834_max_476x317.png&quot;,
+    &quot;url&quot;: &quot;https://www.rightmove.co.uk/properties/95549274&quot;
   },
   {
     &quot;propertyId&quot;: 94405431,
@@ -159,7 +155,7 @@ console.log(items);
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Rightmove Scraper return?</h3>
-<p>Each result is one row in an Apify dataset. Fields include propertyId, displayAddress, priceText, bedrooms, bathrooms, propertyType, propertySubType, agent, and more. The table above shows every field with an example value.</p>
+<p>Each result is one row in an Apify dataset. Fields include propertyId, displayAddress, priceText, price, currency, bedrooms, bathrooms, propertyType, and more. The table above shows every field with an example value.</p>
 <h3>How do I use the Rightmove Scraper from Python?</h3>
 <p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/rightmove-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
 <h3>Can I use it without writing code?</h3>
@@ -175,7 +171,7 @@ console.log(items);
 <ul>
 <li><a href="/zillow-scraper/">Zillow Search Scraper</a>: Scrape Zillow search results for homes for sale, rentals and recently sold properties: price, address, beds...</li>
 <li><a href="/fotocasa-scraper/">Fotocasa Scraper</a>: Scrape Fotocasa property listings for sale or to rent across Spain: price, price drop, rooms, bathrooms, su...</li>
-<li><a href="/pracuj-pl-salary-benchmark/">Pracuj.pl Salary Benchmark by Job Title and City</a>: Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles...</li>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

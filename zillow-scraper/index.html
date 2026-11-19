@@ -11,7 +11,7 @@
 <meta property="og:description" content="Scrape Zillow search results for homes for sale, rentals and recently sold properties: price, address, beds... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/zillow-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Zillow Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include address, priceText, beds, baths, livingArea, homeType, status, daysOnZillow, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Zillow Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/zillow-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Zillow Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include address, priceText, price, beds, baths, livingArea, homeType, status, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Zillow Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/zillow-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -26,26 +26,26 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/zillow-scraper</code
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>address</code></td><td>Address</td><td>text</td><td>8709 Blaze Dr, Austin, TX 78747</td></tr>
-<tr><td><code>priceText</code></td><td>Price</td><td>text</td><td>$449,000</td></tr>
-<tr><td><code>beds</code></td><td>Beds</td><td>number</td><td>4</td></tr>
-<tr><td><code>baths</code></td><td>Baths</td><td>number</td><td>3</td></tr>
-<tr><td><code>livingArea</code></td><td>Living area (sq ft)</td><td>number</td><td>2428</td></tr>
+<tr><td><code>address</code></td><td>Address</td><td>text</td><td>12703 Timberside Dr, Austin, TX 78727</td></tr>
+<tr><td><code>priceText</code></td><td>Price</td><td>text</td><td>$498,000</td></tr>
+<tr><td><code>price</code></td><td>Price (USD)</td><td>number</td><td>498000</td></tr>
+<tr><td><code>beds</code></td><td>Beds</td><td>number</td><td>3</td></tr>
+<tr><td><code>baths</code></td><td>Baths</td><td>number</td><td>2</td></tr>
+<tr><td><code>livingArea</code></td><td>Living area (sq ft)</td><td>number</td><td>1438</td></tr>
 <tr><td><code>homeType</code></td><td>Home type</td><td>text</td><td>SINGLE_FAMILY</td></tr>
 <tr><td><code>status</code></td><td>Status</td><td>text</td><td>FOR_SALE</td></tr>
-<tr><td><code>daysOnZillow</code></td><td>Days on Zillow</td><td>number</td><td>2</td></tr>
-<tr><td><code>brokerName</code></td><td>Brokerage</td><td>text</td><td>Compass RE Texas, LLC</td></tr>
-<tr><td><code>url</code></td><td>Listing</td><td>URL</td><td>https://www.zillow.com/homedetails/8709-Blaze-Dr-Austin-TX-78747/24...</td></tr>
-<tr><td><code>zpid</code></td><td></td><td>text</td><td>241930983</td></tr>
-<tr><td><code>street</code></td><td></td><td>text</td><td>8709 Blaze Dr</td></tr>
+<tr><td><code>daysOnZillow</code></td><td>Days on Zillow</td><td>number</td><td>7</td></tr>
+<tr><td><code>brokerName</code></td><td>Brokerage</td><td>text</td><td>Ready Real Estate</td></tr>
+<tr><td><code>url</code></td><td>Listing</td><td>URL</td><td>https://www.zillow.com/homedetails/12703-Timberside-Dr-Austin-TX-78...</td></tr>
+<tr><td><code>zpid</code></td><td></td><td>text</td><td>339458430</td></tr>
+<tr><td><code>street</code></td><td></td><td>text</td><td>12703 Timberside Dr</td></tr>
 <tr><td><code>city</code></td><td></td><td>text</td><td>Austin</td></tr>
 <tr><td><code>state</code></td><td></td><td>text</td><td>TX</td></tr>
-<tr><td><code>zipcode</code></td><td></td><td>text</td><td>78747</td></tr>
-<tr><td><code>price</code></td><td></td><td>number</td><td>449000</td></tr>
-<tr><td><code>lotArea</code></td><td></td><td>number</td><td>5959</td></tr>
-<tr><td><code>latitude</code></td><td></td><td>number</td><td>30.155561</td></tr>
-<tr><td><code>longitude</code></td><td></td><td>number</td><td>-97.75403</td></tr>
-<tr><td><code>imgSrc</code></td><td></td><td>text</td><td>https://photos.zillowstatic.com/fp/3092794a64d832969bdc9c6473960032...</td></tr>
+<tr><td><code>zipcode</code></td><td></td><td>text</td><td>78727</td></tr>
+<tr><td><code>lotArea</code></td><td></td><td>number</td><td>6599</td></tr>
+<tr><td><code>latitude</code></td><td></td><td>number</td><td>30.426064</td></tr>
+<tr><td><code>longitude</code></td><td></td><td>number</td><td>-97.706955</td></tr>
+<tr><td><code>imgSrc</code></td><td></td><td>text</td><td>https://photos.zillowstatic.com/fp/ac699e2f4316f2d775bef763eb55dc04...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -75,48 +75,48 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/zillow-scraper</code
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;zpid&quot;: &quot;241930983&quot;,
-    &quot;address&quot;: &quot;8709 Blaze Dr, Austin, TX 78747&quot;,
-    &quot;street&quot;: &quot;8709 Blaze Dr&quot;,
+    &quot;zpid&quot;: &quot;339458430&quot;,
+    &quot;address&quot;: &quot;12703 Timberside Dr, Austin, TX 78727&quot;,
+    &quot;street&quot;: &quot;12703 Timberside Dr&quot;,
     &quot;city&quot;: &quot;Austin&quot;,
     &quot;state&quot;: &quot;TX&quot;,
-    &quot;zipcode&quot;: &quot;78747&quot;,
-    &quot;price&quot;: 449000,
-    &quot;priceText&quot;: &quot;$449,000&quot;,
-    &quot;beds&quot;: 4,
-    &quot;baths&quot;: 3,
-    &quot;livingArea&quot;: 2428,
-    &quot;lotArea&quot;: 5959,
+    &quot;zipcode&quot;: &quot;78727&quot;,
+    &quot;price&quot;: 498000,
+    &quot;priceText&quot;: &quot;$498,000&quot;,
+    &quot;beds&quot;: 3,
+    &quot;baths&quot;: 2,
+    &quot;livingArea&quot;: 1438,
+    &quot;lotArea&quot;: 6599,
     &quot;homeType&quot;: &quot;SINGLE_FAMILY&quot;,
     &quot;status&quot;: &quot;FOR_SALE&quot;,
-    &quot;daysOnZillow&quot;: 2,
-    &quot;latitude&quot;: 30.155561,
-    &quot;longitude&quot;: -97.75403,
-    &quot;brokerName&quot;: &quot;Compass RE Texas, LLC&quot;,
-    &quot;imgSrc&quot;: &quot;https://photos.zillowstatic.com/fp/3092794a64d832969bdc9c6473960032-p_e.jpg&quot;,
-    &quot;url&quot;: &quot;https://www.zillow.com/homedetails/8709-Blaze-Dr-Austin-TX-78747/241930983_zpid/&quot;
+    &quot;daysOnZillow&quot;: 7,
+    &quot;latitude&quot;: 30.426064,
+    &quot;longitude&quot;: -97.706955,
+    &quot;brokerName&quot;: &quot;Ready Real Estate&quot;,
+    &quot;imgSrc&quot;: &quot;https://photos.zillowstatic.com/fp/ac699e2f4316f2d775bef763eb55dc04-p_e.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.zillow.com/homedetails/12703-Timberside-Dr-Austin-TX-78727/339458430_zpid/&quot;
   },
   {
-    &quot;zpid&quot;: &quot;64625418&quot;,
-    &quot;address&quot;: &quot;11008 Sierra Ridge Ct, Austin, TX 78739&quot;,
-    &quot;street&quot;: &quot;11008 Sierra Ridge Ct&quot;,
+    &quot;zpid&quot;: &quot;64483231&quot;,
+    &quot;address&quot;: &quot;5406 S Hearsey Dr, Austin, TX 78744&quot;,
+    &quot;street&quot;: &quot;5406 S Hearsey Dr&quot;,
     &quot;city&quot;: &quot;Austin&quot;,
     &quot;state&quot;: &quot;TX&quot;,
-    &quot;zipcode&quot;: &quot;78739&quot;,
-    &quot;price&quot;: 1375000,
-    &quot;priceText&quot;: &quot;$1,375,000&quot;,
-    &quot;beds&quot;: 5,
-    &quot;baths&quot;: 4,
-    &quot;livingArea&quot;: 4395,
-    &quot;lotArea&quot;: 16666,
+    &quot;zipcode&quot;: &quot;78744&quot;,
+    &quot;price&quot;: 325000,
+    &quot;priceText&quot;: &quot;$325,000&quot;,
+    &quot;beds&quot;: 3,
+    &quot;baths&quot;: 3,
+    &quot;livingArea&quot;: 2170,
+    &quot;lotArea&quot;: 6477,
     &quot;homeType&quot;: &quot;SINGLE_FAMILY&quot;,
     &quot;status&quot;: &quot;FOR_SALE&quot;,
-    &quot;daysOnZillow&quot;: 17,
-    &quot;latitude&quot;: 30.191551,
-    &quot;longitude&quot;: -97.90368,
-    &quot;brokerName&quot;: &quot;Keller Williams Realty&quot;,
-    &quot;imgSrc&quot;: &quot;https://photos.zillowstatic.com/fp/7838632f692b96915c92c564228dcfb6-p_e.jpg&quot;,
-    &quot;url&quot;: &quot;https://www.zillow.com/homedetails/11008-Sierra-Ridge-Ct-Austin-TX-78739/64625418_zpid/&quot;
+    &quot;daysOnZillow&quot;: 148,
+    &quot;latitude&quot;: 30.19809,
+    &quot;longitude&quot;: -97.732635,
+    &quot;brokerName&quot;: &quot;Opendoor Brokerage LLC&quot;,
+    &quot;imgSrc&quot;: &quot;https://photos.zillowstatic.com/fp/6bce3d65f34594e4e9bb4cf4e37a8051-p_e.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.zillow.com/homedetails/5406-S-Hearsey-Dr-Austin-TX-78744/64483231_zpid/&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -163,7 +163,7 @@ console.log(items);
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Zillow Search Scraper return?</h3>
-<p>Each result is one row in an Apify dataset. Fields include address, priceText, beds, baths, livingArea, homeType, status, daysOnZillow, and more. The table above shows every field with an example value.</p>
+<p>Each result is one row in an Apify dataset. Fields include address, priceText, price, beds, baths, livingArea, homeType, status, and more. The table above shows every field with an example value.</p>
 <h3>How do I use the Zillow Search Scraper from Python?</h3>
 <p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/zillow-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
 <h3>Can I use it without writing code?</h3>
@@ -179,7 +179,7 @@ console.log(items);
 <ul>
 <li><a href="/fotocasa-scraper/">Fotocasa Scraper</a>: Scrape Fotocasa property listings for sale or to rent across Spain: price, price drop, rooms, bathrooms, su...</li>
 <li><a href="/rightmove-scraper/">Rightmove Scraper</a>: Scrape Rightmove property listings for sale or to rent across the UK: price, address, bedrooms, bathrooms,...</li>
-<li><a href="/pracuj-pl-salary-benchmark/">Pracuj.pl Salary Benchmark by Job Title and City</a>: Get a salary benchmark for any job title from pracuj.pl postings in Poland: gross monthly median, quartiles...</li>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

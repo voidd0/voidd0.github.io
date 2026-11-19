@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JustJoin.it Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, sa... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/justjoin-it/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JustJoin.it Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, sa... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/justjoin-it/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the JustJoin.it Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, companyName, city, workMode, seniority, skills, salaryFrom, salaryTo, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the JustJoin.it Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/justjoin-it with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>JustJoin.it Scraper: how to get Polish IT Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape IT job offers from JustJoin.it in Poland: title, company, city, work mode, seniority, tech stack, salary from and to with currency, period and gross or net, B2B or employment contract, date and link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/justjoin-it</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/justjoin-it">Open JustJoin.it Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td></td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>Arising</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Gliwice</td></tr>
+<tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>remote</td></tr>
+<tr><td><code>seniority</code></td><td>Seniority</td><td>text</td><td>senior</td></tr>
+<tr><td><code>skills</code></td><td>Skills</td><td>list</td><td></td></tr>
+<tr><td><code>salaryFrom</code></td><td>Salary from</td><td>number</td><td>130</td></tr>
+<tr><td><code>salaryTo</code></td><td>Salary to</td><td>number</td><td>130</td></tr>
+<tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>PLN</td></tr>
+<tr><td><code>salaryInterval</code></td><td>Per</td><td>text</td><td>hour</td></tr>
+<tr><td><code>salaryType</code></td><td>Gross or net</td><td>text</td><td>net</td></tr>
+<tr><td><code>contractType</code></td><td>Contract</td><td>text</td><td>B2B</td></tr>
+<tr><td><code>publishedAt</code></td><td>Published</td><td>date</td><td>2026-11-17T22:38:08Z</td></tr>
+<tr><td><code>url</code></td><td>Offer</td><td>URL</td><td></td></tr>
+<tr><td><code>offerId</code></td><td></td><td>text</td><td>1f4dcf66-a28f-4227-8932-1ace55b88e9e</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>Python</td></tr>
+<tr><td><code>workingTime</code></td><td></td><td>text</td><td>full time</td></tr>
+<tr><td><code>street</code></td><td></td><td>text</td><td>Stanisława Konarskiego 18C</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Gliwice&quot;]</td></tr>
+<tr><td><code>latitude</code></td><td></td><td>number</td><td>50.2917204</td></tr>
+<tr><td><code>longitude</code></td><td></td><td>number</td><td>18.6826684</td></tr>
+<tr><td><code>contractTypes</code></td><td></td><td>list</td><td>[&quot;B2B&quot;]</td></tr>
+<tr><td><code>salaries</code></td><td></td><td>list</td><td>[{&quot;contractType&quot;: &quot;B2B&quot;, &quot;from&quot;: 130, &quot;to&quot;: 130, &quot;currency&quot;: &quot;PLN&quot;,...</td></tr>
+<tr><td><code>remoteInterview</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>openToUkrainians</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>expiresAt</code></td><td></td><td>text</td><td>2027-01-01T22:38:08Z</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://imgproxy.justjoinit.tech/M5e5BYVTqNOEnlsvgM0JEr0fJXJm8nYZx1...</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://justjoin.it/job-offers/all-locations/python?with-salary=yes</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-18T04:32:40Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categories&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;salaryOnly&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categories</code></td><td>array</td><td>Site categories such as python, javascript, java, devops, data, testing or mobile, one per line; the names the site shows (.NET, UX/UI, C++) work too.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Optional words such as django, react, kotlin or sap, searched the way the site&#x27;s search box does.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city such as Warszawa, Krakow, Wroclaw, Gdansk or Poznan (Warsaw and Polish letters work too), or remote for fully remote offers.</td></tr>
+<tr><td><code>experienceLevels</code></td><td>array</td><td>Optional. Only offers at these levels; empty means all.</td></tr>
+<tr><td><code>workModes</code></td><td>array</td><td>Optional. Only remote, hybrid, office or mobile offers; empty means all.</td></tr>
+<tr><td><code>contractTypes</code></td><td>array</td><td>Optional. Only offers with one of these contracts (B2B, employment contract UoP, mandate contract UZ, contract for specific work UoD); empty means all.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only offers that show a salary range, as the site&#x27;s With salary filter.</td></tr>
+<tr><td><code>postedWithin</code></td><td>string</td><td>Only offers published in that period.</td></tr>
+<tr><td><code>sortBy</code></td><td>string</td><td>The order of the site&#x27;s listing: its default, newest first or highest salary first.</td></tr>
+<tr><td><code>offersPerSearch</code></td><td>integer</td><td>Optional cap for each search (category and keyword), so one search does not use the whole run.</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>JustJoin.it listing pages copied from your browser, for example https://justjoin.it/job-offers/krakow/java?experience-levels=senior .</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+<tr><td><code>onlyNew</code></td><td>boolean</td><td>Skip rows that an earlier run with the same input already returned, so a scheduled run gives each new row once.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;offerId&quot;: &quot;1f4dcf66-a28f-4227-8932-1ace55b88e9e&quot;,
+    &quot;companyName&quot;: &quot;Arising&quot;,
+    &quot;category&quot;: &quot;Python&quot;,
+    &quot;seniority&quot;: &quot;senior&quot;,
+    &quot;workMode&quot;: &quot;remote&quot;,
+    &quot;workingTime&quot;: &quot;full time&quot;,
+    &quot;city&quot;: &quot;Gliwice&quot;,
+    &quot;street&quot;: &quot;Stanisława Konarskiego 18C&quot;,
+    &quot;locations&quot;: [
+      &quot;Gliwice&quot;
+    ],
+    &quot;latitude&quot;: 50.2917204,
+    &quot;longitude&quot;: 18.6826684,
+    &quot;salaryFrom&quot;: 130,
+    &quot;salaryTo&quot;: 130,
+    &quot;currency&quot;: &quot;PLN&quot;,
+    &quot;salaryInterval&quot;: &quot;hour&quot;,
+    &quot;salaryType&quot;: &quot;net&quot;,
+    &quot;contractType&quot;: &quot;B2B&quot;,
+    &quot;contractTypes&quot;: [
+      &quot;B2B&quot;
+    ],
+    &quot;salaries&quot;: [
+      {
+        &quot;contractType&quot;: &quot;B2B&quot;,
+        &quot;from&quot;: 130,
+        &quot;to&quot;: 130,
+        &quot;currency&quot;: &quot;PLN&quot;,
+        &quot;interval&quot;: &quot;hour&quot;,
+        &quot;type&quot;: &quot;net&quot;
+      }
+    ],
+    &quot;remoteInterview&quot;: false,
+    &quot;openToUkrainians&quot;: false,
+    &quot;promoted&quot;: false,
+    &quot;publishedAt&quot;: &quot;2026-11-17T22:38:08Z&quot;,
+    &quot;expiresAt&quot;: &quot;2027-01-01T22:38:08Z&quot;,
+    &quot;companyLogo&quot;: &quot;https://imgproxy.justjoinit.tech/M5e5BYVTqNOEnlsvgM0JEr0fJXJm8nYZx15FkrZ2Qyw/h:200/w:200/plain/https://s3.eu-west-1.amazonaws.com/public....&quot;,
+    &quot;searchUrl&quot;: &quot;https://justjoin.it/job-offers/all-locations/python?with-salary=yes&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-18T04:32:40Z&quot;
+  },
+  {
+    &quot;offerId&quot;: &quot;cb4e37f1-bbb3-4cfa-9325-d26e303d00da&quot;,
+    &quot;title&quot;: &quot;Senior Python Developer (Databricks &amp; React)&quot;,
+    &quot;companyName&quot;: &quot;Cyclad&quot;,
+    &quot;category&quot;: &quot;Python&quot;,
+    &quot;seniority&quot;: &quot;senior&quot;,
+    &quot;workMode&quot;: &quot;hybrid&quot;,
+    &quot;workingTime&quot;: &quot;full time&quot;,
+    &quot;skills&quot;: [
+      &quot;Python&quot;,
+      &quot;React&quot;,
+      &quot;Databricks&quot;
+    ],
+    &quot;city&quot;: &quot;Wrocław&quot;,
+    &quot;street&quot;: &quot;Legnicka&quot;,
+    &quot;locations&quot;: [
+      &quot;Wrocław&quot;
+    ],
+    &quot;latitude&quot;: 51.1186225,
+    &quot;longitude&quot;: 16.9983948,
+    &quot;salaryFrom&quot;: 130,
+    &quot;salaryTo&quot;: 150,
+    &quot;currency&quot;: &quot;PLN&quot;,
+    &quot;salaryInterval&quot;: &quot;hour&quot;,
+    &quot;salaryType&quot;: &quot;net&quot;,
+    &quot;contractType&quot;: &quot;B2B&quot;,
+    &quot;contractTypes&quot;: [
+      &quot;B2B&quot;
+    ],
+    &quot;salaries&quot;: [
+      {
+        &quot;contractType&quot;: &quot;B2B&quot;,
+        &quot;from&quot;: 130,
+        &quot;to&quot;: 150,
+        &quot;currency&quot;: &quot;PLN&quot;,
+        &quot;interval&quot;: &quot;hour&quot;,
+        &quot;type&quot;: &quot;net&quot;
+      }
+    ],
+    &quot;remoteInterview&quot;: false,
+    &quot;openToUkrainians&quot;: false,
+    &quot;promoted&quot;: false,
+    &quot;publishedAt&quot;: &quot;2026-11-17T21:55:01Z&quot;,
+    &quot;expiresAt&quot;: &quot;2026-12-31T22:59:59Z&quot;,
+    &quot;companyLogo&quot;: &quot;https://imgproxy.justjoinit.tech/eK-vPVPHIArpMi4DWur8bgVOB8Wdnp1WOWJCBtzWU5w/h:200/w:200/plain/https://public.rocketjobs.pl/companies/log...&quot;,
+    &quot;url&quot;: &quot;https://justjoin.it/job-offer/cyclad-senior-python-developer-databricks-react--wroclaw-python&quot;,
+    &quot;searchUrl&quot;: &quot;https://justjoin.it/job-offers/all-locations/python?with-salary=yes&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-18T04:32:40Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/justjoin-it</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categories&#x27;: [&#x27;python&#x27;], &#x27;salaryOnly&#x27;: True, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/justjoin-it&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categories&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;salaryOnly&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/justjoin-it&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~justjoin-it/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categories&quot;: [&quot;python&quot;], &quot;salaryOnly&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. See the <a href="https://apify.com/v0iddo/justjoin-it/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per category and keyword, in the city you choose and with the filters you set. Pasted listing URLs keep their own filters. Each offer comes once per run, however many searches list it.</li>
+<li>salaryFrom, salaryTo, currency, salaryInterval (month, day, hour or year) and salaryType (gross or net) are the employer&#x27;s own figures for contractType, the first contract with a salary the offer...</li>
+<li>contractType and contractTypes are in English: B2B, employment contract (umowa o prace, UoP), mandate contract (umowa zlecenie), contract for specific work (umowa o dzielo) and internship. An...</li>
+<li>With a salary only keeps the offers that show a salary range, as the site&#x27;s own filter does. Without it, offers whose salary is not disclosed come with empty salary fields.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the JustJoin.it Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, companyName, city, workMode, seniority, skills, salaryFrom, salaryTo, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the JustJoin.it Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/justjoin-it</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.35 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/justjoin-it">Open JustJoin.it Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+<li><a href="/apna-co-scraper/">Apna.co Scraper</a>: Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi...</li>
+<li><a href="/francetravail/">France Travail Scraper</a>: Scrape France Travail (ex Pole Emploi) job offers by town or department, ROME domain and contract type: tit...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
