@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No Fluff Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape IT job offers from No Fluff Jobs (nofluffjobs.com) in Poland: title, company, category, seniority, m... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/nofluffjobs/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="No Fluff Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape IT job offers from No Fluff Jobs (nofluffjobs.com) in Poland: title, company, category, seniority, m... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/nofluffjobs/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the No Fluff Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, companyName, category, seniority, workMode, city, skills, salaryFrom, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the No Fluff Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/nofluffjobs with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>No Fluff Jobs Scraper: how to get Polish IT Jobs and Salaries as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape IT job offers from No Fluff Jobs (nofluffjobs.com) in Poland: title, company, category, seniority, must have skills, work mode, city, salary from and to with currency and period, B2B or employment contract, date and link. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/nofluffjobs</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nofluffjobs">Open No Fluff Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Senior Software Engineer with Python</td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>CodiLime</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Backend</td></tr>
+<tr><td><code>seniority</code></td><td>Seniority</td><td>list</td><td>[&quot;senior&quot;]</td></tr>
+<tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>remote</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Remote</td></tr>
+<tr><td><code>skills</code></td><td>Must have skills</td><td>list</td><td></td></tr>
+<tr><td><code>salaryFrom</code></td><td>Salary from</td><td>number</td><td>20500</td></tr>
+<tr><td><code>salaryTo</code></td><td>Salary to</td><td>number</td><td>30000</td></tr>
+<tr><td><code>currency</code></td><td>Currency</td><td>text</td><td>PLN</td></tr>
+<tr><td><code>salaryInterval</code></td><td>Per</td><td>text</td><td>month</td></tr>
+<tr><td><code>salaryType</code></td><td>Gross or net</td><td>text</td><td>net</td></tr>
+<tr><td><code>contractType</code></td><td>Contract</td><td>text</td><td>B2B</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td>2026-11-18T23:01:38Z</td></tr>
+<tr><td><code>url</code></td><td>Offer</td><td>URL</td><td>https://nofluffjobs.com/pl/job/senior-software-engineer-with-python...</td></tr>
+<tr><td><code>offerId</code></td><td></td><td>text</td><td>SKQKAXAX</td></tr>
+<tr><td><code>technology</code></td><td></td><td>text</td><td>Python</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Warszawa&quot;]</td></tr>
+<tr><td><code>contractTypes</code></td><td></td><td>list</td><td>[&quot;B2B&quot;]</td></tr>
+<tr><td><code>salaries</code></td><td></td><td>list</td><td>[{&quot;contractType&quot;: &quot;B2B&quot;, &quot;from&quot;: 20500, &quot;to&quot;: 30000, &quot;currency&quot;: &quot;P...</td></tr>
+<tr><td><code>salaryVisible</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>onlineInterview</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>openToUkrainians</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://static.nofluffjobs.com/companies/logos/jobs_listing/pozosta...</td></tr>
+<tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://nofluffjobs.com/pl/?criteria=requirement%3DPython</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-19T04:57:14Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;technologies&quot;: [
+    &quot;Python&quot;
+  ],
+  &quot;salaryOnly&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>technologies</code></td><td>array</td><td>Technologies such as Python, Java, React, SQL or Spring Boot, one per line, as the site&#x27;s technology filter.</td></tr>
+<tr><td><code>categories</code></td><td>array</td><td>Optional site categories such as backend, frontend, fullstack, devops, data, testing, mobile or security, one per line.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Optional words such as data engineer or fintech, searched the way the site&#x27;s search box does.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city such as Warszawa, Krakow, Wroclaw, Gdansk or Poznan (Warsaw and Polish letters work too), or remote or hybrid.</td></tr>
+<tr><td><code>experienceLevels</code></td><td>array</td><td>Optional. Only offers at these levels; empty means all.</td></tr>
+<tr><td><code>contractTypes</code></td><td>array</td><td>Optional. Only offers with one of these contracts (B2B, employment contract UoP, mandate contract UZ, contract for specific work UoD); empty means all.</td></tr>
+<tr><td><code>minSalary</code></td><td>integer</td><td>Optional. Only offers the site&#x27;s own salary filter finds at this monthly amount in PLN or more.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Leave out the offers whose salary range the employer shows only at an interview.</td></tr>
+<tr><td><code>sortBy</code></td><td>string</td><td>The order of the site&#x27;s listing: its default, newest first or highest salary first.</td></tr>
+<tr><td><code>offersPerSearch</code></td><td>integer</td><td>Optional cap for each search, so one search does not use the whole run.</td></tr>
+<tr><td><code>splitLargeSearches</code></td><td>boolean</td><td>The site lists the first 100 offers of a search.</td></tr>
+<tr><td><code>offerPages</code></td><td>boolean</td><td>Off: one request reads up to 100 offers with the columns the listing shows (the first must have skills).</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>No Fluff Jobs listing pages copied from your browser, for example https://nofluffjobs.com/pl/warszawa/backend .</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;offerId&quot;: &quot;SKQKAXAX&quot;,
+    &quot;title&quot;: &quot;Senior Software Engineer with Python&quot;,
+    &quot;companyName&quot;: &quot;CodiLime&quot;,
+    &quot;category&quot;: &quot;Backend&quot;,
+    &quot;technology&quot;: &quot;Python&quot;,
+    &quot;seniority&quot;: [
+      &quot;senior&quot;
+    ],
+    &quot;workMode&quot;: &quot;remote&quot;,
+    &quot;city&quot;: &quot;Remote&quot;,
+    &quot;locations&quot;: [
+      &quot;Warszawa&quot;
+    ],
+    &quot;salaryFrom&quot;: 20500,
+    &quot;salaryTo&quot;: 30000,
+    &quot;currency&quot;: &quot;PLN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryType&quot;: &quot;net&quot;,
+    &quot;contractType&quot;: &quot;B2B&quot;,
+    &quot;contractTypes&quot;: [
+      &quot;B2B&quot;
+    ],
+    &quot;salaries&quot;: [
+      {
+        &quot;contractType&quot;: &quot;B2B&quot;,
+        &quot;from&quot;: 20500,
+        &quot;to&quot;: 30000,
+        &quot;currency&quot;: &quot;PLN&quot;,
+        &quot;interval&quot;: &quot;month&quot;,
+        &quot;type&quot;: &quot;net&quot;
+      }
+    ],
+    &quot;salaryVisible&quot;: true,
+    &quot;postedAt&quot;: &quot;2026-11-18T23:01:38Z&quot;,
+    &quot;onlineInterview&quot;: false,
+    &quot;openToUkrainians&quot;: false,
+    &quot;promoted&quot;: true,
+    &quot;companyLogo&quot;: &quot;https://static.nofluffjobs.com/companies/logos/jobs_listing/pozostale_kanaly_20211005_124140.png&quot;,
+    &quot;url&quot;: &quot;https://nofluffjobs.com/pl/job/senior-software-engineer-with-python-codilime-remote-2&quot;,
+    &quot;searchUrl&quot;: &quot;https://nofluffjobs.com/pl/?criteria=requirement%3DPython&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-19T04:57:14Z&quot;
+  },
+  {
+    &quot;offerId&quot;: &quot;S3WLEQZD&quot;,
+    &quot;title&quot;: &quot;Programista/ka Python, C++&quot;,
+    &quot;companyName&quot;: &quot;Redge Technologies&quot;,
+    &quot;category&quot;: &quot;Backend&quot;,
+    &quot;technology&quot;: &quot;Python&quot;,
+    &quot;seniority&quot;: [
+      &quot;mid&quot;
+    ],
+    &quot;workMode&quot;: &quot;hybrid&quot;,
+    &quot;skills&quot;: [
+      &quot;Python&quot;,
+      &quot;C++&quot;,
+      &quot;API&quot;
+    ],
+    &quot;city&quot;: &quot;Wrocław&quot;,
+    &quot;street&quot;: &quot;ul.Ostródzka&quot;,
+    &quot;locations&quot;: [
+      &quot;Wrocław&quot;
+    ],
+    &quot;latitude&quot;: 51.1532638,
+    &quot;longitude&quot;: 16.9360847,
+    &quot;salaryFrom&quot;: 12000,
+    &quot;salaryTo&quot;: 18000,
+    &quot;currency&quot;: &quot;PLN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryType&quot;: &quot;net&quot;,
+    &quot;contractType&quot;: &quot;B2B&quot;,
+    &quot;contractTypes&quot;: [
+      &quot;B2B&quot;
+    ],
+    &quot;salaries&quot;: [
+      {
+        &quot;contractType&quot;: &quot;B2B&quot;,
+        &quot;from&quot;: 12000,
+        &quot;to&quot;: 18000,
+        &quot;currency&quot;: &quot;PLN&quot;,
+        &quot;interval&quot;: &quot;month&quot;,
+        &quot;type&quot;: &quot;net&quot;
+      }
+    ],
+    &quot;salaryVisible&quot;: true,
+    &quot;postedAt&quot;: &quot;2026-11-18T23:00:58Z&quot;,
+    &quot;onlineInterview&quot;: false,
+    &quot;openToUkrainians&quot;: false,
+    &quot;promoted&quot;: false,
+    &quot;companyLogo&quot;: &quot;https://static.nofluffjobs.com/companies/logos/jobs_listing/zrzut_ekranu_20260428_o_141904_20260428_141914.png&quot;,
+    &quot;url&quot;: &quot;https://nofluffjobs.com/pl/job/programista-ka-python-c--redge-technologies-wroclaw&quot;,
+    &quot;searchUrl&quot;: &quot;https://nofluffjobs.com/pl/?criteria=requirement%3DPython&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-19T04:57:14Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/nofluffjobs</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;technologies&#x27;: [&#x27;Python&#x27;], &#x27;salaryOnly&#x27;: True, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/nofluffjobs&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;technologies&quot;: [
+    &quot;Python&quot;
+  ],
+  &quot;salaryOnly&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/nofluffjobs&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~nofluffjobs/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;technologies&quot;: [&quot;Python&quot;], &quot;salaryOnly&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. See the <a href="https://apify.com/v0iddo/nofluffjobs/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>One search runs per technology, keyword and category (categories crossed with the technologies and keywords), in the city you choose and with the filters you set. Pasted listing URLs keep their...</li>
+<li>The site&#x27;s listing shows the first 100 offers of a search. A search with more is read again for each seniority level (Read large searches per seniority, on by default), so one search gives up to...</li>
+<li>salaryFrom, salaryTo, currency, salaryInterval (month, day, hour or year) and salaryType are the employer&#x27;s own figures for contractType, the contract the offer card shows. B2B rates are net...</li>
+<li>contractType and contractTypes are in English: B2B, employment contract (umowa o prace, UoP), mandate contract (umowa zlecenie, UZ), contract for specific work (umowa o dzielo, UoD) and internship.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the No Fluff Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, companyName, category, seniority, workMode, city, skills, salaryFrom, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the No Fluff Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/nofluffjobs</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.75 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.53 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nofluffjobs">Open No Fluff Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/pracuj-pl-job-alerts/">Pracuj.pl Job Alerts</a>: Watch pracuj.pl searches and get only new, changed or expired job offers, with salary and link, in one aler...</li>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+<li><a href="/apna-co-scraper/">Apna.co Scraper</a>: Scrape job listings from Apna.co in India: title, company, city and area, monthly salary range in INR, offi...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

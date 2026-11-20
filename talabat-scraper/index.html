@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talabat Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape Talabat restaurant listings by country: restaurant ID, name, cuisines, category, logo and direct URL. Python, JavaScript and cURL code, sample output and price per...">
+<link rel="canonical" href="https://voidd0.github.io/talabat-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Talabat Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape Talabat restaurant listings by country: restaurant ID, name, cuisines, category, logo and direct URL. Python, JavaScript and cURL code, sample output and price per...">
+<meta property="og:url" content="https://voidd0.github.io/talabat-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Talabat Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include restaurantId, name, slug, country, cuisines, logoUrl, url. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Talabat Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/talabat-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Talabat Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Talabat restaurant listings by country: restaurant ID, name, cuisines, category, logo and direct URL. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/talabat-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/talabat-scraper">Open Talabat Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>restaurantId</code></td><td>Restaurant ID</td><td>number</td><td>328</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>Johnny Rockets</td></tr>
+<tr><td><code>slug</code></td><td>Slug</td><td>text</td><td>johnny-rockets</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>uae</td></tr>
+<tr><td><code>cuisines</code></td><td>Cuisines</td><td>text</td><td>Kerala,Indian,Pakistani,South indian,Curry,Biryani</td></tr>
+<tr><td><code>logoUrl</code></td><td>Logo</td><td>image URL</td><td>https://images.deliveryhero.io/image/talabat/restaurants/Johnny-Roc...</td></tr>
+<tr><td><code>url</code></td><td>URL</td><td>URL</td><td>https://www.talabat.com/uae/johnny-rockets</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;listingUrls&quot;: [
+    &quot;https://www.talabat.com/uae/restaurants&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>listingUrls</code> (required)</td><td>array</td><td>Talabat country or area restaurant listing pages, for example https://www.talabat.com/uae/restaurants or https://www.talabat.com/kuwait/restaurants.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many listing pages to read per URL (up to 30 restaurants each).</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;restaurantId&quot;: 328,
+    &quot;name&quot;: &quot;Johnny Rockets&quot;,
+    &quot;slug&quot;: &quot;johnny-rockets&quot;,
+    &quot;country&quot;: &quot;uae&quot;,
+    &quot;cuisines&quot;: &quot;Kerala,Indian,Pakistani,South indian,Curry,Biryani&quot;,
+    &quot;logoUrl&quot;: &quot;https://images.deliveryhero.io/image/talabat/restaurants/Johnny-Rockets-Logo_636004641354274810.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.talabat.com/uae/johnny-rockets&quot;
+  },
+  {
+    &quot;restaurantId&quot;: 339,
+    &quot;name&quot;: &quot;Arz Lebanon&quot;,
+    &quot;slug&quot;: &quot;arz-lebanon&quot;,
+    &quot;country&quot;: &quot;uae&quot;,
+    &quot;cuisines&quot;: &quot;Lebanese, Grills, Arabic, Shawarma&quot;,
+    &quot;logoUrl&quot;: &quot;https://images.deliveryhero.io/image/talabat/restaurants/Arz-Lebanon_635808630141435785.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.talabat.com/uae/arz-lebanon&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/talabat-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;listingUrls&#x27;: [&#x27;https://www.talabat.com/uae/restaurants&#x27;],
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/talabat-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;listingUrls&quot;: [
+    &quot;https://www.talabat.com/uae/restaurants&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/talabat-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~talabat-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;listingUrls&quot;: [&quot;https://www.talabat.com/uae/restaurants&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/talabat-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers Talabat countries: UAE, Kuwait, Bahrain, Oman, Qatar, Saudi Arabia, Jordan, Iraq and Egypt. Use a country listing URL such as https://www.talabat.com/uae/restaurants.</li>
+<li>Each listing page returns up to 30 restaurants. Use maxPages to control how many pages are read per listing URL.</li>
+<li>Rating, delivery fee and minimum order are not exposed on listing pages and are not included in the output.</li>
+<li>Not affiliated with Talabat or Delivery Hero.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Talabat Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include restaurantId, name, slug, country, cuisines, logoUrl, url. The table above shows every field with an example value.</p>
+<h3>How do I use the Talabat Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/talabat-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/talabat-scraper">Open Talabat Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/sortlist-company-agency-scraper/">Sortlist Agency Scraper</a>: Scrape agency listings from sortlist.com service-category pages.</li>
+<li><a href="/royal-caribbean-scraper/">Royal Caribbean Ships Scraper</a>: Scrape the Royal Caribbean fleet directory: every cruise ship with its class, name, description, image, and...</li>
+<li><a href="/screener-in-scraper/">Screener.in Stock Fundamentals Scraper</a>: Scrape Indian listed company fundamentals from screener.in: market cap, P/E, ROCE, ROE, book value, dividen...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sortlist Agency Scraper: the data as JSON/CSV with Python or API | vøiddo</title>
+<meta name="description" content="Scrape agency listings from sortlist.com service-category pages. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/sortlist-company-agency-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sortlist Agency Scraper: the data as JSON/CSV with Python or API | vøiddo">
+<meta property="og:description" content="Scrape agency listings from sortlist.com service-category pages. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/sortlist-company-agency-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Sortlist Agency Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include name, url, country, city, foundingYear, teamSize, avgRating, reviewCount, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Sortlist Agency Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/sortlist-company-agency-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
+<h1>Sortlist Agency Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape agency listings from sortlist.com service-category pages. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/sortlist-company-agency-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/sortlist-company-agency-scraper">Open Sortlist Agency Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>name</code></td><td>Agency Name</td><td>text</td><td>Addicta</td></tr>
+<tr><td><code>url</code></td><td>Profile URL</td><td>URL</td><td>https://www.sortlist.com/agency/addicta</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>EG</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>First New Cairo, Egypt</td></tr>
+<tr><td><code>foundingYear</code></td><td>Founded</td><td>number</td><td>2015</td></tr>
+<tr><td><code>teamSize</code></td><td>Team Size</td><td>number</td><td>330</td></tr>
+<tr><td><code>avgRating</code></td><td>Avg Rating</td><td>number</td><td>4.98</td></tr>
+<tr><td><code>reviewCount</code></td><td>Reviews</td><td>number</td><td>311</td></tr>
+<tr><td><code>budgetMinEur</code></td><td>Budget Min EUR</td><td>number</td><td>500</td></tr>
+<tr><td><code>services</code></td><td>Services</td><td>list</td><td>[&quot;Software Development&quot;, &quot;Web Application&quot;, &quot;Mobile App&quot;]</td></tr>
+<tr><td><code>languages</code></td><td>Languages</td><td>list</td><td>[&quot;ar&quot;, &quot;en&quot;]</td></tr>
+<tr><td><code>verified</code></td><td>Verified</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>category</code></td><td></td><td>text</td><td>software-development</td></tr>
+<tr><td><code>agencyId</code></td><td></td><td>text</td><td>f773ceda-6d3d-41f2-b115-1675096015d1</td></tr>
+<tr><td><code>slug</code></td><td></td><td>text</td><td>addicta</td></tr>
+<tr><td><code>budgetMaxEur</code></td><td></td><td>number</td><td>1000000</td></tr>
+<tr><td><code>website</code></td><td></td><td>text</td><td>https://www.addictaco.com</td></tr>
+<tr><td><code>tagline</code></td><td></td><td>text</td><td>12 Years of Software Experience &amp; Development! 12 Years of Trust &amp; ...</td></tr>
+<tr><td><code>trustedPartner</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>sponsored</code></td><td></td><td>true/false</td><td>true</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categorySlugs&quot;: [
+    &quot;software-development&quot;,
+    &quot;web-design&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categorySlugs</code> (required)</td><td>array</td><td>sortlist.com service-category slugs (e.g.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;category&quot;: &quot;software-development&quot;,
+    &quot;agencyId&quot;: &quot;f773ceda-6d3d-41f2-b115-1675096015d1&quot;,
+    &quot;name&quot;: &quot;Addicta&quot;,
+    &quot;slug&quot;: &quot;addicta&quot;,
+    &quot;url&quot;: &quot;https://www.sortlist.com/agency/addicta&quot;,
+    &quot;country&quot;: &quot;EG&quot;,
+    &quot;city&quot;: &quot;First New Cairo, Egypt&quot;,
+    &quot;foundingYear&quot;: 2015,
+    &quot;teamSize&quot;: 330,
+    &quot;avgRating&quot;: 4.98,
+    &quot;reviewCount&quot;: 311,
+    &quot;budgetMinEur&quot;: 500,
+    &quot;budgetMaxEur&quot;: 1000000,
+    &quot;services&quot;: [
+      &quot;Software Development&quot;,
+      &quot;Web Application&quot;,
+      &quot;Mobile App&quot;
+    ],
+    &quot;languages&quot;: [
+      &quot;ar&quot;,
+      &quot;en&quot;
+    ],
+    &quot;website&quot;: &quot;https://www.addictaco.com&quot;,
+    &quot;tagline&quot;: &quot;12 Years of Software Experience &amp; Development! 12 Years of Trust &amp; Awards! 2,000+ Satisfied Client!&quot;,
+    &quot;verified&quot;: true,
+    &quot;trustedPartner&quot;: true,
+    &quot;sponsored&quot;: true
+  },
+  {
+    &quot;category&quot;: &quot;software-development&quot;,
+    &quot;agencyId&quot;: &quot;5ecfb102-486f-4416-9154-92e3f0e88595&quot;,
+    &quot;name&quot;: &quot;Mirrorful&quot;,
+    &quot;slug&quot;: &quot;mirrorful&quot;,
+    &quot;url&quot;: &quot;https://www.sortlist.com/agency/mirrorful&quot;,
+    &quot;country&quot;: &quot;EG&quot;,
+    &quot;city&quot;: &quot;First New Cairo, Egypt&quot;,
+    &quot;foundingYear&quot;: 2017,
+    &quot;teamSize&quot;: 210,
+    &quot;avgRating&quot;: 4.99,
+    &quot;reviewCount&quot;: 344,
+    &quot;budgetMinEur&quot;: 400,
+    &quot;budgetMaxEur&quot;: 1000000,
+    &quot;services&quot;: [
+      &quot;Software Development&quot;,
+      &quot;Website Creation&quot;,
+      &quot;Mobile App&quot;
+    ],
+    &quot;languages&quot;: [
+      &quot;en&quot;,
+      &quot;ar&quot;
+    ],
+    &quot;website&quot;: &quot;https://www.themirrorful.com/&quot;,
+    &quot;tagline&quot;: &quot;Trusted software development for startups and enterprises across Egypt, Saudi Arabia &amp; GCC!&quot;,
+    &quot;verified&quot;: true,
+    &quot;trustedPartner&quot;: true,
+    &quot;sponsored&quot;: true
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/sortlist-company-agency-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categorySlugs&#x27;: [&#x27;software-development&#x27;, &#x27;web-design&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/sortlist-company-agency-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categorySlugs&quot;: [
+    &quot;software-development&quot;,
+    &quot;web-design&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/sortlist-company-agency-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~sortlist-company-agency-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categorySlugs&quot;: [&quot;software-development&quot;, &quot;web-design&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. See the <a href="https://apify.com/v0iddo/sortlist-company-agency-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each sortlist.com category page exposes about 20 organic agency listings. Supply multiple category slugs to collect more agencies.</li>
+<li>Budget figures are in EUR as listed on sortlist.com and may not cover all service tiers.</li>
+<li>Only publicly visible business data is collected; no private individual details are included.</li>
+<li>Not affiliated with Sortlist.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Sortlist Agency Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include name, url, country, city, foundingYear, teamSize, avgRating, reviewCount, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Sortlist Agency Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/sortlist-company-agency-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.27 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.89 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/sortlist-company-agency-scraper">Open Sortlist Agency Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/talabat-scraper/">Talabat Scraper</a>: Scrape Talabat restaurant listings by country: restaurant ID, name, cuisines, category, logo and direct URL.</li>
+<li><a href="/royal-caribbean-scraper/">Royal Caribbean Ships Scraper</a>: Scrape the Royal Caribbean fleet directory: every cruise ship with its class, name, description, image, and...</li>
+<li><a href="/screener-in-scraper/">Screener.in Stock Fundamentals Scraper</a>: Scrape Indian listed company fundamentals from screener.in: market cap, P/E, ROCE, ROE, book value, dividen...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
