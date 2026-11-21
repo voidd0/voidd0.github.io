@@ -27,23 +27,24 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/apna-co-scraper</cod
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
 <tr><td><code>title</code></td><td>Job title</td><td>text</td><td>Delivery Boy</td></tr>
-<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>Swiggy delivery boy</td></tr>
+<tr><td><code>companyName</code></td><td>Company</td><td>text</td><td>Big Basket</td></tr>
 <tr><td><code>city</code></td><td>City</td><td>text</td><td>Mumbai</td></tr>
 <tr><td><code>location</code></td><td>Area</td><td>text</td><td>Mumbai/Bombay</td></tr>
-<tr><td><code>salaryMin</code></td><td>Salary from INR a month</td><td>number</td><td>48000</td></tr>
-<tr><td><code>salaryMax</code></td><td>Salary to INR a month</td><td>number</td><td>100000</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary from INR a month</td><td>number</td><td>45000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary to INR a month</td><td>number</td><td>70000</td></tr>
 <tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>field</td></tr>
 <tr><td><code>workType</code></td><td>Work type</td><td>text</td><td>full-time, part-time</td></tr>
 <tr><td><code>experience</code></td><td>Experience</td><td>text</td><td>Any experience</td></tr>
-<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://apna.co/job/mumbai-bombay/delivery-boy-57829588</td></tr>
-<tr><td><code>jobId</code></td><td></td><td>text</td><td>57829588</td></tr>
+<tr><td><code>englishLevel</code></td><td>English level</td><td>text</td><td>No English Required</td></tr>
+<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://apna.co/job/mumbai-bombay/delivery-boy-841236982</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>841236982</td></tr>
 <tr><td><code>currency</code></td><td></td><td>text</td><td>INR</td></tr>
 <tr><td><code>salaryPeriod</code></td><td></td><td>text</td><td>month</td></tr>
 <tr><td><code>nightShift</code></td><td></td><td>true/false</td><td>false</td></tr>
 <tr><td><code>minExperienceYears</code></td><td></td><td>number</td><td>0</td></tr>
-<tr><td><code>englishLevel</code></td><td></td><td>text</td><td>No English Required</td></tr>
+<tr><td><code>companyLogo</code></td><td></td><td>text</td><td>https://apna-organization-logos.gumlet.io/production/6321672818fb1d...</td></tr>
 <tr><td><code>searchUrl</code></td><td></td><td>text</td><td>https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay</td></tr>
-<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-18T04:17:15Z</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-21T01:37:51Z</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -80,13 +81,13 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/apna-co-scraper</cod
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;jobId&quot;: &quot;57829588&quot;,
+    &quot;jobId&quot;: &quot;841236982&quot;,
     &quot;title&quot;: &quot;Delivery Boy&quot;,
-    &quot;companyName&quot;: &quot;Swiggy delivery boy&quot;,
+    &quot;companyName&quot;: &quot;Big Basket&quot;,
     &quot;city&quot;: &quot;Mumbai&quot;,
     &quot;location&quot;: &quot;Mumbai/Bombay&quot;,
-    &quot;salaryMin&quot;: 48000,
-    &quot;salaryMax&quot;: 100000,
+    &quot;salaryMin&quot;: 45000,
+    &quot;salaryMax&quot;: 70000,
     &quot;currency&quot;: &quot;INR&quot;,
     &quot;salaryPeriod&quot;: &quot;month&quot;,
     &quot;workMode&quot;: &quot;field&quot;,
@@ -95,30 +96,31 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/apna-co-scraper</cod
     &quot;experience&quot;: &quot;Any experience&quot;,
     &quot;minExperienceYears&quot;: 0,
     &quot;englishLevel&quot;: &quot;No English Required&quot;,
-    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-57829588&quot;,
+    &quot;companyLogo&quot;: &quot;https://apna-organization-logos.gumlet.io/production/6321672818fb1d8aa8407430?w=128&quot;,
+    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-841236982&quot;,
     &quot;searchUrl&quot;: &quot;https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay&quot;,
-    &quot;scrapedAt&quot;: &quot;2026-11-18T04:17:15Z&quot;
+    &quot;scrapedAt&quot;: &quot;2026-11-21T01:37:51Z&quot;
   },
   {
-    &quot;jobId&quot;: &quot;489852196&quot;,
+    &quot;jobId&quot;: &quot;907879935&quot;,
     &quot;title&quot;: &quot;Delivery Boy&quot;,
-    &quot;companyName&quot;: &quot;Swiggy&quot;,
+    &quot;companyName&quot;: &quot;Simpy Manpower Provider&quot;,
     &quot;city&quot;: &quot;Mumbai&quot;,
-    &quot;location&quot;: &quot;Mumbai/Bombay&quot;,
-    &quot;salaryMin&quot;: 65000,
-    &quot;salaryMax&quot;: 95000,
+    &quot;location&quot;: &quot;Mulund West, Mumbai/Bombay&quot;,
+    &quot;salaryMin&quot;: 45000,
+    &quot;salaryMax&quot;: 62000,
     &quot;currency&quot;: &quot;INR&quot;,
     &quot;salaryPeriod&quot;: &quot;month&quot;,
     &quot;workMode&quot;: &quot;field&quot;,
-    &quot;workType&quot;: &quot;full-time&quot;,
+    &quot;workType&quot;: &quot;full-time, part-time&quot;,
     &quot;nightShift&quot;: false,
     &quot;experience&quot;: &quot;Any experience&quot;,
     &quot;minExperienceYears&quot;: 0,
     &quot;englishLevel&quot;: &quot;No English Required&quot;,
-    &quot;companyLogo&quot;: &quot;https://apna-organization-logos.gumlet.io/production/60f9307556dbcf235eb557b2?w=128&quot;,
-    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-489852196&quot;,
+    &quot;companyLogo&quot;: &quot;https://apna-organization-logos.gumlet.io/production/logos/4917aea1-29ab-49b8-8819-01c2a8b846c2/6a8c0926272be13166aca715.png?w=128&quot;,
+    &quot;url&quot;: &quot;https://apna.co/job/mumbai-bombay/delivery-boy-907879935&quot;,
     &quot;searchUrl&quot;: &quot;https://apna.co/jobs/delivery-boy-jobs-in-mumbai-bombay&quot;,
-    &quot;scrapedAt&quot;: &quot;2026-11-18T04:17:15Z&quot;
+    &quot;scrapedAt&quot;: &quot;2026-11-21T01:37:51Z&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -181,9 +183,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/apna-co-scraper">Open Apna.co Scraper on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
+<li><a href="/computrabajo-job-alerts/">Computrabajo Job Alerts</a>: For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries,...</li>
 <li><a href="/nofluffjobs/">No Fluff Jobs Scraper</a>: Scrape IT job offers from No Fluff Jobs (nofluffjobs.com) in Poland: title, company, category, seniority, m...</li>
 <li><a href="/pracuj-pl-job-alerts/">Pracuj.pl Job Alerts</a>: Watch pracuj.pl searches and get only new, changed or expired job offers, with salary and link, in one aler...</li>
-<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computrabajo Job Alerts: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries,... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/computrabajo-job-alerts/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Computrabajo Job Alerts: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries,... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/computrabajo-job-alerts/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Computrabajo Job Alerts return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include changeType, title, company, city, country, salaryText, workMode, changedFields, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Computrabajo Job Alerts from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/computrabajo-job-alerts with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.00 per 1,000 results. You pay per result row. The Actor also charges $0.002 per alert delivered, $0.010 per monitor run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Computrabajo Job Alerts: how to get New Jobs to Slack or Webhook as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries, sent to Slack, Telegram or a webhook each run. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/computrabajo-job-alerts</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/computrabajo-job-alerts">Open Computrabajo Job Alerts on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>changeType</code></td><td>Change</td><td>text</td><td>NEW</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Auxiliar Contador Se Acepta Recién Egresado</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Importante empresa del sector</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Monterrey</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>Mexico</td></tr>
+<tr><td><code>salaryText</code></td><td>Salary</td><td>text</td><td>$ 14,000.00 (Mensual)</td></tr>
+<tr><td><code>workMode</code></td><td>Work mode</td><td>text</td><td>onsite</td></tr>
+<tr><td><code>changedFields</code></td><td>Changed</td><td>list</td><td></td></tr>
+<tr><td><code>firstSeenAt</code></td><td>First seen</td><td>date</td><td>2026-11-20T05:05:59Z</td></tr>
+<tr><td><code>url</code></td><td>Posting</td><td>URL</td><td>https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de...</td></tr>
+<tr><td><code>lastSeenAt</code></td><td></td><td>text</td><td>2026-11-20T05:05:59Z</td></tr>
+<tr><td><code>jobId</code></td><td></td><td>text</td><td>78360A883F7026ED61373E686DCF3405</td></tr>
+<tr><td><code>countryCode</code></td><td></td><td>text</td><td>mx</td></tr>
+<tr><td><code>companyVerified</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>confidentialEmployer</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>location</code></td><td></td><td>text</td><td>Monterrey, Nuevo León</td></tr>
+<tr><td><code>region</code></td><td></td><td>text</td><td>Nuevo León</td></tr>
+<tr><td><code>salaryMin</code></td><td></td><td>number</td><td>14000</td></tr>
+<tr><td><code>salaryMax</code></td><td></td><td>number</td><td>14000</td></tr>
+<tr><td><code>salaryCurrency</code></td><td></td><td>text</td><td>MXN</td></tr>
+<tr><td><code>salaryInterval</code></td><td></td><td>text</td><td>month</td></tr>
+<tr><td><code>salaryHidden</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>contractType</code></td><td></td><td>text</td><td>Contrato por tiempo indeterminado</td></tr>
+<tr><td><code>schedule</code></td><td></td><td>text</td><td>Tiempo Completo</td></tr>
+<tr><td><code>education</code></td><td></td><td>text</td><td>Educación superior - Licenciatura</td></tr>
+<tr><td><code>skills</code></td><td></td><td>list</td><td>[&quot;Contabilidad&quot;, &quot;Proveedores&quot;]</td></tr>
+<tr><td><code>keywords</code></td><td></td><td>list</td><td>[&quot;ayudante&quot;, &quot;asistente&quot;, &quot;auxiliar&quot;]</td></tr>
+<tr><td><code>promoted</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>urgent</code></td><td></td><td>true/false</td><td>true</td></tr>
+<tr><td><code>postedText</code></td><td></td><td>text</td><td>Hace 6 horas</td></tr>
+<tr><td><code>postedDate</code></td><td></td><td>text</td><td>2026-11-19</td></tr>
+<tr><td><code>descriptionText</code></td><td></td><td>text</td><td>Únete a nuestro equipo como Auxiliar Contador
+Funciones
+CARGO Y ABO...</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-20T05:05:59Z</td></tr>
+<tr><td><code>chargeUnits</code></td><td></td><td>number</td><td>1</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;countries&quot;: [
+    &quot;mx&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;contador&quot;
+  ],
+  &quot;location&quot;: &quot;Monterrey&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>countries</code></td><td>array</td><td>Computrabajo sites to search; each search term runs on each of them.</td></tr>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles or words such as contador, vendedor or desarrollador python.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city, state or region such as Monterrey, Bogotá, Lima or Nuevo León.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only postings that show a salary (not &quot;A convenir&quot;).</td></tr>
+<tr><td><code>remoteOnly</code></td><td>boolean</td><td>Only postings marked remote or hybrid (presencial y remoto).</td></tr>
+<tr><td><code>searchUrls</code></td><td>array</td><td>Search result pages copied from your browser, for example https://mx.computrabajo.com/trabajo-de-contador-en-monterrey .</td></tr>
+<tr><td><code>stateKey</code></td><td>string</td><td>Optional name for this watch, such as contador_monterrey.</td></tr>
+<tr><td><code>slackWebhookUrl</code></td><td>string</td><td>Optional. The address Slack&#x27;s Incoming Webhooks app gives you, starting with https://hooks.slack.com/services/.</td></tr>
+<tr><td><code>telegramBotToken</code></td><td>string</td><td>Optional. The token BotFather gave your bot.</td></tr>
+<tr><td><code>telegramChatId</code></td><td>string</td><td>The chat, group or channel your bot posts to: a number such as 123456789 or -1001234567890, or @channelname.</td></tr>
+<tr><td><code>webhookUrl</code></td><td>string</td><td>Optional https address that receives one JSON POST per run with the new and updated offers (title, company, city, salary, link), for n8n, Make, Zapier or your own server.</td></tr>
+<tr><td><code>maxOffers</code></td><td>integer</td><td>The run reads the searches up to this many offers.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Read the posting page of each new or updated offer for the contract type, schedule, industry, education, experience, skills and the description.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;changeType&quot;: &quot;NEW&quot;,
+    &quot;firstSeenAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;lastSeenAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;jobId&quot;: &quot;78360A883F7026ED61373E686DCF3405&quot;,
+    &quot;country&quot;: &quot;Mexico&quot;,
+    &quot;countryCode&quot;: &quot;mx&quot;,
+    &quot;title&quot;: &quot;Auxiliar Contador Se Acepta Recién Egresado&quot;,
+    &quot;company&quot;: &quot;Importante empresa del sector&quot;,
+    &quot;companyVerified&quot;: false,
+    &quot;confidentialEmployer&quot;: true,
+    &quot;location&quot;: &quot;Monterrey, Nuevo León&quot;,
+    &quot;city&quot;: &quot;Monterrey&quot;,
+    &quot;region&quot;: &quot;Nuevo León&quot;,
+    &quot;workMode&quot;: &quot;onsite&quot;,
+    &quot;salaryText&quot;: &quot;$ 14,000.00 (Mensual)&quot;,
+    &quot;salaryMin&quot;: 14000,
+    &quot;salaryMax&quot;: 14000,
+    &quot;salaryCurrency&quot;: &quot;MXN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryHidden&quot;: false,
+    &quot;contractType&quot;: &quot;Contrato por tiempo indeterminado&quot;,
+    &quot;schedule&quot;: &quot;Tiempo Completo&quot;,
+    &quot;education&quot;: &quot;Educación superior - Licenciatura&quot;,
+    &quot;skills&quot;: [
+      &quot;Contabilidad&quot;,
+      &quot;Proveedores&quot;
+    ],
+    &quot;keywords&quot;: [
+      &quot;ayudante&quot;,
+      &quot;asistente&quot;,
+      &quot;auxiliar&quot;
+    ],
+    &quot;promoted&quot;: true,
+    &quot;urgent&quot;: true,
+    &quot;postedText&quot;: &quot;Hace 6 horas&quot;,
+    &quot;postedDate&quot;: &quot;2026-11-19&quot;,
+    &quot;descriptionText&quot;: &quot;Únete a nuestro equipo como Auxiliar Contador\nFunciones\nCARGO Y ABONO\nIMPUESTOS Y FISCAL (deseable)\nElaborar informes financieros\nRealiza...&quot;,
+    &quot;url&quot;: &quot;https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de-auxiliar-contador-se-acepta-recien-egresado-en-monterrey-78360A883F70...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;chargeUnits&quot;: 1
+  },
+  {
+    &quot;changeType&quot;: &quot;NEW&quot;,
+    &quot;firstSeenAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;lastSeenAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;jobId&quot;: &quot;D604783EBB868B6F61373E686DCF3405&quot;,
+    &quot;country&quot;: &quot;Mexico&quot;,
+    &quot;countryCode&quot;: &quot;mx&quot;,
+    &quot;title&quot;: &quot;Auxiliar contable en Monterrey Sur $14,000&quot;,
+    &quot;company&quot;: &quot;Importante empresa del sector&quot;,
+    &quot;companyVerified&quot;: false,
+    &quot;confidentialEmployer&quot;: true,
+    &quot;location&quot;: &quot;Monterrey, Nuevo León&quot;,
+    &quot;city&quot;: &quot;Monterrey&quot;,
+    &quot;region&quot;: &quot;Nuevo León&quot;,
+    &quot;workMode&quot;: &quot;onsite&quot;,
+    &quot;salaryText&quot;: &quot;$ 14,000.00 (Mensual)&quot;,
+    &quot;salaryMin&quot;: 14000,
+    &quot;salaryMax&quot;: 14000,
+    &quot;salaryCurrency&quot;: &quot;MXN&quot;,
+    &quot;salaryInterval&quot;: &quot;month&quot;,
+    &quot;salaryHidden&quot;: false,
+    &quot;contractType&quot;: &quot;Contrato por tiempo indeterminado&quot;,
+    &quot;schedule&quot;: &quot;Tiempo Completo&quot;,
+    &quot;education&quot;: &quot;Educación media superior -Bachillerato General&quot;,
+    &quot;experienceYears&quot;: 1,
+    &quot;skills&quot;: [
+      &quot;Contabilidad&quot;
+    ],
+    &quot;keywords&quot;: [
+      &quot;ayudante&quot;,
+      &quot;asistente&quot;,
+      &quot;auxiliar&quot;
+    ],
+    &quot;promoted&quot;: true,
+    &quot;urgent&quot;: false,
+    &quot;postedText&quot;: &quot;Hace 6 horas&quot;,
+    &quot;postedDate&quot;: &quot;2026-11-19&quot;,
+    &quot;descriptionText&quot;: &quot;Empresa del sector de autofinanciamiento se encuentra en búsqueda de talento para integrarse a su equipo como Auxiliar de Contabilidad....&quot;,
+    &quot;url&quot;: &quot;https://mx.computrabajo.com/ofertas-de-trabajo/oferta-de-trabajo-de-auxiliar-contable-en-monterrey-sur-14000-en-monterrey-D604783EBB868B6...&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-20T05:05:59Z&quot;,
+    &quot;chargeUnits&quot;: 1
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/computrabajo-job-alerts</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;countries&#x27;: [&#x27;mx&#x27;],
+ &#x27;keywords&#x27;: [&#x27;contador&#x27;],
+ &#x27;location&#x27;: &#x27;Monterrey&#x27;,
+ &#x27;includeDetails&#x27;: True,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/computrabajo-job-alerts&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;countries&quot;: [
+    &quot;mx&quot;
+  ],
+  &quot;keywords&quot;: [
+    &quot;contador&quot;
+  ],
+  &quot;location&quot;: &quot;Monterrey&quot;,
+  &quot;includeDetails&quot;: true,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/computrabajo-job-alerts&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~computrabajo-job-alerts/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;countries&quot;: [&quot;mx&quot;], &quot;keywords&quot;: [&quot;contador&quot;], &quot;location&quot;: &quot;Monterrey&quot;, &quot;includeDetails&quot;: true, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$2.00 per 1,000 results. You pay per result row. The Actor also charges $0.002 per alert delivered, $0.010 per monitor run. Higher Apify plans pay less per result, down to $1.40 per 1,000. See the <a href="https://apify.com/v0iddo/computrabajo-job-alerts/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each run compares the offers it finds with the list the last run of the same watch saved, and returns only the changes: NEW for an offer no earlier run returned, UPDATED when its title, company...</li>
+<li>A watch is the State key, or without one the search fields. The first run of a watch returns the offers it finds as NEW, up to Maximum results; an offer a run found but did not return comes as NEW...</li>
+<li>Offers are reported as EXPIRED only after a run that checked every offer of the searches: keep Offers checked per run above the number they list. A run in which Computrabajo lists no offer at all...</li>
+<li>With a salary only and remote only apply to what the search list shows; an offer that no longer passes them leaves the watch as EXPIRED. Contract type and schedule are on the posting page only, so...</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Computrabajo Job Alerts return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include changeType, title, company, city, country, salaryText, workMode, changedFields, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Computrabajo Job Alerts from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/computrabajo-job-alerts</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$2.00 per 1,000 results. You pay per result row. The Actor also charges $0.002 per alert delivered, $0.010 per monitor run. Higher Apify plans pay less per result, down to $1.40 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/computrabajo-job-alerts">Open Computrabajo Job Alerts on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/nofluffjobs/">No Fluff Jobs Scraper</a>: Scrape IT job offers from No Fluff Jobs (nofluffjobs.com) in Poland: title, company, category, seniority, m...</li>
+<li><a href="/pracuj-pl-job-alerts/">Pracuj.pl Job Alerts</a>: Watch pracuj.pl searches and get only new, changed or expired job offers, with salary and link, in one aler...</li>
+<li><a href="/meinestadt-de-job-scraper/">meinestadt.de Jobs Scraper</a>: Scrape job listings from jobs.meinestadt.de: title, company, city, industry, employment type, salary range,...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
