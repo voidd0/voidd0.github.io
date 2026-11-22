@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canada Job Bank Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and pr... Python, JavaScript and cURL code, sample output and price...">
+<link rel="canonical" href="https://voidd0.github.io/jobbank/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Canada Job Bank Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and pr... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:url" content="https://voidd0.github.io/jobbank/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Canada Job Bank Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobId, title, employer, location, salaryMin, salaryMax, salaryUnit, postingDate, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Canada Job Bank Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/jobbank with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>Canada Job Bank Scraper: how to get Jobs, Salaries and NOC Codes as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and province, salary range, posting date, remote status, direct apply flag, and posting source. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/jobbank</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/jobbank">Open Canada Job Bank Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobId</code></td><td>Job ID</td><td>text</td><td>50759540</td></tr>
+<tr><td><code>title</code></td><td>Job Title</td><td>text</td><td>software developer</td></tr>
+<tr><td><code>employer</code></td><td>Employer</td><td>text</td><td>KingswaySoft Inc.</td></tr>
+<tr><td><code>location</code></td><td>Location</td><td>text</td><td>Oakville (ON)</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary Min</td><td>number</td><td>105000</td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary Max</td><td>number</td><td>115000</td></tr>
+<tr><td><code>salaryUnit</code></td><td>Salary Unit</td><td>text</td><td>annually</td></tr>
+<tr><td><code>postingDate</code></td><td>Posting Date</td><td>text</td><td>November 18, 2026</td></tr>
+<tr><td><code>remote</code></td><td>Work Location Type</td><td>text</td><td>On site</td></tr>
+<tr><td><code>directApply</code></td><td>Direct Apply</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>source</code></td><td>Source</td><td>text</td><td>Job Bank</td></tr>
+<tr><td><code>jobUrl</code></td><td>Job URL</td><td>URL</td><td>https://www.jobbank.gc.ca/jobsearch/jobposting/50759540</td></tr>
+<tr><td><code>keyword</code></td><td></td><td>text</td><td>software developer</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;software developer&quot;,
+    &quot;nurse&quot;
+  ],
+  &quot;location&quot;: &quot;&quot;,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code> (required)</td><td>array</td><td>One or more job titles or search terms for jobbank.gc.ca, such as &#x27;software developer&#x27; or &#x27;registered nurse&#x27;.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>City, province, or territory to filter results, such as &#x27;Toronto&#x27; or &#x27;British Columbia&#x27;.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many result pages to read per keyword.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: &quot;50759540&quot;,
+    &quot;title&quot;: &quot;software developer&quot;,
+    &quot;employer&quot;: &quot;KingswaySoft Inc.&quot;,
+    &quot;location&quot;: &quot;Oakville (ON)&quot;,
+    &quot;salaryMin&quot;: 105000,
+    &quot;salaryMax&quot;: 115000,
+    &quot;salaryUnit&quot;: &quot;annually&quot;,
+    &quot;postingDate&quot;: &quot;November 18, 2026&quot;,
+    &quot;remote&quot;: &quot;On site&quot;,
+    &quot;directApply&quot;: true,
+    &quot;source&quot;: &quot;Job Bank&quot;,
+    &quot;jobUrl&quot;: &quot;https://www.jobbank.gc.ca/jobsearch/jobposting/50759540&quot;,
+    &quot;keyword&quot;: &quot;software developer&quot;
+  },
+  {
+    &quot;jobId&quot;: &quot;50678526&quot;,
+    &quot;title&quot;: &quot;software developer&quot;,
+    &quot;employer&quot;: &quot;Corinex&quot;,
+    &quot;location&quot;: &quot;Vancouver (BC)&quot;,
+    &quot;salaryMin&quot;: 96000,
+    &quot;salaryMax&quot;: 100000,
+    &quot;salaryUnit&quot;: &quot;annually&quot;,
+    &quot;postingDate&quot;: &quot;November 06, 2026&quot;,
+    &quot;remote&quot;: &quot;On site&quot;,
+    &quot;directApply&quot;: true,
+    &quot;source&quot;: &quot;Job Bank&quot;,
+    &quot;jobUrl&quot;: &quot;https://www.jobbank.gc.ca/jobsearch/jobposting/50678526&quot;,
+    &quot;keyword&quot;: &quot;software developer&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/jobbank</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;software developer&#x27;, &#x27;nurse&#x27;],
+ &#x27;location&#x27;: &#x27;&#x27;,
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/jobbank&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;software developer&quot;,
+    &quot;nurse&quot;
+  ],
+  &quot;location&quot;: &quot;&quot;,
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/jobbank&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~jobbank/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;software developer&quot;, &quot;nurse&quot;], &quot;location&quot;: &quot;&quot;, &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/jobbank/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers public search results on jobbank.gc.ca (Government of Canada). Each keyword runs as a separate search; use specific job titles or add a location to narrow results.</li>
+<li>Detail pages (/jobsearch/jobposting/...) are closed to automated access per the site robots.txt and are not fetched. All data comes from the search result cards on the listing pages.</li>
+<li>Each search page holds about 10 results. The site caps results at roughly 25 pages per keyword (around 250 jobs). Set maxPages to 25 to collect the full set for a given keyword.</li>
+<li>Not affiliated with the Government of Canada or jobbank.gc.ca.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Canada Job Bank Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobId, title, employer, location, salaryMin, salaryMax, salaryUnit, postingDate, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Canada Job Bank Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/jobbank</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/jobbank">Open Canada Job Bank Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/weworkremotely-jobs-scraper/">We Work Remotely Jobs Scraper</a>: Scrape remote job listings from weworkremotely.com by category or keyword.</li>
+<li><a href="/djinni-co-job-scraper/">Djinni.co Job Scraper</a>: Scrape djinni.co tech job listings: title, company, category, salary range, experience, employment type, lo...</li>
+<li><a href="/computrabajo-job-alerts/">Computrabajo Job Alerts</a>: For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries,...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

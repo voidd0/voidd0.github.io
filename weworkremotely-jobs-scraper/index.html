@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We Work Remotely Jobs Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Scrape remote job listings from weworkremotely.com by category or keyword. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/weworkremotely-jobs-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We Work Remotely Jobs Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Scrape remote job listings from weworkremotely.com by category or keyword. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/weworkremotely-jobs-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the We Work Remotely Jobs Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include jobId, title, company, category, jobType, region, salary, postedDate, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the We Work Remotely Jobs Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/weworkremotely-jobs-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.85 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.59 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>We Work Remotely Jobs Scraper: how to get the data as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Scrape remote job listings from weworkremotely.com by category or keyword. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/weworkremotely-jobs-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/weworkremotely-jobs-scraper">Open We Work Remotely Jobs Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>jobId</code></td><td>Job ID</td><td>text</td><td>beyondtrust-lead-to-cash-business-partner</td></tr>
+<tr><td><code>title</code></td><td>Job Title</td><td>text</td><td>Lead-to-Cash Business Partner</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>BeyondTrust</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Devops Sysadmin</td></tr>
+<tr><td><code>jobType</code></td><td>Job Type</td><td>text</td><td>Full-Time</td></tr>
+<tr><td><code>region</code></td><td>Region</td><td>text</td><td>Anywhere in the World</td></tr>
+<tr><td><code>salary</code></td><td>Salary</td><td>text</td><td></td></tr>
+<tr><td><code>postedDate</code></td><td>Posted Date</td><td>date</td><td>2026-11-20</td></tr>
+<tr><td><code>url</code></td><td>Job URL</td><td>URL</td><td>https://weworkremotely.com/remote-jobs/beyondtrust-lead-to-cash-bus...</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categoryUrls&quot;: [
+    &quot;https://weworkremotely.com/categories/remote-devops-sysadmin-jobs&quot;,
+    &quot;https://weworkremotely.com/categories/remote-customer-support-jobs&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categoryUrls</code></td><td>array</td><td>weworkremotely.com category pages such as https://weworkremotely.com/categories/remote-programming-jobs.</td></tr>
+<tr><td><code>searchKeywords</code></td><td>array</td><td>Keywords to search on weworkremotely.com (e.g.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;jobId&quot;: &quot;beyondtrust-lead-to-cash-business-partner&quot;,
+    &quot;title&quot;: &quot;Lead-to-Cash Business Partner&quot;,
+    &quot;company&quot;: &quot;BeyondTrust&quot;,
+    &quot;category&quot;: &quot;Devops Sysadmin&quot;,
+    &quot;jobType&quot;: &quot;Full-Time&quot;,
+    &quot;region&quot;: &quot;Anywhere in the World&quot;,
+    &quot;postedDate&quot;: &quot;2026-11-20&quot;,
+    &quot;url&quot;: &quot;https://weworkremotely.com/remote-jobs/beyondtrust-lead-to-cash-business-partner&quot;
+  },
+  {
+    &quot;jobId&quot;: &quot;wrike-senior-customer-success-manager&quot;,
+    &quot;title&quot;: &quot;Senior Customer Success Manager&quot;,
+    &quot;company&quot;: &quot;Wrike&quot;,
+    &quot;category&quot;: &quot;Customer Support&quot;,
+    &quot;jobType&quot;: &quot;Full-Time&quot;,
+    &quot;region&quot;: &quot;Anywhere in the World&quot;,
+    &quot;salary&quot;: &quot;$100K&quot;,
+    &quot;postedDate&quot;: &quot;2026-11-20&quot;,
+    &quot;url&quot;: &quot;https://weworkremotely.com/remote-jobs/wrike-senior-customer-success-manager&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/weworkremotely-jobs-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categoryUrls&#x27;: [&#x27;https://weworkremotely.com/categories/remote-devops-sysadmin-jobs&#x27;,
+                  &#x27;https://weworkremotely.com/categories/remote-customer-support-jobs&#x27;],
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/weworkremotely-jobs-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categoryUrls&quot;: [
+    &quot;https://weworkremotely.com/categories/remote-devops-sysadmin-jobs&quot;,
+    &quot;https://weworkremotely.com/categories/remote-customer-support-jobs&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/weworkremotely-jobs-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~weworkremotely-jobs-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categoryUrls&quot;: [&quot;https://weworkremotely.com/categories/remote-devops-sysadmin-jobs&quot;, &quot;https://weworkremotely.com/categories/remote-customer-support-jobs&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.85 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.59 per 1,000. See the <a href="https://apify.com/v0iddo/weworkremotely-jobs-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Category pages are read via their RSS feeds and typically return 20-100 current listings per category. Use https://weworkremotely.com/categories/ URLs from the site navigation.</li>
+<li>Salary is only included when the employer provides it; many listings show null for salary.</li>
+<li>Search results are read from the HTML listing page; for bulk collection prefer category URLs which use the more reliable RSS feed.</li>
+<li>Not affiliated with We Work Remotely.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the We Work Remotely Jobs Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include jobId, title, company, category, jobType, region, salary, postedDate, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the We Work Remotely Jobs Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/weworkremotely-jobs-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.85 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.59 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/weworkremotely-jobs-scraper">Open We Work Remotely Jobs Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/jobbank/">Canada Job Bank Scraper</a>: Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and pr...</li>
+<li><a href="/djinni-co-job-scraper/">Djinni.co Job Scraper</a>: Scrape djinni.co tech job listings: title, company, category, salary range, experience, employment type, lo...</li>
+<li><a href="/computrabajo-job-alerts/">Computrabajo Job Alerts</a>: For recruiters and HR analysts: only new, changed or expired Computrabajo job offers in 18 LATAM countries,...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
