@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Web scraping guides: data as JSON or CSV via API and Python | vøiddo</title>
-<meta name="description" content="135 guides for scraper Actors on Apify: output fields, input examples, sample rows and Python, JavaScript and cURL code, with the price per 1,000 results.">
+<meta name="description" content="136 guides for scraper Actors on Apify: output fields, input examples, sample rows and Python, JavaScript and cURL code, with the price per 1,000 results.">
 <link rel="canonical" href="https://voidd0.github.io/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web scraping guides: data as JSON or CSV via API and Python | vøiddo">
-<meta property="og:description" content="135 guides for scraper Actors on Apify: output fields, input examples, sample rows and Python, JavaScript and cURL code, with the price per 1,000 results.">
+<meta property="og:description" content="136 guides for scraper Actors on Apify: output fields, input examples, sample rows and Python, JavaScript and cURL code, with the price per 1,000 results.">
 <meta property="og:url" content="https://voidd0.github.io/">
 <link rel="stylesheet" href="/style.css">
 </head>
@@ -16,7 +16,7 @@
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
 <h1>Web scraping guides: get data as JSON or CSV with an API, Python or no code</h1>
-<p class="lead">135 guides for data Actors on the Apify Store: what each one returns, a working input, sample output,
+<p class="lead">136 guides for data Actors on the Apify Store: what each one returns, a working input, sample output,
 and Python, JavaScript and cURL code. Pick a topic, open the guide, run the Actor from the Apify page or from your own code.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo">Browse all Actors on Apify</a></p>
 <h2>Data reports</h2>
@@ -65,6 +65,7 @@ and Python, JavaScript and cURL code. Pick a topic, open the guide, run the Acto
 <li><a href="/alibaba-supplier-shortlist/">Alibaba Supplier Shortlist by Price, MOQ and Trust</a>: Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price against the market med... From $490.00 per 1,000 results.</li>
 <li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count, stock status, feat... From $1.50 per 1,000 results.</li>
 <li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: AliExpress scraper for search results as product rows: product ID, title, sale price, original price, discount, star rating, un... From $1.50 per 1,000 results.</li>
+<li><a href="/amazon-search-scraper/">Amazon Search Scraper</a>: Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, ratings count, monthly s... From $1.00 per 1,000 results.</li>
 <li><a href="/amazon-bestsellers-scraper/">Amazon Bestsellers Scraper</a>: Scrape Amazon.com Best Sellers and New Releases lists by category link: rank, ASIN, title, price, star rating, ratings count, i... From $1.00 per 1,000 results.</li>
 <li><a href="/app-store-app-metadata/">App Store Scraper</a>: Snapshot Apple App Store app metadata via the public iTunes Lookup API. From $0.50 per 1,000 results.</li>
 <li><a href="/tiktok-shop-product-scraper/">TikTok Shop Scraper</a>: TikTok Shop product scraper for product pages in the United States from product links or IDs: title, price, original price, dis... From $2.29 per 1,000 results.</li>
@@ -72,8 +73,8 @@ and Python, JavaScript and cURL code. Pick a topic, open the guide, run the Acto
 <li><a href="/alibaba-scraper/">Alibaba Scraper</a>: Alibaba scraper for Alibaba.com product offers by keyword: price range and price tiers, minimum order, units sold, ratings, cer... From $0.75 per 1,000 results.</li>
 <li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price, half price and mul... From $0.50 per 1,000 results.</li>
 <li><a href="/shopify-store-intelligence/">Shopify Scraper</a>: Scrape products from any Shopify store: prices, compare-at price and discount, stock per variant, SKU, barcode, options, images... From $0.50 per 1,000 results.</li>
-<li><a href="/vinted-scraper/">Vinted Product Scraper</a>: Collect public Vinted listings by search word or catalog link: title, brand, size, condition, price with currency, total with t... From $0.85 per 1,000 results.</li>
-<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Scrape Made-in-China.com product search pages by keyword. From $1.44 per 1,000 results.</li>
+<li><a href="/vinted-scraper/">Vinted Product Scraper</a>: Vinted scraper for public listings by search word or catalog link: title, brand, size, condition, price with currency, total wi... From $0.85 per 1,000 results.</li>
+<li><a href="/made-in-china-scraper/">Made-in-China.com Product Scraper</a>: Made in China scraper for Made-in-China.com product search pages by keyword. From $1.44 per 1,000 results.</li>
 <li><a href="/myntra-product-scraper/">Myntra Product Scraper</a>: Scrape Myntra category and search listing pages into product rows: product ID, name, brand, price, MRP, discount percent, ratin... From $2.29 per 1,000 results.</li>
 <li><a href="/cargurus-zipcode-search-scraper/">CarGurus Zipcode Search Scraper</a>: Scrape CarGurus vehicle search pages by ZIP code: VIN, make, model, year, trim, price, MSRP, mileage, fuel economy, dealer name... From $0.85 per 1,000 results.</li>
 <li><a href="/app-store-search/">App Store Search Scraper</a>: Search the Apple App Store by keyword and country. From $0.20 per 1,000 results.</li>
@@ -108,26 +109,26 @@ and Python, JavaScript and cURL code. Pick a topic, open the guide, run the Acto
 <li><a href="/reed-jobs-scraper/">Reed Jobs Scraper</a>: Scrape UK job postings from reed.co.uk: title, company, agency or employer, place, county, region, postcode, salary range with... From $0.45 per 1,000 results.</li>
 <li><a href="/hiring-cafe-scraper/">Hiring.Cafe Jobs Scraper</a>: Scrape job listings from Hiring.Cafe: title, company, location, workplace type, seniority, job category, technical tools, requi... From $1.00 per 1,000 results.</li>
 <li><a href="/computrabajo-scraper/">Computrabajo Scraper</a>: Computrabajo scraper for jobs in 18 Latin American countries: title, company with rating, city, region, salary with currency an... From $0.50 per 1,000 results.</li>
-<li><a href="/jobs-ch-scraper/">Jobs.ch &amp; Jobup.ch Scraper</a>: Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, employment type, positi... From $0.90 per 1,000 results.</li>
 <li><a href="/iimjobs-scraper/">IIMJobs Scraper</a>: iimjobs scraper for India finance, sales, consulting, HR and operations jobs from iimjobs.com: company, locations, experience,... From $0.50 per 1,000 results.</li>
-<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Hirist jobs scraper for India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs when... From $0.50 per 1,000 results.</li>
+<li><a href="/jobs-ch-scraper/">Jobs.ch &amp; Jobup.ch Scraper</a>: Scrape Swiss job postings from jobs.ch and jobup.ch: title, company, address, canton, workload percent, employment type, positi... From $0.90 per 1,000 results.</li>
 <li><a href="/ats-jobs-scraper/">Greenhouse, Lever, Workday and Ashby jobs scraper</a>: Collect public job postings from Greenhouse, Lever, Workday, Workable, Ashby, Recruitee, Personio and BambooHR with one consist... From $0.42 per 1,000 results.</li>
+<li><a href="/hirist-jobs-scraper/">Hirist Jobs Scraper</a>: Hirist jobs scraper for India tech jobs from hirist.tech: title, company, locations, experience in years, salary in lakhs when... From $0.50 per 1,000 results.</li>
 <li><a href="/gupy-scraper/">Gupy Jobs Scraper</a>: Scrape Brazilian job postings from Gupy, the hiring system of most large employers in Brazil: title, company, city, state, job... From $0.50 per 1,000 results.</li>
-<li><a href="/kariyer-scraper/">Kariyer Scraper</a>: Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link. From $0.84 per 1,000 results.</li>
 <li><a href="/pracuj-pl-scraper/">Pracuj.pl Scraper</a>: Scrape Polish job postings from pracuj.pl: title, company, workplaces and address, salary per contract type, gross or net, posi... From $0.50 per 1,000 results.</li>
+<li><a href="/kariyer-scraper/">Kariyer Scraper</a>: Scrape job listings from Kariyer.net, the largest job board in Turkey, by city, keyword or listing link. From $0.84 per 1,000 results.</li>
 <li><a href="/rozeepk-jobs-scraper/">Rozee.pk Jobs Scraper</a>: Scrape job listings from Rozee.pk by keyword and optional city. From $0.79 per 1,000 results.</li>
 <li><a href="/freelancer-jobs-projects-scraper/">Freelancer.com Jobs and Projects Scraper</a>: Scrape Freelancer.com job listings by skill: project title, description, average bid and whether it is hourly, bid count, requi... From $0.09 per 1,000 results.</li>
 <li><a href="/jobteaser-job-scraper/">JobTeaser Job Scraper</a>: Scrape job listings from jobteaser.com: title, company, location, contract type, posted time, easy-apply and featured flags, co... From $0.79 per 1,000 results.</li>
 <li><a href="/peopleperhour-job-scraper/">PeoplePerHour Job Scraper</a>: PeoplePerHour job scraper for freelance job listings from category pages: title, description, budget, currency, project type, c... From $0.85 per 1,000 results.</li>
 <li><a href="/eluta-ca-job-scraper/">Eluta.ca Job Scraper</a>: Scrape Canadian job listings from eluta.ca by keyword and location. From $0.77 per 1,000 results.</li>
 <li><a href="/greenhouse-public-jobs/">Greenhouse Jobs API and Scraper</a>: Greenhouse jobs API and scraper. From $0.20 per 1,000 results.</li>
-<li><a href="/ashby-public-jobs/">Ashby Jobs API and Scraper</a>: Ashby jobs API and scraper. From $1.70 per 1,000 results.</li>
 <li><a href="/lever-public-jobs/">Lever Jobs API and Scraper</a>: Lever jobs API and scraper. From $0.20 per 1,000 results.</li>
+<li><a href="/ashby-public-jobs/">Ashby Jobs API and Scraper</a>: Ashby jobs API and scraper. From $1.70 per 1,000 results.</li>
 </ul>
 <h2>SEO and website analysis</h2>
 <ul class="guides">
 <li><a href="/similarweb-scraper/">Similarweb Scraper</a>: Scrape Similarweb top websites rankings by category: global rank, domain, category, rank change, average visit duration, pages... From $1.70 per 1,000 results.</li>
-<li><a href="/seo-audit/">SEO audit tool</a>: Audit the on-page SEO of any public web pages: title, meta description, headings, canonical, indexability, structured data type... From $6.80 per 1,000 results.</li>
+<li><a href="/seo-audit/">SEO audit tool</a>: Audit the on-page SEO of any public web pages: title, meta description, headings, canonical, indexability, structured data type... From $4.25 per 1,000 results.</li>
 <li><a href="/duckduckgo-scraper/">DuckDuckGo Search Scraper</a>: Scrape DuckDuckGo web search results into structured rows: title, URL, snippet, position, and query. From $0.26 per 1,000 results.</li>
 <li><a href="/sitemap-url-extractor/">Sitemap URL extractor</a>: Sitemap URL extractor and sitemap index crawler. From $1.00 per 1,000 results.</li>
 </ul>
@@ -143,8 +144,8 @@ and Python, JavaScript and cURL code. Pick a topic, open the guide, run the Acto
 <li><a href="/sec-form4-insider-trades/">Insider Trades Scraper</a>: Pull clean, parsed Form 4 insider trades from SEC EDGAR by ticker. From $1.70 per 1,000 results.</li>
 <li><a href="/sec-8k-material-events-tracker/">SEC 8-K Scraper</a>: Pull recent SEC 8-K filings (Current Reports) by stock ticker. From $10.00 per 1,000 results.</li>
 <li><a href="/sec-13d-13g-beneficial-ownership/">SEC 13D/13G filings scraper</a>: Scrape SEC EDGAR 13D and 13G beneficial ownership filings by company CIK. From $4.89 per 1,000 results.</li>
-<li><a href="/nih-reporter-grants/">NIH RePORTER Scraper</a>: Pull recent NIH research grants from RePORTER. From $3.00 per 1,000 results.</li>
 <li><a href="/coingecko-tokens-by-category/">CoinGecko Tokens Scraper</a>: Pulls the top 100 tokens by market cap in each CoinGecko category (DeFi, meme, L1, ecosystem tags) with current price, market c... From $1.00 per 1,000 results.</li>
+<li><a href="/nih-reporter-grants/">NIH RePORTER Scraper</a>: Pull recent NIH research grants from RePORTER. From $3.00 per 1,000 results.</li>
 <li><a href="/openfda-drug-recalls/">openFDA Drug Recalls Scraper</a>: Pull recent FDA drug recall actions. From $5.00 per 1,000 results.</li>
 <li><a href="/sec-13f-institutional-holdings/">SEC 13F Scraper</a>: Pull SEC Form 13F quarterly holdings for any institutional manager by CIK. From $0.34 per 1,000 results.</li>
 <li><a href="/us-executive-orders-tracker/">US executive orders scraper</a>: Pull all US Presidential Documents from the Federal Register API: Executive Orders, Proclamations, Memoranda, Determinations, N... From $10.00 per 1,000 results.</li>
