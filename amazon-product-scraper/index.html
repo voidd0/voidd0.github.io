@@ -188,9 +188,9 @@ console.log(items);
 <h2>Good to know</h2>
 <ul>
 <li>Links from other Amazon stores (amazon.co.uk, amazon.de and so on) are read by their ASIN on amazon.com. An entry that is not an ASIN or a product link is skipped and named in the log; the run...</li>
+<li>A store field set to another Amazon store (domain, amazonDomain, domainCode or marketplace, for example amazon.de or DE) ends the run before any page is read, with no rows, and the status message...</li>
 <li>Covers amazon.com (United States). One row per product, at most 1000 products per run. Each product is one page request of about 2 MB, so large lists take a while.</li>
-<li>Prices, stock and shipping are what amazon.com shows to a visitor without an account in the United States. When a product shows several offers, the price of the main offer is used.</li>
-<li>Seller names, customer reviews and book author names are not collected.</li>
+<li>What a run costs: each product is one row. From 3 December 2026, at $4.99 per 1,000 rows plus $0.003 per run start (an Apify account without a discount; paid plans pay less per row), 100 products...</li>
 </ul>
 <h2>FAQ</h2>
 <h3>What data does the Amazon Product Details Scraper return?</h3>
@@ -209,8 +209,8 @@ console.log(items);
 <h2>Related guides</h2>
 <ul>
 <li><a href="/pricecharting-product-scraper/">PriceCharting Scraper</a>: Scrape PriceCharting prices for video games, Pokemon and other trading cards, comics, coins, Funko Pops and...</li>
-<li><a href="/alibaba-supplier-shortlist/">Alibaba Supplier Shortlist by Price, MOQ and Trust</a>: Get a ranked shortlist of Alibaba.com suppliers for each product you name: each supplier scored on price ag...</li>
-<li><a href="/aliexpress-scraper/">AliExpress Scraper</a>: AliExpress scraper for search results as product rows: product ID, title, sale price, original price, disco...</li>
+<li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price...</li>
+<li><a href="/google-play-app-reviews/">Android App Reviews Scraper</a>: Pull Android app reviews from Google Play by package ID, with country and language options.</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
