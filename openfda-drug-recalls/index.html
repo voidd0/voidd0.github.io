@@ -26,24 +26,24 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/openfda-drug-recalls
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>recallNumber</code></td><td>Recall Number</td><td>text</td><td>D-0860-2026</td></tr>
-<tr><td><code>eventId</code></td><td>Event Id</td><td>text</td><td>99712</td></tr>
+<tr><td><code>recallNumber</code></td><td>Recall Number</td><td>text</td><td>D-0145-2027</td></tr>
+<tr><td><code>eventId</code></td><td>Event Id</td><td>text</td><td>100168</td></tr>
 <tr><td><code>status</code></td><td>Status</td><td>text</td><td>Ongoing</td></tr>
 <tr><td><code>classification</code></td><td>Classification</td><td>text</td><td>Class II</td></tr>
 <tr><td><code>productType</code></td><td>Product Type</td><td>text</td><td>Drugs</td></tr>
-<tr><td><code>recallingFirm</code></td><td>Recalling Firm</td><td>text</td><td>Sterling Pharmaceutical Services LLC</td></tr>
-<tr><td><code>firmAddress</code></td><td>Firm Address</td><td>text</td><td>109 S 2nd St, Dupo, IL, 62239-1351, United States</td></tr>
-<tr><td><code>productDescription</code></td><td>Product Description</td><td>text</td><td>TRP The Relief Products* Gentle Eyes Lubricant Eye Drops, Carboxyme...</td></tr>
-<tr><td><code>productQuantity</code></td><td>Product Quantity</td><td>text</td><td>14538 bottles</td></tr>
-<tr><td><code>reasonForRecall</code></td><td>Reason For Recall</td><td>text</td><td>Lack of Assurance of Sterility</td></tr>
+<tr><td><code>recallingFirm</code></td><td>Recalling Firm</td><td>text</td><td>Victory Medical Center Pharmacy</td></tr>
+<tr><td><code>firmAddress</code></td><td>Firm Address</td><td>text</td><td>4303 Victory Dr, Austin, TX, 78704-7507, United States</td></tr>
+<tr><td><code>productDescription</code></td><td>Product Description</td><td>text</td><td>THYMOSIN ALPHA-1 (MDV) 3MG/ML **5ML**, VMC, Victory Medical Center ...</td></tr>
+<tr><td><code>productQuantity</code></td><td>Product Quantity</td><td>text</td><td>201 vials</td></tr>
+<tr><td><code>reasonForRecall</code></td><td>Reason For Recall</td><td>text</td><td>Lack of Processing Controls</td></tr>
 <tr><td><code>voluntaryMandated</code></td><td>Voluntary Mandated</td><td>text</td><td>Voluntary: Firm initiated</td></tr>
 <tr><td><code>initialFirmNotification</code></td><td>Initial Firm Notification</td><td>text</td><td>Letter</td></tr>
-<tr><td><code>distributionPattern</code></td><td></td><td>text</td><td>USA Nationwide</td></tr>
-<tr><td><code>codeInfo</code></td><td></td><td>text</td><td>Lot # 3279, Exp 6/30/2027; Lot # 3292, Exp 5/31/2027.</td></tr>
-<tr><td><code>recallInitiationDate</code></td><td></td><td>text</td><td>20260820</td></tr>
-<tr><td><code>reportDate</code></td><td></td><td>text</td><td>20260930</td></tr>
-<tr><td><code>centerClassificationDate</code></td><td></td><td>text</td><td>20260921</td></tr>
-<tr><td><code>fdaUrl</code></td><td></td><td>text</td><td>https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-086...</td></tr>
+<tr><td><code>distributionPattern</code></td><td></td><td>text</td><td>CO, FL, TX</td></tr>
+<tr><td><code>codeInfo</code></td><td></td><td>text</td><td>Lot, expiry:  Lot  2033588 , exp 11/3/2026;  Lot  2044847 , exp 11/...</td></tr>
+<tr><td><code>recallInitiationDate</code></td><td></td><td>text</td><td>20261019</td></tr>
+<tr><td><code>reportDate</code></td><td></td><td>text</td><td>20261111</td></tr>
+<tr><td><code>centerClassificationDate</code></td><td></td><td>text</td><td>20261030</td></tr>
+<tr><td><code>fdaUrl</code></td><td></td><td>text</td><td>https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-014...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -73,43 +73,44 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/openfda-drug-recalls
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;recallNumber&quot;: &quot;D-0860-2026&quot;,
-    &quot;eventId&quot;: &quot;99712&quot;,
+    &quot;recallNumber&quot;: &quot;D-0145-2027&quot;,
+    &quot;eventId&quot;: &quot;100168&quot;,
     &quot;status&quot;: &quot;Ongoing&quot;,
     &quot;classification&quot;: &quot;Class II&quot;,
     &quot;productType&quot;: &quot;Drugs&quot;,
-    &quot;recallingFirm&quot;: &quot;Sterling Pharmaceutical Services LLC&quot;,
-    &quot;firmAddress&quot;: &quot;109 S 2nd St, Dupo, IL, 62239-1351, United States&quot;,
-    &quot;productDescription&quot;: &quot;TRP The Relief Products* Gentle Eyes Lubricant Eye Drops, Carboxymethylcellulose sodium 0.5%, Sterile Eye Drops, 0.5 FL OZ (15 mL) bottle...&quot;,
-    &quot;productQuantity&quot;: &quot;14538 bottles&quot;,
-    &quot;reasonForRecall&quot;: &quot;Lack of Assurance of Sterility&quot;,
+    &quot;recallingFirm&quot;: &quot;Victory Medical Center Pharmacy&quot;,
+    &quot;firmAddress&quot;: &quot;4303 Victory Dr, Austin, TX, 78704-7507, United States&quot;,
+    &quot;productDescription&quot;: &quot;THYMOSIN ALPHA-1 (MDV) 3MG/ML **5ML**, VMC, Victory Medical Center Pharmacy, Austin, Texas&quot;,
+    &quot;productQuantity&quot;: &quot;201 vials&quot;,
+    &quot;reasonForRecall&quot;: &quot;Lack of Processing Controls&quot;,
     &quot;voluntaryMandated&quot;: &quot;Voluntary: Firm initiated&quot;,
     &quot;initialFirmNotification&quot;: &quot;Letter&quot;,
-    &quot;distributionPattern&quot;: &quot;USA Nationwide&quot;,
-    &quot;codeInfo&quot;: &quot;Lot # 3279, Exp 6/30/2027; Lot # 3292, Exp 5/31/2027.&quot;,
-    &quot;recallInitiationDate&quot;: &quot;20260820&quot;,
-    &quot;reportDate&quot;: &quot;20260930&quot;,
-    &quot;centerClassificationDate&quot;: &quot;20260921&quot;,
-    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0860-2026&quot;
+    &quot;distributionPattern&quot;: &quot;CO, FL, TX&quot;,
+    &quot;codeInfo&quot;: &quot;Lot, expiry:  Lot  2033588 , exp 11/3/2026;  Lot  2044847 , exp 11/13/2026&quot;,
+    &quot;recallInitiationDate&quot;: &quot;20261019&quot;,
+    &quot;reportDate&quot;: &quot;20261111&quot;,
+    &quot;centerClassificationDate&quot;: &quot;20261030&quot;,
+    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0145-2027&quot;
   },
   {
-    &quot;recallNumber&quot;: &quot;D-0879-2026&quot;,
-    &quot;eventId&quot;: &quot;99866&quot;,
+    &quot;recallNumber&quot;: &quot;D-0122-2027&quot;,
+    &quot;eventId&quot;: &quot;100168&quot;,
     &quot;status&quot;: &quot;Ongoing&quot;,
     &quot;classification&quot;: &quot;Class II&quot;,
     &quot;productType&quot;: &quot;Drugs&quot;,
-    &quot;recallingFirm&quot;: &quot;SV Labs Toronto Corporation&quot;,
-    &quot;firmAddress&quot;: &quot;296 Orenda Rd, Brampton, Canada&quot;,
-    &quot;productDescription&quot;: &quot;Benzoyl Peroxide Wash, USP, 10%, packaged in a)5 FL OZ (148mL) bottles (NDC 0536-1261-63), and b) 8.5 FL OZ (237 mL) bottles (NDC 0536-13...&quot;,
-    &quot;reasonForRecall&quot;: &quot;Microbial contamination of topical product.&quot;,
+    &quot;recallingFirm&quot;: &quot;Victory Medical Center Pharmacy&quot;,
+    &quot;firmAddress&quot;: &quot;4303 Victory Dr, Austin, TX, 78704-7507, United States&quot;,
+    &quot;productDescription&quot;: &quot;CAGRILINTIDE/GLYCINE/B12 (MDV) 3.75/5/1MG/ML **1ML**, VMC, Victory Medical Center Pharmacy, Austin, Texas&quot;,
+    &quot;productQuantity&quot;: &quot;75 vials&quot;,
+    &quot;reasonForRecall&quot;: &quot;Lack of Processing Controls&quot;,
     &quot;voluntaryMandated&quot;: &quot;Voluntary: Firm initiated&quot;,
-    &quot;initialFirmNotification&quot;: &quot;E-Mail&quot;,
-    &quot;distributionPattern&quot;: &quot;IL only&quot;,
-    &quot;codeInfo&quot;: &quot;a) Lot #: 0575-01-366, Exp. Date Jan-27; 0565-02-336, Exp. Date FEB-27;  b) Lot #: 0645-02-355,  0575-02-336, Exp. Date Feb-27;  0565-12-...&quot;,
-    &quot;recallInitiationDate&quot;: &quot;20260901&quot;,
-    &quot;reportDate&quot;: &quot;20261007&quot;,
-    &quot;centerClassificationDate&quot;: &quot;20260930&quot;,
-    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0879-2026&quot;
+    &quot;initialFirmNotification&quot;: &quot;Letter&quot;,
+    &quot;distributionPattern&quot;: &quot;CO, FL, TX&quot;,
+    &quot;codeInfo&quot;: &quot;Lot, expiry:  Lot  2021027 , exp 10/19/2026&quot;,
+    &quot;recallInitiationDate&quot;: &quot;20261019&quot;,
+    &quot;reportDate&quot;: &quot;20261111&quot;,
+    &quot;centerClassificationDate&quot;: &quot;20261030&quot;,
+    &quot;fdaUrl&quot;: &quot;https://www.accessdata.fda.gov/scripts/ires/index.cfm?Product=D-0122-2027&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

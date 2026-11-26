@@ -26,13 +26,13 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/medium-rss-tracker</
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>id</code></td><td>Id</td><td>URL</td><td>https://medium.com/p/62edea66ffa4</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Updating Our Rules - June 2023</td></tr>
-<tr><td><code>link</code></td><td>Link</td><td>URL</td><td>https://medium.com/blog/updating-our-rules-june-2023-62edea66ffa4?s...</td></tr>
+<tr><td><code>id</code></td><td>Id</td><td>URL</td><td>https://medium.com/p/c2a033678c66</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Got Zero Ideas? Here Are 50 Low-Cost, High-Margin Products to Launc...</td></tr>
+<tr><td><code>link</code></td><td>Link</td><td>URL</td><td>https://medium.com/@ahmedkabir6611/got-zero-ideas-here-are-50-low-c...</td></tr>
 <tr><td><code>author</code></td><td>Author</td><td>text</td><td></td></tr>
-<tr><td><code>pubDate</code></td><td>Pub Date</td><td>text</td><td>Wed, 28 Jun 2023 18:01:22 GMT</td></tr>
-<tr><td><code>summary</code></td><td>Summary</td><td>text</td><td>This month, we are updating our Rules. As the world evolves, so do ...</td></tr>
-<tr><td><code>categories</code></td><td>Categories</td><td>list</td><td>[&quot;rules&quot;, &quot;medium&quot;]</td></tr>
+<tr><td><code>pubDate</code></td><td>Pub Date</td><td>text</td><td>Fri, 06 Nov 2026 04:39:36 GMT</td></tr>
+<tr><td><code>summary</code></td><td>Summary</td><td>text</td><td>What if your next big business didn&#x27;t require expensive manufacturi...</td></tr>
+<tr><td><code>categories</code></td><td>Categories</td><td>list</td><td>[&quot;books&quot;, &quot;writing&quot;, &quot;money&quot;]</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -56,22 +56,28 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/medium-rss-tracker</
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;id&quot;: &quot;https://medium.com/p/62edea66ffa4&quot;,
-    &quot;title&quot;: &quot;Updating Our Rules - June 2023&quot;,
-    &quot;link&quot;: &quot;https://medium.com/blog/updating-our-rules-june-2023-62edea66ffa4?source=rss-504c7870fdb6------2&quot;,
-    &quot;pubDate&quot;: &quot;Wed, 28 Jun 2023 18:01:22 GMT&quot;,
-    &quot;summary&quot;: &quot;This month, we are updating our Rules. As the world evolves, so do the ways in which people use Medium. To accommodate this, we regularly...&quot;,
+    &quot;id&quot;: &quot;https://medium.com/p/c2a033678c66&quot;,
+    &quot;title&quot;: &quot;Got Zero Ideas? Here Are 50 Low-Cost, High-Margin Products to Launch on Shopify Today&quot;,
+    &quot;link&quot;: &quot;https://medium.com/@ahmedkabir6611/got-zero-ideas-here-are-50-low-cost-high-margin-products-to-launch-on-shopify-today-c2a033678c66?sourc...&quot;,
+    &quot;pubDate&quot;: &quot;Fri, 06 Nov 2026 04:39:36 GMT&quot;,
+    &quot;summary&quot;: &quot;What if your next big business didn&#x27;t require expensive manufacturing, a massive budget, or a complex supply chain? What if it’s as simple…&quot;,
     &quot;categories&quot;: [
-      &quot;rules&quot;,
-      &quot;medium&quot;
+      &quot;books&quot;,
+      &quot;writing&quot;,
+      &quot;money&quot;
     ]
   },
   {
-    &quot;id&quot;: &quot;https://medium.com/p/cccf29534bf4&quot;,
-    &quot;title&quot;: &quot;Email Import Terms of Use&quot;,
-    &quot;link&quot;: &quot;https://policy.medium.com/email-import-terms-of-use-cccf29534bf4?source=rss-504c7870fdb6------2&quot;,
-    &quot;pubDate&quot;: &quot;Mon, 08 Nov 2021 17:24:26 GMT&quot;,
-    &quot;summary&quot;: &quot;Effective as of November 8th, 2021&quot;
+    &quot;id&quot;: &quot;https://medium.com/p/9769115d39bc&quot;,
+    &quot;title&quot;: &quot;My 300s Timeout Killed 8 of 9 Runs&quot;,
+    &quot;link&quot;: &quot;https://medium.com/@coolercoder/my-300s-timeout-killed-8-of-9-runs-9769115d39bc?source=rss------programming-5&quot;,
+    &quot;pubDate&quot;: &quot;Fri, 06 Nov 2026 04:38:32 GMT&quot;,
+    &quot;summary&quot;: &quot;The bug wasn’t a slow model. My timeout was measuring the wrong thing.&quot;,
+    &quot;categories&quot;: [
+      &quot;programming&quot;,
+      &quot;artificial-intelligence&quot;,
+      &quot;java&quot;
+    ]
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

@@ -30,22 +30,27 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-product-scrap
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>asin</code></td><td>ASIN</td><td>text</td><td>B09B8V1LZ3</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Amazon Echo Dot (newest model) - Vibrant sounding speaker, Designed...</td></tr>
-<tr><td><code>brand</code></td><td>Brand</td><td>text</td><td>Amazon</td></tr>
-<tr><td><code>price</code></td><td>Price</td><td>number</td><td>79.99</td></tr>
-<tr><td><code>listPrice</code></td><td>List price</td><td>number</td><td></td></tr>
-<tr><td><code>rating</code></td><td>Stars</td><td>number</td><td>4.7</td></tr>
-<tr><td><code>ratingsCount</code></td><td>Ratings</td><td>number</td><td>201463</td></tr>
+<tr><td><code>asin</code></td><td>ASIN</td><td>text</td><td>B074PVTPBW</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches,...</td></tr>
+<tr><td><code>brand</code></td><td>Brand</td><td>text</td><td>Mighty Patch</td></tr>
+<tr><td><code>price</code></td><td>Price</td><td>number</td><td>10.39</td></tr>
+<tr><td><code>listPrice</code></td><td>List price</td><td>number</td><td>12.99</td></tr>
+<tr><td><code>rating</code></td><td>Stars</td><td>number</td><td>4.6</td></tr>
+<tr><td><code>ratingsCount</code></td><td>Ratings</td><td>number</td><td>187522</td></tr>
 <tr><td><code>inStock</code></td><td>In stock</td><td>true/false</td><td>true</td></tr>
-<tr><td><code>mainImage</code></td><td>Image</td><td>image URL</td><td>https://m.media-amazon.com/images/I/61J2sQtBYDL._AC_SL1500_.jpg</td></tr>
-<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.amazon.com/dp/B09B8V1LZ3</td></tr>
+<tr><td><code>mainImage</code></td><td>Image</td><td>image URL</td><td>https://m.media-amazon.com/images/I/619GVXIlhjL._SL1500_.jpg</td></tr>
+<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.amazon.com/dp/B074PVTPBW</td></tr>
 <tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
 <tr><td><code>availability</code></td><td></td><td>text</td><td>In Stock</td></tr>
-<tr><td><code>description</code></td><td></td><td>text</td><td>Enhance your smart home hub experience with the Charcoal colored 20...</td></tr>
-<tr><td><code>images</code></td><td></td><td>list</td><td>[&quot;https://m.media-amazon.com/images/I/61J2sQtBYDL._AC_SL1500_.jpg&quot;,...</td></tr>
-<tr><td><code>variationsCount</code></td><td></td><td>number</td><td>6</td></tr>
-<tr><td><code>variationAsins</code></td><td></td><td>list</td><td>[&quot;B09B8V1LZ3&quot;, &quot;B0HKL4CT1J&quot;, &quot;B09B94RL1R&quot;]</td></tr>
+<tr><td><code>features</code></td><td></td><td>list</td><td>[&quot;THE ORIGINAL AWARD-WINNING ACNE PATCH. Mighty Patch is a hydrocol...</td></tr>
+<tr><td><code>images</code></td><td></td><td>list</td><td>[&quot;https://m.media-amazon.com/images/I/619GVXIlhjL._SL1500_.jpg&quot;, &quot;h...</td></tr>
+<tr><td><code>categories</code></td><td></td><td>list</td><td>[&quot;Beauty &amp; Personal Care&quot;, &quot;Skin Care&quot;, &quot;Face&quot;]</td></tr>
+<tr><td><code>variationsCount</code></td><td></td><td>number</td><td>10</td></tr>
+<tr><td><code>variationAsins</code></td><td></td><td>list</td><td>[&quot;B0HHFG4Q64&quot;, &quot;B0D38DMBPQ&quot;, &quot;B0H73JKWLX&quot;]</td></tr>
+<tr><td><code>dimensions</code></td><td></td><td>text</td><td>5.5 x 3.25 x 0.75 inches; 0.63 ounces</td></tr>
+<tr><td><code>model</code></td><td></td><td>text</td><td>MP001CA</td></tr>
+<tr><td><code>manufacturer</code></td><td></td><td>text</td><td>Mighty Patch</td></tr>
+<tr><td><code>specifications</code></td><td></td><td>object</td><td>{&quot;Item Form&quot;: &quot;Patch&quot;, &quot;Scent Name&quot;: &quot;Unscented&quot;, &quot;Product Benefits...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -79,63 +84,55 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-product-scrap
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;asin&quot;: &quot;B09B8V1LZ3&quot;,
-    &quot;url&quot;: &quot;https://www.amazon.com/dp/B09B8V1LZ3&quot;,
-    &quot;title&quot;: &quot;Amazon Echo Dot (newest model) - Vibrant sounding speaker, Designed for Alexa+, Great for bedrooms, dining rooms and offices, Charcoal&quot;,
-    &quot;brand&quot;: &quot;Amazon&quot;,
-    &quot;price&quot;: 79.99,
+    &quot;asin&quot;: &quot;B074PVTPBW&quot;,
+    &quot;url&quot;: &quot;https://www.amazon.com/dp/B074PVTPBW&quot;,
+    &quot;title&quot;: &quot;Mighty Patch Hero Cosmetics Original Nighttime Acne Pimple Patches, 36 Ct&quot;,
+    &quot;brand&quot;: &quot;Mighty Patch&quot;,
+    &quot;price&quot;: 10.39,
     &quot;currency&quot;: &quot;USD&quot;,
-    &quot;rating&quot;: 4.7,
-    &quot;ratingsCount&quot;: 201463,
+    &quot;listPrice&quot;: 12.99,
+    &quot;rating&quot;: 4.6,
+    &quot;ratingsCount&quot;: 187522,
     &quot;availability&quot;: &quot;In Stock&quot;,
     &quot;inStock&quot;: true,
-    &quot;description&quot;: &quot;Enhance your smart home hub experience with the Charcoal colored 2022 Echo Dot 5th generation smart speaker featuring Alexa capabilities...&quot;,
-    &quot;images&quot;: [
-      &quot;https://m.media-amazon.com/images/I/61J2sQtBYDL._AC_SL1500_.jpg&quot;,
-      &quot;https://m.media-amazon.com/images/I/71hNp8d9WvL._AC_SL1500_.jpg&quot;,
-      &quot;https://m.media-amazon.com/images/I/71kDL97LTgL._AC_SL1500_.jpg&quot;
+    &quot;features&quot;: [
+      &quot;THE ORIGINAL AWARD-WINNING ACNE PATCH. Mighty Patch is a hydrocolloid sticker that visibly flattens pimples overnight. No popping necessa...&quot;,
+      &quot;SHRINKS ZITS IN 6 HOURS. With 50% more gunk-absorbing power than other brands, our pure medical-grade hydrocolloid effortlessly pulls the...&quot;,
+      &quot;ALL-NIGHT ADHESION. Strong enough to stay on through a whole night of tossing, turning, and pillow-squishing. Easy to remove in the AM wi...&quot;
     ],
-    &quot;mainImage&quot;: &quot;https://m.media-amazon.com/images/I/61J2sQtBYDL._AC_SL1500_.jpg&quot;,
-    &quot;variationsCount&quot;: 6,
-    &quot;variationAsins&quot;: [
-      &quot;B09B8V1LZ3&quot;,
-      &quot;B0HKL4CT1J&quot;,
-      &quot;B09B94RL1R&quot;
-    ]
-  },
-  {
-    &quot;asin&quot;: &quot;0735211299&quot;,
-    &quot;url&quot;: &quot;https://www.amazon.com/dp/0735211299&quot;,
-    &quot;title&quot;: &quot;Atomic Habits: An Easy &amp; Proven Way to Build Good Habits &amp; Break Bad Ones&quot;,
-    &quot;price&quot;: 8.55,
-    &quot;currency&quot;: &quot;USD&quot;,
-    &quot;listPrice&quot;: 27,
-    &quot;rating&quot;: 4.8,
-    &quot;ratingsCount&quot;: 150297,
-    &quot;availability&quot;: &quot;Only 1 left in stock - order soon.&quot;,
-    &quot;inStock&quot;: true,
-    &quot;description&quot;: &quot;The #1 New York Times bestseller. Over 25 million copies sold! Translated into 60+ languages! Tiny Changes, Remarkable Results No matter...&quot;,
     &quot;images&quot;: [
-      &quot;https://m.media-amazon.com/images/I/8106lPWfXpL._SL1500_.jpg&quot;
+      &quot;https://m.media-amazon.com/images/I/619GVXIlhjL._SL1500_.jpg&quot;,
+      &quot;https://m.media-amazon.com/images/I/81nUFHl9PLL._SL1500_.jpg&quot;,
+      &quot;https://m.media-amazon.com/images/I/81sTfpLWQoL._SL1500_.jpg&quot;
     ],
-    &quot;mainImage&quot;: &quot;https://m.media-amazon.com/images/I/8106lPWfXpL._SL1500_.jpg&quot;,
+    &quot;mainImage&quot;: &quot;https://m.media-amazon.com/images/I/619GVXIlhjL._SL1500_.jpg&quot;,
     &quot;categories&quot;: [
-      &quot;Books&quot;,
-      &quot;Health, Fitness &amp; Dieting&quot;,
-      &quot;Psychology &amp; Counseling&quot;
+      &quot;Beauty &amp; Personal Care&quot;,
+      &quot;Skin Care&quot;,
+      &quot;Face&quot;
     ],
-    &quot;dimensions&quot;: &quot;6.36 x 1.11 x 9.27 inches&quot;,
-    &quot;weight&quot;: &quot;1.13 pounds&quot;,
+    &quot;variationsCount&quot;: 10,
+    &quot;variationAsins&quot;: [
+      &quot;B0HHFG4Q64&quot;,
+      &quot;B0D38DMBPQ&quot;,
+      &quot;B0H73JKWLX&quot;
+    ],
+    &quot;dimensions&quot;: &quot;5.5 x 3.25 x 0.75 inches; 0.63 ounces&quot;,
+    &quot;model&quot;: &quot;MP001CA&quot;,
+    &quot;manufacturer&quot;: &quot;Mighty Patch&quot;,
     &quot;specifications&quot;: {
-      &quot;Publisher&quot;: &quot;Avery&quot;,
-      &quot;Publication date&quot;: &quot;October 16, 2018&quot;,
-      &quot;Edition&quot;: &quot;First Edition&quot;,
-      &quot;Language&quot;: &quot;English&quot;,
-      &quot;Print length&quot;: &quot;320 pages&quot;,
-      &quot;ISBN-10&quot;: &quot;0735211299&quot;,
-      &quot;ISBN-13&quot;: &quot;978-0735211292&quot;,
-      &quot;Item Weight&quot;: &quot;1.13 pounds&quot;,
-      &quot;Dimensions&quot;: &quot;6.36 x 1.11 x 9.27 inches&quot;
+      &quot;Item Form&quot;: &quot;Patch&quot;,
+      &quot;Scent Name&quot;: &quot;Unscented&quot;,
+      &quot;Product Benefits&quot;: &quot;Blemishes Treatment&quot;,
+      &quot;Skin Type&quot;: &quot;Combination, Dry, Normal, Oily, Sensitive&quot;,
+      &quot;Target Use Body Part&quot;: &quot;Face&quot;,
+      &quot;Active Ingredients&quot;: &quot;Hydrocolloid&quot;,
+      &quot;Container Type&quot;: &quot;Carton&quot;,
+      &quot;Brand Name&quot;: &quot;Mighty Patch&quot;,
+      &quot;Set Name&quot;: &quot;Original&quot;,
+      &quot;Item Highlight&quot;: &quot;#1 Hydrocolloid Acne Patches, Shrinking Zits &amp; Whiteheads in 1 Use, Spot Treatment, Pimple Stickers for Face&quot;,
+      &quot;Unit Count&quot;: &quot;36 Count&quot;,
+      &quot;Number of Items&quot;: &quot;1&quot;
     }
   }
 ]</code></pre>

@@ -26,9 +26,9 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/fcc-public-notices</
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:25:18+00:00</td></tr>
-<tr><td><code>filing_id</code></td><td>Filing id</td><td>text</td><td>26110080227</td></tr>
-<tr><td><code>date_received</code></td><td>Date received</td><td>date</td><td>2026-10-09T14:25:08.761Z</td></tr>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-11-20T04:27:47+00:00</td></tr>
+<tr><td><code>filing_id</code></td><td>Filing id</td><td>text</td><td>26110084303</td></tr>
+<tr><td><code>date_received</code></td><td>Date received</td><td>date</td><td>2026-11-09T22:16:53.875Z</td></tr>
 <tr><td><code>submission_type</code></td><td>Submission type</td><td>text</td><td>COMMENT</td></tr>
 <tr><td><code>filer_name</code></td><td>Filer name</td><td>text</td><td></td></tr>
 <tr><td><code>proceeding</code></td><td>Proceeding</td><td>text</td><td>17-108</td></tr>
@@ -37,7 +37,10 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/fcc-public-notices</
 <tr><td><code>document_url</code></td><td>Document url</td><td>URL</td><td></td></tr>
 <tr><td><code>city</code></td><td>City</td><td>text</td><td></td></tr>
 <tr><td><code>state</code></td><td>State</td><td>text</td><td></td></tr>
-<tr><td><code>text_snippet</code></td><td>Text snippet</td><td>text</td><td>How do i fix this</td></tr>
+<tr><td><code>text_snippet</code></td><td>Text snippet</td><td>text</td><td>1099s
+COPYA
+COPYB
+COPYC</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -59,7 +62,18 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/fcc-public-notices</
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;snapshotAt&quot;: &quot;2026-10-26T04:25:18+00:00&quot;,
+    &quot;snapshotAt&quot;: &quot;2026-11-20T04:27:47+00:00&quot;,
+    &quot;filing_id&quot;: &quot;26110084303&quot;,
+    &quot;date_received&quot;: &quot;2026-11-09T22:16:53.875Z&quot;,
+    &quot;submission_type&quot;: &quot;COMMENT&quot;,
+    &quot;proceeding&quot;: &quot;17-108&quot;,
+    &quot;allProceedings&quot;: [
+      &quot;17-108&quot;
+    ],
+    &quot;text_snippet&quot;: &quot;1099s\nCOPYA\nCOPYB\nCOPYC&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-11-20T04:27:47+00:00&quot;,
     &quot;filing_id&quot;: &quot;26110080227&quot;,
     &quot;date_received&quot;: &quot;2026-10-09T14:25:08.761Z&quot;,
     &quot;submission_type&quot;: &quot;COMMENT&quot;,
@@ -68,18 +82,6 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/fcc-public-notices</
       &quot;17-108&quot;
     ],
     &quot;text_snippet&quot;: &quot;How do i fix this&quot;
-  },
-  {
-    &quot;snapshotAt&quot;: &quot;2026-10-26T04:25:18+00:00&quot;,
-    &quot;filing_id&quot;: &quot;26110071483&quot;,
-    &quot;date_received&quot;: &quot;2026-08-17T12:00:00.000Z&quot;,
-    &quot;submission_type&quot;: &quot;COMPLAINT&quot;,
-    &quot;proceeding&quot;: &quot;17-108&quot;,
-    &quot;allProceedings&quot;: [
-      &quot;17-108&quot;
-    ],
-    &quot;document_filename&quot;: &quot;1-SERVICE OF PROCESS NOTICE.pdf&quot;,
-    &quot;document_url&quot;: &quot;https://www.fcc.gov/ecfs/document/26110071483/1&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

@@ -26,21 +26,21 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/arxiv-daily-papers</
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>arxivId</code></td><td>Arxiv Id</td><td>text</td><td>2610.32971</td></tr>
+<tr><td><code>arxivId</code></td><td>Arxiv Id</td><td>text</td><td>2611.08487</td></tr>
 <tr><td><code>version</code></td><td>Version</td><td>text</td><td>v1</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>RobustRLlib: A Unified Library and Benchmark for Robust Reinforceme...</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>User Embeddings are Superpositions of Interpretable Behavioral Modes</td></tr>
 <tr><td><code>authors</code></td><td>Authors</td><td>list</td><td></td></tr>
 <tr><td><code>primaryCategory</code></td><td>Primary Category</td><td>text</td><td>cs.LG</td></tr>
-<tr><td><code>categories</code></td><td>Categories</td><td>list</td><td></td></tr>
-<tr><td><code>published</code></td><td>Published</td><td>date</td><td>2026-10-23T17:57:22Z</td></tr>
-<tr><td><code>updated</code></td><td>Updated</td><td>date</td><td>2026-10-23T17:57:22Z</td></tr>
+<tr><td><code>categories</code></td><td>Categories</td><td>list</td><td>[&quot;cs.LG&quot;]</td></tr>
+<tr><td><code>published</code></td><td>Published</td><td>date</td><td>2026-11-05T18:59:42Z</td></tr>
+<tr><td><code>updated</code></td><td>Updated</td><td>date</td><td>2026-11-05T18:59:42Z</td></tr>
 <tr><td><code>doi</code></td><td>Doi</td><td>text</td><td></td></tr>
 <tr><td><code>journalRef</code></td><td>Journal Ref</td><td>text</td><td></td></tr>
-<tr><td><code>comment</code></td><td>Comment</td><td>text</td><td>Project page, code, and tutorial: https://robustrl-lib.github.io/</td></tr>
-<tr><td><code>pdfUrl</code></td><td>Pdf Url</td><td>URL</td><td>https://arxiv.org/pdf/2610.32971v1</td></tr>
-<tr><td><code>absUrl</code></td><td></td><td>text</td><td>https://arxiv.org/abs/2610.32971v1</td></tr>
+<tr><td><code>comment</code></td><td>Comment</td><td>text</td><td>Accepted to NeurIPS 2026</td></tr>
+<tr><td><code>pdfUrl</code></td><td>Pdf Url</td><td>URL</td><td>https://arxiv.org/pdf/2611.08487v1</td></tr>
+<tr><td><code>absUrl</code></td><td></td><td>text</td><td>https://arxiv.org/abs/2611.08487v1</td></tr>
 <tr><td><code>query</code></td><td></td><td>text</td><td>cat:cs.LG</td></tr>
-<tr><td><code>abstract</code></td><td></td><td>text</td><td>Robust reinforcement learning (RL) is critical for reliable real-wo...</td></tr>
+<tr><td><code>abstract</code></td><td></td><td>text</td><td>User embeddings are central components of modern recommendation, pe...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -64,30 +64,29 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/arxiv-daily-papers</
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;arxivId&quot;: &quot;2610.32971&quot;,
+    &quot;arxivId&quot;: &quot;2611.08487&quot;,
     &quot;version&quot;: &quot;v1&quot;,
-    &quot;title&quot;: &quot;RobustRLlib: A Unified Library and Benchmark for Robust Reinforcement Learning Algorithms&quot;,
+    &quot;title&quot;: &quot;User Embeddings are Superpositions of Interpretable Behavioral Modes&quot;,
     &quot;primaryCategory&quot;: &quot;cs.LG&quot;,
-    &quot;published&quot;: &quot;2026-10-23T17:57:22Z&quot;,
-    &quot;updated&quot;: &quot;2026-10-23T17:57:22Z&quot;,
-    &quot;comment&quot;: &quot;Project page, code, and tutorial: https://robustrl-lib.github.io/&quot;,
-    &quot;pdfUrl&quot;: &quot;https://arxiv.org/pdf/2610.32971v1&quot;,
-    &quot;absUrl&quot;: &quot;https://arxiv.org/abs/2610.32971v1&quot;,
+    &quot;categories&quot;: [
+      &quot;cs.LG&quot;
+    ],
+    &quot;published&quot;: &quot;2026-11-05T18:59:42Z&quot;,
+    &quot;updated&quot;: &quot;2026-11-05T18:59:42Z&quot;,
+    &quot;comment&quot;: &quot;Accepted to NeurIPS 2026&quot;,
+    &quot;pdfUrl&quot;: &quot;https://arxiv.org/pdf/2611.08487v1&quot;,
+    &quot;absUrl&quot;: &quot;https://arxiv.org/abs/2611.08487v1&quot;,
     &quot;query&quot;: &quot;cat:cs.LG&quot;,
-    &quot;abstract&quot;: &quot;Robust reinforcement learning (RL) is critical for reliable real-world deployment, where policies may fail under diverse shifts and disru...&quot;
+    &quot;abstract&quot;: &quot;User embeddings are central components of modern recommendation, personalization, and behavioral modeling systems. Though these embedding...&quot;
   },
   {
-    &quot;arxivId&quot;: &quot;2610.32969&quot;,
+    &quot;arxivId&quot;: &quot;2611.08478&quot;,
     &quot;version&quot;: &quot;v1&quot;,
-    &quot;title&quot;: &quot;DexPort: A Hand-Held Skill Interface for Dexterous Hand Data Collection&quot;,
-    &quot;primaryCategory&quot;: &quot;cs.RO&quot;,
-    &quot;published&quot;: &quot;2026-10-23T17:56:28Z&quot;,
-    &quot;updated&quot;: &quot;2026-10-23T17:56:28Z&quot;,
-    &quot;comment&quot;: &quot;Website: https://amberxie88.github.io/dexport/&quot;,
-    &quot;pdfUrl&quot;: &quot;https://arxiv.org/pdf/2610.32969v1&quot;,
-    &quot;absUrl&quot;: &quot;https://arxiv.org/abs/2610.32969v1&quot;,
-    &quot;query&quot;: &quot;cat:cs.LG&quot;,
-    &quot;abstract&quot;: &quot;Collecting high-quality demonstrations remains a central bottleneck for learning dexterous manipulation. Teleoperation records executable...&quot;
+    &quot;published&quot;: &quot;2026-11-05T18:58:17Z&quot;,
+    &quot;updated&quot;: &quot;2026-11-05T18:58:17Z&quot;,
+    &quot;pdfUrl&quot;: &quot;https://arxiv.org/pdf/2611.08478v1&quot;,
+    &quot;absUrl&quot;: &quot;https://arxiv.org/abs/2611.08478v1&quot;,
+    &quot;query&quot;: &quot;cat:cs.LG&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

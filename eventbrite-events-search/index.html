@@ -27,14 +27,14 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-events-se
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
 <tr><td><code>query</code></td><td>Query</td><td>text</td><td>tech-conference</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>RockIT Women 8th Annual Women in Tech (WIT) Conference</td></tr>
-<tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-12-08T08:30:00</td></tr>
-<tr><td><code>endDate</code></td><td>End Date</td><td>date</td><td>2026-12-08T16:30:00</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Tech Networking Event In Chicago</td></tr>
+<tr><td><code>startDate</code></td><td>Start Date</td><td>date</td><td>2026-12-09T18:30:00</td></tr>
+<tr><td><code>endDate</code></td><td>End Date</td><td>date</td><td>2026-12-09T21:00:00</td></tr>
 <tr><td><code>isOnline</code></td><td>Is Online</td><td>true/false</td><td>false</td></tr>
-<tr><td><code>venueName</code></td><td>Venue Name</td><td>text</td><td>The Vista at Origin Park</td></tr>
-<tr><td><code>city</code></td><td>City</td><td>text</td><td>Clarksville</td></tr>
-<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://www.eventbrite.com/e/rockit-women-8th-annual-women-in-tech-...</td></tr>
-<tr><td><code>id</code></td><td>Id</td><td>text</td><td>1994623085342</td></tr>
+<tr><td><code>venueName</code></td><td>Venue Name</td><td>text</td><td>The Green Door Tavern</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Chicago</td></tr>
+<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://www.eventbrite.com/e/tech-networking-event-in-chicago-ticke...</td></tr>
+<tr><td><code>id</code></td><td>Id</td><td>text</td><td>2004548621889</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -65,25 +65,25 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-events-se
 <pre><code>[
   {
     &quot;query&quot;: &quot;tech-conference&quot;,
-    &quot;id&quot;: &quot;1994623085342&quot;,
-    &quot;title&quot;: &quot;RockIT Women 8th Annual Women in Tech (WIT) Conference&quot;,
-    &quot;startDate&quot;: &quot;2026-12-08T08:30:00&quot;,
-    &quot;endDate&quot;: &quot;2026-12-08T16:30:00&quot;,
+    &quot;id&quot;: &quot;2004548621889&quot;,
+    &quot;title&quot;: &quot;Tech Networking Event In Chicago&quot;,
+    &quot;startDate&quot;: &quot;2026-12-09T18:30:00&quot;,
+    &quot;endDate&quot;: &quot;2026-12-09T21:00:00&quot;,
     &quot;isOnline&quot;: false,
-    &quot;venueName&quot;: &quot;The Vista at Origin Park&quot;,
-    &quot;city&quot;: &quot;Clarksville&quot;,
-    &quot;url&quot;: &quot;https://www.eventbrite.com/e/rockit-women-8th-annual-women-in-tech-wit-conference-tickets-1994623085342&quot;
+    &quot;venueName&quot;: &quot;The Green Door Tavern&quot;,
+    &quot;city&quot;: &quot;Chicago&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/tech-networking-event-in-chicago-tickets-2004548621889&quot;
   },
   {
     &quot;query&quot;: &quot;tech-conference&quot;,
-    &quot;id&quot;: &quot;1997479839972&quot;,
-    &quot;title&quot;: &quot;Tech Networking Event In Chicago&quot;,
-    &quot;startDate&quot;: &quot;2026-11-11T18:30:00&quot;,
-    &quot;endDate&quot;: &quot;2026-11-11T21:00:00&quot;,
+    &quot;id&quot;: &quot;2002969973108&quot;,
+    &quot;title&quot;: &quot;Columbus Tech Community Holiday Party&quot;,
+    &quot;startDate&quot;: &quot;2026-12-10T18:00:00&quot;,
+    &quot;endDate&quot;: &quot;2026-12-10T21:00:00&quot;,
     &quot;isOnline&quot;: false,
-    &quot;venueName&quot;: &quot;Barcocina Lakeview&quot;,
-    &quot;city&quot;: &quot;Chicago&quot;,
-    &quot;url&quot;: &quot;https://www.eventbrite.com/e/tech-networking-event-in-chicago-tickets-1997479839972&quot;
+    &quot;venueName&quot;: &quot;Rev1 at The Peninsula&quot;,
+    &quot;city&quot;: &quot;Columbus&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/columbus-tech-community-holiday-party-tickets-2002969973108&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -142,7 +142,7 @@ console.log(items);
 <ul>
 <li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Facebook ads library scraper for public ads from the Meta Ad Library by keyword, advertiser Page ID or link...</li>
 <li><a href="/eventbrite-scraper/">Eventbrite Event Data Scraper</a>: Collect public Eventbrite events for any city or online: name, start and end, venue and city, online flag,...</li>
-<li><a href="/jobbank/">Canada Job Bank Scraper</a>: Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and pr...</li>
+<li><a href="/ycombinator-was-scraper/">Y Combinator Work at a Startup Jobs Scraper</a>: Ycombinator was scraper for the Work at a Startup jobs board.</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

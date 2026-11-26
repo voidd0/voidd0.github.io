@@ -11,7 +11,7 @@
 <meta property="og:description" content="Scrape Amazon.com search results into clean product rows: ASIN, title, price, list price, star rating, rati... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/amazon-search-scraper/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Amazon Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include asin, title, price, rating, ratingsCount, badge, sponsored, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Amazon Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/amazon-search-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Amazon Search Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include asin, title, price, rating, ratingsCount, badge, sponsored, url, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Amazon Search Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/amazon-search-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.19 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.83 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -26,22 +26,20 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-search-scrape
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>asin</code></td><td>ASIN</td><td>text</td><td>B0FQFB8FMG</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation</td></tr>
-<tr><td><code>price</code></td><td>Price</td><td>number</td><td>199</td></tr>
-<tr><td><code>rating</code></td><td>Stars</td><td>number</td><td>4.4</td></tr>
-<tr><td><code>ratingsCount</code></td><td>Ratings</td><td>number</td><td>445</td></tr>
+<tr><td><code>asin</code></td><td>ASIN</td><td>text</td><td>B0HJBQVNXQ</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Wireless Earbuds, 2026 Bluetooth 5.4 Headphones Bass Stereo Ear Bud...</td></tr>
+<tr><td><code>price</code></td><td>Price</td><td>number</td><td></td></tr>
+<tr><td><code>rating</code></td><td>Stars</td><td>number</td><td>4.5</td></tr>
+<tr><td><code>ratingsCount</code></td><td>Ratings</td><td>number</td><td>455</td></tr>
 <tr><td><code>badge</code></td><td>Badge</td><td>text</td><td></td></tr>
 <tr><td><code>sponsored</code></td><td>Sponsored</td><td>true/false</td><td>false</td></tr>
-<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.amazon.com/dp/B0FQFB8FMG</td></tr>
+<tr><td><code>url</code></td><td>Product URL</td><td>URL</td><td>https://www.amazon.com/dp/B0HJBQVNXQ</td></tr>
 <tr><td><code>searchTerm</code></td><td></td><td>text</td><td>wireless earbuds</td></tr>
 <tr><td><code>page</code></td><td></td><td>number</td><td>1</td></tr>
 <tr><td><code>position</code></td><td></td><td>number</td><td>1</td></tr>
 <tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
-<tr><td><code>listPrice</code></td><td></td><td>number</td><td>249</td></tr>
-<tr><td><code>boughtPastMonth</code></td><td></td><td>text</td><td>10K+ bought in past month</td></tr>
 <tr><td><code>prime</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>image</code></td><td></td><td>text</td><td>https://m.media-amazon.com/images/I/61solmQSSlL._AC_UY218_.jpg</td></tr>
+<tr><td><code>image</code></td><td></td><td>text</td><td>https://m.media-amazon.com/images/I/61aQDkHPJ2L._AC_UY218_.jpg</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -76,9 +74,23 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-search-scrape
     &quot;searchTerm&quot;: &quot;wireless earbuds&quot;,
     &quot;page&quot;: 1,
     &quot;position&quot;: 1,
+    &quot;asin&quot;: &quot;B0HJBQVNXQ&quot;,
+    &quot;title&quot;: &quot;Wireless Earbuds, 2026 Bluetooth 5.4 Headphones Bass Stereo Ear Buds with Noise Cancelling Mic, LED Display in Ear Earphones 50H Playtime...&quot;,
+    &quot;currency&quot;: &quot;USD&quot;,
+    &quot;rating&quot;: 4.5,
+    &quot;ratingsCount&quot;: 455,
+    &quot;sponsored&quot;: false,
+    &quot;prime&quot;: false,
+    &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61aQDkHPJ2L._AC_UY218_.jpg&quot;,
+    &quot;url&quot;: &quot;https://www.amazon.com/dp/B0HJBQVNXQ&quot;
+  },
+  {
+    &quot;searchTerm&quot;: &quot;wireless earbuds&quot;,
+    &quot;page&quot;: 1,
+    &quot;position&quot;: 2,
     &quot;asin&quot;: &quot;B0FQFB8FMG&quot;,
     &quot;title&quot;: &quot;Apple AirPods Pro 3 Wireless Earbuds with Active Noise Cancellation&quot;,
-    &quot;price&quot;: 199,
+    &quot;price&quot;: 149,
     &quot;currency&quot;: &quot;USD&quot;,
     &quot;listPrice&quot;: 249,
     &quot;rating&quot;: 4.4,
@@ -88,24 +100,6 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/amazon-search-scrape
     &quot;prime&quot;: false,
     &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61solmQSSlL._AC_UY218_.jpg&quot;,
     &quot;url&quot;: &quot;https://www.amazon.com/dp/B0FQFB8FMG&quot;
-  },
-  {
-    &quot;searchTerm&quot;: &quot;wireless earbuds&quot;,
-    &quot;page&quot;: 1,
-    &quot;position&quot;: 2,
-    &quot;asin&quot;: &quot;B0HDB173YV&quot;,
-    &quot;title&quot;: &quot;Wireless Earbuds, Bluetooth 6.0 Headphones HiFi Stereo 50H Playback LED Digital Display Ear Buds with ENC Noise Canceling Headset, IPX7 W...&quot;,
-    &quot;price&quot;: 18.97,
-    &quot;currency&quot;: &quot;USD&quot;,
-    &quot;listPrice&quot;: 19.97,
-    &quot;rating&quot;: 4.7,
-    &quot;ratingsCount&quot;: 475,
-    &quot;boughtPastMonth&quot;: &quot;8K+ bought in past month&quot;,
-    &quot;badge&quot;: &quot;Overall Pick&quot;,
-    &quot;sponsored&quot;: false,
-    &quot;prime&quot;: false,
-    &quot;image&quot;: &quot;https://m.media-amazon.com/images/I/61lW-nQhWIL._AC_UY218_.jpg&quot;,
-    &quot;url&quot;: &quot;https://www.amazon.com/dp/B0HDB173YV&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -142,7 +136,7 @@ console.log(items);
   -H &quot;Content-Type: application/json&quot; \
   -d &#x27;{&quot;searchTerms&quot;: [&quot;wireless earbuds&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
 </code></pre><h2>Price</h2>
-<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. See the <a href="https://apify.com/v0iddo/amazon-search-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<p>$1.19 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.83 per 1,000. See the <a href="https://apify.com/v0iddo/amazon-search-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
 <li>Covers amazon.com. Amazon shows at most about 7 pages of results for one search; use several narrower search terms to collect more products.</li>
@@ -156,7 +150,7 @@ console.log(items);
 <h3>Can I use it without writing code?</h3>
 <p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
 <h3>How much does it cost?</h3>
-<p>$1.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.70 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<p>$1.19 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.83 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
 <h3>How do I limit the number of results?</h3>
 <p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
 <h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>

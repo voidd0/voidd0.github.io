@@ -30,13 +30,13 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/website-content-craw
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>url</code></td><td>Page URL</td><td>URL</td><td>https://flask.palletsprojects.com/en/stable/</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Welcome to Flask</td></tr>
-<tr><td><code>h1</code></td><td>H1 Heading</td><td>text</td><td>Welcome to Flask</td></tr>
-<tr><td><code>breadcrumbs</code></td><td>Breadcrumbs</td><td>list</td><td>[&quot;Flask Documentation (3.1.x)&quot;, &quot;Welcome to Flask&quot;]</td></tr>
-<tr><td><code>description</code></td><td>Description</td><td>text</td><td></td></tr>
-<tr><td><code>textContent</code></td><td>Text content</td><td>text</td><td>Welcome to Flask  Welcome to Flask’s documentation. Flask is a ligh...</td></tr>
-<tr><td><code>wordCount</code></td><td>Word count</td><td>number</td><td>920</td></tr>
+<tr><td><code>url</code></td><td>Page URL</td><td>URL</td><td>https://docs.python.org/3/library/</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>The Python standard library</td></tr>
+<tr><td><code>h1</code></td><td>H1 Heading</td><td>text</td><td>The Python standard library</td></tr>
+<tr><td><code>breadcrumbs</code></td><td>Breadcrumbs</td><td>list</td><td></td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>This library reference manual describes the standard library distri...</td></tr>
+<tr><td><code>textContent</code></td><td>Text content</td><td>text</td><td>The Python standard library  This library reference manual describe...</td></tr>
+<tr><td><code>wordCount</code></td><td>Word count</td><td>number</td><td>1779</td></tr>
 <tr><td><code>depth</code></td><td>Crawl depth</td><td>number</td><td>0</td></tr>
 </tbody>
 </table>
@@ -70,27 +70,25 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/website-content-craw
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;url&quot;: &quot;https://flask.palletsprojects.com/en/stable/&quot;,
-    &quot;title&quot;: &quot;Welcome to Flask&quot;,
-    &quot;h1&quot;: &quot;Welcome to Flask&quot;,
-    &quot;breadcrumbs&quot;: [
-      &quot;Flask Documentation (3.1.x)&quot;,
-      &quot;Welcome to Flask&quot;
-    ],
-    &quot;textContent&quot;: &quot;Welcome to Flask  Welcome to Flask’s documentation. Flask is a lightweight WSGI web application framework.\nIt is designed to make getting...&quot;,
-    &quot;wordCount&quot;: 920,
+    &quot;url&quot;: &quot;https://docs.python.org/3/library/&quot;,
+    &quot;title&quot;: &quot;The Python standard library&quot;,
+    &quot;h1&quot;: &quot;The Python standard library&quot;,
+    &quot;description&quot;: &quot;This library reference manual describes the standard library distributed with Python. It also describes some of the optional components t...&quot;,
+    &quot;textContent&quot;: &quot;The Python standard library  This library reference manual describes the standard library\ndistributed with Python. It also describes some...&quot;,
+    &quot;wordCount&quot;: 1779,
     &quot;depth&quot;: 0
   },
   {
-    &quot;url&quot;: &quot;https://flask.palletsprojects.com/en/stable/genindex/&quot;,
-    &quot;title&quot;: &quot;Index&quot;,
-    &quot;h1&quot;: &quot;Index&quot;,
+    &quot;url&quot;: &quot;https://docs.python.org/3/library/intro.html&quot;,
+    &quot;title&quot;: &quot;Introduction&quot;,
+    &quot;h1&quot;: &quot;Introduction&quot;,
     &quot;breadcrumbs&quot;: [
-      &quot;Flask Documentation (3.1.x)&quot;,
-      &quot;Index&quot;
+      &quot;The Python standard library&quot;,
+      &quot;Introduction&quot;
     ],
-    &quot;textContent&quot;: &quot;Index _ | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | Y _ _AppCtxGlobals (class in flask....&quot;,
-    &quot;wordCount&quot;: 1644,
+    &quot;description&quot;: &quot;The Python standard library consists of a collection of modules. There are many ways to dissect this collection. Most modules are written...&quot;,
+    &quot;textContent&quot;: &quot;Introduction  The Python standard library consists of a collection of modules. There are\nmany ways to dissect this collection.  Most modu...&quot;,
+    &quot;wordCount&quot;: 1089,
     &quot;depth&quot;: 1
   }
 ]</code></pre>

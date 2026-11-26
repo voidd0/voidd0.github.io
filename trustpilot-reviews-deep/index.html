@@ -27,18 +27,17 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/trustpilot-reviews-d
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
 <tr><td><code>businessSlug</code></td><td>Business Slug</td><td>text</td><td>apify.com</td></tr>
-<tr><td><code>reviewId</code></td><td>Review Id</td><td>text</td><td>6ade95b59898904f99e42316</td></tr>
+<tr><td><code>reviewId</code></td><td>Review Id</td><td>text</td><td>6b0463d9605f40a9268a04b9</td></tr>
 <tr><td><code>stars</code></td><td>Stars</td><td>number</td><td>5</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>best software ever</td></tr>
-<tr><td><code>text</code></td><td>Text</td><td>text</td><td>best software ever</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Apify has saved me so many hours of…</td></tr>
+<tr><td><code>text</code></td><td>Text</td><td>text</td><td>Apify has saved me so many hours of manual work. Having ready-made ...</td></tr>
 <tr><td><code>language</code></td><td>Language</td><td>text</td><td>en</td></tr>
-<tr><td><code>dateCreated</code></td><td>Date Created</td><td>date</td><td>2026-10-26T01:50:13.000Z</td></tr>
-<tr><td><code>dateExperience</code></td><td>Date Experience</td><td>date</td><td>2026-08-26T00:00:00.000Z</td></tr>
+<tr><td><code>dateCreated</code></td><td>Date Created</td><td>date</td><td>2026-11-23T18:03:37.000Z</td></tr>
+<tr><td><code>dateExperience</code></td><td>Date Experience</td><td>date</td><td>2025-11-28T00:00:00.000Z</td></tr>
 <tr><td><code>reviewer</code></td><td>Reviewer</td><td>object</td><td></td></tr>
 <tr><td><code>verified</code></td><td>Verified</td><td>text</td><td></td></tr>
 <tr><td><code>ownerReply</code></td><td>Owner Reply</td><td>text</td><td></td></tr>
-<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://www.trustpilot.com/reviews/6ade95b59898904f99e42316</td></tr>
-<tr><td><code>sentimentTags</code></td><td></td><td>list</td><td>[&quot;positive_signal&quot;]</td></tr>
+<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://www.trustpilot.com/reviews/6b0463d9605f40a9268a04b9</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -64,31 +63,25 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/trustpilot-reviews-d
 <pre><code>[
   {
     &quot;businessSlug&quot;: &quot;apify.com&quot;,
-    &quot;reviewId&quot;: &quot;6ade95b59898904f99e42316&quot;,
+    &quot;reviewId&quot;: &quot;6b0463d9605f40a9268a04b9&quot;,
     &quot;stars&quot;: 5,
-    &quot;title&quot;: &quot;best software ever&quot;,
-    &quot;text&quot;: &quot;best software ever&quot;,
+    &quot;title&quot;: &quot;Apify has saved me so many hours of…&quot;,
+    &quot;text&quot;: &quot;Apify has saved me so many hours of manual work. Having ready-made scrapers in their store means I don&#x27;t have to build anything from scra...&quot;,
     &quot;language&quot;: &quot;en&quot;,
-    &quot;dateCreated&quot;: &quot;2026-10-26T01:50:13.000Z&quot;,
-    &quot;dateExperience&quot;: &quot;2026-08-26T00:00:00.000Z&quot;,
-    &quot;url&quot;: &quot;https://www.trustpilot.com/reviews/6ade95b59898904f99e42316&quot;,
-    &quot;sentimentTags&quot;: [
-      &quot;positive_signal&quot;
-    ]
+    &quot;dateCreated&quot;: &quot;2026-11-23T18:03:37.000Z&quot;,
+    &quot;dateExperience&quot;: &quot;2025-11-28T00:00:00.000Z&quot;,
+    &quot;url&quot;: &quot;https://www.trustpilot.com/reviews/6b0463d9605f40a9268a04b9&quot;
   },
   {
     &quot;businessSlug&quot;: &quot;apify.com&quot;,
-    &quot;reviewId&quot;: &quot;6ade81df77a654f6b74df635&quot;,
-    &quot;stars&quot;: 4,
-    &quot;title&quot;: &quot;Apify review &quot;,
-    &quot;text&quot;: &quot;I use apify mainly for scaraping stuff on LinkedIn and it’s always giving me good data. And is also realy easy to use&quot;,
+    &quot;reviewId&quot;: &quot;6b04534827de1e24e75e50c0&quot;,
+    &quot;stars&quot;: 5,
+    &quot;title&quot;: &quot;Great for sales teams&quot;,
+    &quot;text&quot;: &quot;Great for sales teams&quot;,
     &quot;language&quot;: &quot;en&quot;,
-    &quot;dateCreated&quot;: &quot;2026-10-26T00:25:35.000Z&quot;,
-    &quot;dateExperience&quot;: &quot;2026-10-25T00:00:00.000Z&quot;,
-    &quot;url&quot;: &quot;https://www.trustpilot.com/reviews/6ade81df77a654f6b74df635&quot;,
-    &quot;sentimentTags&quot;: [
-      &quot;product_praise&quot;
-    ]
+    &quot;dateCreated&quot;: &quot;2026-11-23T16:52:56.000Z&quot;,
+    &quot;dateExperience&quot;: &quot;2026-11-23T00:00:00.000Z&quot;,
+    &quot;url&quot;: &quot;https://www.trustpilot.com/reviews/6b04534827de1e24e75e50c0&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

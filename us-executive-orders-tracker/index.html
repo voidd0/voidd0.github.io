@@ -26,23 +26,23 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/us-executive-orders-
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>documentNumber</code></td><td>Document Number</td><td>text</td><td>2026-21666</td></tr>
+<tr><td><code>documentNumber</code></td><td>Document Number</td><td>text</td><td>2026-23349</td></tr>
 <tr><td><code>type</code></td><td>Type</td><td>text</td><td>Presidential Document</td></tr>
-<tr><td><code>subtype</code></td><td>Subtype</td><td>text</td><td>Executive Order</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Advancing Women&#x27;s Health To Improve Outcomes in All Phases of Life</td></tr>
-<tr><td><code>executiveOrderNumber</code></td><td>Executive Order Number</td><td>text</td><td>14437</td></tr>
-<tr><td><code>presidentialDocumentNumber</code></td><td>Presidential Document Number</td><td>text</td><td>14437</td></tr>
-<tr><td><code>signingDate</code></td><td>Signing Date</td><td>date</td><td>2026-10-19</td></tr>
-<tr><td><code>publicationDate</code></td><td>Publication Date</td><td>date</td><td>2026-10-22</td></tr>
-<tr><td><code>citation</code></td><td>Citation</td><td>text</td><td>91 FR 66779</td></tr>
+<tr><td><code>subtype</code></td><td>Subtype</td><td>text</td><td>Determination</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Presidential Determination Concerning Wildfire Suppression Activiti...</td></tr>
+<tr><td><code>executiveOrderNumber</code></td><td>Executive Order Number</td><td>text</td><td></td></tr>
+<tr><td><code>presidentialDocumentNumber</code></td><td>Presidential Document Number</td><td>text</td><td>2027-03</td></tr>
+<tr><td><code>signingDate</code></td><td>Signing Date</td><td>date</td><td>2026-11-10</td></tr>
+<tr><td><code>publicationDate</code></td><td>Publication Date</td><td>date</td><td>2026-11-16</td></tr>
+<tr><td><code>citation</code></td><td>Citation</td><td>text</td><td>91 FR 73645</td></tr>
 <tr><td><code>abstract</code></td><td>Abstract</td><td>text</td><td></td></tr>
 <tr><td><code>executiveOrderNotes</code></td><td>Executive Order Notes</td><td>text</td><td></td></tr>
-<tr><td><code>pageViews</code></td><td>Page Views</td><td>object</td><td>{&quot;count&quot;: 935, &quot;last_updated&quot;: &quot;2026-10-26 00:15:04 -0400&quot;}</td></tr>
+<tr><td><code>pageViews</code></td><td>Page Views</td><td>object</td><td>{&quot;count&quot;: 418, &quot;last_updated&quot;: &quot;2026-11-19 22:15:03 -0500&quot;}</td></tr>
 <tr><td><code>agencies</code></td><td></td><td>list</td><td>[&quot;Executive Office of the President&quot;]</td></tr>
 <tr><td><code>agencyIds</code></td><td></td><td>list</td><td>[538]</td></tr>
-<tr><td><code>htmlUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/2026/10/22/2026-21666/adv...</td></tr>
-<tr><td><code>pdfUrl</code></td><td></td><td>text</td><td>https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21666.pdf</td></tr>
-<tr><td><code>rawTextUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/full_text/text/2026/10/22...</td></tr>
+<tr><td><code>htmlUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/2026/11/16/2026-23349/pre...</td></tr>
+<tr><td><code>pdfUrl</code></td><td></td><td>text</td><td>https://www.govinfo.gov/content/pkg/FR-2026-11-16/pdf/2026-23349.pdf</td></tr>
+<tr><td><code>rawTextUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/full_text/text/2026/11/16...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -72,18 +72,17 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/us-executive-orders-
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;documentNumber&quot;: &quot;2026-21666&quot;,
+    &quot;documentNumber&quot;: &quot;2026-23349&quot;,
     &quot;type&quot;: &quot;Presidential Document&quot;,
-    &quot;subtype&quot;: &quot;Executive Order&quot;,
-    &quot;title&quot;: &quot;Advancing Women&#x27;s Health To Improve Outcomes in All Phases of Life&quot;,
-    &quot;executiveOrderNumber&quot;: &quot;14437&quot;,
-    &quot;presidentialDocumentNumber&quot;: &quot;14437&quot;,
-    &quot;signingDate&quot;: &quot;2026-10-19&quot;,
-    &quot;publicationDate&quot;: &quot;2026-10-22&quot;,
-    &quot;citation&quot;: &quot;91 FR 66779&quot;,
+    &quot;subtype&quot;: &quot;Determination&quot;,
+    &quot;title&quot;: &quot;Presidential Determination Concerning Wildfire Suppression Activities in the United States&quot;,
+    &quot;presidentialDocumentNumber&quot;: &quot;2027-03&quot;,
+    &quot;signingDate&quot;: &quot;2026-11-10&quot;,
+    &quot;publicationDate&quot;: &quot;2026-11-16&quot;,
+    &quot;citation&quot;: &quot;91 FR 73645&quot;,
     &quot;pageViews&quot;: {
-      &quot;count&quot;: 935,
-      &quot;last_updated&quot;: &quot;2026-10-26 00:15:04 -0400&quot;
+      &quot;count&quot;: 418,
+      &quot;last_updated&quot;: &quot;2026-11-19 22:15:03 -0500&quot;
     },
     &quot;agencies&quot;: [
       &quot;Executive Office of the President&quot;
@@ -91,23 +90,22 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/us-executive-orders-
     &quot;agencyIds&quot;: [
       538
     ],
-    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/22/2026-21666/advancing-womens-health-to-improve-outcomes-in-all-phases-of-life&quot;,
-    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21666.pdf&quot;,
-    &quot;rawTextUrl&quot;: &quot;https://www.federalregister.gov/documents/full_text/text/2026/10/22/2026-21666.txt&quot;
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/11/16/2026-23349/presidential-determination-concerning-wildfire-suppression-activities-in-...&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-11-16/pdf/2026-23349.pdf&quot;,
+    &quot;rawTextUrl&quot;: &quot;https://www.federalregister.gov/documents/full_text/text/2026/11/16/2026-23349.txt&quot;
   },
   {
-    &quot;documentNumber&quot;: &quot;2026-21599&quot;,
+    &quot;documentNumber&quot;: &quot;2026-23348&quot;,
     &quot;type&quot;: &quot;Presidential Document&quot;,
-    &quot;subtype&quot;: &quot;Executive Order&quot;,
-    &quot;title&quot;: &quot;Implementing the Lindsey O. Graham Sanctioning Russia and Iran Act of 2026&quot;,
-    &quot;executiveOrderNumber&quot;: &quot;14436&quot;,
-    &quot;presidentialDocumentNumber&quot;: &quot;14436&quot;,
-    &quot;signingDate&quot;: &quot;2026-10-16&quot;,
-    &quot;publicationDate&quot;: &quot;2026-10-21&quot;,
-    &quot;citation&quot;: &quot;91 FR 66627&quot;,
+    &quot;subtype&quot;: &quot;Proclamation&quot;,
+    &quot;title&quot;: &quot;Veterans Day, 2026&quot;,
+    &quot;presidentialDocumentNumber&quot;: &quot;11081&quot;,
+    &quot;signingDate&quot;: &quot;2026-11-10&quot;,
+    &quot;publicationDate&quot;: &quot;2026-11-16&quot;,
+    &quot;citation&quot;: &quot;91 FR 73643&quot;,
     &quot;pageViews&quot;: {
-      &quot;count&quot;: 1150,
-      &quot;last_updated&quot;: &quot;2026-10-26 00:15:04 -0400&quot;
+      &quot;count&quot;: 415,
+      &quot;last_updated&quot;: &quot;2026-11-19 22:15:03 -0500&quot;
     },
     &quot;agencies&quot;: [
       &quot;Executive Office of the President&quot;
@@ -115,9 +113,9 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/us-executive-orders-
     &quot;agencyIds&quot;: [
       538
     ],
-    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/21/2026-21599/implementing-the-lindsey-o-graham-sanctioning-russia-and-iran-act-of-2026&quot;,
-    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-21/pdf/2026-21599.pdf&quot;,
-    &quot;rawTextUrl&quot;: &quot;https://www.federalregister.gov/documents/full_text/text/2026/10/21/2026-21599.txt&quot;
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/11/16/2026-23348/veterans-day-2026&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-11-16/pdf/2026-23348.pdf&quot;,
+    &quot;rawTextUrl&quot;: &quot;https://www.federalregister.gov/documents/full_text/text/2026/11/16/2026-23348.txt&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

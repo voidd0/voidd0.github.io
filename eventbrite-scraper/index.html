@@ -26,26 +26,27 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-scraper</
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>name</code></td><td>Event</td><td>text</td><td>Out &amp; Abt - Halloween Edition</td></tr>
-<tr><td><code>start</code></td><td>Starts</td><td>date</td><td>2026-10-29T22:30</td></tr>
-<tr><td><code>end</code></td><td>Ends</td><td>date</td><td>2026-10-30T04:00</td></tr>
-<tr><td><code>venueName</code></td><td>Venue</td><td>text</td><td>Elsewhere</td></tr>
+<tr><td><code>name</code></td><td>Event</td><td>text</td><td>daine, Eilish Constance</td></tr>
+<tr><td><code>start</code></td><td>Starts</td><td>date</td><td>2026-12-06T19:00</td></tr>
+<tr><td><code>end</code></td><td>Ends</td><td>date</td><td>2026-12-06T22:00</td></tr>
+<tr><td><code>venueName</code></td><td>Venue</td><td>text</td><td>Elsewhere - The Hall</td></tr>
 <tr><td><code>city</code></td><td>City</td><td>text</td><td>Brooklyn</td></tr>
 <tr><td><code>isOnline</code></td><td>Online</td><td>true/false</td><td>false</td></tr>
 <tr><td><code>isFree</code></td><td></td><td>true/false</td><td>false</td></tr>
-<tr><td><code>priceMin</code></td><td>Price from</td><td>number</td><td>20.87</td></tr>
+<tr><td><code>priceMin</code></td><td>Price from</td><td>number</td><td>33.59</td></tr>
 <tr><td><code>organizerName</code></td><td>Organizer</td><td>text</td><td></td></tr>
-<tr><td><code>url</code></td><td>Link</td><td>URL</td><td>https://www.eventbrite.com/e/out-abt-halloween-edition-tickets-1996...</td></tr>
-<tr><td><code>image</code></td><td>Image</td><td>image URL</td><td>https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F119047...</td></tr>
-<tr><td><code>eventId</code></td><td></td><td>text</td><td>1996989228540</td></tr>
+<tr><td><code>url</code></td><td>Link</td><td>URL</td><td>https://www.eventbrite.com/e/daine-eilish-constance-tickets-1997150...</td></tr>
+<tr><td><code>image</code></td><td>Image</td><td>image URL</td><td>https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F119091...</td></tr>
+<tr><td><code>eventId</code></td><td></td><td>text</td><td>1997150902110</td></tr>
 <tr><td><code>timezone</code></td><td></td><td>text</td><td>America/New_York</td></tr>
 <tr><td><code>region</code></td><td></td><td>text</td><td>NY</td></tr>
 <tr><td><code>country</code></td><td></td><td>text</td><td>US</td></tr>
 <tr><td><code>latitude</code></td><td></td><td>number</td><td>40.709411</td></tr>
 <tr><td><code>longitude</code></td><td></td><td>number</td><td>-73.923169</td></tr>
-<tr><td><code>priceMax</code></td><td></td><td>number</td><td>38.56</td></tr>
+<tr><td><code>priceMax</code></td><td></td><td>number</td><td>40.2</td></tr>
 <tr><td><code>currency</code></td><td></td><td>text</td><td>USD</td></tr>
 <tr><td><code>category</code></td><td></td><td>text</td><td>Music</td></tr>
+<tr><td><code>subcategory</code></td><td></td><td>text</td><td>Pop</td></tr>
 <tr><td><code>format</code></td><td></td><td>text</td><td>Concert or Performance</td></tr>
 <tr><td><code>promoted</code></td><td></td><td>true/false</td><td>false</td></tr>
 <tr><td><code>sourcePage</code></td><td></td><td>number</td><td>1</td></tr>
@@ -80,13 +81,13 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-scraper</
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;eventId&quot;: &quot;1996989228540&quot;,
-    &quot;name&quot;: &quot;Out &amp; Abt - Halloween Edition&quot;,
-    &quot;url&quot;: &quot;https://www.eventbrite.com/e/out-abt-halloween-edition-tickets-1996989228540&quot;,
-    &quot;start&quot;: &quot;2026-10-29T22:30&quot;,
-    &quot;end&quot;: &quot;2026-10-30T04:00&quot;,
+    &quot;eventId&quot;: &quot;1997150902110&quot;,
+    &quot;name&quot;: &quot;daine, Eilish Constance&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/daine-eilish-constance-tickets-1997150902110&quot;,
+    &quot;start&quot;: &quot;2026-12-06T19:00&quot;,
+    &quot;end&quot;: &quot;2026-12-06T22:00&quot;,
     &quot;timezone&quot;: &quot;America/New_York&quot;,
-    &quot;venueName&quot;: &quot;Elsewhere&quot;,
+    &quot;venueName&quot;: &quot;Elsewhere - The Hall&quot;,
     &quot;city&quot;: &quot;Brooklyn&quot;,
     &quot;region&quot;: &quot;NY&quot;,
     &quot;country&quot;: &quot;US&quot;,
@@ -94,38 +95,39 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/eventbrite-scraper</
     &quot;longitude&quot;: -73.923169,
     &quot;isOnline&quot;: false,
     &quot;isFree&quot;: false,
-    &quot;priceMin&quot;: 20.87,
-    &quot;priceMax&quot;: 38.56,
+    &quot;priceMin&quot;: 33.59,
+    &quot;priceMax&quot;: 40.2,
     &quot;currency&quot;: &quot;USD&quot;,
     &quot;category&quot;: &quot;Music&quot;,
+    &quot;subcategory&quot;: &quot;Pop&quot;,
     &quot;format&quot;: &quot;Concert or Performance&quot;,
     &quot;promoted&quot;: false,
-    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190476564%2F2569518370411%2F1%2Foriginal.20260806-170042?crop=focalpoint&amp;fi...&quot;,
+    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190916049%2F2569518370411%2F1%2Foriginal.20260812-184524?crop=focalpoint&amp;fi...&quot;,
     &quot;sourcePage&quot;: 1
   },
   {
-    &quot;eventId&quot;: &quot;2002228994822&quot;,
-    &quot;name&quot;: &quot;Fright Night NYC Halloween Party 2026 - $3,000 Costume Contest&quot;,
-    &quot;url&quot;: &quot;https://www.eventbrite.com/e/fright-night-nyc-halloween-party-2026-3000-costume-contest-tickets-2002228994822&quot;,
-    &quot;start&quot;: &quot;2026-10-31T22:00&quot;,
-    &quot;end&quot;: &quot;2026-11-01T04:00&quot;,
+    &quot;eventId&quot;: &quot;2003072889935&quot;,
+    &quot;name&quot;: &quot;Champagne Splash NYE 2027 | 4-Hour VIP Open Bar | Cantina Rooftop NYC&quot;,
+    &quot;url&quot;: &quot;https://www.eventbrite.com/e/champagne-splash-nye-2027-4-hour-vip-open-bar-cantina-rooftop-nyc-tickets-2003072889935&quot;,
+    &quot;start&quot;: &quot;2026-12-31T21:00&quot;,
+    &quot;end&quot;: &quot;2027-01-01T04:00&quot;,
     &quot;timezone&quot;: &quot;America/New_York&quot;,
-    &quot;venueName&quot;: &quot;Bkloft26&quot;,
-    &quot;city&quot;: &quot;Brooklyn&quot;,
+    &quot;venueName&quot;: &quot;Level 3 | Cantina Roof Top&quot;,
+    &quot;city&quot;: &quot;New York&quot;,
     &quot;region&quot;: &quot;NY&quot;,
     &quot;country&quot;: &quot;US&quot;,
-    &quot;latitude&quot;: 40.6609469,
-    &quot;longitude&quot;: -74.00002099999999,
+    &quot;latitude&quot;: 40.765084,
+    &quot;longitude&quot;: -73.9959959,
     &quot;isOnline&quot;: false,
     &quot;isFree&quot;: false,
-    &quot;priceMin&quot;: 12.51,
+    &quot;priceMin&quot;: 28.52,
     &quot;priceMax&quot;: 535.38,
     &quot;currency&quot;: &quot;USD&quot;,
     &quot;category&quot;: &quot;Seasonal &amp; Holiday&quot;,
-    &quot;subcategory&quot;: &quot;Halloween/Haunt&quot;,
+    &quot;subcategory&quot;: &quot;New Years Eve&quot;,
     &quot;format&quot;: &quot;Party or Social Gathering&quot;,
     &quot;promoted&quot;: false,
-    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194298716%2F66299487319%2F1%2Foriginal.20260924-171726?crop=focalpoint&amp;fit=...&quot;,
+    &quot;image&quot;: &quot;https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1197014246%2F66299487319%2F1%2Foriginal.20261101-085721?crop=focalpoint&amp;fit=...&quot;,
     &quot;sourcePage&quot;: 1
   }
 ]</code></pre>
@@ -188,7 +190,7 @@ console.log(items);
 <ul>
 <li><a href="/facebook-ads-library-scraper/">Facebook Ad Library scraper</a>: Facebook ads library scraper for public ads from the Meta Ad Library by keyword, advertiser Page ID or link...</li>
 <li><a href="/eventbrite-events-search/">Eventbrite Scraper</a>: Search Eventbrite events by keyword and location.</li>
-<li><a href="/jobbank/">Canada Job Bank Scraper</a>: Scrape Canada jobbank listings from jobbank.gc.ca by keyword and location: job title, employer, city and pr...</li>
+<li><a href="/ycombinator-was-scraper/">Y Combinator Work at a Startup Jobs Scraper</a>: Ycombinator was scraper for the Work at a Startup jobs board.</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

@@ -11,7 +11,7 @@
 <meta property="og:description" content="Extract the text of PDF files page by page, as plain text or as Markdown with headings, bold, lists and par... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/pdf-text-extractor/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the PDF text extractor return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include index, page_count, chars, pages, metadata, credits, ms. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the PDF text extractor from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/pdf-text-extractor with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the PDF text extractor return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include index, page_count, chars, pages, metadata, credits, ms. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the PDF text extractor from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/pdf-text-extractor with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$3.82 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.67 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
@@ -37,7 +37,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/pdf-text-extractor</
 <tr><td><code>pages</code></td><td>Text by page</td><td>list</td><td>[{&quot;n&quot;: 1, &quot;markdown&quot;: &quot;Form W-9 (Rev. March 2024)\n\n# Request for ...</td></tr>
 <tr><td><code>metadata</code></td><td>Metadata</td><td>object</td><td>{&quot;title&quot;: &quot;Form W-9 (Rev. March 2024)&quot;, &quot;subject&quot;: &quot;Request for Tax...</td></tr>
 <tr><td><code>credits</code></td><td></td><td>number</td><td>1</td></tr>
-<tr><td><code>ms</code></td><td></td><td>number</td><td>404</td></tr>
+<tr><td><code>ms</code></td><td></td><td>number</td><td>334</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -96,7 +96,7 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/pdf-text-extractor</
       &quot;modified&quot;: &quot;2024-03-06T13:18:13Z&quot;
     },
     &quot;credits&quot;: 1,
-    &quot;ms&quot;: 404
+    &quot;ms&quot;: 334
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>
@@ -132,7 +132,7 @@ console.log(items);
   -H &quot;Content-Type: application/json&quot; \
   -d &#x27;{&quot;file_urls&quot;: [&quot;https://www.irs.gov/pub/irs-pdf/fw9.pdf&quot;], &quot;format&quot;: &quot;markdown&quot;}&#x27;
 </code></pre><h2>Price</h2>
-<p>$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. See the <a href="https://apify.com/v0iddo/pdf-text-extractor/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<p>$3.82 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.67 per 1,000. See the <a href="https://apify.com/v0iddo/pdf-text-extractor/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>FAQ</h2>
 <h3>What data does the PDF text extractor return?</h3>
 <p>Each result is one row in an Apify dataset. Fields include index, page_count, chars, pages, metadata, credits, ms. The table above shows every field with an example value.</p>
@@ -141,7 +141,7 @@ console.log(items);
 <h3>Can I use it without writing code?</h3>
 <p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
 <h3>How much does it cost?</h3>
-<p>$2.55 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.78 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<p>$3.82 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.67 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
 <h3>How do I limit the number of results?</h3>
 <p>Set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
 <h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>

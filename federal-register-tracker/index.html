@@ -26,24 +26,26 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/federal-register-tra
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-10-26T04:34:24+00:00</td></tr>
-<tr><td><code>documentNumber</code></td><td>Document Number</td><td>text</td><td>2026-21622</td></tr>
-<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Virginia: Approval of State Coal Combustion Residuals Permit Program</td></tr>
+<tr><td><code>snapshotAt</code></td><td>Snapshot At</td><td>date</td><td>2026-11-20T04:27:47+00:00</td></tr>
+<tr><td><code>documentNumber</code></td><td>Document Number</td><td>text</td><td>2026-23633</td></tr>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Airworthiness Directives; General Atomics AeroTec Systems GmbH (Typ...</td></tr>
 <tr><td><code>type</code></td><td>Type</td><td>text</td><td>Rule</td></tr>
 <tr><td><code>subtype</code></td><td>Subtype</td><td>text</td><td></td></tr>
-<tr><td><code>action</code></td><td>Action</td><td>text</td><td>Availability of final decision.</td></tr>
-<tr><td><code>abstract</code></td><td>Abstract</td><td>text</td><td>The Environmental Protection Agency (EPA or the Agency) is approvin...</td></tr>
-<tr><td><code>publicationDate</code></td><td>Publication Date</td><td>date</td><td>2026-10-22</td></tr>
+<tr><td><code>action</code></td><td>Action</td><td>text</td><td>Final rule.</td></tr>
+<tr><td><code>abstract</code></td><td>Abstract</td><td>text</td><td>The FAA is adopting a new airworthiness directive (AD) for all Gene...</td></tr>
+<tr><td><code>publicationDate</code></td><td>Publication Date</td><td>date</td><td>2026-11-19</td></tr>
 <tr><td><code>signingDate</code></td><td>Signing Date</td><td>text</td><td></td></tr>
-<tr><td><code>effectiveOn</code></td><td>Effective On</td><td>date</td><td>2026-11-23</td></tr>
+<tr><td><code>effectiveOn</code></td><td>Effective On</td><td>date</td><td>2026-12-24</td></tr>
 <tr><td><code>commentsCloseOn</code></td><td>Comments Close On</td><td>text</td><td></td></tr>
-<tr><td><code>agencies</code></td><td>Agencies</td><td>list</td><td>[&quot;environmental-protection-agency&quot;]</td></tr>
-<tr><td><code>agencyNames</code></td><td></td><td>list</td><td>[&quot;Environmental Protection Agency&quot;]</td></tr>
-<tr><td><code>cfrReferences</code></td><td></td><td>list</td><td>[&quot;40 CFR 257&quot;]</td></tr>
+<tr><td><code>agencies</code></td><td>Agencies</td><td>list</td><td>[&quot;transportation-department&quot;, &quot;federal-aviation-administration&quot;]</td></tr>
+<tr><td><code>agencyNames</code></td><td></td><td>list</td><td>[&quot;Transportation Department&quot;, &quot;Federal Aviation Administration&quot;]</td></tr>
+<tr><td><code>topics</code></td><td></td><td>list</td><td>[&quot;Air transportation&quot;, &quot;Aircraft&quot;, &quot;Aviation safety&quot;]</td></tr>
+<tr><td><code>cfrReferences</code></td><td></td><td>list</td><td>[&quot;14 CFR 39&quot;]</td></tr>
+<tr><td><code>significant</code></td><td></td><td>true/false</td><td>false</td></tr>
 <tr><td><code>presidentName</code></td><td></td><td>text</td><td>Donald Trump</td></tr>
-<tr><td><code>htmlUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/2026/10/22/2026-21622/vir...</td></tr>
-<tr><td><code>pdfUrl</code></td><td></td><td>text</td><td>https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21622.pdf</td></tr>
-<tr><td><code>jsonUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/api/v1/documents/2026-21622?publica...</td></tr>
+<tr><td><code>htmlUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/documents/2026/11/19/2026-23633/air...</td></tr>
+<tr><td><code>pdfUrl</code></td><td></td><td>text</td><td>https://www.govinfo.gov/content/pkg/FR-2026-11-19/pdf/2026-23633.pdf</td></tr>
+<tr><td><code>jsonUrl</code></td><td></td><td>text</td><td>https://www.federalregister.gov/api/v1/documents/2026-23633?publica...</td></tr>
 </tbody>
 </table>
 <h2>Input example</h2>
@@ -72,57 +74,62 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/federal-register-tra
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;snapshotAt&quot;: &quot;2026-10-26T04:34:24+00:00&quot;,
-    &quot;documentNumber&quot;: &quot;2026-21622&quot;,
-    &quot;title&quot;: &quot;Virginia: Approval of State Coal Combustion Residuals Permit Program&quot;,
+    &quot;snapshotAt&quot;: &quot;2026-11-20T04:27:47+00:00&quot;,
+    &quot;documentNumber&quot;: &quot;2026-23633&quot;,
+    &quot;title&quot;: &quot;Airworthiness Directives; General Atomics AeroTec Systems GmbH (Type Certificate Previously Held by RUAG Aerospace Services GmbH) Airplanes&quot;,
     &quot;type&quot;: &quot;Rule&quot;,
-    &quot;action&quot;: &quot;Availability of final decision.&quot;,
-    &quot;abstract&quot;: &quot;The Environmental Protection Agency (EPA or the Agency) is approving Virginia&#x27;s coal combustion residuals (CCR) permit program under the...&quot;,
-    &quot;publicationDate&quot;: &quot;2026-10-22&quot;,
-    &quot;effectiveOn&quot;: &quot;2026-11-23&quot;,
+    &quot;action&quot;: &quot;Final rule.&quot;,
+    &quot;abstract&quot;: &quot;The FAA is adopting a new airworthiness directive (AD) for all General Atomics AeroTec Systems GmbH (General Atomics) Model Dornier 228-1...&quot;,
+    &quot;publicationDate&quot;: &quot;2026-11-19&quot;,
+    &quot;effectiveOn&quot;: &quot;2026-12-24&quot;,
     &quot;agencies&quot;: [
-      &quot;environmental-protection-agency&quot;
+      &quot;transportation-department&quot;,
+      &quot;federal-aviation-administration&quot;
     ],
     &quot;agencyNames&quot;: [
-      &quot;Environmental Protection Agency&quot;
-    ],
-    &quot;cfrReferences&quot;: [
-      &quot;40 CFR 257&quot;
-    ],
-    &quot;presidentName&quot;: &quot;Donald Trump&quot;,
-    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/22/2026-21622/virginia-approval-of-state-coal-combustion-residuals-permit-program&quot;,
-    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21622.pdf&quot;,
-    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-21622?publication_date=2026-10-22&quot;
-  },
-  {
-    &quot;snapshotAt&quot;: &quot;2026-10-26T04:34:24+00:00&quot;,
-    &quot;documentNumber&quot;: &quot;2026-21603&quot;,
-    &quot;title&quot;: &quot;Nevada: Codification and Incorporation by Reference of Approved Underground Storage Tank Program&quot;,
-    &quot;type&quot;: &quot;Rule&quot;,
-    &quot;action&quot;: &quot;Direct final rule.&quot;,
-    &quot;abstract&quot;: &quot;On September 30, 2021, the State of Nevada (Nevada) received final approval, from the Environmental Protection Agency (EPA), of revisions...&quot;,
-    &quot;publicationDate&quot;: &quot;2026-10-22&quot;,
-    &quot;effectiveOn&quot;: &quot;2026-12-21&quot;,
-    &quot;commentsCloseOn&quot;: &quot;2026-11-23&quot;,
-    &quot;agencies&quot;: [
-      &quot;environmental-protection-agency&quot;
-    ],
-    &quot;agencyNames&quot;: [
-      &quot;Environmental Protection Agency&quot;
+      &quot;Transportation Department&quot;,
+      &quot;Federal Aviation Administration&quot;
     ],
     &quot;topics&quot;: [
-      &quot;Administrative practice and procedure&quot;,
-      &quot;Environmental protection&quot;,
-      &quot;Hazardous substances&quot;
+      &quot;Air transportation&quot;,
+      &quot;Aircraft&quot;,
+      &quot;Aviation safety&quot;
     ],
     &quot;cfrReferences&quot;: [
-      &quot;40 CFR 282&quot;
+      &quot;14 CFR 39&quot;
     ],
+    &quot;significant&quot;: false,
     &quot;presidentName&quot;: &quot;Donald Trump&quot;,
-    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/10/22/2026-21603/nevada-codification-and-incorporation-by-reference-of-approved-undergroun...&quot;,
-    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-10-22/pdf/2026-21603.pdf&quot;,
-    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-21603?publication_date=2026-10-22&quot;,
-    &quot;regulationsDotGovUrl&quot;: &quot;http://www.regulations.gov/commenton/EPA-R09-UST-2025-0703-0001&quot;
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/11/19/2026-23633/airworthiness-directives-general-atomics-aerotec-systems-gmbh-type-certif...&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-11-19/pdf/2026-23633.pdf&quot;,
+    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-23633?publication_date=2026-11-19&quot;
+  },
+  {
+    &quot;snapshotAt&quot;: &quot;2026-11-20T04:27:47+00:00&quot;,
+    &quot;documentNumber&quot;: &quot;2026-23617&quot;,
+    &quot;title&quot;: &quot;Health and Human Services Acquisition Regulations; Correction&quot;,
+    &quot;type&quot;: &quot;Rule&quot;,
+    &quot;action&quot;: &quot;Correcting amendment.&quot;,
+    &quot;abstract&quot;: &quot;This document corrects technical and typographical errors in the final rule that appeared in the Federal Register on November 18, 2015, t...&quot;,
+    &quot;publicationDate&quot;: &quot;2026-11-19&quot;,
+    &quot;effectiveOn&quot;: &quot;2026-11-19&quot;,
+    &quot;agencies&quot;: [
+      &quot;health-and-human-services-department&quot;
+    ],
+    &quot;agencyNames&quot;: [
+      &quot;Health and Human Services Department&quot;
+    ],
+    &quot;topics&quot;: [
+      &quot;Government procurement&quot;
+    ],
+    &quot;cfrReferences&quot;: [
+      &quot;48 CFR 332&quot;
+    ],
+    &quot;significant&quot;: true,
+    &quot;presidentName&quot;: &quot;Donald Trump&quot;,
+    &quot;htmlUrl&quot;: &quot;https://www.federalregister.gov/documents/2026/11/19/2026-23617/health-and-human-services-acquisition-regulations-correction&quot;,
+    &quot;pdfUrl&quot;: &quot;https://www.govinfo.gov/content/pkg/FR-2026-11-19/pdf/2026-23617.pdf&quot;,
+    &quot;jsonUrl&quot;: &quot;https://www.federalregister.gov/api/v1/documents/2026-23617?publication_date=2026-11-19&quot;
   }
 ]</code></pre>
 <h2>Code: Python, JavaScript and cURL</h2>

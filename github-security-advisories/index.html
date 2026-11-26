@@ -26,20 +26,22 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/github-security-advi
 <table>
 <thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
 <tbody>
-<tr><td><code>ghsaId</code></td><td>Ghsa Id</td><td>text</td><td>GHSA-jqc4-5cvw-7w85</td></tr>
-<tr><td><code>summary</code></td><td>Summary</td><td>text</td><td>filelock: ReadWriteLock on the hard-link route deletes any director...</td></tr>
-<tr><td><code>description</code></td><td>Description</td><td>text</td><td>`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/...</td></tr>
-<tr><td><code>severity</code></td><td>Severity</td><td>text</td><td>MODERATE</td></tr>
+<tr><td><code>ghsaId</code></td><td>Ghsa Id</td><td>text</td><td>GHSA-mc8w-wjhw-45x5</td></tr>
+<tr><td><code>summary</code></td><td>Summary</td><td>text</td><td>Etherpad: Pre-auth arbitrary file read</td></tr>
+<tr><td><code>description</code></td><td>Description</td><td>text</td><td>### Summary
+
+An unauthenticated path‑traversal / arbitrary file rea...</td></tr>
+<tr><td><code>severity</code></td><td>Severity</td><td>text</td><td>CRITICAL</td></tr>
 <tr><td><code>classification</code></td><td>Classification</td><td>text</td><td>GENERAL</td></tr>
-<tr><td><code>publishedAt</code></td><td>Published At</td><td>date</td><td>2026-10-23T22:28:41Z</td></tr>
-<tr><td><code>updatedAt</code></td><td>Updated At</td><td>date</td><td>2026-10-23T22:45:03Z</td></tr>
+<tr><td><code>publishedAt</code></td><td>Published At</td><td>date</td><td>2026-11-20T00:23:45Z</td></tr>
+<tr><td><code>updatedAt</code></td><td>Updated At</td><td>date</td><td>2026-11-20T00:30:07Z</td></tr>
 <tr><td><code>withdrawnAt</code></td><td>Withdrawn At</td><td>text</td><td></td></tr>
-<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://github.com/advisories/GHSA-jqc4-5cvw-7w85</td></tr>
-<tr><td><code>cves</code></td><td>Cves</td><td>list</td><td>[&quot;CVE-2026-112937&quot;]</td></tr>
-<tr><td><code>references</code></td><td>References</td><td>list</td><td>[&quot;https://github.com/tox-dev/filelock/security/advisories/GHSA-jqc4...</td></tr>
-<tr><td><code>cwes</code></td><td>Cwes</td><td>list</td><td>[{&quot;cweId&quot;: &quot;CWE-367&quot;, &quot;name&quot;: null}]</td></tr>
-<tr><td><code>ecosystem</code></td><td></td><td>text</td><td>PIP</td></tr>
-<tr><td><code>affected</code></td><td></td><td>list</td><td>[{&quot;package&quot;: &quot;filelock&quot;, &quot;vulnerableRange&quot;: &quot;&gt;= 4.1.0, &lt;= 4.2.0&quot;, &quot;...</td></tr>
+<tr><td><code>url</code></td><td>Url</td><td>URL</td><td>https://github.com/advisories/GHSA-mc8w-wjhw-45x5</td></tr>
+<tr><td><code>cves</code></td><td>Cves</td><td>list</td><td>[&quot;CVE-2026-114516&quot;]</td></tr>
+<tr><td><code>references</code></td><td>References</td><td>list</td><td>[&quot;https://github.com/ether/etherpad/security/advisories/GHSA-mc8w-w...</td></tr>
+<tr><td><code>cwes</code></td><td>Cwes</td><td>list</td><td>[{&quot;cweId&quot;: &quot;CWE-200&quot;, &quot;name&quot;: null}, {&quot;cweId&quot;: &quot;CWE-22&quot;, &quot;name&quot;: nu...</td></tr>
+<tr><td><code>ecosystem</code></td><td></td><td>text</td><td>NPM</td></tr>
+<tr><td><code>affected</code></td><td></td><td>list</td><td>[{&quot;package&quot;: &quot;ep_etherpad-lite&quot;, &quot;vulnerableRange&quot;: &quot;&gt;= 1.8.14, &lt; 3...</td></tr>
 <tr><td><code>source</code></td><td></td><td>text</td><td>osv.dev</td></tr>
 </tbody>
 </table>
@@ -70,67 +72,75 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/github-security-advi
 <p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
 <pre><code>[
   {
-    &quot;ghsaId&quot;: &quot;GHSA-jqc4-5cvw-7w85&quot;,
-    &quot;summary&quot;: &quot;filelock: ReadWriteLock on the hard-link route deletes any directory another user renames onto its .filelock-* link directory name&quot;,
-    &quot;description&quot;: &quot;`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) remove their private `.filelock-*` link directories with...&quot;,
-    &quot;severity&quot;: &quot;MODERATE&quot;,
+    &quot;ghsaId&quot;: &quot;GHSA-mc8w-wjhw-45x5&quot;,
+    &quot;summary&quot;: &quot;Etherpad: Pre-auth arbitrary file read&quot;,
+    &quot;description&quot;: &quot;### Summary\n\nAn unauthenticated path‑traversal / arbitrary file read vulnerability in Etherpad&#x27;s /static/* handler allows any remote, una...&quot;,
+    &quot;severity&quot;: &quot;CRITICAL&quot;,
     &quot;classification&quot;: &quot;GENERAL&quot;,
-    &quot;publishedAt&quot;: &quot;2026-10-23T22:28:41Z&quot;,
-    &quot;updatedAt&quot;: &quot;2026-10-23T22:45:03Z&quot;,
-    &quot;url&quot;: &quot;https://github.com/advisories/GHSA-jqc4-5cvw-7w85&quot;,
+    &quot;publishedAt&quot;: &quot;2026-11-20T00:23:45Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-11-20T00:30:07Z&quot;,
+    &quot;url&quot;: &quot;https://github.com/advisories/GHSA-mc8w-wjhw-45x5&quot;,
     &quot;cves&quot;: [
-      &quot;CVE-2026-112937&quot;
+      &quot;CVE-2026-114516&quot;
     ],
     &quot;references&quot;: [
-      &quot;https://github.com/tox-dev/filelock/security/advisories/GHSA-jqc4-5cvw-7w85&quot;,
-      &quot;https://nvd.nist.gov/vuln/detail/CVE-2026-112937&quot;,
-      &quot;https://github.com/tox-dev/filelock/pull/834&quot;
+      &quot;https://github.com/ether/etherpad/security/advisories/GHSA-mc8w-wjhw-45x5&quot;,
+      &quot;https://github.com/ether/etherpad/pull/8081&quot;,
+      &quot;https://github.com/ether/etherpad/commit/9c8d16d50e2fdfd9693ab35c43280410cb4db2fc&quot;
     ],
     &quot;cwes&quot;: [
       {
-        &quot;cweId&quot;: &quot;CWE-367&quot;,
+        &quot;cweId&quot;: &quot;CWE-200&quot;,
+        &quot;name&quot;: null
+      },
+      {
+        &quot;cweId&quot;: &quot;CWE-22&quot;,
+        &quot;name&quot;: null
+      },
+      {
+        &quot;cweId&quot;: &quot;CWE-306&quot;,
         &quot;name&quot;: null
       }
     ],
-    &quot;ecosystem&quot;: &quot;PIP&quot;,
+    &quot;ecosystem&quot;: &quot;NPM&quot;,
     &quot;affected&quot;: [
       {
-        &quot;package&quot;: &quot;filelock&quot;,
-        &quot;vulnerableRange&quot;: &quot;&gt;= 4.1.0, &lt;= 4.2.0&quot;,
-        &quot;firstPatchedVersion&quot;: &quot;4.2.1&quot;
+        &quot;package&quot;: &quot;ep_etherpad-lite&quot;,
+        &quot;vulnerableRange&quot;: &quot;&gt;= 1.8.14, &lt; 3.3.3&quot;,
+        &quot;firstPatchedVersion&quot;: &quot;3.3.3&quot;
       }
     ],
     &quot;source&quot;: &quot;osv.dev&quot;
   },
   {
-    &quot;ghsaId&quot;: &quot;GHSA-9vhv-jxww-xfm5&quot;,
-    &quot;summary&quot;: &quot;filelock: ReadWriteLock on Windows acts on SQLite side files another local user places beside its database&quot;,
-    &quot;description&quot;: &quot;On Windows, `ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) connect SQLite to the lock database by its pa...&quot;,
-    &quot;severity&quot;: &quot;LOW&quot;,
+    &quot;ghsaId&quot;: &quot;GHSA-9x8x-crjq-g64h&quot;,
+    &quot;summary&quot;: &quot;Jupyter MCP Server: Browser DNS rebinding can hijack the Jupyter backend through management routes&quot;,
+    &quot;description&quot;: &quot;Standalone `streamable-http` mode in `datalayer/jupyter-mcp-server` rejects forged `Host` and `Origin` headers on `/mcp`, but custom mana...&quot;,
+    &quot;severity&quot;: &quot;CRITICAL&quot;,
     &quot;classification&quot;: &quot;GENERAL&quot;,
-    &quot;publishedAt&quot;: &quot;2026-10-23T22:28:19Z&quot;,
-    &quot;updatedAt&quot;: &quot;2026-10-23T22:45:03Z&quot;,
-    &quot;url&quot;: &quot;https://github.com/advisories/GHSA-9vhv-jxww-xfm5&quot;,
+    &quot;publishedAt&quot;: &quot;2026-11-20T00:12:51Z&quot;,
+    &quot;updatedAt&quot;: &quot;2026-11-20T00:30:06Z&quot;,
+    &quot;url&quot;: &quot;https://github.com/advisories/GHSA-9x8x-crjq-g64h&quot;,
     &quot;cves&quot;: [
-      &quot;CVE-2026-112913&quot;
+      &quot;CVE-2026-77359&quot;
     ],
     &quot;references&quot;: [
-      &quot;https://github.com/tox-dev/filelock/security/advisories/GHSA-9vhv-jxww-xfm5&quot;,
-      &quot;https://github.com/tox-dev/filelock/pull/834&quot;,
-      &quot;https://github.com/tox-dev/filelock/commit/5e3f2ec0c5fb17cb2635b60b2b68bc63ab81ca2d&quot;
+      &quot;https://github.com/datalayer/jupyter-mcp-server/security/advisories/GHSA-9x8x-crjq-g64h&quot;,
+      &quot;https://nvd.nist.gov/vuln/detail/CVE-2026-77359&quot;,
+      &quot;https://github.com/datalayer/jupyter-mcp-server/pull/262&quot;
     ],
     &quot;cwes&quot;: [
       {
-        &quot;cweId&quot;: &quot;CWE-367&quot;,
+        &quot;cweId&quot;: &quot;CWE-350&quot;,
         &quot;name&quot;: null
       }
     ],
     &quot;ecosystem&quot;: &quot;PIP&quot;,
     &quot;affected&quot;: [
       {
-        &quot;package&quot;: &quot;filelock&quot;,
-        &quot;vulnerableRange&quot;: &quot;&gt;= 3.20.4, &lt;= 4.2.0&quot;,
-        &quot;firstPatchedVersion&quot;: &quot;4.2.1&quot;
+        &quot;package&quot;: &quot;jupyter-mcp-server&quot;,
+        &quot;vulnerableRange&quot;: &quot;&lt;= 1.0.2&quot;,
+        &quot;firstPatchedVersion&quot;: &quot;1.0.3&quot;
       }
     ],
     &quot;source&quot;: &quot;osv.dev&quot;
