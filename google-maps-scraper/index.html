@@ -72,10 +72,13 @@ Python, JavaScript and cURL code for the Actor <code>v0iddo/google-maps-scraper<
 <tr><td><code>searchQueries</code></td><td>array</td><td>What to look for on Google Maps, one per line, for example: coffee shop, plumber, dentist.</td></tr>
 <tr><td><code>location</code></td><td>string</td><td>Optional city, area or address added to every query as &#x27;query in location&#x27;, for example Berlin or Austin, TX.</td></tr>
 <tr><td><code>startUrls</code></td><td>array</td><td>Optional Google Maps search links, for example https://www.google.com/maps/search/coffee+in+berlin.</td></tr>
+<tr><td><code>placeIds</code></td><td>array</td><td>Optional Google Place IDs, one per line, for example ChIJ9UK3L8JRqEcRidYSi6cycYo (the placeId column of any row).</td></tr>
 <tr><td><code>language</code></td><td>string</td><td>Language of the Google Maps page: category names, days and hours.</td></tr>
 <tr><td><code>maxPlacesPerSearch</code></td><td>integer</td><td>Stop each search after this many places (0 = as many as Google Maps lists, usually 100 to 200).</td></tr>
 <tr><td><code>skipClosedPlaces</code></td><td>boolean</td><td>Leave out the places Google Maps marks as permanently closed.</td></tr>
 <tr><td><code>categoryFilterWords</code></td><td>array</td><td>Optional. Keep only places with one of these Google Maps categories, one per line, for example dentist or coffee shop.</td></tr>
+<tr><td><code>placeMinimumStars</code></td><td>string</td><td>Optional. Keep only places rated at least this on Google Maps.</td></tr>
+<tr><td><code>website</code></td><td>string</td><td>Optional. Keep only places whose Google Maps listing shows a website, or only places whose listing shows none.</td></tr>
 <tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
 </tbody>
 </table>
@@ -228,7 +231,7 @@ console.log(items);
 <ul>
 <li><a href="/stubhub/">StubHub Event and Ticket Scraper</a>: Scrape StubHub performer and category pages into event rows: event name, date, time, venue, city, location,...</li>
 <li><a href="/thefork-restaurant-reviews-scraper/">TheFork Restaurant Reviews Scraper</a>: Scrape TheFork city listing pages into restaurant rows: name, cuisine, address, TheFork rating, review coun...</li>
-<li><a href="/ycombinator-was-scraper/">Y Combinator Work at a Startup Jobs Scraper</a>: Ycombinator was scraper for the Work at a Startup jobs board.</li>
+<li><a href="/poland-jobs-feed/">Poland Jobs Feed</a>: Poland jobs feed: one scraper run over Pracuj.pl, JustJoin.it, No Fluff Jobs and RocketJobs.pl.</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

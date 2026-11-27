@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nykaa Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Nykaa scraper for beauty products on nykaa.com. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/nykaa-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nykaa Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Nykaa scraper for beauty products on nykaa.com. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/nykaa-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Nykaa Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include productId, name, brand, category, price, mrp, discountPercent, rating, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Nykaa Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/nykaa-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$4.01 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.81 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / E-commerce, prices and app stores</nav>
+<h1>Nykaa Scraper: how to get Beauty Products, Prices, Ratings as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Nykaa scraper for beauty products on nykaa.com. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/nykaa-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nykaa-scraper">Open Nykaa Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>productId</code></td><td>Product ID</td><td>text</td><td>745370</td></tr>
+<tr><td><code>name</code></td><td>Name</td><td>text</td><td>Swiss Beauty Liquid Eyeliner - Jet Black</td></tr>
+<tr><td><code>brand</code></td><td>Brand</td><td>text</td><td>Swiss Beauty</td></tr>
+<tr><td><code>category</code></td><td>Category</td><td>text</td><td>Makeup / Eyes / Eyeliner</td></tr>
+<tr><td><code>price</code></td><td>Price (INR)</td><td>number</td><td>160</td></tr>
+<tr><td><code>mrp</code></td><td>MRP (INR)</td><td>number</td><td>229</td></tr>
+<tr><td><code>discountPercent</code></td><td>Discount %</td><td>number</td><td>30</td></tr>
+<tr><td><code>rating</code></td><td>Rating</td><td>number</td><td>4.3</td></tr>
+<tr><td><code>ratingCount</code></td><td>Reviews</td><td>number</td><td>12108</td></tr>
+<tr><td><code>inStock</code></td><td>In Stock</td><td>true/false</td><td>true</td></tr>
+<tr><td><code>imageUrl</code></td><td>Image</td><td>image URL</td><td>https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-22...</td></tr>
+<tr><td><code>productUrl</code></td><td>Product URL</td><td>URL</td><td>https://www.nykaa.com/swiss-beauty-bold-eyes-liquid-eyeliner-black/...</td></tr>
+<tr><td><code>categoryUrl</code></td><td></td><td>text</td><td>https://www.nykaa.com/makeup/eyes/c/14</td></tr>
+<tr><td><code>offer</code></td><td></td><td>text</td><td>Get Complimentary Product</td></tr>
+<tr><td><code>packSize</code></td><td></td><td>text</td><td>4ml</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;categoryUrls&quot;: [
+    &quot;https://www.nykaa.com/makeup/eyes/c/14&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>categoryUrls</code> (required)</td><td>array</td><td>nykaa.com category pages such as https://www.nykaa.com/makeup/eyes/c/14 or https://www.nykaa.com/skin/moisturizers-and-creams/c/42.</td></tr>
+<tr><td><code>maxPages</code></td><td>integer</td><td>How many listing pages to read per category URL.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;categoryUrl&quot;: &quot;https://www.nykaa.com/makeup/eyes/c/14&quot;,
+    &quot;productId&quot;: &quot;745370&quot;,
+    &quot;name&quot;: &quot;Swiss Beauty Liquid Eyeliner - Jet Black&quot;,
+    &quot;brand&quot;: &quot;Swiss Beauty&quot;,
+    &quot;category&quot;: &quot;Makeup / Eyes / Eyeliner&quot;,
+    &quot;price&quot;: 160,
+    &quot;mrp&quot;: 229,
+    &quot;discountPercent&quot;: 30,
+    &quot;rating&quot;: 4.3,
+    &quot;ratingCount&quot;: 12108,
+    &quot;inStock&quot;: true,
+    &quot;offer&quot;: &quot;Get Complimentary Product&quot;,
+    &quot;packSize&quot;: &quot;4ml&quot;,
+    &quot;imageUrl&quot;: &quot;https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/f/7/f732ecb8904325004038_1.jpg&quot;,
+    &quot;productUrl&quot;: &quot;https://www.nykaa.com/swiss-beauty-bold-eyes-liquid-eyeliner-black/p/745370&quot;
+  },
+  {
+    &quot;categoryUrl&quot;: &quot;https://www.nykaa.com/makeup/eyes/c/14&quot;,
+    &quot;productId&quot;: &quot;15708797&quot;,
+    &quot;name&quot;: &quot;Insight Cosmetics No Smudge Eyeliner&quot;,
+    &quot;brand&quot;: &quot;Insight Cosmetics&quot;,
+    &quot;category&quot;: &quot;Makeup / Eyes / Eyeliner&quot;,
+    &quot;price&quot;: 95,
+    &quot;mrp&quot;: 95,
+    &quot;discountPercent&quot;: 0,
+    &quot;rating&quot;: 4.3,
+    &quot;ratingCount&quot;: 8518,
+    &quot;inStock&quot;: true,
+    &quot;offer&quot;: &quot;Enjoy Complimentary Gift&quot;,
+    &quot;packSize&quot;: &quot;4g&quot;,
+    &quot;imageUrl&quot;: &quot;https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/8/c/8cecfd88904207513849_1.jpg&quot;,
+    &quot;productUrl&quot;: &quot;https://www.nykaa.com/insight-cosmetics-no-smudge-eyeliner/p/15708797&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/nykaa-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;categoryUrls&#x27;: [&#x27;https://www.nykaa.com/makeup/eyes/c/14&#x27;],
+ &#x27;maxPages&#x27;: 1,
+ &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/nykaa-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;categoryUrls&quot;: [
+    &quot;https://www.nykaa.com/makeup/eyes/c/14&quot;
+  ],
+  &quot;maxPages&quot;: 1,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/nykaa-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~nykaa-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;categoryUrls&quot;: [&quot;https://www.nykaa.com/makeup/eyes/c/14&quot;], &quot;maxPages&quot;: 1, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$4.01 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.81 per 1,000. See the <a href="https://apify.com/v0iddo/nykaa-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Covers nykaa.com category listing pages in India. Paste any Nykaa category URL, for example https://www.nykaa.com/makeup/eyes/c/14 or https://www.nykaa.com/skin/moisturizers-and-creams/c/42.</li>
+<li>Each page holds about 20 products; use maxPages to control depth. Large categories can have 100 or more pages.</li>
+<li>Prices are in Indian Rupees (INR) as shown to anonymous visitors without an account.</li>
+<li>Not affiliated with Nykaa.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Nykaa Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include productId, name, brand, category, price, mrp, discountPercent, rating, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the Nykaa Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/nykaa-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$4.01 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $2.81 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/nykaa-scraper">Open Nykaa Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/pricecharting-product-scraper/">PriceCharting Scraper</a>: Scrape PriceCharting prices for video games, Pokemon and other trading cards, comics, coins, Funko Pops and...</li>
+<li><a href="/coles-scraper/">Coles Price Scraper</a>: Scrape Coles Australia products by department, category or the specials pages: price, was price, unit price...</li>
+<li><a href="/amazon-product-scraper/">Amazon Product Details Scraper</a>: Scrape Amazon.com product pages from ASINs or links: title, brand, price, list price, rating, ratings count...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>

@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Audio transcription: JSON/CSV via API and Python | vøiddo</title>
-<meta name="description" content="Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT... Python, JavaScript and cURL code, sample output and price...">
+<meta name="description" content="Audio transcription with Whisper: speech to text from audio and video files and podcast episodes, with time... Python, JavaScript and cURL code, sample output and price...">
 <link rel="canonical" href="https://voidd0.github.io/audio-transcription/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Audio transcription: JSON/CSV via API and Python | vøiddo">
-<meta property="og:description" content="Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT... Python, JavaScript and cURL code, sample output and price...">
+<meta property="og:description" content="Audio transcription with Whisper: speech to text from audio and video files and podcast episodes, with time... Python, JavaScript and cURL code, sample output and price...">
 <meta property="og:url" content="https://voidd0.github.io/audio-transcription/">
 <link rel="stylesheet" href="/style.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Audio transcription return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include fileName, episodeTitle, language, durationSeconds, billedMinutes, wordCount, text, mediaUrl, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Audio transcription from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/audio-transcription with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Audio transcription return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include fileName, episodeTitle, language, durationSeconds, billedMinutes, wordCount, text, mediaUrl, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Audio transcription from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/audio-transcription with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$6.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $4.20 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
 </head>
 <body>
 <header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
 <main>
 <nav class="crumbs"><a href="/">Guides</a> / Files, media and automation</nav>
 <h1>Audio transcription: how to turn audio and video into text (API, Python, no code)</h1>
-<p class="lead">Speech to text with Whisper: transcribe audio and video files and podcast episodes, with timestamps and SRT or VTT subtitles. This guide shows the output fields, a working input, and
+<p class="lead">Audio transcription with Whisper: speech to text from audio and video files and podcast episodes, with timestamps and SRT or VTT subtitles. This guide shows the output fields, a working input, and
 Python, JavaScript and cURL code for the Actor <code>v0iddo/audio-transcription</code> on Apify.</p>
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/audio-transcription">Open Audio transcription on Apify</a></p>
 <h2>What data you get</h2>
@@ -148,7 +148,7 @@ console.log(items);
   -H &quot;Content-Type: application/json&quot; \
   -d &#x27;{&quot;mediaUrls&quot;: [&quot;https://upload.wikimedia.org/wikipedia/commons/5/50/Jfk_rice_university_we_choose_to_go_to_the_moon.ogg&quot;], &quot;maxMinutesPerFile&quot;: 8, &quot;maxItems&quot;: 1}&#x27;
 </code></pre><h2>Price</h2>
-<p>$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. See the <a href="https://apify.com/v0iddo/audio-transcription/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<p>$6.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $4.20 per 1,000. See the <a href="https://apify.com/v0iddo/audio-transcription/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
 <h2>Good to know</h2>
 <ul>
 <li>One row per file: the whole text, its language, the length of the file, the minutes transcribed and, when asked, timestamped segments and SRT / VTT subtitles. Podcast rows add the show, the...</li>
@@ -164,7 +164,7 @@ console.log(items);
 <h3>Can I use it without writing code?</h3>
 <p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
 <h3>How much does it cost?</h3>
-<p>$10.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $7.00 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<p>$6.00 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $4.20 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
 <h3>How do I limit the number of results?</h3>
 <p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
 <h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
@@ -172,9 +172,9 @@ console.log(items);
 <p class="cta"><a class="btn" href="https://apify.com/v0iddo/audio-transcription">Open Audio transcription on Apify</a></p>
 <h2>Related guides</h2>
 <ul>
+<li><a href="/capcut-trending-templates-scraper/">CapCut Trending Templates Scraper</a>: Capcut trending templates scraper for category pages on capcut.com.</li>
 <li><a href="/sortlist-company-agency-scraper/">Sortlist Agency Scraper</a>: Scrape agency listings from sortlist.com service-category pages.</li>
 <li><a href="/talabat-scraper/">Talabat Scraper</a>: Scrape Talabat restaurant listings by country: restaurant ID, name, cuisines, category, logo and direct URL.</li>
-<li><a href="/royal-caribbean-scraper/">Royal Caribbean Ships Scraper</a>: Scrape the Royal Caribbean fleet directory: every cruise ship with its class, name, description, image, and...</li>
 </ul>
 </main>
 <footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.

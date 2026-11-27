@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Autocomplete Scraper: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="Collect Google search suggestions for any keyword list, with position and relevance score. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/google-autocomplete-scraper/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Autocomplete Scraper: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="Collect Google search suggestions for any keyword list, with position and relevance score. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/google-autocomplete-scraper/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the Google Autocomplete Scraper return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include seed, query, suggestion, position, relevance, type, language, country. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the Google Autocomplete Scraper from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/google-autocomplete-scraper with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$0.60 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.42 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / SEO and website analysis</nav>
+<h1>Google Autocomplete Scraper: how to get Keyword Suggestions as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">Collect Google search suggestions for any keyword list, with position and relevance score. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/google-autocomplete-scraper</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/google-autocomplete-scraper">Open Google Autocomplete Scraper on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>seed</code></td><td>Seed keyword</td><td>text</td><td>running shoes</td></tr>
+<tr><td><code>query</code></td><td>Query sent</td><td>text</td><td>running shoes</td></tr>
+<tr><td><code>suggestion</code></td><td>Suggestion</td><td>text</td><td>running shoes for men</td></tr>
+<tr><td><code>position</code></td><td>Position</td><td>number</td><td>1</td></tr>
+<tr><td><code>relevance</code></td><td>Relevance</td><td>number</td><td>603</td></tr>
+<tr><td><code>type</code></td><td>Type</td><td>text</td><td>QUERY</td></tr>
+<tr><td><code>language</code></td><td>Language</td><td>text</td><td>en</td></tr>
+<tr><td><code>country</code></td><td>Country</td><td>text</td><td>us</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;running shoes&quot;
+  ],
+  &quot;expand&quot;: &quot;alphabet&quot;,
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code> (required)</td><td>array</td><td>Seed keywords or phrases.</td></tr>
+<tr><td><code>language</code></td><td>string</td><td>Interface language code such as en, de, es, pt-BR.</td></tr>
+<tr><td><code>country</code></td><td>string</td><td>Two-letter country code such as us, gb, de.</td></tr>
+<tr><td><code>expand</code></td><td>string</td><td>Each expansion sends one extra request per variant.</td></tr>
+<tr><td><code>dedupe</code></td><td>boolean</td><td>Keep each suggestion once per seed keyword, even when several variants return it.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;seed&quot;: &quot;running shoes&quot;,
+    &quot;query&quot;: &quot;running shoes&quot;,
+    &quot;suggestion&quot;: &quot;running shoes for men&quot;,
+    &quot;position&quot;: 1,
+    &quot;relevance&quot;: 603,
+    &quot;type&quot;: &quot;QUERY&quot;,
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;country&quot;: &quot;us&quot;
+  },
+  {
+    &quot;seed&quot;: &quot;running shoes&quot;,
+    &quot;query&quot;: &quot;running shoes&quot;,
+    &quot;suggestion&quot;: &quot;running shoes for women&quot;,
+    &quot;position&quot;: 2,
+    &quot;relevance&quot;: 602,
+    &quot;type&quot;: &quot;QUERY&quot;,
+    &quot;language&quot;: &quot;en&quot;,
+    &quot;country&quot;: &quot;us&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/google-autocomplete-scraper</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;running shoes&#x27;], &#x27;expand&#x27;: &#x27;alphabet&#x27;, &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/google-autocomplete-scraper&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;running shoes&quot;
+  ],
+  &quot;expand&quot;: &quot;alphabet&quot;,
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/google-autocomplete-scraper&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~google-autocomplete-scraper/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;running shoes&quot;], &quot;expand&quot;: &quot;alphabet&quot;, &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$0.60 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.42 per 1,000. See the <a href="https://apify.com/v0iddo/google-autocomplete-scraper/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Google shows about 5 to 15 suggestions per query. Expansion with letters sends 27 requests per keyword (the keyword itself plus a-z), with digits 37, with question words 12.</li>
+<li>Suggestions depend on language and country. The same keyword gives different ideas for en/us and de/de.</li>
+<li>Relevance is the score Google attaches to a suggestion (higher means more prominent). It can be empty for some queries.</li>
+<li>Entries of type NAVIGATION are website suggestions; their description holds the page title.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the Google Autocomplete Scraper return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include seed, query, suggestion, position, relevance, type, language, country. The table above shows every field with an example value.</p>
+<h3>How do I use the Google Autocomplete Scraper from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/google-autocomplete-scraper</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$0.60 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $0.42 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/google-autocomplete-scraper">Open Google Autocomplete Scraper on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/duckduckgo-scraper/">DuckDuckGo Search Scraper</a>: Scrape DuckDuckGo web search results into structured rows: title, URL, snippet, position, and query.</li>
+<li><a href="/similarweb-scraper/">Similarweb Scraper</a>: Scrape Similarweb top websites rankings by category: global rank, domain, category, rank change, average vi...</li>
+<li><a href="/seo-audit/">SEO audit tool</a>: Audit the on-page SEO of any public web pages: title, meta description, headings, canonical, indexability,...</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
