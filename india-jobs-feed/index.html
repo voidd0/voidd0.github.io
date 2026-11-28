@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>India Jobs Feed: JSON/CSV via API and Python | vøiddo</title>
+<meta name="description" content="India jobs feed: one scraper run over Instahyre, Apna.co, Hirist, IIMJobs and Internshala. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<link rel="canonical" href="https://voidd0.github.io/india-jobs-feed/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="India Jobs Feed: JSON/CSV via API and Python | vøiddo">
+<meta property="og:description" content="India jobs feed: one scraper run over Instahyre, Apna.co, Hirist, IIMJobs and Internshala. Python, JavaScript and cURL code, sample output and price per 1,000 results.">
+<meta property="og:url" content="https://voidd0.github.io/india-jobs-feed/">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What data does the India Jobs Feed return?", "acceptedAnswer": {"@type": "Answer", "text": "Each result is one row in an Apify dataset. Fields include title, company, city, source, salaryMin, salaryMax, salaryCurrency, salaryPeriod, and more. The table above shows every field with an example value."}}, {"@type": "Question", "name": "How do I use the India Jobs Feed from Python?", "acceptedAnswer": {"@type": "Answer", "text": "Install the apify-client package, create a client with your Apify API token, call the Actor v0iddo/india-jobs-feed with an input like the one above, and read the rows from the run's dataset. The Python snippet above does exactly that."}}, {"@type": "Question", "name": "Can I use it without writing code?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month."}}, {"@type": "Question", "name": "How do I limit the number of results?", "acceptedAnswer": {"@type": "Answer", "text": "Set the maxItems input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached."}}, {"@type": "Question", "name": "Can I send the results to Google Sheets, Make, Zapier or n8n?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel."}}]}</script>
+</head>
+<body>
+<header class="top"><a class="brand" href="/">vøiddo guides</a><a href="https://apify.com/v0iddo">All Actors on Apify</a></header>
+<main>
+<nav class="crumbs"><a href="/">Guides</a> / Jobs and hiring data</nav>
+<h1>India Jobs Feed: how to get Instahyre, Apna, Hirist, IIMJobs as JSON/CSV (API, Python, no code)</h1>
+<p class="lead">India jobs feed: one scraper run over Instahyre, Apna.co, Hirist, IIMJobs and Internshala. This guide shows the output fields, a working input, and
+Python, JavaScript and cURL code for the Actor <code>v0iddo/india-jobs-feed</code> on Apify.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/india-jobs-feed">Open India Jobs Feed on Apify</a></p>
+<h2>What data you get</h2>
+<p>One row per result. Every row can be downloaded as JSON, CSV, Excel or HTML, or read through the API.</p>
+<table>
+<thead><tr><th>Field</th><th>Label</th><th>Type</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td>Title</td><td>text</td><td>Python Developer</td></tr>
+<tr><td><code>company</code></td><td>Company</td><td>text</td><td>Nineleaps</td></tr>
+<tr><td><code>city</code></td><td>City</td><td>text</td><td>Bangalore</td></tr>
+<tr><td><code>source</code></td><td>Board</td><td>text</td><td>instahyre.com</td></tr>
+<tr><td><code>salaryMin</code></td><td>Salary from</td><td>number</td><td></td></tr>
+<tr><td><code>salaryMax</code></td><td>Salary to</td><td>number</td><td></td></tr>
+<tr><td><code>salaryCurrency</code></td><td>Currency</td><td>text</td><td></td></tr>
+<tr><td><code>salaryPeriod</code></td><td>Per</td><td>text</td><td></td></tr>
+<tr><td><code>experienceMin</code></td><td>Experience from</td><td>number</td><td></td></tr>
+<tr><td><code>experienceMax</code></td><td>Experience to</td><td>number</td><td></td></tr>
+<tr><td><code>remote</code></td><td>Remote</td><td>true/false</td><td>false</td></tr>
+<tr><td><code>postedAt</code></td><td>Posted</td><td>date</td><td></td></tr>
+<tr><td><code>url</code></td><td>Job</td><td>URL</td><td>https://www.instahyre.com/job-441980-python-developer-at-nineleaps-...</td></tr>
+<tr><td><code>feedId</code></td><td></td><td>text</td><td>b8a3e8d019e2f6a1</td></tr>
+<tr><td><code>sourceId</code></td><td></td><td>text</td><td>441980</td></tr>
+<tr><td><code>locations</code></td><td></td><td>list</td><td>[&quot;Bangalore&quot;]</td></tr>
+<tr><td><code>internship</code></td><td></td><td>true/false</td><td>false</td></tr>
+<tr><td><code>skills</code></td><td></td><td>list</td><td>[&quot;Python&quot;]</td></tr>
+<tr><td><code>scrapedAt</code></td><td></td><td>text</td><td>2026-11-27T04:59:03Z</td></tr>
+</tbody>
+</table>
+<h2>Input example</h2>
+<p>This is the input that is pre-filled on the Actor page. Change the values for your own run.</p>
+<pre><code>{
+  &quot;keywords&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;maxItems&quot;: 20
+}</code></pre>
+<table>
+<thead><tr><th>Input field</th><th>Type</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td><code>keywords</code></td><td>array</td><td>Job titles, skills or words such as python, data analyst, telecaller or delivery boy, one per line.</td></tr>
+<tr><td><code>location</code></td><td>string</td><td>Optional city such as Bengaluru, Mumbai, Delhi, Gurugram, Hyderabad, Pune or Chennai (Bangalore, Bombay and the other old names work too), or remote for work from home...</td></tr>
+<tr><td><code>sources</code></td><td>array</td><td>The boards to search; all five by default.</td></tr>
+<tr><td><code>salaryOnly</code></td><td>boolean</td><td>Only jobs that show a salary range.</td></tr>
+<tr><td><code>includeDetails</code></td><td>boolean</td><td>Instahyre jobs get their posting date and experience range from the job&#x27;s own page: one more request per Instahyre job, so slower.</td></tr>
+<tr><td><code>maxItems</code></td><td>integer</td><td>The run stops after this many result rows.</td></tr>
+<tr><td><code>onlyNew</code></td><td>boolean</td><td>Skip rows that an earlier run with the same input, or with the same State key, already returned, so a scheduled run gives each new row once, with isNew true and firstS...</td></tr>
+<tr><td><code>stateKey</code></td><td>string</td><td>Optional, with Only new results: a name for the list of rows already returned.</td></tr>
+</tbody>
+</table>
+<h2>Output sample</h2>
+<p>Real rows from a run of the Actor. Fields that name people are left out of the sample.</p>
+<pre><code>[
+  {
+    &quot;feedId&quot;: &quot;b8a3e8d019e2f6a1&quot;,
+    &quot;source&quot;: &quot;instahyre.com&quot;,
+    &quot;sourceId&quot;: &quot;441980&quot;,
+    &quot;title&quot;: &quot;Python Developer&quot;,
+    &quot;company&quot;: &quot;Nineleaps&quot;,
+    &quot;city&quot;: &quot;Bangalore&quot;,
+    &quot;locations&quot;: [
+      &quot;Bangalore&quot;
+    ],
+    &quot;remote&quot;: false,
+    &quot;internship&quot;: false,
+    &quot;skills&quot;: [
+      &quot;Python&quot;
+    ],
+    &quot;url&quot;: &quot;https://www.instahyre.com/job-441980-python-developer-at-nineleaps-2-bangalore/&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-27T04:59:03Z&quot;
+  },
+  {
+    &quot;feedId&quot;: &quot;6ca397b18fe53fe2&quot;,
+    &quot;source&quot;: &quot;apna.co&quot;,
+    &quot;sourceId&quot;: &quot;30646209&quot;,
+    &quot;title&quot;: &quot;Placement Officer&quot;,
+    &quot;company&quot;: &quot;Jobs Hub Hr&quot;,
+    &quot;city&quot;: &quot;Bengaluru&quot;,
+    &quot;locations&quot;: [
+      &quot;Bengaluru&quot;
+    ],
+    &quot;remote&quot;: false,
+    &quot;internship&quot;: false,
+    &quot;experienceMin&quot;: 2,
+    &quot;salaryMin&quot;: 30000,
+    &quot;salaryMax&quot;: 30000,
+    &quot;salaryCurrency&quot;: &quot;INR&quot;,
+    &quot;salaryPeriod&quot;: &quot;month&quot;,
+    &quot;url&quot;: &quot;https://apna.co/job/bengaluru-bangalore/placement-officer-30646209&quot;,
+    &quot;scrapedAt&quot;: &quot;2026-11-27T04:59:03Z&quot;
+  }
+]</code></pre>
+<h2>Code: Python, JavaScript and cURL</h2>
+<p>Get your API token in Apify Console under Settings, then Integrations. The Actor id is <code>v0iddo/india-jobs-feed</code>.</p>
+<h3>Python (apify-client)</h3>
+<pre><code>from apify_client import ApifyClient
+
+client = ApifyClient(&quot;YOUR_APIFY_TOKEN&quot;)
+
+run_input = {&#x27;keywords&#x27;: [&#x27;python&#x27;], &#x27;maxItems&#x27;: 20}
+
+run = client.actor(&quot;v0iddo/india-jobs-feed&quot;).call(run_input=run_input)
+for item in client.dataset(run[&quot;defaultDatasetId&quot;]).iterate_items():
+    print(item)
+</code></pre><h3>JavaScript (apify-client)</h3>
+<pre><code>import { ApifyClient } from &#x27;apify-client&#x27;;
+
+const client = new ApifyClient({ token: &#x27;YOUR_APIFY_TOKEN&#x27; });
+
+const input = {
+  &quot;keywords&quot;: [
+    &quot;python&quot;
+  ],
+  &quot;maxItems&quot;: 20
+};
+
+const run = await client.actor(&#x27;v0iddo/india-jobs-feed&#x27;).call(input);
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+console.log(items);
+</code></pre><h3>cURL</h3>
+<pre><code>curl -X POST &quot;https://api.apify.com/v2/acts/v0iddo~india-jobs-feed/run-sync-get-dataset-items&quot; \
+  -H &quot;Authorization: Bearer YOUR_APIFY_TOKEN&quot; \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;keywords&quot;: [&quot;python&quot;], &quot;maxItems&quot;: 20}&#x27;
+</code></pre><h2>Price</h2>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. See the <a href="https://apify.com/v0iddo/india-jobs-feed/pricing">pricing tab</a> for your plan. A new Apify account gets $5 of platform credit every month.</p>
+<h2>Good to know</h2>
+<ul>
+<li>Each search term runs on every board you pick, in the city you chose. The run takes one job from each board in turn, so a small Maximum results still shows every board.</li>
+<li>A job listed on two boards, or twice on one, comes once: the first board that gave it keeps it. Two jobs are the same when their title, company and city match once written alike (Bengaluru and...</li>
+<li>salaryMin, salaryMax, salaryCurrency and salaryPeriod are the employer&#x27;s own figures: per month on Apna.co and Internshala, per year on Hirist and IIMJobs (their lakhs written out in rupees, so 20...</li>
+<li>experienceMin and experienceMax are years of experience as the board states them. remote is true for work from home jobs and internship for internships; Internshala lists internships and fresher jobs.</li>
+</ul>
+<h2>FAQ</h2>
+<h3>What data does the India Jobs Feed return?</h3>
+<p>Each result is one row in an Apify dataset. Fields include title, company, city, source, salaryMin, salaryMax, salaryCurrency, salaryPeriod, and more. The table above shows every field with an example value.</p>
+<h3>How do I use the India Jobs Feed from Python?</h3>
+<p>Install the <code>apify-client</code> package, create a client with your Apify API token, call the Actor <code>v0iddo/india-jobs-feed</code> with an input like the one above, and read the rows from the run&#x27;s dataset. The Python snippet above does exactly that.</p>
+<h3>Can I use it without writing code?</h3>
+<p>Yes. Open the Actor page on Apify, fill in the input form (an example is already filled in), press Start, and download the results as JSON, CSV, Excel or HTML. You can also schedule runs there.</p>
+<h3>How much does it cost?</h3>
+<p>$1.50 per 1,000 results. You pay per result row. There is no separate charge per run. Higher Apify plans pay less per result, down to $1.05 per 1,000. A new Apify account gets $5 of platform credit every month.</p>
+<h3>How do I limit the number of results?</h3>
+<p>Set the <code>maxItems</code> input field to the number of results you need; the run stops there, so it also caps the cost of one run. You can also set a maximum cost for a run in the run options on Apify, and the run stops when it is reached.</p>
+<h3>Can I send the results to Google Sheets, Make, Zapier or n8n?</h3>
+<p>Yes. Apify datasets connect to Google Sheets, Slack, Make, Zapier and n8n, and a webhook can call your own service when a run finishes. You can also export the dataset as JSON, CSV or Excel.</p>
+<p class="cta"><a class="btn" href="https://apify.com/v0iddo/india-jobs-feed">Open India Jobs Feed on Apify</a></p>
+<h2>Related guides</h2>
+<ul>
+<li><a href="/poland-jobs-feed/">Poland Jobs Feed</a>: Poland jobs feed: one scraper run over Pracuj.pl, JustJoin.it, No Fluff Jobs and RocketJobs.pl.</li>
+<li><a href="/rocketjobs-pl-scraper/">RocketJobs.pl Scraper</a>: rocketjobs.pl scraper that collects Polish job offers: title, company, salary range, city, contract type, c...</li>
+<li><a href="/ycombinator-was-scraper/">Y Combinator Work at a Startup Jobs Scraper</a>: Ycombinator was scraper for the Work at a Startup jobs board.</li>
+</ul>
+</main>
+<footer>Made by <a href="https://voiddo.com">vøiddo</a>. Guides for the Actors we publish on the <a href="https://apify.com/v0iddo">Apify Store</a>.
+Example code lives in <a href="https://github.com/voidd0/apify-actors">github.com/voidd0/apify-actors</a>.</footer>
+</body>
+</html>
